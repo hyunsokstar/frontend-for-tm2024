@@ -1,0 +1,25 @@
+.groupingClassname {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /* block-size를 height로 변경 */
+    gap: 8px;
+}
+
+.groupingClassname>.rdg {
+    flex: 1;
+}
+
+.optionsClassname {
+    display: flex;
+    gap: 8px;
+    text-transform: capitalize;
+}
+
+.expanded_row {
+    padding: 24px;
+}
+
+.my_bg {
+    background-color: aliceblue;
+}

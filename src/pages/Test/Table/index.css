@@ -1,0 +1,31 @@
+/* https: //tanstack.com/table/v8/docs/adapters/react-table */
+
+.table-container {
+    width: 100%;
+    /* 테이블 컨테이너의 가로 너비를 설정합니다. */
+    overflow-x: auto;
+    /* 가로 스크롤을 활성화합니다. */
+}
+
+table {
+    font-family: sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    margin: 25px;
+    background-color: #fff;
+    /* width: 100%; */
+    /* 테이블의 가로 폭을 부모 요소의 전체 너비로 설정합니다. */
+    /* table-layout: auto; */
+}
+
+tr {
+    border-bottom: 1px solid #ccc;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 8px 10px;
+    /* width: "500px"; */
+    /* background-color: aqua; */
+}

@@ -1,0 +1,16 @@
+.groupingClassname {
+    display: flex;
+    flex-direction: row;
+    block-size: 100%;
+    gap: 10px;
+
+    >.rdg {
+        flex: 1;
+    }
+}
+
+.optionsClassname {
+    display: "flex";
+    gap: 8px;
+    text-transform: capitalize;
+}
