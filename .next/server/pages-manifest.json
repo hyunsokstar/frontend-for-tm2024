@@ -1,8 +1,0 @@
-{
-  "/_app": "pages/_app.js",
-  "/_error": "pages/_error.js",
-  "/_document": "pages/_document.js",
-  "/Note/SkilNoteContents/[skilNoteId]/[pageNum]": "pages/Note/SkilNoteContents/[skilNoteId]/[pageNum].js",
-  "/": "pages/index.js",
-  "/Test/Todos/TodosPageByReactDataGrid": "pages/Test/Todos/TodosPageByReactDataGrid.js"
-}
