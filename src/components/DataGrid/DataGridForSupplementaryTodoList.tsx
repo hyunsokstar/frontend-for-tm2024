@@ -37,8 +37,14 @@ import useApiForDeleteSupplementaryTodosForCheckedIds from '@/hooks/useApiForDel
 import Link from 'next/link';
 
 
-const formatDateTime = (dateTime: string) => {
-    return format(new Date(dateTime), "MM-dd HH:mm");
+const formatDateTime = (dateTime: string | any) => {
+    console.log("dateTime : ", typeof dateTime);
+
+    if (dateTime !== undefined) {
+        const time = new Date(dateTime);
+        return format(time, "MM-dd HH:mm");
+    }
+
 };
 
 const getColorForStatus = (status: string) => {
@@ -162,6 +168,7 @@ const getBasicColumns = (
                 // console.log("props.row.startTime : ", props.row.startTime);
                 if (props.row.startTime !== null && props.row.startTime !== "") {
                     // console.log("이게 실행 되면 에러 발생 인데 !");
+                    console.log("props.row.startTime : ", props.row.startTime);
 
                     const value = formatDateTime(props.row.startTime);
                     return (
@@ -181,6 +188,8 @@ const getBasicColumns = (
             renderCell(props: any) {
                 // console.log("props.row.startTime : ", props.row.startTime);
                 if (props.row.completedAt !== null && props.row.completedAt !== "") {
+                    console.log("props.row.completedAt : ", props.row.completedAt);
+
                     const value = formatDateTime(props.row.completedAt);
                     return (
                         <>
@@ -199,6 +208,8 @@ const getBasicColumns = (
             renderCell(props: any) {
                 if (props.row.deadline !== null && props.row.deadline !== "") {
                     const value = formatDateTime(props.row.deadline);
+                    console.log("props.row.deadline : ", props.row.deadline);
+
                     return (
                         <>
                             {value}

@@ -408,7 +408,7 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
     const [rowNumToAdd, setRowNumToAdd] = useState<number>(1);
     const [defaultUserEmail, setDefaultUserEmail] = useState(loginUser.email);
     const [defaultDeadLine, setDefaultDeadline] = useState<Date | null>(null);
-    const mutationForSaveTodoRows = useApiForSaveTodoListForUserMutation(pageNum, loginUser.id);
+    const mutationForSaveTodoRows = useApiForSaveTodoListForUserMutation(pageNum, loginUser.id, todoStatusOption);
     const deleteForTodosForCheckedIdsMutation = useApiForDeleteTodosForCheckedIds({ pageNum, pageInfo, todoStatusOption });
 
     const mutationForSimpleCreateTodo = useApiForSimpleCreateTodo({ pageInfo });
