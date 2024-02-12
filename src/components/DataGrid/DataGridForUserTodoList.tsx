@@ -76,7 +76,7 @@ const getBasicColumns = (
     mutationForUpdateRefSkilnoteForTodo: any,
     pageInfo: string,
     todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed",
-    userId
+    userId: string
 ) => {
     return [
         SelectColumnForReactDataGrid,
@@ -334,8 +334,7 @@ function getColumnsForUserUncompletedTodoList(
 
     if (todoStatusOption) {
 
-
-        if (todoStatusOption === "uncompleted" || todoStatusOption === "idea" || todoStatusOption === "testing" || todoStatusOption === "all_uncompleted") {
+        if (todoStatusOption === "uncompleted" || todoStatusOption === "idea" || todoStatusOption === "all_uncompleted") {
             filteredColumns = basicColumns.filter(column => {
                 if (column.key !== 'elapsedTime' && column.key !== 'completedAt') {
                     return column
