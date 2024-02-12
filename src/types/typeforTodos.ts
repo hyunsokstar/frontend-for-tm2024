@@ -127,17 +127,11 @@ export interface IParameterForUpdateRefSkilNoteForTodo {
     todoId: number;
     isMainOrSub: "main" | "sub"
 }
-// selectedRowIdsArray, defaultDeadLine, defaultTodoStatus, defaultUserEmail
-// export interface TypeForDtoForUpdateMultiTodosForChecked {
-//     selectedRowIdsArray: number[];
-//     defaultDeadLine: Date | null,
-//     defaultTodoStatus: string,
-//     defaultUserEmail: string
-// }
+
 
 export interface MultiUpdateTodoDto {
     selectedRowIdsArray: any[]; // 선택된 행의 ID 배열
     defaultDeadLine: Date | null;
     defaultTodoStatus: string;
-    defaultUserEmail: string;
+    defaultUserEmail: string | undefined;
 }

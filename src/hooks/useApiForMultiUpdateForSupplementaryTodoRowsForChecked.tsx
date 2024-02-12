@@ -1,7 +1,7 @@
 import React from 'react';
 import { useToast } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiForMultiUpdateTodoRowsForChecked } from '@/api/apiForTodos';
+import { apiForMultiUpdateSupplementaryTodoRowsForChecked } from '@/api/apiForTodos';
 
 interface IProps {
     pageNum: any,
@@ -9,12 +9,12 @@ interface IProps {
     todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed";
 }
 
-const useApiForMultiUpdateForTodoRowsForChecked = ({ pageNum, userId, todoStatusOption }: IProps) => {
+const useApiForMultiUpdateForSupplementaryTodoRowsForChecked = ({ pageNum, userId, todoStatusOption }: IProps) => {
     const queryClient = useQueryClient();
     const toast = useToast();
 
     const mutationForultiUpdateForTodoRowsForChecked = useMutation({
-        mutationFn: apiForMultiUpdateTodoRowsForChecked,
+        mutationFn: apiForMultiUpdateSupplementaryTodoRowsForChecked,
         onSuccess: (result: any) => {
             queryClient.refetchQueries({
                 queryKey: ['uncompletedTodoList', pageNum, userId, todoStatusOption],
@@ -45,4 +45,4 @@ const useApiForMultiUpdateForTodoRowsForChecked = ({ pageNum, userId, todoStatus
     return mutationForultiUpdateForTodoRowsForChecked;
 };
 
-export default useApiForMultiUpdateForTodoRowsForChecked
+export default useApiForMultiUpdateForSupplementaryTodoRowsForChecked

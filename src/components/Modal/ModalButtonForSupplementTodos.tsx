@@ -9,7 +9,9 @@ type Props = {
     buttonText: string;
     supplementaryTodos: SupplementaryTodo[];
     countForSupplementTodos: number;
-    usersEmailInfo: string[]
+    usersEmailInfo: string[];
+    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed"
+    userId: string;
 };
 
 const ModalButtonForSupplementTodos: React.FC<Props> = (
@@ -18,7 +20,9 @@ const ModalButtonForSupplementTodos: React.FC<Props> = (
         buttonText,
         supplementaryTodos,
         countForSupplementTodos,
-        usersEmailInfo
+        usersEmailInfo,
+        todoStatusOption,
+        userId
     }
 ) => {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -43,11 +47,12 @@ const ModalButtonForSupplementTodos: React.FC<Props> = (
                     <ModalHeader>Modal Title</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        {/* countForSupplementTodos1111111 */}
                         <DataGridForSupplementaryTodoList
                             parentTodoId={parentTodoId}
                             supplementaryTodos={supplementaryTodos}
                             usersEmailInfo={usersEmailInfo}
+                            todoStatusOption={todoStatusOption}
+                            userId={userId}
                         />
                     </ModalBody>
                     <ModalFooter>

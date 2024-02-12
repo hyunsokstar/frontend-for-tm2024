@@ -35,6 +35,8 @@ import {
 import useApiForSimpleCreateSupplementaryTodo from '@/hooks/useApiForSimpleCreateSupplementaryTodo';
 import useApiForDeleteSupplementaryTodosForCheckedIds from '@/hooks/useApiForDeleteSupplementaryTodosForCheckedIds';
 import Link from 'next/link';
+import useApiForMultiUpdateForSupplementaryTodoRowsForChecked from '@/hooks/useApiForMultiUpdateForSupplementaryTodoRowsForChecked';
+import SelectBoxForDefaultTodoStatus from '../Select/SelectBoxForDefaultTodoStatus';
 
 
 const formatDateTime = (dateTime: string | any) => {
@@ -67,6 +69,8 @@ type Props = {
     parentTodoId: number;
     supplementaryTodos: SupplementaryTodo[];
     usersEmailInfo: string[]
+    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed",
+    userId: string
 }
 
 const getBasicColumns = (
@@ -288,7 +292,9 @@ const getBasicColumns = (
 const DataGridForSupplementaryTodoList = ({
     parentTodoId,
     usersEmailInfo,
-    supplementaryTodos
+    supplementaryTodos,
+    todoStatusOption,
+    userId
 }: Props) => {
 
     const originUrl = window.location.origin;
@@ -307,7 +313,7 @@ const DataGridForSupplementaryTodoList = ({
     const [defaultDeadLine, setDefaultDeadline] = useState<Date | null>(null);
     const [rowNumToAdd, setRowNumToAdd] = useState<number>(1);
     const [inputValue, setInputValue] = useState('');
-
+    const [defaultTodoStatus, setDefaultTodoStatus] = useState<string>("ready");
 
     // mutations
     const mutationForUpdateRefSkilnoteForTodo = useApiForUpdateRefSkilnoteForTodo({ pageNum });
@@ -315,6 +321,7 @@ const DataGridForSupplementaryTodoList = ({
 
     const mutationForSimpleCreateSupplementaryTodo = useApiForSimpleCreateSupplementaryTodo({ pageInfo });
     const deleteForSupplementaryTodosForCheckedIdsMutation = useApiForDeleteSupplementaryTodosForCheckedIds({ pageNum, pageInfo });
+    const mutationForMultiUpdateForSupplementaryTodoRowsForChecked = useApiForMultiUpdateForSupplementaryTodoRowsForChecked({ pageNum, userId, todoStatusOption });
 
 
     const columns = useMemo(() => getBasicColumns(
@@ -406,14 +413,59 @@ const DataGridForSupplementaryTodoList = ({
             const newId = 1
             const newRow = {
                 id: newId,
-                email: defaultUserEmail || '',
+                email: defaultUserEmail,
                 task: 'todo for sample',
                 status: 'ready',
                 startTime: '',
-                deadline: defaultDeadLine || ''
+                deadline: defaultDeadLine
             };
             setTodoRows((prev: any) => [newRow]);
         }
+    };
+
+    const basicOptionButtonClick = (option: string) => {
+        const currentUser = loginUser.email;
+        const currentTime = new Date();
+        console.log(currentUser);
+
+        if (option === "b1") {
+            // 오후 1시(13시) 설정
+            const twoHoursLater = new Date(currentTime.getTime() + 2 * 60 * 60 * 1000);
+            twoHoursLater.setHours(13, 0, 0, 0); // 오후 1시로 설정
+            setDefaultUserEmail(currentUser);
+            setDefaultDeadline(twoHoursLater);
+        } else if (option === "b2") {
+            // 오후 6시(18시) 설정
+            const twoHoursLater = new Date(currentTime.getTime() + 2 * 60 * 60 * 1000);
+            twoHoursLater.setHours(18, 0, 0, 0); // 오후 6시로 설정
+            setDefaultUserEmail(currentUser);
+            setDefaultDeadline(twoHoursLater);
+        }
+    }
+
+    const multiUpdateTodoRowsForCheckedButonClick = () => {
+        const selectedRowIdsArray = Array.from(selectedRows);
+
+        if (selectedRowIdsArray.length < 1) {
+            toast({
+                title: "알림",
+                description: "최소 1개의 항목을 선택해주세요.",
+                status: "warning",
+                duration: 3000,
+                isClosable: true,
+            });
+            return;
+        }
+
+
+        const dtoForMultiUpdateSupplementaryTodoRowsForChecked = {
+            selectedRowIdsArray,
+            defaultDeadLine,
+            defaultTodoStatus,
+            defaultUserEmail
+        }
+
+        mutationForMultiUpdateForSupplementaryTodoRowsForChecked.mutate(dtoForMultiUpdateSupplementaryTodoRowsForChecked);
     };
 
     // 2244
@@ -448,10 +500,16 @@ const DataGridForSupplementaryTodoList = ({
     return (
         <Box>
             <Box display={"flex"} gap={2}>
+
+                {/* supplementary todos check ! */}
+
+                <Button onClick={() => basicOptionButtonClick("b1")}>b1</Button>
+                <Button onClick={() => basicOptionButtonClick("b2")}>b2</Button>
+
                 <Box width={"20%"} mb={1}>
                     {usersEmailInfo.length ? (
                         <Select
-                            placeholder="Select default user"
+                            placeholder="default user"
                             value={defaultUserEmail} // 현재 defaultUserEmail 상태값으로 선택
                             onChange={handleSelectChange} // 선택 시 상태 업데이트
                             size={"md"}
@@ -493,10 +551,12 @@ const DataGridForSupplementaryTodoList = ({
                             </>
                         )}
                 </Box>
-                {/* row 설정 */}
                 <Box>
-                    <SelectBoxForNumberToAddRow rowNumToAdd={rowNumToAdd} setRowNumToAdd={setRowNumToAdd} />
+                    <SelectBoxForDefaultTodoStatus
+                        onChangeStatus={setDefaultTodoStatus}
+                    />
                 </Box>
+                <Button variant={"outline"} onClick={multiUpdateTodoRowsForCheckedButonClick}>update ({selectedRows.size})</Button>
 
                 <Box width={"30%"}>
                     <InputGroup>
@@ -511,6 +571,10 @@ const DataGridForSupplementaryTodoList = ({
                             </Button>
                         </InputRightElement>
                     </InputGroup>
+                </Box>
+                {/* row 설정 */}
+                <Box>
+                    <SelectBoxForNumberToAddRow rowNumToAdd={rowNumToAdd} setRowNumToAdd={setRowNumToAdd} />
                 </Box>
                 <Box>
                     <Button variant={"outline"} onClick={addRowButtonClick}>Add Row</Button>

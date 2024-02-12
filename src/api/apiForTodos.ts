@@ -248,3 +248,13 @@ export const apiForMultiUpdateTodoRowsForChecked = (
     ).then((response: any) => response.data)
 
 }
+
+export const apiForMultiUpdateSupplementaryTodoRowsForChecked = (
+    dtoForMultiUpdateSupplementaryTodoRowsForChecked
+        : MultiUpdateTodoDto
+) => {
+    return instance.post(
+        'multiUpdateSupplementaryTodoRowsForChecked', dtoForMultiUpdateSupplementaryTodoRowsForChecked
+    ).then((response: any) => response.data)
+
+}

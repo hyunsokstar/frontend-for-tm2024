@@ -75,7 +75,8 @@ const getBasicColumns = (
     pageNum: string,
     mutationForUpdateRefSkilnoteForTodo: any,
     pageInfo: string,
-    todoStatusOption: string
+    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed",
+    userId
 ) => {
     return [
         SelectColumnForReactDataGrid,
@@ -151,6 +152,8 @@ const getBasicColumns = (
                             countForSupplementTodos={props.row.supplementaryTodos?.length}
                             supplementaryTodos={props.row.supplementaryTodos}
                             usersEmailInfo={usersEmailInfo}
+                            todoStatusOption={todoStatusOption}
+                            userId={userId}
                         />
                     </Box>
 
@@ -322,9 +325,10 @@ function getColumnsForUserUncompletedTodoList(
     pageNum: string,
     mutationForUpdateRefSkilnoteForTodo: any,
     pageInfo: string,
-    todoStatusOption: string
+    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed",
+    userId: string
 ) {
-    const basicColumns = getBasicColumns(isMainOrSub, usersEmailInfo, pageNum, mutationForUpdateRefSkilnoteForTodo, pageInfo, todoStatusOption)
+    const basicColumns = getBasicColumns(isMainOrSub, usersEmailInfo, pageNum, mutationForUpdateRefSkilnoteForTodo, pageInfo, todoStatusOption, userId)
 
     let filteredColumns = basicColumns
 
@@ -429,7 +433,8 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
         String(pageNum),
         mutationForUpdateRefSkilnoteForTodo,
         pageInfo,
-        todoStatusOption
+        todoStatusOption,
+        userId
     ), [dataForUncompletedTodoListForUser, usersEmailInfo]);
 
     const deleteButtonHandler = () => {
