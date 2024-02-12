@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
 import { QueryFunctionContext } from "@tanstack/react-query";
-import { IParameterForUpdateRefSkilNoteForTodo, ITypeForSaveChatBoardForTodo, parameterTypeForCreateChatBoardRow } from "@/types/typeforTodos";
+import { IParameterForUpdateRefSkilNoteForTodo, ITypeForSaveChatBoardForTodo, MultiUpdateTodoDto, TypeForDtoForUpdateMultiTodosForChecked, parameterTypeForCreateChatBoardRow } from "@/types/typeforTodos";
 
 const instance = axios.create({
     baseURL: `${backendApi}/todos`,
@@ -19,7 +19,6 @@ instance.interceptors.request.use(
         return config;
     },
     (error) => {
-        alert("여기서 막았나?")
         return Promise.reject(error);
     }
 );
@@ -236,3 +235,16 @@ export const apiForSaveSupplementaryTodoRows =
             { supplementaryTodoRowsForSave, parentTodoId } // 데이터를 하나의 객체로 묶어 전달
         ).then((response: any) => response.data)
     }
+
+export const apiForMultiUpdateTodoRowsForChecked = (
+    dtoForMultiUpdateTodoRowsForChecked
+        : MultiUpdateTodoDto
+) => {
+
+    console.log("dtoForMultiUpdateTodoRowsForChecked : ", dtoForMultiUpdateTodoRowsForChecked);
+
+    return instance.post(
+        'multiUpdateTodoRowsForChecked', dtoForMultiUpdateTodoRowsForChecked
+    ).then((response: any) => response.data)
+
+}
