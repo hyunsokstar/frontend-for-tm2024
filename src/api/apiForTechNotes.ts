@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
 import { MutationFunction, QueryFunctionContext } from "@tanstack/react-query";
-import { access } from "fs";
+// import { access } from "fs";
 
 const instance = axios.create({
     baseURL: `${backendApi}/technotes`,

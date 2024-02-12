@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
 import { QueryFunctionContext } from "@tanstack/react-query";
-import { IParameterForUpdateRefSkilNoteForTodo, ITypeForSaveChatBoardForTodo, MultiUpdateTodoDto, TypeForDtoForUpdateMultiTodosForChecked, parameterTypeForCreateChatBoardRow } from "@/types/typeforTodos";
+import { IParameterForUpdateRefSkilNoteForTodo, ITypeForSaveChatBoardForTodo, MultiUpdateTodoDto, parameterTypeForCreateChatBoardRow } from "@/types/typeforTodos";
 
 const instance = axios.create({
     baseURL: `${backendApi}/todos`,
