@@ -80,6 +80,10 @@ const getBasicColumns = (
     return [
         SelectColumnForReactDataGrid,
         {
+            key: 'id',
+            name: 'id'
+        },
+        {
             key: 'email',
             name: 'Email',
             width: 280,
@@ -508,16 +512,20 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
         console.log(currentUser);
 
         if (option === "b1") {
-            const twoHoursLater = new Date(currentTime.getTime() + 1 * 60 * 60 * 1000);
+            // 오후 1시(13시) 설정
+            const twoHoursLater = new Date(currentTime.getTime() + 2 * 60 * 60 * 1000);
+            twoHoursLater.setHours(13, 0, 0, 0); // 오후 1시로 설정
             setDefaultUserEmail(currentUser);
             setDefaultDeadline(twoHoursLater);
         } else if (option === "b2") {
+            // 오후 6시(18시) 설정
             const twoHoursLater = new Date(currentTime.getTime() + 2 * 60 * 60 * 1000);
+            twoHoursLater.setHours(18, 0, 0, 0); // 오후 6시로 설정
             setDefaultUserEmail(currentUser);
             setDefaultDeadline(twoHoursLater);
         }
-
     }
+
 
     // fix
     const multiUpdateTodoRowsForCheckedButonClick = () => {

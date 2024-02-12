@@ -142,35 +142,40 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
     const columns = [
         SelectColumnForReactDataGrid,
         // step2 expanded 칼럼을 설정한뒤 클릭하면 row.expanded 가 toggle 되도록 설정
+        // {
+        //     key: 'expanded',
+        //     name: '',
+        //     width: 50,
+        //     colSpan(args: any) {
+        //         return args.type === 'ROW' && args.row.type === 'DETAIL' ? 9 : undefined;
+        //     }, renderCell({ row, tabIndex, onRowChange }: any) {
+        //         if (row.type === "DETAIL") {
+        //             return (
+        //                 <Flex display="grid" gridTemplateColumns="1fr 1fr" lineHeight={"20px"} height={"96%"} mx={2} mt={2} gap={2}>
+        //                     <Box border={"1px solid blue"}>Description</Box>
+        //                     <Box border={"1px solid red"}>관련 게시판</Box>
+        //                 </Flex>
+
+        //             )
+        //         }
+        //         else {
+        //             return (
+        //                 <CellExpanderFormatter
+        //                     expanded={row.expanded}
+        //                     tabIndex={tabIndex}
+        //                     onCellExpand={() => {
+        //                         onRowChange({ ...row, expanded: !row.expanded });
+        //                     }}
+        //                 />
+        //             )
+        //         }
+
+        //     }
+        // },
         {
-            key: 'expanded',
-            name: '',
-            width: 50,
-            colSpan(args: any) {
-                return args.type === 'ROW' && args.row.type === 'DETAIL' ? 9 : undefined;
-            }, renderCell({ row, tabIndex, onRowChange }: any) {
-                if (row.type === "DETAIL") {
-                    return (
-                        <Flex display="grid" gridTemplateColumns="1fr 1fr" lineHeight={"20px"} height={"96%"} mx={2} mt={2} gap={2}>
-                            <Box border={"1px solid blue"}>Description</Box>
-                            <Box border={"1px solid red"}>관련 게시판</Box>
-                        </Flex>
-
-                    )
-                }
-                else {
-                    return (
-                        <CellExpanderFormatter
-                            expanded={row.expanded}
-                            tabIndex={tabIndex}
-                            onCellExpand={() => {
-                                onRowChange({ ...row, expanded: !row.expanded });
-                            }}
-                        />
-                    )
-                }
-
-            }
+            key: "id",
+            name: "id",
+            width: 20
         },
         {
             key: 'email',

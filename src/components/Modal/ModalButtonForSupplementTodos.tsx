@@ -43,7 +43,7 @@ const ModalButtonForSupplementTodos: React.FC<Props> = (
                     <ModalHeader>Modal Title</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        countForSupplementTodos1111111
+                        {/* countForSupplementTodos1111111 */}
                         <DataGridForSupplementaryTodoList
                             parentTodoId={parentTodoId}
                             supplementaryTodos={supplementaryTodos}

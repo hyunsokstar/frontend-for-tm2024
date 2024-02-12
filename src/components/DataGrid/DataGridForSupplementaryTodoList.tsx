@@ -400,7 +400,7 @@ const DataGridForSupplementaryTodoList = ({
                     deadline: defaultDeadLine || ''
                 };
             });
-            setTodoRows((prevRows: any) => (prevRows ? [...prevRows, ...newRows] : newRows));
+            setTodoRows((prevRows: any) => (prevRows ? [...newRows, ...prevRows,] : newRows));
 
         } else {
             const newId = 1

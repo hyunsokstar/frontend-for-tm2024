@@ -7,7 +7,7 @@ import NavigationMenuBoxForMainPage from '@/components/Menus/NaviMenuBoxMainPage
 const Home = () => {
     const loginUser = useSelector((state: RootState) => state.user.loginUser);
     const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
-    console.log("loginUser : ", loginUser);
+    // console.log("loginUser : ", loginUser);
 
     const links1 = [
         { href: '/Test/Todos/TodosPageByReactDataGrid', text: 'todo 관리', visible: true },

@@ -23,6 +23,18 @@ const useApiForDeleteTodosForCheckedIds = ({ pageNum, pageInfo, todoStatusOption
         onSuccess: (result) => {
             console.log("result : ", result);
 
+            if (!result.success) {
+                toast({
+                    title: "error occured when delete todos",
+                    description: result.message,
+                    status: "warning",
+                    duration: 2000, // 토스트 메시지가 보여지는 시간 (2초)
+                    isClosable: true, // 닫기 버튼 표시
+                });
+
+                return
+            }
+
             queryClient.refetchQueries({
                 queryKey: ['uncompletedTodoList', parseInt(pageNum), loginUser.id, todoStatusOption],
             });
