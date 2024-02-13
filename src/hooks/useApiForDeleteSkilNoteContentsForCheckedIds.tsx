@@ -34,7 +34,7 @@ const useApiForDeleteSkilNoteContentsForCheckedIds = (skilNoteId: any, pageNum: 
                 console.log(error.response.data.message);
                 toast({
                     title: "error occured at Delete Skil Note Contents",
-                    description: error.response.data.message,
+                    description: error.response.data.error,
                     status: "error",
                     duration: 2000, // 토스트 메시지가 보여지는 시간 (2초)
                     isClosable: true, // 닫기 버튼 표시
