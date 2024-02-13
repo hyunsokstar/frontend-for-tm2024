@@ -176,7 +176,7 @@ const DataGridForTechNoteList2 = () => {
             width: 140,
             // techNoteId, loginUser.id
             renderCell({ row, tabIndex, onRowChange }: any): React.ReactNode {
-                const isLiked = row.likes.includes(loginUser.id);
+                const isLiked = row.likes?.includes(loginUser.id);
                 const userId = loginUser.id
                 const techNoteId = row.id
 
@@ -191,7 +191,7 @@ const DataGridForTechNoteList2 = () => {
                                     onClick={() => likeButtonHandler(userId, techNoteId)}
                                 >
                                     <Icon as={FaThumbsUp} color="green.500" mr={1} />
-                                    <Text>({row.likes.length})</Text>
+                                    <Text>({row.likes?.length})</Text>
                                 </Button>
                             ) : (
                                 <Button
@@ -202,7 +202,7 @@ const DataGridForTechNoteList2 = () => {
 
                                 >
                                     <Icon as={FaRegThumbsUp} color="gray.500" mr={1} />
-                                    <Text>({row.likes.length})</Text>
+                                    <Text>({row.likes?.length})</Text>
                                 </Button>
                             )}
                         </Box>
@@ -220,7 +220,7 @@ const DataGridForTechNoteList2 = () => {
             width: 140,
             // techNoteId, loginUser.id
             renderCell({ row, tabIndex, onRowChange }: any): React.ReactNode {
-                const isBookMarked = row.bookMarks.includes(loginUser.id);
+                const isBookMarked = row.bookMarks?.includes(loginUser.id);
                 const userId = loginUser.id
                 const techNoteId = row.id
 
@@ -235,7 +235,7 @@ const DataGridForTechNoteList2 = () => {
                                     onClick={() => bookMarkButtonHandler(userId, techNoteId)}
                                 >
                                     <Icon as={FaBookmark} color="green.500" mr={1} />
-                                    <Text>({row.bookMarks.length})</Text>
+                                    <Text>({row.bookMarks?.length})</Text>
                                 </Button>
                             ) : (
                                 <Button
@@ -246,7 +246,7 @@ const DataGridForTechNoteList2 = () => {
 
                                 >
                                     <Icon as={FaRegBookmark} color="gray.500" mr={1} />
-                                    <Text>({row.bookMarks.length})</Text>
+                                    <Text>({row.bookMarks?.length})</Text>
                                 </Button>
                             )}
                         </Box>
