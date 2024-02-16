@@ -110,19 +110,6 @@ const SkilNoteContents = () => {
     };
 
 
-    // useEffect(() => {
-    //     if (dataForskilNoteContent) {
-    //         const ordersArray = dataForskilNoteContent?.skilnoteContents.map((row) => {
-    //             return {
-    //                 id: `${row.id}`,
-    //                 order: `${row.order}`,
-    //                 title: `${row.title}`,
-    //                 file: `${row.file}`
-    //             }
-    //         })
-    //         setOrderInfos(ordersArray)
-    //     }
-    // }, [dataForskilNoteContent])
 
     const allCheckHandler = () => {
 

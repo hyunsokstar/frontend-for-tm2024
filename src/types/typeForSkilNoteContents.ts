@@ -53,10 +53,24 @@ export interface SkilNoteContentsRow {
     bookMarks: IBookmarkForSkilNoteContent[]
 }
 
+export interface TypeForRelatedSkilNoteRow {
+    id: number;
+    title: string;
+    description: string;
+    category: string;
+    createdAt: string;
+    updatedAt: string | null;
+    order: number;
+}
+
+// export type TypeForRelatedSkilNoteList = TypeForRelatedSkilNoteRow[];
+
 export type responseTypeForGetSkilNoteContents = {
     title: string;
     writer: Writer;
     skilnoteContents: SkilNoteContentsRow[]
     skilnotePagesCount: number;
     skilnoteContentsPagesInfo: SkilNoteContentsRow[]
+    relatedSkilnoteList: TypeForRelatedSkilNoteRow[]
 };
+

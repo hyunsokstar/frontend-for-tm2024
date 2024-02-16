@@ -19,7 +19,7 @@ const useApiForSimpleCreateSupplementaryTodo = ({ pageInfo }: IProps) => {
     const useApiForSimpleCreateSupplementaryTodo = useMutation({
         mutationFn: apiForSimpleCreateSupplementaryTodo,
         onSuccess: (data: any) => {
-            console.log("Todo created successfully: ", data);
+            // console.log("Todo created successfully: ", data);
             let pageNum = 1
 
 

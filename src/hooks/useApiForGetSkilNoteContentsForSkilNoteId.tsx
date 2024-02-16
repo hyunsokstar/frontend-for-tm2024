@@ -10,6 +10,10 @@ const useApiForGetSkilNoteContentsForSkilNoteId = (skilNoteId: any, pageNum: any
             queryKey: ['apiForGetSkilNoteContentListForSkilNoteId', skilNoteId, pageNum],
             queryFn: apiForGetSkilNoteContentListForSkilNoteId,
         });
+
+    console.log("data for skilnote content list ? : ", data);
+
+
     return { isPending, error, data };
 };
 

@@ -7,6 +7,7 @@ import BookMarksForInfoForSkilNoteContents from '../Info/BookMarksForInfoForSkil
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store'
 import NavigaterForSkilNotePages2 from '../Navigator/NavigaterForSkilNotePages2'
+import RelatedSkilNoteList from '../List/RelatedSkilNoteList'
 
 interface IProps {
     // itemsInfo: Item[]
@@ -61,11 +62,11 @@ const TabMenuForSkilNoteContents = ({
             <TabList mb='1em'>
                 <Tab _selected={{ color: 'black.500', bg: 'blue.300' }}>Contents({countForSkilNoteContents})</Tab>
                 <Tab _selected={{ color: 'black.500', bg: 'red.300' }}>Pages ({countForSkilNotePages})</Tab>
-                <Tab _selected={{ color: 'black.500', bg: 'green.200' }}>
-                    BookMarks ({totalBookMarkCount})
-                </Tab>
                 <Tab _selected={{ color: 'yellow.300', bg: 'brown' }}>
-                    Q & A
+                    skilnotes
+                </Tab>
+                <Tab _selected={{ color: 'black.500', bg: 'green.200' }}>
+                    bm ({totalBookMarkCount})
                 </Tab>
             </TabList>
             <TabPanels>
@@ -88,15 +89,16 @@ const TabMenuForSkilNoteContents = ({
                     <NavigaterForSkilNotePages2 skilNoteId={skilNoteId} pageNum={pageNum} dataForskilNoteContent={dataForskilNoteContent} />
                 </TabPanel>
                 <TabPanel>
+                    <RelatedSkilNoteList relatedSkilnoteList={dataForskilNoteContent?.relatedSkilnoteList} />
+
+                </TabPanel>
+                <TabPanel>
                     <Box overflowY="scroll" height={"100vh"} border={"5px solid pink"}>
                         <BookMarksForInfoForSkilNoteContents
                             skilNoteId={skilNoteId}
                             dataForskilNoteContent={dataForskilNoteContent}
                         />
                     </Box>
-                </TabPanel>
-                <TabPanel>
-                    qa
                 </TabPanel>
             </TabPanels>
         </Tabs>

@@ -23,7 +23,7 @@ const useApiForDeleteTodosForCheckedIds = ({ pageNum, pageInfo, todoStatusOption
         onSuccess: (result) => {
             console.log("result : ", result);
 
-            if (!result.success) {
+            if (result.success === false) {
                 toast({
                     title: "error occured when delete todos",
                     description: result.message,
@@ -34,6 +34,8 @@ const useApiForDeleteTodosForCheckedIds = ({ pageNum, pageInfo, todoStatusOption
 
                 return
             }
+
+            console.log("todoStatusOption for delete: ", todoStatusOption);
 
             queryClient.refetchQueries({
                 queryKey: ['uncompletedTodoList', parseInt(pageNum), loginUser.id, todoStatusOption],
@@ -49,6 +51,7 @@ const useApiForDeleteTodosForCheckedIds = ({ pageNum, pageInfo, todoStatusOption
 
         },
         onError: (error: any) => {
+            console.log("error : ", error);
 
             const message = error.response.data.message
 

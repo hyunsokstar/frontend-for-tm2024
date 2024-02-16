@@ -19,7 +19,7 @@ const useApiForSimpleCreateTodo = ({ pageInfo }: IProps) => {
     const mutationForSimpleCreateTodo = useMutation({
         mutationFn: apiForSimpleCreateTodo,
         onSuccess: (data: any) => {
-            console.log("Todo created successfully: ", data);
+            // console.log("Todo created successfully: ", data);
             let pageNum = 1
 
             queryClient.refetchQueries({
