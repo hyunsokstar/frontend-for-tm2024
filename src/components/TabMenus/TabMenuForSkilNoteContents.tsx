@@ -6,6 +6,7 @@ import NavigatorForPages from '../Navigator/NavigatorForSkilNotePages'
 import BookMarksForInfoForSkilNoteContents from '../Info/BookMarksForInfoForSkilNoteContents'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store'
+import NavigaterForSkilNotePages2 from '../Navigator/NavigaterForSkilNotePages2'
 
 interface IProps {
     // itemsInfo: Item[]
@@ -80,10 +81,11 @@ const TabMenuForSkilNoteContents = ({
                     />
                 </TabPanel>
                 <TabPanel>
-                    <NavigatorForPages
+                    {/* <NavigatorForPages
                         skilNoteId={skilNoteId}
                         dataForskilNoteContent={dataForskilNoteContent}
-                    />
+                    /> */}
+                    <NavigaterForSkilNotePages2 skilNoteId={skilNoteId} pageNum={pageNum} dataForskilNoteContent={dataForskilNoteContent} />
                 </TabPanel>
                 <TabPanel>
                     <Box overflowY="scroll" height={"100vh"} border={"5px solid pink"}>
@@ -92,6 +94,9 @@ const TabMenuForSkilNoteContents = ({
                             dataForskilNoteContent={dataForskilNoteContent}
                         />
                     </Box>
+                </TabPanel>
+                <TabPanel>
+                    qa
                 </TabPanel>
             </TabPanels>
         </Tabs>

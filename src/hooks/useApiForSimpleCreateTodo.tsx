@@ -22,21 +22,9 @@ const useApiForSimpleCreateTodo = ({ pageInfo }: IProps) => {
             console.log("Todo created successfully: ", data);
             let pageNum = 1
 
-            // if (pageInfo === "uncompletedTodosPageForUser") {
-            //     console.log("실행 됨2");
-            //     queryClient.refetchQueries({
-            //         queryKey: ['uncompletedTodoList', pageNum, loginUser.id] // 수정 필요한 부분
-            //     });
-            // } else {
-            //     queryClient.refetchQueries({
-            //         queryKey: ['apiForGetAllTodoList', pageNum],
-            //     });
-            // }
-
             queryClient.refetchQueries({
                 queryKey: ['uncompletedTodoList', pageNum, loginUser.id] // 수정 필요한 부분
             });
-
 
             toast({
                 title: "Todo created successfully",

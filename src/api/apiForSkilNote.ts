@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
 import { QueryFunctionContext } from "@tanstack/react-query";
-import { SkillNoteListResponse, SkillNoteRow, dataForCreateSkilNoteContent, dataForUpdateSkilNoteContent, skilnoteRowToSave } from "@/types/typeForSkilNote";
+import { DtoForChangePagesOrderForSkilNote, SkillNoteListResponse, SkillNoteRow, dataForCreateSkilNoteContent, dataForUpdateSkilNoteContent, skilnoteRowToSave } from "@/types/typeForSkilNote";
 
 const instance = axios.create({
     baseURL: `${backendApi}/skilnotes`,
@@ -171,3 +171,17 @@ export const apiForUpdateSkilNoteListOrder = (
         'skilNoteListReorder', orderInfoArray
     )
 }
+
+export const apiForChangePagesOrderForSkilNoteContent =
+    ({ skilNoteId, targetOrder, destinationOrder }: DtoForChangePagesOrderForSkilNote) => {
+
+        console.log("hi1", targetOrder);
+        console.log("hi2", destinationOrder);
+        const dtoForChangePagesOrderForSkilNote = {
+            skilNoteId,
+            targetOrder,
+            destinationOrder
+        }
+
+        return instance.post('changePagesOrderForSkilNoteContent', dtoForChangePagesOrderForSkilNote)
+    }

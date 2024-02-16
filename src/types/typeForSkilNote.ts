@@ -70,3 +70,9 @@ export interface dataForUpdateSkilNoteContent {
     file: string;
     content: string;
 }
+
+export interface DtoForChangePagesOrderForSkilNote {
+    skilNoteId: number;
+    targetOrder: string,
+    destinationOrder: any
+}

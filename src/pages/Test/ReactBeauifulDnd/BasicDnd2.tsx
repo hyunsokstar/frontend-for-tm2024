@@ -70,6 +70,9 @@ const BasicDnd2: React.FC = () => {
       result.source.index,
       result.destination.index
     );
+
+    // 3 => 1 1 => 3
+
     setItems(newItems);
   };
 

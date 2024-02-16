@@ -167,7 +167,7 @@ const SkilNoteContents = () => {
             </Head>
 
             <Box>
-                {/* 1212 */}
+                {/* fix 0216 */}
                 <Box display={"flex"} border={"2px dotted black"} mx={2} p={0} gap={2}>
                     <Text>title: {dataForskilNoteContent?.title}</Text>
                     <Text>writer: {dataForskilNoteContent?.writer.email}</Text>
@@ -227,19 +227,7 @@ const SkilNoteContents = () => {
                     </Box>
                 </Box>
 
-                {/* right side 
-                contents pages bookmarks qa chatboard 
-                */}
                 <Box flex={4} border={"2px dotted red"} position="sticky" top={0} mt={0} height={"80vh"}>
-                    {/* <NavigatorForScrollContents
-                            skilNoteId={skilNoteId}
-                            pageNum={pageNum}
-                            dataForskilNoteContent={dataForskilNoteContent}
-                            scrollToCard={scrollToCard}
-                            checkedRows={checkedRows}
-                            setCheckedRows={setCheckedRows}
-                            scrollCardToEditor={scrollCardToEditor}
-                        /> */}
 
                     <TabMenuForSkilNoteContents
                         skilNoteId={skilNoteId}
