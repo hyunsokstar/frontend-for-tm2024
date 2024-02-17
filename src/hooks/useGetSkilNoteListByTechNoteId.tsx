@@ -1,8 +1,8 @@
+import React from 'react'
 import { apiForGetSkillNotesByTechNoteId } from '@/api/apiForSkilNote';
 import { SkillNoteListResponse } from '@/types/typeForSkilNote';
-import { Box } from '@chakra-ui/react'
 import { useQuery } from '@tanstack/react-query';
-import React from 'react'
+import { Box } from '@chakra-ui/react'
 
 
 type IProps = {
@@ -22,9 +22,6 @@ const useApiForGetSkilNoteListByTechNoteId = ({
     isBestByLikes,
     isBestByBookMarks
 }: IProps) => {
-
-    // console.log(isBestByLikes);
-    // console.log(isBestByBookMarks);
 
     const { isLoading, error, data } = useQuery<SkillNoteListResponse>({
         queryKey: ['apiForGetSkillNotesByTechNoteId', techNoteId, pageNum, searchOption, searchText, isBestByLikes, isBestByBookMarks],

@@ -19,12 +19,11 @@ import useApiForLikeSkilNote from "@/hooks/useApiForLikeSkilNote";
 import useApiForBookMarkSkilNote from "@/hooks/useApiForBookMarkSkilNote";
 import useApiForDeleteSkilNotesForCheckedIds from "@/hooks/useApiForDeleteSkilNotesForCheckedIds";
 import MyPagination from "../MyPagination";
-import ModalButtonForReorderSkilNoteList from "../Modal/ModalButtonForReorderSkilNoteList";
+import useApiForGetAllSkilNoteList from "@/hooks/useApiForGetAllSkilNoteList";
 
 
 interface IProps {
-    techNoteId: any;
-    isOpen: boolean;
+
 }
 
 const options = [
@@ -33,7 +32,7 @@ const options = [
 ] as const;
 
 // 1122
-const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) => {
+const DataGridForSkilNoteListForTechNoteId2 = () => {
     const router = useRouter();
     const queryClient = useQueryClient();
     const [pageNum, setpageNum] = useState(1);
@@ -48,28 +47,24 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
     const [isBestByLikes, setIsBestByLikes] = useState<boolean>(false)
     const [isBestByBookMarks, setIsBestByBookMarks] = useState<boolean>(false)
 
+    const { isLoading, error, data: dataForSkilNotesList } = useApiForGetAllSkilNoteList({
+        pageNum, // pageNum을 전달
+    })
 
-    const { isLoading, error, data: dataForSkilNotesByTechNoteId } = isOpen
-        ? useApiForGetSkilNoteListByTechNoteId({
-            techNoteId, // parentId 값을 techNoteId로 전달
-            pageNum, // pageNum을 전달
-            searchOption,
-            searchText,
-            isBestByLikes,
-            isBestByBookMarks,
-        })
-        : { isLoading: false, error: null, data: null };
+    console.log("dataForSkilNotesList : ", dataForSkilNotesList);
 
-    const mutationToSaveSkilNoteRows = useSaveSkilNotesMutation({ techNoteId, pageNum });
-    const mutationForLikeSkilNote = useApiForLikeSkilNote({ techNoteId, pageNum });
-    const mutationForBookMarkSkilNote = useApiForBookMarkSkilNote({ techNoteId, pageNum });
+    // const techNoteId = 0
+    const mutationToSaveSkilNoteRows = useSaveSkilNotesMutation({ pageNum });
+    const mutationForLikeSkilNote = useApiForLikeSkilNote({ pageNum });
+    const mutationForBookMarkSkilNote = useApiForBookMarkSkilNote({ pageNum });
 
     const [selectedOptions, setSelectedOptions] = useState<string[]>([
         // options[0],
         // options[1]
     ]);
 
-    const deleteSkilNoteRowsForCheckedIdsMutation = useApiForDeleteSkilNotesForCheckedIds({ techNoteId, pageNum });
+    const deleteSkilNoteRowsForCheckedIdsMutation
+        = useApiForDeleteSkilNotesForCheckedIds(pageNum);
 
     const deleteButtonHandler = () => {
         // selectedRows를 배열로 변환
@@ -140,37 +135,7 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
 
     const columns = [
         SelectColumnForReactDataGrid,
-        // step2 expanded 칼럼을 설정한뒤 클릭하면 row.expanded 가 toggle 되도록 설정
-        // {
-        //     key: 'expanded',
-        //     name: '',
-        //     width: 50,
-        //     colSpan(args: any) {
-        //         return args.type === 'ROW' && args.row.type === 'DETAIL' ? 9 : undefined;
-        //     }, renderCell({ row, tabIndex, onRowChange }: any) {
-        //         if (row.type === "DETAIL") {
-        //             return (
-        //                 <Flex display="grid" gridTemplateColumns="1fr 1fr" lineHeight={"20px"} height={"96%"} mx={2} mt={2} gap={2}>
-        //                     <Box border={"1px solid blue"}>Description</Box>
-        //                     <Box border={"1px solid red"}>관련 게시판</Box>
-        //                 </Flex>
 
-        //             )
-        //         }
-        //         else {
-        //             return (
-        //                 <CellExpanderFormatter
-        //                     expanded={row.expanded}
-        //                     tabIndex={tabIndex}
-        //                     onCellExpand={() => {
-        //                         onRowChange({ ...row, expanded: !row.expanded });
-        //                     }}
-        //                 />
-        //             )
-        //         }
-
-        //     }
-        // },
         {
             key: "id",
             name: "id",
@@ -188,18 +153,13 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
             width: 600,
             renderEditCell: CommonTextEditor
         },
-        // {
-        //     key: 'description',
-        //     name: 'description',
-        //     renderEditCell: CommonTextEditor
-        // },
+
         {
             key: 'category',
             name: 'category',
             width: 300,
             renderEditCell: CommonTextEditor
         },
-        // { key: 'createdAt', name: 'createdAt' },
         {
             key: 'detailButton',
             name: 'DetailButton',
@@ -304,16 +264,7 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
                 }
             },
         },
-        // {
-        //     key: "order",
-        //     name: "order",
-        //     renderEditCell: CommonTextEditor
-        // }
-        // {
-        //     key: "select",
-        //     name: 'select',
-        //     hidden: false
-        // }
+
 
     ];
 
@@ -359,7 +310,7 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
 
         const newRow = {
             id: id,
-            techNoteId: techNoteId,
+            // techNoteId: techNoteId,
             title: '',
             description: '',
             category: '',
@@ -380,15 +331,13 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
         });
     }
 
-
     // fix
     useEffect(() => {
-        // master detal step(1) 최초 type 과 expanded 를 설정에 추가
-        if (dataForSkilNotesByTechNoteId && dataForSkilNotesByTechNoteId.skilNoteList.length > 0) {
-            const initialSkilnoteRows = dataForSkilNotesByTechNoteId.skilNoteList.map((row) => {
+        if (dataForSkilNotesList) {
+            const initialSkilnoteRows = dataForSkilNotesList?.skilNoteList.map((row) => {
                 return {
                     id: row.id,
-                    techNoteId: techNoteId,
+                    // techNoteId: techNoteId,
                     email: row.writer?.email,
                     title: row.title,
                     description: row.description,
@@ -406,7 +355,7 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
             })
             setSkilNoteRows(initialSkilnoteRows);
         }
-    }, [dataForSkilNotesByTechNoteId])
+    }, [dataForSkilNotesList])
 
 
 
@@ -458,23 +407,6 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
                 </Box>
             </Box>
             <Box display={"flex"} justifyContent={"flex-end"} mb={1}>
-                {/* fix 11 */}
-                {
-
-                    searchText === ""
-                        && selectedOptions.length === 0
-                        && isBestByLikes === false
-                        && isBestByBookMarks === false ?
-                        <Box mr={1}>
-                            <ModalButtonForReorderSkilNoteList
-                                techNoteId={techNoteId}
-                                pageNum={pageNum}
-                                dataForSkilNoteList={dataForSkilNotesByTechNoteId?.skilNoteList}
-                            />
-                        </Box>
-                        : ""
-                }
-
                 {
                     isLoggedIn ?
                         <Box display={"flex"} gap={1} mr={1}>
@@ -522,8 +454,8 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
             </Box>
             <Box m={3}>
                 <MyPagination
-                    totalCount={dataForSkilNotesByTechNoteId?.totalCount}
-                    perPage={dataForSkilNotesByTechNoteId?.perPage}
+                    totalCount={dataForSkilNotesList?.totalCount}
+                    perPage={dataForSkilNotesList?.perPage}
                     currentPage={pageNum}
                     setCurrentPage={setpageNum}
                 />

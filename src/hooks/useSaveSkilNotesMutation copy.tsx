@@ -3,7 +3,12 @@ import { useToast } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiForSaveSkilNotes } from '@/api/apiForSkilNote';
 
-const useSaveSkilNotesMutation = (techNoteId: any, pageNum: number) => {
+interface IProps {
+    techNoteId?: number,
+    pageNum: number
+}
+
+const useSaveSkilNotesMutation = ({ techNoteId, pageNum }: IProps) => {
     const queryClient = useQueryClient();
     const toast = useToast(); // useToast 훅 사용
 
@@ -11,9 +16,15 @@ const useSaveSkilNotesMutation = (techNoteId: any, pageNum: number) => {
         mutationFn: apiForSaveSkilNotes,
         onSuccess: (result) => {
 
-            queryClient.refetchQueries({
-                queryKey: ['apiForGetSkillNotesByTechNoteId', techNoteId, pageNum]
-            });
+            if (techNoteId) {
+                queryClient.refetchQueries({
+                    queryKey: ['apiForGetSkillNotesByTechNoteId', techNoteId, pageNum]
+                });
+            } else {
+                queryClient.refetchQueries({
+                    queryKey: ['apiForGetAllSkilNoteList']
+                });
+            }
 
             if (result.status === "error") {
                 toast({

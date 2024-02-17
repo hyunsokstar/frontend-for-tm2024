@@ -3,9 +3,12 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useToast } from '@chakra-ui/react';
 import { apiForDeleteSkilNotesForCheckedIds } from '@/api/apiForSkilNote';
 
-type Props = {}
+interface IProps {
+    techNoteId?: number,
+    pageNum: number
+}
 
-const useApiForDeleteSkilNotesForCheckedIds = (techNoteId: any, pageNum: any) => {
+const useApiForDeleteSkilNotesForCheckedIds = ({ techNoteId, pageNum }: IProps) => {
     const queryClient = useQueryClient();
     const toast = useToast(); // useToast 훅 사용
 
@@ -15,9 +18,15 @@ const useApiForDeleteSkilNotesForCheckedIds = (techNoteId: any, pageNum: any) =>
             console.log("result : ", result);
 
             // 사용자 데이터를 다시 불러오는 쿼리를 리프레시
-            queryClient.refetchQueries({
-                queryKey: ['apiForGetSkillNotesByTechNoteId', techNoteId, pageNum]
-            });
+            if (techNoteId) {
+                queryClient.refetchQueries({
+                    queryKey: ['apiForGetSkillNotesByTechNoteId', techNoteId, pageNum]
+                });
+            } else {
+                queryClient.refetchQueries({
+                    queryKey: ['apiForGetAllSkilNoteList']
+                });
+            }
 
             // Chakra UI 토스트 표시
             toast({

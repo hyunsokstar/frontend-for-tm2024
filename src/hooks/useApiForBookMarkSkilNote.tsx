@@ -2,7 +2,12 @@ import { bookMarkSkilNote, bookMarkTechNote } from '@/api/apiForTechNotes';
 import { useToast } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-const useApiForBookMarkSkilNote = (techNoteId: any, pageNum: any) => {
+interface IProps {
+    techNoteId?: number,
+    pageNum: number
+}
+
+const useApiForBookMarkSkilNote = ({ techNoteId, pageNum }: IProps) => {
     const queryClient = useQueryClient();
     const toast = useToast();
 
@@ -11,9 +16,15 @@ const useApiForBookMarkSkilNote = (techNoteId: any, pageNum: any) => {
         onSuccess: (result: any) => {
             console.log("result : ", result);
 
-            queryClient.refetchQueries({
-                queryKey: ['apiForGetSkillNotesByTechNoteId', techNoteId, pageNum] // Example queryKey, modify as needed
-            });
+            if (techNoteId) {
+                queryClient.refetchQueries({
+                    queryKey: ['apiForGetSkillNotesByTechNoteId', techNoteId, pageNum]
+                });
+            } else {
+                queryClient.refetchQueries({
+                    queryKey: ['apiForGetAllSkilNoteList']
+                });
+            }
 
             toast({
                 title: "bookmark liked successfully",

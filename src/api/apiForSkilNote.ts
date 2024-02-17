@@ -69,8 +69,6 @@ export const apiForGetSkillNotesByTechNoteId = async (
                 }
             });
 
-
-
         return response.data;
     } catch (error) {
         throw new Error(`Skill notes를 불러오는 중 오류가 발생했습니다: ${error}`);
@@ -185,3 +183,18 @@ export const apiForChangePagesOrderForSkilNoteContent =
 
         return instance.post('changePagesOrderForSkilNoteContent', dtoForChangePagesOrderForSkilNote)
     }
+
+export const apiForGetAllSkilNoteList = async (pageNum: number) => {
+    try {
+        const response =
+            await instance.get("", {
+                params: {
+                    pageNum: pageNum,
+                }
+            });
+        return response.data;
+    } catch (error) {
+        throw new Error(`Skill notes를 불러오는 중 오류가 발생했습니다: ${error}`);
+    }
+
+}

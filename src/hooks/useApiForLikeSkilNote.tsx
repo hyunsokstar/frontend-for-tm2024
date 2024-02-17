@@ -2,7 +2,12 @@ import { likeSkilNote } from '@/api/apiForTechNotes';
 import { useToast } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-const useApiForLikeSkilNote = (techNoteId: any, pageNum: any) => {
+interface IProps {
+    techNoteId?: number,
+    pageNum: number
+}
+
+const useApiForLikeSkilNote = ({ techNoteId, pageNum }: IProps) => {
     const queryClient = useQueryClient();
     const toast = useToast();
 
@@ -11,11 +16,17 @@ const useApiForLikeSkilNote = (techNoteId: any, pageNum: any) => {
         onSuccess: (result: any) => {
             console.log("result : ", result);
 
-            // Add your logic for refetching queries or other actions
-            // Modify the queryKey as needed
-            queryClient.refetchQueries({
-                queryKey: ['apiForGetSkillNotesByTechNoteId', techNoteId, pageNum] // Example queryKey, modify as needed
-            });
+
+            if (techNoteId) {
+                queryClient.refetchQueries({
+                    queryKey: ['apiForGetSkillNotesByTechNoteId', techNoteId, pageNum]
+                });
+            } else {
+                queryClient.refetchQueries({
+                    queryKey: ['apiForGetAllSkilNoteList']
+                });
+            }
+
 
             toast({
                 title: "skilnote like success",

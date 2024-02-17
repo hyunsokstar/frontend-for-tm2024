@@ -46,6 +46,13 @@ const HeaderMenus = () => {
                     >
                         Tech Note
                     </Link>
+                    <Link
+                        href="/Note/SkilNoteList"
+                        color={router.pathname.includes("/Note/SkilNoteList") ? "#4267B2" : "inherit"}
+                        fontWeight={router.pathname.includes("/Note/SkilNoteList") ? "bold" : "normal"}
+                    >
+                        Skil Note
+                    </Link>
                 </Box>
 
             </Box>
