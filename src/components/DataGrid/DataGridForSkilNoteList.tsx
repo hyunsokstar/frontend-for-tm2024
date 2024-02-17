@@ -47,9 +47,14 @@ const DataGridForSkilNoteListForTechNoteId2 = () => {
     const [isBestByLikes, setIsBestByLikes] = useState<boolean>(false)
     const [isBestByBookMarks, setIsBestByBookMarks] = useState<boolean>(false)
 
-    const { isLoading, error, data: dataForSkilNotesList } = useApiForGetAllSkilNoteList({
-        pageNum, // pageNum을 전달
-    })
+    const { isLoading, error, data: dataForSkilNotesList } =
+        useApiForGetAllSkilNoteList({
+            pageNum,
+            searchOption,
+            searchText,
+            isBestByLikes,
+            isBestByBookMarks,
+        })
 
     console.log("dataForSkilNotesList : ", dataForSkilNotesList);
 
@@ -64,7 +69,7 @@ const DataGridForSkilNoteListForTechNoteId2 = () => {
     ]);
 
     const deleteSkilNoteRowsForCheckedIdsMutation
-        = useApiForDeleteSkilNotesForCheckedIds(pageNum);
+        = useApiForDeleteSkilNotesForCheckedIds({ pageNum });
 
     const deleteButtonHandler = () => {
         // selectedRows를 배열로 변환
@@ -327,7 +332,7 @@ const DataGridForSkilNoteListForTechNoteId2 = () => {
     const handleSearchButtonForClick = (searchOption: string, searchText: string) => {
         console.log("hi search : ", searchOption, searchText);
         queryClient.refetchQueries({
-            queryKey: ['apiForGetAllTechNoteList', pageNum, searchOption, searchText],
+            queryKey: ['apiForGetAllSkilNoteList', pageNum, searchOption, searchText],
         });
     }
 
@@ -396,6 +401,7 @@ const DataGridForSkilNoteListForTechNoteId2 = () => {
                         </Box>
                     </Box>
 
+                    {/* {searchText} ? */}
                     <SearchInputForSkilNote
                         searchText={searchText}
                         setSearchText={setSearchText}

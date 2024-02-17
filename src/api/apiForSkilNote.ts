@@ -184,12 +184,22 @@ export const apiForChangePagesOrderForSkilNoteContent =
         return instance.post('changePagesOrderForSkilNoteContent', dtoForChangePagesOrderForSkilNote)
     }
 
-export const apiForGetAllSkilNoteList = async (pageNum: number) => {
+export const apiForGetAllSkilNoteList = async (
+    pageNum: number,
+    searchOption?: string,
+    searchText?: string,
+    isBestByLikes?: boolean,
+    isBestByBookMarks?: boolean,
+) => {
     try {
         const response =
             await instance.get("", {
                 params: {
                     pageNum: pageNum,
+                    searchOption,
+                    searchText,
+                    isBestByLikes,
+                    isBestByBookMarks
                 }
             });
         return response.data;

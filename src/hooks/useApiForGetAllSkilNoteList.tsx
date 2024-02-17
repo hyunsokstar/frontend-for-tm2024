@@ -7,16 +7,28 @@ import { Box } from '@chakra-ui/react'
 
 type IProps = {
     pageNum: number;
+    searchOption?: string;
+    searchText?: string;
+    isBestByLikes?: boolean,
+    isBestByBookMarks?: boolean
 }
 
 const useApiForGetAllSkilNoteList = ({
     pageNum,
+    searchOption,
+    searchText,
+    isBestByLikes,
+    isBestByBookMarks
 }: IProps) => {
 
     const { isLoading, error, data } = useQuery<SkillNoteListResponse>({
-        queryKey: ['apiForGetAllSkilNoteList'],
+        queryKey: ['apiForGetAllSkilNoteList', pageNum, searchOption, searchText, , isBestByLikes, isBestByBookMarks],
         queryFn: () => apiForGetAllSkilNoteList(
             pageNum,
+            searchOption,
+            searchText,
+            isBestByLikes,
+            isBestByBookMarks
         ),
     });
 
