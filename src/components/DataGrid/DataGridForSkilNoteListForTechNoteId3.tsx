@@ -72,11 +72,10 @@ const DataGridForSkilNoteListForTechNoteId2 = ({
         })
         : { isLoading: false, error: null, data: null };
 
-    const mutationToSaveSkilNoteRows = useSaveSkilNotesMutation(techNoteId, pageNum);
-    const mutationForLikeSkilNote = useApiForLikeSkilNote(loginUser.id
-        , pageNum);
-    const mutationForBookMarkSkilNote = useApiForBookMarkSkilNote(loginUser.id
-        , pageNum);
+    const mutationToSaveSkilNoteRows =
+        useSaveSkilNotesMutation({ techNoteId, pageNum });
+    const mutationForLikeSkilNote = useApiForLikeSkilNote({ pageNum });
+    const mutationForBookMarkSkilNote = useApiForBookMarkSkilNote({ pageNum });
 
     const [selectedOptions, setSelectedOptions] = useState<readonly string[]>([
         // options[0],
