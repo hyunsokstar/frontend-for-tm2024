@@ -14,13 +14,13 @@ interface IWriterForRoadMap {
 
 
 export interface ITypeForRoadMapRow {
-    id: number;
+    id: any;
     title: string;
     description: string;
     category: string;
     createdAt?: Date;
     updatedAt?: Date | null;
-    writer: IWriterForRoadMap
+    writer?: IWriterForRoadMap
 }
 
 export interface ReponseTypeForGetAllRoadMapList {

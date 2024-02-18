@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import 'react-data-grid/lib/styles.css';
-import { Box, Button } from '@chakra-ui/react'
+import { Box, Button, useToast } from '@chakra-ui/react'
 import DataGrid, { RenderCheckboxProps } from 'react-data-grid';
 import useApiForGetAllRoadMapList from '@/hooks/useApiForGetAllRoadMapList';
 import { SelectColumnForReactDataGrid } from '../Formatter/CheckBox/SelectColumnForRdg';
@@ -9,6 +9,7 @@ import CommonTextEditor from '../GridEditor/TextEditor/CommonTextEditor';
 import { ITypeForRoadMapRow } from '@/types/typeForRoadMap';
 import useApiForSaveRoadMaps from '@/hooks/useApiForSaveRoadMaps';
 import useApiForDeleteRoadMapsForCheckedIds from '@/hooks/useApiForDeleteRoadMapsForCheckedIds';
+import useUser from '@/hooks/useUser';
 
 const columns = [
     { key: 'id', name: 'ID' },
@@ -158,12 +159,16 @@ const columns2 = [
 type Props = {}
 
 const DataGridForRoadMapList = (props: Props) => {
+    const toast = useToast();
+
     const { isLoading, error, data: dataForRoadMapList } = useApiForGetAllRoadMapList({ pageNum: 1 });
     const [roadMapList, setRoadMapList] = useState<ITypeForRoadMapRow[]>([])
     const [selectedRows, setSelectedRows] = useState((): ReadonlySet<number> => new Set());
 
-    const pageNum = 1
+    const { isLoggedIn, loginUser, logout } = useUser();
 
+
+    const pageNum = 1
     const mutationForSaveRoadMaps = useApiForSaveRoadMaps(pageNum); // custom hook 사용
     const mutationForDeleteCheckedRows = useApiForDeleteRoadMapsForCheckedIds(pageNum);
 
@@ -198,12 +203,35 @@ const DataGridForRoadMapList = (props: Props) => {
         console.log('Delete button clicked');
 
         const checkNoteIdsForDelete = Array.from(selectedRows);
-
         mutationForDeleteCheckedRows.mutate(checkNoteIdsForDelete)
     };
 
     const handleAddRow = () => {
         console.log('Add Row button clicked');
+        const randomId = Math.random().toString().substring(2, 7);
+        const currentTime = Date.now().toString();
+        const id = parseInt(randomId + currentTime, 10).toString().substring(0, 5);
+
+        const newRow = {
+            id: id,
+            title: '',
+            description: '',
+            category: '',
+            email: loginUser.email ? loginUser.email : ""
+        }
+
+        if (!isLoggedIn) {
+            toast({
+                title: "로그인 필요",
+                description: "로그인 해주세요",
+                status: "warning",
+                duration: 3000,
+                isClosable: true,
+            });
+            return null; // 로그인 안 되어 있으면 아무것도 렌더링하지 않음
+        }
+
+        setRoadMapList((prev: ITypeForRoadMapRow[]) => [...prev, newRow])
     };
 
     // 2244
@@ -216,8 +244,7 @@ const DataGridForRoadMapList = (props: Props) => {
                     title: row.title,
                     description: row.description,
                     category: row.category,
-                    email: row.writer.email,
-
+                    email: row.writer?.email,
                     writer: row.writer
                 }
             })
@@ -251,7 +278,6 @@ const DataGridForRoadMapList = (props: Props) => {
             {dataForRoadMapList && dataForRoadMapList?.roadMapList.length > 0 ?
                 <DataGrid
                     columns={columns2} rows={roadMapList}
-
                     rowKeyGetter={(row) => row.id}
                     renderers={{ renderCheckbox }}
                     selectedRows={selectedRows}
