@@ -39,6 +39,15 @@ const HeaderMenus = () => {
                     >
                         Todo
                     </Link>
+
+                    <Link
+                        href="/Note/RoadMap/RoadMapContainer"
+                        color={router.pathname.includes("/Note/RoadMap/RoadMapContainer") ? "#4267B2" : "inherit"}
+                        fontWeight={router.pathname.includes("/Note/RoadMap/RoadMapContainer") ? "bold" : "normal"}
+                    >
+                        RoadMap
+                    </Link>
+
                     <Link
                         href="/Note/TechNoteList"
                         color={router.pathname.includes("/Note/TechNoteList") ? "#4267B2" : "inherit"}
