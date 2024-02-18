@@ -102,32 +102,33 @@ const DataGridForTechNoteList2 = () => {
     }
 
 
+    // {
+    //     key: 'expanded',
+    //     name: '',
+    //     minWidth: 30,
+    //     width: 30,
+    //     colSpan(args: any) {
+    //         return args.type === 'ROW' && args.row.type === 'DETAIL' ? 6 : undefined;
+    //     },
+    //     renderCell({ row, tabIndex, onRowChange }: any): React.ReactNode {
+    //         if (row.type === 'DETAIL') {
+    //             return <DataGridForSkilNoteListForTechNoteId techNoteId={row.parentId} />;
+    //         }
+
+    //         return (
+    //             <CellExpanderFormatter
+    //                 expanded={row.expanded}
+    //                 tabIndex={tabIndex}
+    //                 onCellExpand={() => {
+    //                     onRowChange({ ...row, expanded: !row.expanded });
+    //                 }}
+    //             />
+    //         );
+    //     }
+    // },
+
     const columns = [
         SelectColumnForReactDataGrid,
-        // {
-        //     key: 'expanded',
-        //     name: '',
-        //     minWidth: 30,
-        //     width: 30,
-        //     colSpan(args: any) {
-        //         return args.type === 'ROW' && args.row.type === 'DETAIL' ? 6 : undefined;
-        //     },
-        //     renderCell({ row, tabIndex, onRowChange }: any): React.ReactNode {
-        //         if (row.type === 'DETAIL') {
-        //             return <DataGridForSkilNoteListForTechNoteId techNoteId={row.parentId} />;
-        //         }
-
-        //         return (
-        //             <CellExpanderFormatter
-        //                 expanded={row.expanded}
-        //                 tabIndex={tabIndex}
-        //                 onCellExpand={() => {
-        //                     onRowChange({ ...row, expanded: !row.expanded });
-        //                 }}
-        //             />
-        //         );
-        //     }
-        // },
         {
             key: 'email',
             name: 'email',
