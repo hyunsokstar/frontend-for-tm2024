@@ -481,7 +481,7 @@ const DataGridForSkilNoteListForTechNoteId2 = ({
                             columns={columns}
                             rows={skilnoteRows}
                             rowKeyGetter={(row) => row.id}
-                            // rowHeight={(row) => (row.type === 'DETAIL' ? 270 : 50)}
+                            // rowHeight={(row) => (row.type === 'MASTER' ? 270 : 50)}
                             renderers={{ renderCheckbox }}
                             selectedRows={selectedRows}
                             onSelectedRowsChange={setSelectedRows}
