@@ -53,3 +53,15 @@ export const apiForSaveRoadMaps = (roadMaps: ITypeForRoadMapRow[]): Promise<Axio
         });
     // return true
 };
+
+export const apiForDeleteTechRoadMapsForCheckedIds = (checkedIds: any[]): Promise<any> => {
+    console.log('apiForDeleteTechNotesForCheckedIds check data:', checkedIds);
+
+    return instance.delete(`deleteRoadMapsForCheckedRows`, { data: { checkedIds } })
+        .then((response) => {
+            return response.data;
+        })
+        .catch((error) => {
+            throw error; // 에러를 그대로 던지기
+        });
+};

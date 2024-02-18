@@ -4,11 +4,11 @@ import { Box, Button } from '@chakra-ui/react'
 import DataGrid, { RenderCheckboxProps } from 'react-data-grid';
 import useApiForGetAllRoadMapList from '@/hooks/useApiForGetAllRoadMapList';
 import { SelectColumnForReactDataGrid } from '../Formatter/CheckBox/SelectColumnForRdg';
-import CommonSelectBoxEdtior from '../GridEditor/SelectBox/CommonSelectBoxEdtior';
 import SelectBoxForUserEmail from '../GridEditor/SelectBox/SelectBoxForUserEmail';
 import CommonTextEditor from '../GridEditor/TextEditor/CommonTextEditor';
-import { ITypeForRoadMapRow, SaveRoadMapsDto } from '@/types/typeForRoadMap';
+import { ITypeForRoadMapRow } from '@/types/typeForRoadMap';
 import useApiForSaveRoadMaps from '@/hooks/useApiForSaveRoadMaps';
+import useApiForDeleteRoadMapsForCheckedIds from '@/hooks/useApiForDeleteRoadMapsForCheckedIds';
 
 const columns = [
     { key: 'id', name: 'ID' },
@@ -165,6 +165,7 @@ const DataGridForRoadMapList = (props: Props) => {
     const pageNum = 1
 
     const mutationForSaveRoadMaps = useApiForSaveRoadMaps(pageNum); // custom hook 사용
+    const mutationForDeleteCheckedRows = useApiForDeleteRoadMapsForCheckedIds(pageNum);
 
     // 사용자가 저장 버튼을 클릭할 때 실행될 함수
     const handleSave = () => {
@@ -195,6 +196,10 @@ const DataGridForRoadMapList = (props: Props) => {
 
     const handleDelete = () => {
         console.log('Delete button clicked');
+
+        const checkNoteIdsForDelete = Array.from(selectedRows);
+
+        mutationForDeleteCheckedRows.mutate(checkNoteIdsForDelete)
     };
 
     const handleAddRow = () => {

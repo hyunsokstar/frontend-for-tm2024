@@ -36,7 +36,6 @@ export const apiForGetAllTechNoteList = ({ queryKey }: QueryFunctionContext) => 
     const [_, pageNum, searchOption, searchText, isBestByLikes, isBestByBookMarks] = queryKey;
 
     // console.log("userId at api function : ", userId);
-
     return instance
         .get("", {
             params: {

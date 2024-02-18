@@ -8,9 +8,7 @@ import CommonTextEditor from '@/components/GridEditor/TextEditor/CommonTextEdito
 import useSaveTechNotesMutation from '@/hooks/useSaveTechNotesMutation';
 import SelectBoxForUserEmail from '@/components/GridEditor/SelectBox/SelectBoxForUserEmail';
 import useUser from '@/hooks/useUser';
-import DataGridForSkilNoteListForTechNoteId2 from '@/components/DataGrid/DataGridForSkilNoteListForTechNoteId2';
 import useApiForDeleteTechNotesForCheckedIds from '@/hooks/useApiForDeleteTechNotesForCheckedIds';
-import ModalBuuttonForSkilNoteListById from '../Modal/ModalBuuttonForSkilNoteListById';
 import SearchInputForTechNote from '../SearchInput/SearchInputForTechNote';
 import { useQueryClient } from '@tanstack/react-query';
 import { groupBy as rowGrouper } from 'lodash-es';
