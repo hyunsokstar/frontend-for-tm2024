@@ -28,3 +28,10 @@ export interface ReponseTypeForGetAllRoadMapList {
     totalCount: number;
     roadMapList: ITypeForRoadMapRow[]
 }
+
+export interface SaveRoadMapsDto {
+    id: number;
+    email: string;
+    title: string;
+    category?: string;
+}

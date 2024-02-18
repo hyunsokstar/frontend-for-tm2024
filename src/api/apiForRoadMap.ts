@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
 import { QueryFunctionContext } from "@tanstack/react-query";
-import { ReponseTypeForGetAllRoadMapList } from "@/types/typeForRoadMap";
+import { ITypeForRoadMapRow, ReponseTypeForGetAllRoadMapList, SaveRoadMapsDto } from "@/types/typeForRoadMap";
 
 const instance = axios.create({
     baseURL: `${backendApi}/roadmap`,
@@ -29,7 +29,6 @@ instance.interceptors.request.use(
 );
 
 
-
 export async function apiForGetAllRoadMapList(pageNum: number): Promise<ReponseTypeForGetAllRoadMapList> {
     try {
         const response: AxiosResponse = await instance.get(`?pageNum=${pageNum}`);
@@ -38,3 +37,19 @@ export async function apiForGetAllRoadMapList(pageNum: number): Promise<ReponseT
         throw new Error(error.response.data.message);
     }
 }
+
+export const apiForSaveRoadMaps = (roadMaps: ITypeForRoadMapRow[]): Promise<AxiosResponse> => {
+
+    console.log("roadMaps to pass backend: ", roadMaps);
+
+
+    return instance.post('/saveRoadMaps', roadMaps)
+        .then((response) => {
+            return response.data;
+        })
+        .catch((error) => {
+            console.error("Error occurred while saving roadmaps:", error);
+            throw error;
+        });
+    // return true
+};

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import 'react-data-grid/lib/styles.css';
-import { Box } from '@chakra-ui/react'
+import { Box, Button } from '@chakra-ui/react'
 import DataGrid, { RenderCheckboxProps } from 'react-data-grid';
 import useApiForGetAllRoadMapList from '@/hooks/useApiForGetAllRoadMapList';
 import { SelectColumnForReactDataGrid } from '../Formatter/CheckBox/SelectColumnForRdg';
 import CommonSelectBoxEdtior from '../GridEditor/SelectBox/CommonSelectBoxEdtior';
 import SelectBoxForUserEmail from '../GridEditor/SelectBox/SelectBoxForUserEmail';
 import CommonTextEditor from '../GridEditor/TextEditor/CommonTextEditor';
-import { ITypeForRoadMapRow } from '@/types/typeForRoadMap';
+import { ITypeForRoadMapRow, SaveRoadMapsDto } from '@/types/typeForRoadMap';
+import useApiForSaveRoadMaps from '@/hooks/useApiForSaveRoadMaps';
 
 const columns = [
     { key: 'id', name: 'ID' },
@@ -161,6 +162,30 @@ const DataGridForRoadMapList = (props: Props) => {
     const [roadMapList, setRoadMapList] = useState<ITypeForRoadMapRow[]>([])
     const [selectedRows, setSelectedRows] = useState((): ReadonlySet<number> => new Set());
 
+    const pageNum = 1
+
+    const mutationForSaveRoadMaps = useApiForSaveRoadMaps(pageNum); // custom hook 사용
+
+    // 사용자가 저장 버튼을 클릭할 때 실행될 함수
+    const handleSave = () => {
+        if (selectedRows.size === 0 || roadMapList.length === 0) {
+            return;
+        }
+        const selectedRoadMapIds = Array.from(selectedRows).map((selectedId) => selectedId)
+
+        const checkedRoadMaps = roadMapList.filter((roadMap) => {
+            if (selectedRoadMapIds.includes(roadMap.id)) {
+                return roadMap
+            }
+        })
+
+        const roadMapsToSave = checkedRoadMaps
+
+        mutationForSaveRoadMaps.mutate(roadMapsToSave); // API 호출
+
+    };
+
+
     console.log("dataForRoadMapList : ", dataForRoadMapList);
 
     function onRowsChange(rows: ITypeForRoadMapRow[], { indexes, column }: any) {
@@ -168,6 +193,13 @@ const DataGridForRoadMapList = (props: Props) => {
         setRoadMapList(rows);
     }
 
+    const handleDelete = () => {
+        console.log('Delete button clicked');
+    };
+
+    const handleAddRow = () => {
+        console.log('Add Row button clicked');
+    };
 
     // 2244
     useEffect(() => {
@@ -198,6 +230,19 @@ const DataGridForRoadMapList = (props: Props) => {
 
     return (
         <Box width={"100%"} m={"auto"}>
+
+            <Box display="flex" justifyContent="flex-end" mb={1}>
+                <Button onClick={handleSave} variant="outline" size="sm" mr={1}>
+                    Save
+                </Button>
+                <Button onClick={handleDelete} variant="outline" size="sm" mr={1}>
+                    Delete
+                </Button>
+                <Button onClick={handleAddRow} variant="outline" size="sm">
+                    Add Row
+                </Button>
+            </Box>
+
             {dataForRoadMapList && dataForRoadMapList?.roadMapList.length > 0 ?
                 <DataGrid
                     columns={columns2} rows={roadMapList}
