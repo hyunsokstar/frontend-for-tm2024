@@ -17,7 +17,6 @@ type IRoadMapRow =
         type: 'MASTER';
         id: number;
         title: string;
-        department: string;
         expanded: boolean;
     }
     | {
@@ -66,7 +65,6 @@ const MasterDetail = () => {
                 type: 'MASTER',
                 id: i,
                 title: faker.lorem.words(),
-                department: faker.commerce.department(),
                 expanded: false,
             });
         }
@@ -92,7 +90,12 @@ const MasterDetail = () => {
 
     return (
         <Box width={'100%'} m={'auto'}>
-            <DataGrid rows={testRows} columns={columns} onRowsChange={onRowsChange} />
+            <DataGrid
+                rows={testRows}
+                rowHeight={(row) => (row.type === 'DETAIL' ? 300 : 45)}
+                columns={columns}
+                onRowsChange={onRowsChange}
+            />
         </Box>
     );
 };
