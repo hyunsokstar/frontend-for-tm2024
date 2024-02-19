@@ -39,7 +39,7 @@ const columns = [
                 //     })}
                 // </Box>);
                 return (
-                    <DataGridForTechNotesForRoadMap techNotes={row.techNotes} />
+                    <DataGridForTechNotesForRoadMap techNotes={row.techNotes ? row.techNotes : []} />
                 )
             }
 
