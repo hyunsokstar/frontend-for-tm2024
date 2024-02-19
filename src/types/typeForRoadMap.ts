@@ -39,6 +39,17 @@ interface IDetailRoadMapRow {
 }
 
 export type ITypeForRoadMapRow = IMasterRoadMapRow | IDetailRoadMapRow;
+
+export interface ITypeForSkilNoteRowForMasterDetail {
+    id: number;
+    title: string;
+    description: string;
+    category: string;
+    createdAt: string;
+    updatedAt: string | null;
+    order: number;
+}
+
 export interface ITypeForTechNotesRowForRoadMapsMasterDetail {
     id: number;
     title: string;
@@ -46,6 +57,7 @@ export interface ITypeForTechNotesRowForRoadMapsMasterDetail {
     category: string;
     createdAt: string;
     updatedAt: string | null;
+    skilnotes: ITypeForSkilNoteRowForMasterDetail[]
 }
 
 interface ResponseTypeForRoadMapRow {
