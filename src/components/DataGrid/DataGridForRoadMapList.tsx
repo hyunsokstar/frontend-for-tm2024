@@ -27,19 +27,14 @@ const columns = [
         minWidth: 30,
         width: 30,
         colSpan(args: any) {
-            return args.type === 'ROW' && args.row.type === 'DETAIL' ? 3 : undefined;
+            return args.type === 'ROW' && args.row.type === 'DETAIL' ? 5 : undefined;
         },
         renderCell({ row, tabIndex, onRowChange }: ITypeForParameterForRenderCell) {
             if (row.type === 'DETAIL') {
-                // return (<Box border={"2px solid red"}>
-                //     {row.techNotes?.map((note) => {
-                //         return (
-                //             <Box>{note.title}</Box>
-                //         )
-                //     })}
-                // </Box>);
                 return (
-                    <DataGridForTechNotesForRoadMap techNotes={row.techNotes ? row.techNotes : []} />
+                    <Box width={"100%"}>
+                        <DataGridForTechNotesForRoadMap techNotes={row.techNotes ? row.techNotes : []} />
+                    </Box>
                 )
             }
 
@@ -198,7 +193,6 @@ const DataGridForRoadMapList = (props: Props) => {
 
     const { isLoggedIn, loginUser, logout } = useUser();
 
-
     const pageNum = 1
     const mutationForSaveRoadMaps = useApiForSaveRoadMaps(pageNum); // custom hook 사용
     const mutationForDeleteCheckedRows = useApiForDeleteRoadMapsForCheckedIds(pageNum);
@@ -330,7 +324,7 @@ const DataGridForRoadMapList = (props: Props) => {
     }
 
     return (
-        <Box width={"100%"} m={"auto"}>
+        <Box width={"100%"} border={"2px solid red"}>
 
             <Box display="flex" justifyContent="flex-end" mb={1}>
                 <Button onClick={handleSave} variant="outline" size="sm" mr={1}>

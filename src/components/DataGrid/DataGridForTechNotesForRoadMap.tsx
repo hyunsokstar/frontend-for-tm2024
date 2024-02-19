@@ -29,7 +29,7 @@ const DataGridForTechNotesForRoadMap: React.FC<Props> = ({ techNotes }) => {
     }));
 
     return (
-        <Box width={"100%"} m={"auto"}>
+        <Box width={"100%"} >
             {/* techNotes 배열을 출력 */}
             <DataGrid columns={columns} rows={rows} />;
         </Box>
