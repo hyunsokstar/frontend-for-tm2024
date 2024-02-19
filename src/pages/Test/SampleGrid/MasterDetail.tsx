@@ -3,7 +3,6 @@ import 'react-data-grid/lib/styles.css';
 import { Box } from '@chakra-ui/react';
 import DataGrid, { RowsChangeData } from 'react-data-grid';
 import { faker } from '@faker-js/faker';
-
 import CellExpanderFormatter from '../ReactDataGrid/CellExpanderFormatter';
 
 interface ITypeForParameterForRenderCell {
@@ -15,15 +14,15 @@ interface ITypeForParameterForRenderCell {
 type IRoadMapRow =
     | {
         type: 'MASTER';
+        expanded: boolean;
         id: number;
         title: string;
-        expanded: boolean;
     }
     | {
         type: 'DETAIL';
+        parentId: number;
         id: number;
         title: string;
-        parentId: number;
     };
 
 const columns = [

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import 'react-data-grid/lib/styles.css';
 import { Box, Button, useToast } from '@chakra-ui/react'
-import DataGrid, { RenderCheckboxProps } from 'react-data-grid';
+import DataGrid, { RenderCheckboxProps, RowsChangeData } from 'react-data-grid';
 import useApiForGetAllRoadMapList from '@/hooks/useApiForGetAllRoadMapList';
 import { SelectColumnForReactDataGrid } from '../Formatter/CheckBox/SelectColumnForRdg';
 import SelectBoxForUserEmail from '../GridEditor/SelectBox/SelectBoxForUserEmail';
@@ -10,19 +10,50 @@ import { ITypeForRoadMapRow } from '@/types/typeForRoadMap';
 import useApiForSaveRoadMaps from '@/hooks/useApiForSaveRoadMaps';
 import useApiForDeleteRoadMapsForCheckedIds from '@/hooks/useApiForDeleteRoadMapsForCheckedIds';
 import useUser from '@/hooks/useUser';
+import CellExpanderFormatter from '@/pages/Test/ReactDataGrid/CellExpanderFormatter';
+import DataGridForTechNotesForRoadMap from './DataGridForTechNotesForRoadMap';
+
+interface ITypeForParameterForRenderCell {
+    row: ITypeForRoadMapRow;
+    tabIndex: number;
+    onRowChange: (updated: ITypeForRoadMapRow) => void;
+}
 
 const columns = [
-    { key: 'id', name: 'ID' },
-    { key: 'title', name: 'Title' }
-];
-
-const rows = [
-    { id: 0, title: 'Example' },
-    { id: 1, title: 'Demo' }
-];
-
-const columns2 = [
     SelectColumnForReactDataGrid,
+    {
+        key: 'expanded',
+        name: '',
+        minWidth: 30,
+        width: 30,
+        colSpan(args: any) {
+            return args.type === 'ROW' && args.row.type === 'DETAIL' ? 3 : undefined;
+        },
+        renderCell({ row, tabIndex, onRowChange }: ITypeForParameterForRenderCell) {
+            if (row.type === 'DETAIL') {
+                // return (<Box border={"2px solid red"}>
+                //     {row.techNotes?.map((note) => {
+                //         return (
+                //             <Box>{note.title}</Box>
+                //         )
+                //     })}
+                // </Box>);
+                return (
+                    <DataGridForTechNotesForRoadMap techNotes={row.techNotes} />
+                )
+            }
+
+            return (
+                <CellExpanderFormatter
+                    expanded={row.expanded}
+                    tabIndex={tabIndex}
+                    onCellExpand={() => {
+                        onRowChange({ ...row, expanded: !row.expanded });
+                    }}
+                />
+            );
+        },
+    },
     {
         key: 'email',
         name: 'email',
@@ -194,9 +225,28 @@ const DataGridForRoadMapList = (props: Props) => {
 
     console.log("dataForRoadMapList : ", dataForRoadMapList);
 
-    function onRowsChange(rows: ITypeForRoadMapRow[], { indexes, column }: any) {
-        console.log("click ?? : ", rows);
-        setRoadMapList(rows);
+    // function onRowsChange(rows: ITypeForRoadMapRow[], { indexes, column }: any) {
+    //     console.log("click ?? : ", rows);
+    //     setRoadMapList(rows);
+    // }
+
+    function onRowsChange(rows: ITypeForRoadMapRow[], { indexes }: RowsChangeData<ITypeForRoadMapRow>) {
+        console.log("onRowsChange excute check ???");
+        const row = rows[indexes[0]];
+        if (row.type === 'MASTER') {
+            if (row.expanded) {
+                rows.splice(indexes[0] + 1, 0, {
+                    type: 'DETAIL',
+                    title: 'sample title',
+                    id: row.id + 100,
+                    techNotes: row.techNotes,
+                    parentId: row.id,
+                });
+            } else {
+                rows.splice(indexes[0] + 1, 1);
+            }
+            setRoadMapList([...rows]); // 새로운 배열을 생성하여 상태 업데이트
+        }
     }
 
     const handleDelete = () => {
@@ -212,12 +262,26 @@ const DataGridForRoadMapList = (props: Props) => {
         const currentTime = Date.now().toString();
         const id = parseInt(randomId + currentTime, 10).toString().substring(0, 5);
 
-        const newRow = {
+        const newRow: ITypeForRoadMapRow = {
+            type: "MASTER",
             id: id,
             title: '',
             description: '',
             category: '',
-            email: loginUser.email ? loginUser.email : ""
+            email: loginUser.email ? loginUser.email : "",
+            writer: {
+                id: 0,
+                email: '',
+                password: '',
+                nickname: '',
+                role: '',
+                gender: '',
+                phoneNumber: null,
+                backEndLevel: 0,
+                frontEndLevel: 0,
+                profileImage: null,
+            },
+            expanded: false
         }
 
         if (!isLoggedIn) {
@@ -238,19 +302,24 @@ const DataGridForRoadMapList = (props: Props) => {
     useEffect(() => {
         let roadMapListToUpdate: ITypeForRoadMapRow[] = [];
         if (dataForRoadMapList && dataForRoadMapList.roadMapList) {
-            roadMapListToUpdate = dataForRoadMapList?.roadMapList.map((row) => {
-                return {
+            roadMapListToUpdate = [];
+            dataForRoadMapList.roadMapList.forEach((row) => {
+                roadMapListToUpdate.push({
+                    type: 'MASTER',
                     id: row.id,
+                    email: row.writer.email,
                     title: row.title,
                     description: row.description,
                     category: row.category,
-                    email: row.writer?.email,
-                    writer: row.writer
-                }
-            })
+                    writer: row.writer,
+                    expanded: false,
+                    techNotes: row.techNotes
+                });
+            });
         }
+
         setRoadMapList(roadMapListToUpdate)
-    }, [dataForRoadMapList])
+    }, [dataForRoadMapList, setRoadMapList])
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -277,12 +346,14 @@ const DataGridForRoadMapList = (props: Props) => {
 
             {dataForRoadMapList && dataForRoadMapList?.roadMapList.length > 0 ?
                 <DataGrid
-                    columns={columns2} rows={roadMapList}
+                    columns={columns}
+                    rows={roadMapList}
                     rowKeyGetter={(row) => row.id}
                     renderers={{ renderCheckbox }}
                     selectedRows={selectedRows}
                     onSelectedRowsChange={setSelectedRows}
                     onRowsChange={onRowsChange}
+                    rowHeight={(row) => (row.type === 'DETAIL' ? 300 : 45)}
                 />
                 : "no data"}
         </Box>

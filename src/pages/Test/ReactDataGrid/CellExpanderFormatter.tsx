@@ -3,7 +3,7 @@ import { css } from '@linaria/core';
 
 interface CellExpanderFormatterProps {
     tabIndex: number;
-    expanded: boolean;
+    expanded: boolean | undefined;
     onCellExpand: () => void;
 }
 

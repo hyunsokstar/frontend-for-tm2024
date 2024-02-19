@@ -1,3 +1,4 @@
+
 interface IWriterForRoadMap {
     id: number;
     email: string;
@@ -13,20 +14,59 @@ interface IWriterForRoadMap {
 
 
 
-export interface ITypeForRoadMapRow {
+interface IMasterRoadMapRow {
     id: any;
+    writer: IWriterForRoadMap;
+    email: string;
     title: string;
     description: string;
     category: string;
     createdAt?: Date;
     updatedAt?: Date | null;
-    writer?: IWriterForRoadMap
+    type: 'MASTER';
+    expanded: boolean;
+    parentId?: number;
+    techNotes?: ITypeForTechNotesRowForRoadMapsMasterDetail[]
+}
+
+interface IDetailRoadMapRow {
+    id: any;
+    type: 'DETAIL';
+    expanded?: boolean;
+    title: string;
+    parentId?: number;
+    techNotes?: ITypeForTechNotesRowForRoadMapsMasterDetail[]
+}
+
+export type ITypeForRoadMapRow = IMasterRoadMapRow | IDetailRoadMapRow;
+export interface ITypeForTechNotesRowForRoadMapsMasterDetail {
+    id: number;
+    title: string;
+    description: string;
+    category: string;
+    createdAt: string;
+    updatedAt: string | null;
+}
+
+interface ResponseTypeForRoadMapRow {
+    id: any;
+    writer: IWriterForRoadMap;
+    email: string;
+    title: string;
+    description: string;
+    category: string;
+    createdAt?: Date;
+    updatedAt?: Date | null;
+    type: 'MASTER';
+    expanded: boolean;
+    parentId?: number;
+    techNotes: ITypeForTechNotesRowForRoadMapsMasterDetail[]
 }
 
 export interface ReponseTypeForGetAllRoadMapList {
     perPage: number,
     totalCount: number;
-    roadMapList: ITypeForRoadMapRow[]
+    roadMapList: ResponseTypeForRoadMapRow[]
 }
 
 export interface SaveRoadMapsDto {
