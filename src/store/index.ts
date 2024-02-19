@@ -15,7 +15,6 @@ const rootReducer = combineReducers({
     skilnoteContentNaviSlice: rightSideNaviForSkilNoteContents,
     idAdmin: idAdminSlice,
     pageInfo: pageInfoSlice
-    // 필요한 다른 reducer들을 추가하세요.
 });
 
 const store = configureStore({

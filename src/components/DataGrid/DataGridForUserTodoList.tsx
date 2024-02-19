@@ -419,12 +419,12 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
     const [defaultDeadLine, setDefaultDeadline] = useState<Date | null>(null);
     const [defaultTodoStatus, setDefaultTodoStatus] = useState<string>("ready");
 
-    const mutationForSaveTodoRows = useApiForSaveTodoListForUserMutation(pageNum, loginUser.id, todoStatusOption);
-    const deleteForTodosForCheckedIdsMutation = useApiForDeleteTodosForCheckedIds({ pageNum, pageInfo, todoStatusOption });
+    const mutationForSaveTodoRows = useApiForSaveTodoListForUserMutation({ pageNum, userId, todoStatusOption });
+    const deleteForTodosForCheckedIdsMutation = useApiForDeleteTodosForCheckedIds({ pageNum, userId, todoStatusOption });
 
     const mutationForMultiUpdateForTodoRowsForChecked = useApiForMultiUpdateForTodoRowsForChecked({ pageNum, userId, todoStatusOption });
 
-    const mutationForSimpleCreateTodo = useApiForSimpleCreateTodo({ pageInfo });
+    const mutationForSimpleCreateTodo = useApiForSimpleCreateTodo({ pageInfo, userId, todoStatusOption });
 
     const columns = useMemo(() => getColumnsForUserUncompletedTodoList(
         isMainOrSub,
@@ -570,7 +570,7 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
             setUsersEmailInfo(dataForUncompletedTodoListForUser.usersEmailInfo)
         }
 
-        console.log("dataForUncompletedTodoListForUser check ???", dataForUncompletedTodoListForUser);
+        // console.log("dataForUncompletedTodoListForUser check ???", dataForUncompletedTodoListForUser);
 
         if (dataForUncompletedTodoListForUser && dataForUncompletedTodoListForUser.todoList.length > 0) {
             todoRowsToShow = dataForUncompletedTodoListForUser.todoList.map((row: ITypeForTodoRow) => {

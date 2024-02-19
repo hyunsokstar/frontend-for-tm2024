@@ -17,21 +17,18 @@ const UserProfile = (props: IProps) => {
     const { userId } = router.query;
     const [pageNum, setPageNum] = useState(1);
     const selectedUserId = userId as string; // nullish coalescing operator를 사용하여 더 간단하게 처리 가능
-    console.log("selectedUserId : ", selectedUserId);
+    // console.log("selectedUserId : ", selectedUserId);
 
-    const { isLoading, error, dataForUserPosting } = useUserPostings(selectedUserId, pageNum);
+    // const { isLoading, error, dataForUserPosting } = useUserPostings(selectedUserId, pageNum);
     const { isLoggedIn, loginUser, logout } = useUser();
 
-    console.log("dataForUserPosting : ", dataForUserPosting);
+    // if (isLoading) {
+    //     return <div>Loading...</div>;
+    // }
 
-
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return <div>Error: {error.message}</div>;
-    }
+    // if (error) {
+    //     return <div>Error: {error.message}</div>;
+    // }
 
     return (
         <>
@@ -57,26 +54,15 @@ const UserProfile = (props: IProps) => {
                     gap={2}
                 >
                     <TabMenuBoxForProfilePage selectedUserId={selectedUserId} />
-                    {/* 유저 포스팅 리스트 출력 (아직 미구현) */}
-                    {/* {
-                        dataForUserPosting && dataForUserPosting.data ?
-                            dataForUserPosting.data.postings.map((row: any) => {
-                                return (<CardForUserPostings
-                                    key={row.id}
-                                    title={row.title}
-                                    content={row.content}
-                                    createdAt={row.createdAt}
-                                />)
-                            }) : "no data"
-                    } */}
+
                 </Box>
 
-                {
+                {/* {
                     dataForUserPosting && dataForUserPosting.data
                         && dataForUserPosting.data.user ?
                         <UserProfileInfo userInfo={dataForUserPosting.data.user} />
                         : ""
-                }
+                } */}
 
             </Box>
 

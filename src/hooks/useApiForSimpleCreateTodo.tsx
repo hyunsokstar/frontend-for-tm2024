@@ -7,9 +7,12 @@ import { useSelector } from 'react-redux';
 
 interface IProps {
     pageInfo?: string
+    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed";
+    userId: any,
+
 }
 
-const useApiForSimpleCreateTodo = ({ pageInfo }: IProps) => {
+const useApiForSimpleCreateTodo = ({ pageInfo, userId, todoStatusOption }: IProps) => {
     const queryClient = useQueryClient();
     const toast = useToast();
 
@@ -23,7 +26,7 @@ const useApiForSimpleCreateTodo = ({ pageInfo }: IProps) => {
             let pageNum = 1
 
             queryClient.refetchQueries({
-                queryKey: ['uncompletedTodoList', pageNum, loginUser.id] // 수정 필요한 부분
+                queryKey: ['uncompletedTodoList', pageNum, userId, todoStatusOption] // 수정 필요한 부분
             });
 
             toast({

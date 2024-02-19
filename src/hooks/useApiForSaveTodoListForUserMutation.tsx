@@ -4,8 +4,14 @@ import { useToast } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 // todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed";
+interface IProps {
+    pageNum: any,
+    userId: any,
+    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed";
+}
 
-const useApiForSaveTodoListForUserMutation = (pageNum: any, userId: any, todoStatusOption: string) => {
+
+const useApiForSaveTodoListForUserMutation = ({ pageNum, userId, todoStatusOption }: IProps) => {
     const queryClient = useQueryClient();
     const toast = useToast(); // useToast 훅 사용
 
@@ -22,9 +28,17 @@ const useApiForSaveTodoListForUserMutation = (pageNum: any, userId: any, todoSta
                     queryKey: ['uncompletedTodoList', parseInt(pageNum), userId, "all_completed"]
                 });
             } else {
+
                 queryClient.refetchQueries({
                     queryKey: ['uncompletedTodoList', parseInt(pageNum), userId, todoStatusOption]
                 });
+                queryClient.refetchQueries({
+                    queryKey: ['uncompletedTodoList', parseInt(pageNum), userId, "completed"]
+                });
+                queryClient.refetchQueries({
+                    queryKey: ['uncompletedTodoList', parseInt(pageNum), userId, "idea"]
+                });
+
             }
 
             toast({

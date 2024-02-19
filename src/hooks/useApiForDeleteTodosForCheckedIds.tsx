@@ -7,11 +7,11 @@ import { useSelector } from 'react-redux';
 
 type IProps = {
     pageNum: any,
-    pageInfo?: string
+    userId?: any;
     todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed";
 }
 
-const useApiForDeleteTodosForCheckedIds = ({ pageNum, pageInfo, todoStatusOption }: IProps) => {
+const useApiForDeleteTodosForCheckedIds = ({ pageNum, userId, todoStatusOption }: IProps) => {
     const queryClient = useQueryClient();
     const toast = useToast(); // useToast 훅 사용
 
@@ -38,7 +38,7 @@ const useApiForDeleteTodosForCheckedIds = ({ pageNum, pageInfo, todoStatusOption
             console.log("todoStatusOption for delete: ", todoStatusOption);
 
             queryClient.refetchQueries({
-                queryKey: ['uncompletedTodoList', parseInt(pageNum), loginUser.id, todoStatusOption],
+                queryKey: ['uncompletedTodoList', pageNum, userId, todoStatusOption],
             });
 
             toast({

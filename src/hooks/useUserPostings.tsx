@@ -4,7 +4,7 @@ import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 
 const useUserPostings = (userId: string, pageNum: number) => {
 
-    console.log("userId at api : ", userId);
+    // console.log("userId at api : ", userId);
 
 
     const { isLoading, error, data: dataForUserPosting } = useQuery<any>({
