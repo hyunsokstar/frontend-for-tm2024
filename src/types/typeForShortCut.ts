@@ -13,7 +13,7 @@ interface IWriterForShortCut {
 
 // shortcut의 한 행을 나타내는 타입
 export interface ITypeForShortCutRow {
-    id: number;
+    id: any;
     shortcut: string;
     description: string;
     category: string;

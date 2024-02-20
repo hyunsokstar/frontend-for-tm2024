@@ -9,6 +9,8 @@ import SelectBoxForUserEmail from '@/components/GridEditor/SelectBox/SelectBoxFo
 import CommonTextEditor from '@/components/GridEditor/TextEditor/CommonTextEditor';
 import useApiForSaveShortCuts from '@/hooks/useApiForSaveShortCuts';
 import useApiForDeleteShortCutForCheckedIds from '@/hooks/useApiForDeleteShortCutForCheckedIds';
+import { ITypeForRoadMapRow } from '@/types/typeForRoadMap';
+import useUser from '@/hooks/useUser';
 
 type Props = {}
 
@@ -20,6 +22,7 @@ const ShortCutList = (props: Props) => {
     const [shortcutRows, setShortcutRows] = useState<ITypeForShortCutRow[]>([])
     const saveShortcutsMutation = useApiForSaveShortCuts(pageNum); // useApiForSaveShortCuts 훅을 호출합니다.
     const deleteShortcutsMutation = useApiForDeleteShortCutForCheckedIds(pageNum); // useApiForDeleteShortCutForCheckedIds 훅을 호출합니다.
+    const { isLoggedIn, loginUser, logout } = useUser();
 
 
     const columns = [
@@ -82,47 +85,44 @@ const ShortCutList = (props: Props) => {
         deleteShortcutsMutation.mutate(checkNoteIdsForDelete)
     };
 
-    // const handleAddRow = () => {
-    //     console.log('Add Row button clicked');
-    //     const randomId = Math.random().toString().substring(2, 7);
-    //     const currentTime = Date.now().toString();
-    //     const id = parseInt(randomId + currentTime, 10).toString().substring(0, 5);
+    const handleAddRow = () => {
+        console.log('Add Row button clicked');
+        const randomId = Math.random().toString().substring(2, 7);
+        const currentTime = Date.now().toString();
+        const id = parseInt(randomId + currentTime, 10).toString().substring(0, 5);
 
-    //     const newRow: ITypeForRoadMapRow = {
-    //         type: "MASTER",
-    //         id: id,
-    //         title: '',
-    //         description: '',
-    //         category: '',
-    //         email: loginUser.email ? loginUser.email : "",
-    //         writer: {
-    //             id: 0,
-    //             email: '',
-    //             password: '',
-    //             nickname: '',
-    //             role: '',
-    //             gender: '',
-    //             phoneNumber: null,
-    //             backEndLevel: 0,
-    //             frontEndLevel: 0,
-    //             profileImage: null,
-    //         },
-    //         expanded: false
-    //     }
+        const newRow: ITypeForShortCutRow = {
+            id: id,
+            description: '',
+            shortcut: '',
+            category: '',
+            writer: {
+                id: 0,
+                email: loginUser.email,
+                password: '',
+                nickname: '',
+                role: '',
+                gender: '',
+                phoneNumber: null,
+                backEndLevel: 0,
+                frontEndLevel: 0,
+                profileImage: null,
+            },
+        }
 
-    //     if (!isLoggedIn) {
-    //         toast({
-    //             title: "로그인 필요",
-    //             description: "로그인 해주세요",
-    //             status: "warning",
-    //             duration: 3000,
-    //             isClosable: true,
-    //         });
-    //         return null; // 로그인 안 되어 있으면 아무것도 렌더링하지 않음
-    //     }
+        if (!isLoggedIn) {
+            toast({
+                title: "로그인 필요",
+                description: "로그인 해주세요",
+                status: "warning",
+                duration: 3000,
+                isClosable: true,
+            });
+            return null; // 로그인 안 되어 있으면 아무것도 렌더링하지 않음
+        }
 
-    //     // setRoadMapList((prev: ITypeForRoadMapRow[]) => [...prev, newRow])
-    // };
+        setShortcutRows((prev: ITypeForShortCutRow[]) => [newRow, ...prev])
+    };
 
     function onRowsChange(
         rows: ITypeForShortCutRow[],
@@ -175,11 +175,11 @@ const ShortCutList = (props: Props) => {
                 <Button onClick={handleDelete} variant="outline" size="sm" mr={1}>
                     Delete
                 </Button>
-                {/*
+
                 <Button onClick={handleAddRow} variant="outline" size="sm">
                     Add Row
-                </Button>  
-                */}
+                </Button>
+
             </Box>
 
             {isLoading ? (
