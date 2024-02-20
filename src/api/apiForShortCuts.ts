@@ -50,3 +50,14 @@ export const apiForSaveShortCuts = (shortcuts: ITypeForShortCutRow[]): Promise<A
     // return true
 };
 
+export const apiForDeleteShortCutForCheckedIds = (checkedIds: any[]): Promise<any> => {
+    // console.log('apiForDeleteShortCutForCheckedIds :', checkedIds);
+
+    return instance.delete(`deleteShortCutsForCheckedRows`, { data: { checkedIds } })
+        .then((response) => {
+            return response.data;
+        })
+        .catch((error) => {
+            throw error; // 에러를 그대로 던지기
+        });
+};

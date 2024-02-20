@@ -8,6 +8,7 @@ import { ITypeForShortCutRow } from '@/types/typeForShortCut';
 import SelectBoxForUserEmail from '@/components/GridEditor/SelectBox/SelectBoxForUserEmail';
 import CommonTextEditor from '@/components/GridEditor/TextEditor/CommonTextEditor';
 import useApiForSaveShortCuts from '@/hooks/useApiForSaveShortCuts';
+import useApiForDeleteShortCutForCheckedIds from '@/hooks/useApiForDeleteShortCutForCheckedIds';
 
 type Props = {}
 
@@ -18,6 +19,7 @@ const ShortCutList = (props: Props) => {
     const [selectedRows, setSelectedRows] = useState((): ReadonlySet<number> => new Set());
     const [shortcutRows, setShortcutRows] = useState<ITypeForShortCutRow[]>([])
     const saveShortcutsMutation = useApiForSaveShortCuts(pageNum); // useApiForSaveShortCuts 훅을 호출합니다.
+    const deleteShortcutsMutation = useApiForDeleteShortCutForCheckedIds(pageNum); // useApiForDeleteShortCutForCheckedIds 훅을 호출합니다.
 
 
     const columns = [
@@ -77,7 +79,7 @@ const ShortCutList = (props: Props) => {
         console.log('Delete button clicked');
 
         const checkNoteIdsForDelete = Array.from(selectedRows);
-        // mutationForDeleteCheckedRows.mutate(checkNoteIdsForDelete)
+        deleteShortcutsMutation.mutate(checkNoteIdsForDelete)
     };
 
     // const handleAddRow = () => {
@@ -170,12 +172,14 @@ const ShortCutList = (props: Props) => {
                 <Button onClick={handleSave} variant="outline" size="sm" mr={1}>
                     Save
                 </Button>
-                {/* <Button onClick={handleDelete} variant="outline" size="sm" mr={1}>
+                <Button onClick={handleDelete} variant="outline" size="sm" mr={1}>
                     Delete
                 </Button>
+                {/*
                 <Button onClick={handleAddRow} variant="outline" size="sm">
                     Add Row
-                </Button>  */}
+                </Button>  
+                */}
             </Box>
 
             {isLoading ? (
