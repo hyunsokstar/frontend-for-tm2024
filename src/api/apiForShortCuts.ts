@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
 import { QueryFunctionContext } from "@tanstack/react-query";
+import { ITypeForShortCutRow } from "@/types/typeForShortCut";
 
 const instance = axios.create({
     baseURL: `${backendApi}/shortcuts`,
@@ -34,3 +35,18 @@ export const apiForGetAllShortCutList = ({ queryKey }: QueryFunctionContext) => 
             return response.data;
         });
 };
+
+export const apiForSaveShortCuts = (shortcuts: ITypeForShortCutRow[]): Promise<AxiosResponse> => {
+    console.log("shortcuts to pass backend: ", shortcuts);
+
+    return instance.post('/saveShortCuts', shortcuts)
+        .then((response) => {
+            return response.data;
+        })
+        .catch((error) => {
+            console.error("Error occurred while save shortcuts:", error);
+            throw error;
+        });
+    // return true
+};
+

@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import 'react-data-grid/lib/styles.css';
-import { Box, useToast } from '@chakra-ui/react';
-import DataGrid, { RenderCheckboxProps } from 'react-data-grid';
+import { Box, Button, useToast } from '@chakra-ui/react';
+import DataGrid, { RenderCheckboxProps, RowsChangeData } from 'react-data-grid';
 import useApiForGetAllShortcutList from '@/hooks/useApiForGetAllShortcutList';
 import { SelectColumnForReactDataGrid } from '@/components/Formatter/CheckBox/SelectColumnForRdg';
 import { ITypeForShortCutRow } from '@/types/typeForShortCut';
 import SelectBoxForUserEmail from '@/components/GridEditor/SelectBox/SelectBoxForUserEmail';
+import CommonTextEditor from '@/components/GridEditor/TextEditor/CommonTextEditor';
+import useApiForSaveShortCuts from '@/hooks/useApiForSaveShortCuts';
 
 type Props = {}
 
 const ShortCutList = (props: Props) => {
+    const toast = useToast();
     const pageNum = 1;
     const { isLoading, error, data: dataForShortCutList } = useApiForGetAllShortcutList({ pageNum });
     const [selectedRows, setSelectedRows] = useState((): ReadonlySet<number> => new Set());
-    const [shortcutRows, setShortcutRows] = useState<ITypeForShortCutRow[]>()
-    const toast = useToast();
+    const [shortcutRows, setShortcutRows] = useState<ITypeForShortCutRow[]>([])
+    const saveShortcutsMutation = useApiForSaveShortCuts(pageNum); // useApiForSaveShortCuts 훅을 호출합니다.
+
 
     const columns = [
         SelectColumnForReactDataGrid,
@@ -30,27 +34,45 @@ const ShortCutList = (props: Props) => {
                 );
             },
             renderEditCell: SelectBoxForUserEmail
-        }, { key: 'shortcut', name: 'Shortcut' }, // shortcut 추가
-        { key: 'description', name: 'Description' }, // description 추가
-        { key: 'category', name: 'Category' } // category 추가
+        },
+        {
+            key: 'shortcut',
+            name: 'Shortcut',
+            renderEditCell: CommonTextEditor,
+        }, // shortcut 추가
+        {
+            key: 'description',
+            name: 'Description',
+            renderEditCell: CommonTextEditor,
+        }, // description 추가
+        {
+            key: 'category',
+            name: 'Category',
+            renderEditCell: CommonTextEditor,
+        } // category 추가
     ];
 
-    // const handleSave = () => {
-    //     if (selectedRows.size === 0 || roadMapList.length === 0) {
-    //         return;
-    //     }
-    //     const selectedRoadMapIds = Array.from(selectedRows).map((selectedId) => selectedId)
+    const handleSave = () => {
+        console.log("save 클릭  :", selectedRows);
 
-    //     const checkedRoadMaps = roadMapList.filter((roadMap) => {
-    //         if (selectedRoadMapIds.includes(roadMap.id)) {
-    //             return roadMap
-    //         }
-    //     })
+        if (selectedRows.size === 0 || shortcutRows?.length === 0) {
+            console.log("here ?");
 
-    //     const roadMapsToSave = checkedRoadMaps
-    //     mutationForSaveRoadMaps.mutate(roadMapsToSave);
+            return;
+        }
+        const selectedShortCutIds = Array.from(selectedRows).map((selectedId) => selectedId)
 
-    // };
+        const checkedShortCuts = shortcutRows?.filter((shortcut) => {
+            if (selectedShortCutIds.includes(shortcut.id)) {
+                return shortcut
+            }
+        })
+
+        const shortCutsToSave = checkedShortCuts
+        saveShortcutsMutation.mutate(shortCutsToSave);
+
+    };
+
     const handleDelete = () => {
         console.log('Delete button clicked');
 
@@ -100,6 +122,29 @@ const ShortCutList = (props: Props) => {
     //     // setRoadMapList((prev: ITypeForRoadMapRow[]) => [...prev, newRow])
     // };
 
+    function onRowsChange(
+        rows: ITypeForShortCutRow[],
+        { indexes }: RowsChangeData<ITypeForShortCutRow>
+    ) {
+        console.log("onRowsChange excute check ???", rows);
+
+        // console.log("onRowsChange excute check ???");
+        // const row = rows[indexes[0]];
+        // if (row.type === 'MASTER') {
+        //     if (row.expanded) {
+        //         rows.splice(indexes[0] + 1, 0, {
+        //             type: 'DETAIL',
+        //             title: 'sample title',
+        //             id: row.id + 100,
+        //             techNotes: row.techNotes,
+        //             parentId: row.id,
+        //         });
+        //     } else {
+        //         rows.splice(indexes[0] + 1, 1);
+        //     }
+        setShortcutRows(rows); // 새로운 배열을 생성하여 상태 업데이트
+    }
+
     useEffect(() => {
         let shortCutRowsForUpdate: ITypeForShortCutRow[] = [];
         if (dataForShortCutList && dataForShortCutList.shortCutList) {
@@ -115,22 +160,22 @@ const ShortCutList = (props: Props) => {
             });
         }
         setShortcutRows(shortCutRowsForUpdate)
-    }, [])
+    }, [dataForShortCutList])
 
 
     return (
         <Box width={"100%"} m={"auto"}>
 
             <Box display="flex" justifyContent="flex-end" mb={1}>
-                {/* <Button onClick={handleSave} variant="outline" size="sm" mr={1}>
+                <Button onClick={handleSave} variant="outline" size="sm" mr={1}>
                     Save
                 </Button>
-                <Button onClick={handleDelete} variant="outline" size="sm" mr={1}>
+                {/* <Button onClick={handleDelete} variant="outline" size="sm" mr={1}>
                     Delete
                 </Button>
                 <Button onClick={handleAddRow} variant="outline" size="sm">
                     Add Row
-                </Button> */}
+                </Button>  */}
             </Box>
 
             {isLoading ? (
@@ -140,12 +185,13 @@ const ShortCutList = (props: Props) => {
             ) : (
                 <DataGrid
                     columns={columns}
-                    rows={dataForShortCutList ? dataForShortCutList.shortCutList : []}
-
+                    rows={shortcutRows}
+                    onRowsChange={onRowsChange}
                     rowKeyGetter={(row) => row.id}
                     renderers={{ renderCheckbox }}
                     selectedRows={selectedRows}
                     onSelectedRowsChange={setSelectedRows}
+
                 />
             )}
         </Box>

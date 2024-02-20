@@ -225,7 +225,8 @@ const DataGridForRoadMapList = (props: Props) => {
     // }
 
     function onRowsChange(rows: ITypeForRoadMapRow[], { indexes }: RowsChangeData<ITypeForRoadMapRow>) {
-        console.log("onRowsChange excute check ???");
+        console.log("onRowsChange excute check ??? roadmaps ??", rows);
+
         const row = rows[indexes[0]];
         if (row.type === 'MASTER') {
             if (row.expanded) {
@@ -236,11 +237,12 @@ const DataGridForRoadMapList = (props: Props) => {
                     techNotes: row.techNotes,
                     parentId: row.id,
                 });
-            } else {
-                rows.splice(indexes[0] + 1, 1);
             }
-            setRoadMapList([...rows]); // 새로운 배열을 생성하여 상태 업데이트
+        } else {
+            rows.splice(indexes[0] + 1, 1);
         }
+
+        setRoadMapList(rows); // 새로운 배열을 생성하여 상태 업데이트
     }
 
     const handleDelete = () => {
