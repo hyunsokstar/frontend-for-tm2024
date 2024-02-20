@@ -342,10 +342,12 @@ const DataGridForRoadMapList = (props: Props) => {
                 <DataGrid
                     columns={columns}
                     rows={roadMapList}
+
                     rowKeyGetter={(row) => row.id}
                     renderers={{ renderCheckbox }}
                     selectedRows={selectedRows}
                     onSelectedRowsChange={setSelectedRows}
+
                     onRowsChange={onRowsChange}
                     rowHeight={(row) => (row.type === 'DETAIL' ? 300 : 45)}
                 />
