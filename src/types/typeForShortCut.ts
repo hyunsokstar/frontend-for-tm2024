@@ -26,3 +26,9 @@ export interface ITypeForResponseForGetAllShortCutList {
     totalCount: number;
     shortCutList: ITypeForShortCutRow[];
 }
+
+export interface CreateOneShortCutDto {
+    shortcut: string;
+    description: string;
+    category?: string;
+}

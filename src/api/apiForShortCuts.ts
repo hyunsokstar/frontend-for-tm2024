@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
 import { QueryFunctionContext } from "@tanstack/react-query";
-import { ITypeForShortCutRow } from "@/types/typeForShortCut";
+import { CreateOneShortCutDto, ITypeForShortCutRow } from "@/types/typeForShortCut";
 
 const instance = axios.create({
     baseURL: `${backendApi}/shortcuts`,
@@ -61,3 +61,19 @@ export const apiForDeleteShortCutForCheckedIds = (checkedIds: any[]): Promise<an
             throw error; // 에러를 그대로 던지기
         });
 };
+
+// 
+export const apiForSimpleCreateShortCut = ({
+    shortcut,
+    description,
+}: CreateOneShortCutDto) => {
+    // console.log("hi");
+    const CreateOneShortCutDto = {
+        shortcut,
+        description,
+    }
+
+    return instance.post(
+        "", CreateOneShortCutDto
+    ).then((response: any) => response.data)
+}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import 'react-data-grid/lib/styles.css';
-import { Box, Button, useToast } from '@chakra-ui/react';
+import { Box, Button, Spacer, useToast } from '@chakra-ui/react';
 import DataGrid, { RenderCheckboxProps, RowsChangeData } from 'react-data-grid';
 import useApiForGetAllShortcutList from '@/hooks/useApiForGetAllShortcutList';
 import { SelectColumnForReactDataGrid } from '@/components/Formatter/CheckBox/SelectColumnForRdg';
@@ -11,6 +11,7 @@ import useApiForSaveShortCuts from '@/hooks/useApiForSaveShortCuts';
 import useApiForDeleteShortCutForCheckedIds from '@/hooks/useApiForDeleteShortCutForCheckedIds';
 import { ITypeForRoadMapRow } from '@/types/typeForRoadMap';
 import useUser from '@/hooks/useUser';
+import SimpleCreateShortCutForm from '@/components/Form/SimpleCreateShortCutForm';
 
 type Props = {}
 
@@ -167,18 +168,21 @@ const ShortCutList = (props: Props) => {
 
     return (
         <Box width={"100%"} m={"auto"}>
+            <Box display="flex" justifyContent="space-around" mb={1}>
+                <SimpleCreateShortCutForm pageNum={pageNum} />
+                {/* <Spacer /> */}
+                <Box>
+                    <Button onClick={handleSave} variant="outline" size="sm" mr={1}>
+                        Save
+                    </Button>
+                    <Button onClick={handleDelete} variant="outline" size="sm" mr={1}>
+                        Delete
+                    </Button>
 
-            <Box display="flex" justifyContent="flex-end" mb={1}>
-                <Button onClick={handleSave} variant="outline" size="sm" mr={1}>
-                    Save
-                </Button>
-                <Button onClick={handleDelete} variant="outline" size="sm" mr={1}>
-                    Delete
-                </Button>
-
-                <Button onClick={handleAddRow} variant="outline" size="sm">
-                    Add Row
-                </Button>
+                    <Button onClick={handleAddRow} variant="outline" size="sm">
+                        Add Row
+                    </Button>
+                </Box>
 
             </Box>
 
