@@ -11,8 +11,8 @@ const TodosPageByReactDataGrid = (props: Props) => {
         <>
             uncomplted:
             <DataGridForUserTodoList pageInfo="todosPageForAllUser" todoStatusOption={'all_uncompleted'} selectedUserId={undefined} />
-            <br />
 
+            <br />
             completed: <ModalButtonForTaskHistory buttonText='task history' todoStatusOption={'all_completed'} />
 
             <br />

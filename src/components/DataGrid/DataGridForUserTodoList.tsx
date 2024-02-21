@@ -141,13 +141,15 @@ const getBasicColumns = (
         {
             // fix 0202
             key: "supplementaryTodos",
-            name: "SubTodos",
+            name: "supplementary Todos",
             width: 200,
             renderCell(props: any) {
                 return (
                     <Box display={"flex"} justifyContent={"flex-start"} alignItems={"center"}>
                         <ModalButtonForSupplementTodos
                             parentTodoId={props.row.id}
+                            mainTodoTitle={props.row.task}
+                            mainTodoStatus={props.row.status}
                             buttonText={'sub todos'}
                             countForSupplementTodos={props.row.supplementaryTodos?.length}
                             supplementaryTodos={props.row.supplementaryTodos}
