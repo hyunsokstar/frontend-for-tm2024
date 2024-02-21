@@ -15,6 +15,9 @@ interface IWriterForRoadMap {
 
 
 interface IMasterRoadMapRow {
+    type: 'MASTER';
+    parentId?: number;
+    expanded: boolean;
     id: any;
     writer: IWriterForRoadMap;
     email: string;
@@ -23,16 +26,13 @@ interface IMasterRoadMapRow {
     category: string;
     createdAt?: Date;
     updatedAt?: Date | null;
-    type: 'MASTER';
-    expanded: boolean;
-    parentId?: number;
     techNotes?: ITypeForTechNotesRowForRoadMapsMasterDetail[]
 }
 
 interface IDetailRoadMapRow {
-    id: any;
     type: 'DETAIL';
     expanded?: boolean;
+    id: any;
     title: string;
     parentId?: number;
     techNotes?: ITypeForTechNotesRowForRoadMapsMasterDetail[]

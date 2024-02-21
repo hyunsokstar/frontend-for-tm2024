@@ -4,14 +4,22 @@ import { Box, Button, Spacer, useToast } from '@chakra-ui/react';
 import DataGrid, { RenderCheckboxProps, RowsChangeData } from 'react-data-grid';
 import useApiForGetAllShortcutList from '@/hooks/useApiForGetAllShortcutList';
 import { SelectColumnForReactDataGrid } from '@/components/Formatter/CheckBox/SelectColumnForRdg';
-import { ITypeForShortCutRow } from '@/types/typeForShortCut';
+import { ITypeForShortCutMasterRow, ITypeForShortCutRow } from '@/types/typeForShortCut';
 import SelectBoxForUserEmail from '@/components/GridEditor/SelectBox/SelectBoxForUserEmail';
 import CommonTextEditor from '@/components/GridEditor/TextEditor/CommonTextEditor';
 import useApiForSaveShortCuts from '@/hooks/useApiForSaveShortCuts';
 import useApiForDeleteShortCutForCheckedIds from '@/hooks/useApiForDeleteShortCutForCheckedIds';
-import { ITypeForRoadMapRow } from '@/types/typeForRoadMap';
 import useUser from '@/hooks/useUser';
 import SimpleCreateShortCutForm from '@/components/Form/SimpleCreateShortCutForm';
+import DataGridForSubShortcuts from '@/components/DataGrid/DataGridForSubShortcuts';
+import CellExpanderFormatter from '../Test/ReactDataGrid/CellExpanderFormatter';
+import ModalButtonForSubShortCuts from '@/components/Modal/ModalButtonForSubShortCuts';
+
+interface ITypeForParameterForRenderCell {
+    row: ITypeForShortCutRow;
+    tabIndex: number;
+    onRowChange: (updated: ITypeForShortCutRow) => void;
+}
 
 type Props = {}
 
@@ -28,7 +36,39 @@ const ShortCutList = (props: Props) => {
 
     const columns = [
         SelectColumnForReactDataGrid,
-        { key: 'id', name: 'ID' },
+        {
+            key: 'expanded',
+            name: '',
+            minWidth: 30,
+            width: 30,
+            colSpan(args: any) {
+                return args.type === 'ROW' && args.row.type === 'DETAIL' ? 5 : undefined;
+            },
+            renderCell({ row, tabIndex, onRowChange }: ITypeForParameterForRenderCell) {
+                if (row.type === 'DETAIL') {
+                    return (
+                        <Box width={"100%"}>
+                            <DataGridForSubShortcuts subShortCuts={row.subShortCuts ? row.subShortCuts : []} />
+                        </Box>
+                    )
+                }
+
+                return (
+                    <CellExpanderFormatter
+                        expanded={row.expanded}
+                        tabIndex={tabIndex}
+                        onCellExpand={() => {
+                            onRowChange({ ...row, expanded: !row.expanded });
+                        }}
+                    />
+                );
+            },
+        },
+        {
+            key: 'id',
+            name: 'ID',
+            width: 10,
+        },
         {
             key: 'email',
             name: 'email',
@@ -45,17 +85,34 @@ const ShortCutList = (props: Props) => {
             key: 'shortcut',
             name: 'Shortcut',
             renderEditCell: CommonTextEditor,
-        }, // shortcut 추가
+        },
+        // {
+        //     key: 'description',
+        //     name: 'Description',
+        //     renderEditCell: CommonTextEditor,
+        // },
         {
-            key: 'description',
-            name: 'Description',
-            renderEditCell: CommonTextEditor,
-        }, // description 추가
+            key: 'subShortCuts',
+            name: 'subShortCuts',
+            renderCell({ row, tabIndex, onRowChange }: any): React.ReactNode {
+                return (
+                    <Box>
+                        <ModalButtonForSubShortCuts
+                            buttonText={'shortcuts'}
+                            subShortCuts={row.subShortCuts}
+                        />
+
+                    </Box>
+                );
+            },
+            // renderEditCell: CommonTextEditor,
+
+        },
         {
             key: 'category',
             name: 'Category',
             renderEditCell: CommonTextEditor,
-        } // category 추가
+        }
     ];
 
     const handleSave = () => {
@@ -93,6 +150,9 @@ const ShortCutList = (props: Props) => {
         const id = parseInt(randomId + currentTime, 10).toString().substring(0, 5);
 
         const newRow: ITypeForShortCutRow = {
+            type: "MASTER",
+            expanded: false,
+            email: '',
             id: id,
             description: '',
             shortcut: '',
@@ -131,34 +191,38 @@ const ShortCutList = (props: Props) => {
     ) {
         console.log("onRowsChange excute check ???", rows);
 
-        // console.log("onRowsChange excute check ???");
-        // const row = rows[indexes[0]];
-        // if (row.type === 'MASTER') {
-        //     if (row.expanded) {
-        //         rows.splice(indexes[0] + 1, 0, {
-        //             type: 'DETAIL',
-        //             title: 'sample title',
-        //             id: row.id + 100,
-        //             techNotes: row.techNotes,
-        //             parentId: row.id,
-        //         });
-        //     } else {
-        //         rows.splice(indexes[0] + 1, 1);
-        //     }
-        setShortcutRows(rows); // 새로운 배열을 생성하여 상태 업데이트
+        console.log("onRowsChange excute check ???");
+        const row = rows[indexes[0]];
+        if (row.type === 'MASTER') {
+            if (row.expanded) {
+                rows.splice(indexes[0] + 1, 0, {
+                    type: 'DETAIL',
+                    id: row.id + 100,
+                    parentId: row.id,
+                    subShortCuts: row.subShortCuts
+                });
+            } else {
+                rows.splice(indexes[0] + 1, 1);
+            }
+            setShortcutRows(rows); // 새로운 배열을 생성하여 상태 업데이트
+        }
     }
 
     useEffect(() => {
-        let shortCutRowsForUpdate: ITypeForShortCutRow[] = [];
+        let shortCutRowsForUpdate: ITypeForShortCutMasterRow[] = [];
         if (dataForShortCutList && dataForShortCutList.shortCutList) {
             shortCutRowsForUpdate = [];
             dataForShortCutList.shortCutList.forEach((row: ITypeForShortCutRow) => {
                 shortCutRowsForUpdate.push({
+                    type: "MASTER",
+                    email: row.writer?.email,
+                    expanded: false,
                     id: row.id,
                     writer: row.writer,
                     description: row.description,
                     category: row.category,
                     shortcut: row.shortcut,
+                    subShortCuts: row.subShortCuts
                 });
             });
         }
@@ -199,7 +263,7 @@ const ShortCutList = (props: Props) => {
                     renderers={{ renderCheckbox }}
                     selectedRows={selectedRows}
                     onSelectedRowsChange={setSelectedRows}
-
+                    rowHeight={(row) => (row.type === 'DETAIL' ? 300 : 45)}
                 />
             )}
         </Box>
