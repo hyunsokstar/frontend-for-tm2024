@@ -52,7 +52,7 @@ interface SummaryRow {
 
 const HeaderFilter = () => {
     const [pageNum, setPageNum] = useState(1);
-    const { isPending, error, userRows } = useApiForGetAllUsersData(pageNum);
+    const { isPending, error, userList } = useApiForGetAllUsersData(pageNum);
     const [filters, setFilters] = useState(
         (): IUserFilter => ({
             id: 0,
@@ -113,15 +113,15 @@ const HeaderFilter = () => {
         { key: 'frontEndLevel', name: 'Frontend Level' }
     ];
 
-    console.log("userRows from api : ", userRows);
+    console.log("userRows from api : ", userList);
 
     const filteredRows = useMemo(() => {
-        return userRows.filter((r) => {
+        return userList.filter((r) => {
             return (
                 (filters.nickname !== undefined ? r.nickname.includes(filters.nickname) : true)
             );
         });
-    }, [userRows, filters]);
+    }, [userList, filters]);
 
     // const summaryRows = useMemo((): readonly SummaryRow[] => {
     //     return [
