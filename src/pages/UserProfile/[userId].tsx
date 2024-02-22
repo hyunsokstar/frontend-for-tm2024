@@ -19,7 +19,7 @@ const UserProfile = (props: IProps) => {
     const selectedUserId = userId as string; // nullish coalescing operator를 사용하여 더 간단하게 처리 가능
     // console.log("selectedUserId : ", selectedUserId);
 
-    // const { isLoading, error, dataForUserPosting } = useUserPostings(selectedUserId, pageNum);
+    const { isLoading, error, dataForUserPosting } = useUserPostings(selectedUserId, pageNum);
     const { isLoggedIn, loginUser, logout } = useUser();
 
     // if (isLoading) {
@@ -57,12 +57,12 @@ const UserProfile = (props: IProps) => {
 
                 </Box>
 
-                {/* {
+                {
                     dataForUserPosting && dataForUserPosting.data
                         && dataForUserPosting.data.user ?
                         <UserProfileInfo userInfo={dataForUserPosting.data.user} />
                         : ""
-                } */}
+                }
 
             </Box>
 

@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import 'react-data-grid/lib/styles.css';
-import { Box, Button, useToast } from '@chakra-ui/react';
+import { Avatar, Box, Button, useToast } from '@chakra-ui/react';
 import DataGrid, { RenderCheckboxProps } from 'react-data-grid';
 import useApiForGetAllUsersData from '@/hooks/useApiForGetAllUsersData';
 import { IUser } from '@/types/typeForUserBoard';
 import { SelectColumnForReactDataGrid } from '@/components/Formatter/CheckBox/SelectColumnForRdg';
 import CommonTextEditor from '@/components/GridEditor/TextEditor/CommonTextEditor';
 import CommonSelectBoxEdtior from '@/components/GridEditor/SelectBox/CommonSelectBoxEdtior';
+import ModalButtonForProfileImageUpload from '@/components/Modal/ModalButtonForProfileImageUpload';
+import useUser from '@/hooks/useUser';
 
 type Props = {};
 
 function getColumns(
   optionsForSelectRole: string[],
   optionsForSelectGender: string[],
-  optionsForSelectLevel: number[]
+  optionsForSelectLevel: number[],
+  loginUser: IUser,
+  pageNum: any
 ) {
   return [
     SelectColumnForReactDataGrid,
@@ -89,12 +93,31 @@ function getColumns(
         />
       )
     },
-    { key: 'profileImage', name: 'Profile Image' },
+    {
+      key: 'profileImage',
+      name: 'Profile Image',
+      renderCell(props: any) {
+        return (
+          <Box display={"flex"} justifyContent={"space-between"} alignItems={"center"} gap={2} height={"100%"} border={"1px dotted green"}>
+            <Avatar src={props.row.profileImage} />
+            {loginUser.email === props.row.email ?
+              <ModalButtonForProfileImageUpload
+                buttonText={'update'}
+                userEmail={props.row.email}
+                pageNum={pageNum}
+              />
+              : ""}
+          </Box>
+        )
+      },
+    },
   ]
 }
 
 const UserlistByDataGrid = (props: Props) => {
   const toast = useToast();
+  const { isLoggedIn, loginUser, logout } = useUser();
+
 
   const [userRows, setUserRows] = useState<IUser[]>([]);
   const [selectedRows, setSelectedRows] = useState((): ReadonlySet<number> => new Set());
@@ -102,13 +125,15 @@ const UserlistByDataGrid = (props: Props) => {
   const optionsForSelectGender = ["man", "woman"];
   const optionsForSelectLevel = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
+  const pageNum = 1;
   const columns = getColumns(
     optionsForSelectRole,
     optionsForSelectGender,
-    optionsForSelectLevel
+    optionsForSelectLevel,
+    loginUser,
+    pageNum
   )
 
-  const pageNum = 1;
   const { isPending, error, userList } = useApiForGetAllUsersData(pageNum);
 
   console.log("userList : ", userList);
@@ -185,6 +210,7 @@ const UserlistByDataGrid = (props: Props) => {
           renderers={{ renderCheckbox }}
           selectedRows={selectedRows}
           onSelectedRowsChange={setSelectedRows}
+          rowHeight={55}
 
         />
       ) : (

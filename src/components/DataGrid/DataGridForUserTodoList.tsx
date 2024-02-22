@@ -190,6 +190,24 @@ const getBasicColumns = (
             )
         },
         {
+            key: 'briefing',
+            name: 'briefings',
+            width: 200,
+            renderCell(props: any) {
+                // const pageInfo = "uncompletedTodosPageForUser"
+                return <Box display={"flex"} justifyContent={"flex-start"} alignItems={"center"}>
+                    <ModalButtonForTodoBrifingsForTodoId
+                        todoWriterEmail={props.row.email}
+                        todoId={props.row.id}
+                        briefings={props.row.briefings}
+                        pageInfo={pageInfo}
+                        isMainOrSub={"main"}
+                    />
+
+                </Box>
+            }
+        },
+        {
             key: "priority",
             name: "priority",
             width: 200,
@@ -263,24 +281,24 @@ const getBasicColumns = (
             name: 'elapsedTime',
             width: 200,
         },
-        {
-            key: 'briefing',
-            name: 'briefings',
-            width: 200,
-            renderCell(props: any) {
-                // const pageInfo = "uncompletedTodosPageForUser"
-                return <Box display={"flex"} justifyContent={"flex-start"} alignItems={"center"}>
-                    <ModalButtonForTodoBrifingsForTodoId
-                        todoWriterEmail={props.row.email}
-                        todoId={props.row.id}
-                        briefings={props.row.briefings}
-                        pageInfo={pageInfo}
-                        isMainOrSub={"main"}
-                    />
+        // {
+        //     key: 'briefing',
+        //     name: 'briefings',
+        //     width: 200,
+        //     renderCell(props: any) {
+        //         // const pageInfo = "uncompletedTodosPageForUser"
+        //         return <Box display={"flex"} justifyContent={"flex-start"} alignItems={"center"}>
+        //             <ModalButtonForTodoBrifingsForTodoId
+        //                 todoWriterEmail={props.row.email}
+        //                 todoId={props.row.id}
+        //                 briefings={props.row.briefings}
+        //                 pageInfo={pageInfo}
+        //                 isMainOrSub={"main"}
+        //             />
 
-                </Box>
-            }
-        },
+        //         </Box>
+        //     }
+        // },
         {
             key: "skilNoteUrl",
             name: 'skilNoteUrl',

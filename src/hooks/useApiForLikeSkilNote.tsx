@@ -16,7 +16,6 @@ const useApiForLikeSkilNote = ({ techNoteId, pageNum }: IProps) => {
         onSuccess: (result: any) => {
             console.log("result : ", result);
 
-
             if (techNoteId) {
                 queryClient.refetchQueries({
                     queryKey: ['apiForGetSkillNotesByTechNoteId', techNoteId, pageNum]
