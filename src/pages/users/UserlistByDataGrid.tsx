@@ -16,7 +16,7 @@ function getColumns(
   optionsForSelectRole: string[],
   optionsForSelectGender: string[],
   optionsForSelectLevel: number[],
-  loginUser: IUser,
+  loginUser: any,
   pageNum: any
 ) {
   return [
