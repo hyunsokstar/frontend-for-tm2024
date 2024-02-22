@@ -13,7 +13,7 @@ type Props = {};
 function getColumns(
   optionsForSelectRole: string[],
   optionsForSelectGender: string[],
-  optionsForSelectLevel: string[]
+  optionsForSelectLevel: number[]
 ) {
   return [
     SelectColumnForReactDataGrid,
