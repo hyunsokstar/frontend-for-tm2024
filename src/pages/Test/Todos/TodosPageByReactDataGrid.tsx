@@ -6,7 +6,6 @@ import React from 'react'
 type Props = {}
 
 const TodosPageByReactDataGrid = (props: Props) => {
-
     return (
         <>
             uncomplted:

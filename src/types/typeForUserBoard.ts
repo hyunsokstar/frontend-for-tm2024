@@ -11,13 +11,6 @@ export interface IUser {
     profileImage: string;
 }
 
-// 응답 데이터의 타입 정의
-interface ITypeForUserBoard {
-    users: IUser[];
-    totalCount: number;
-    perPage: number;
-}
-
 export type ITypeForResponseDataForGetAllUsers = {
     users: IUser[];
     totalCount: number;

@@ -69,6 +69,13 @@ const HeaderMenus = () => {
                     >
                         ShortCuts
                     </Link>
+                    <Link
+                        href="/users/UserlistByDataGrid"
+                        color={router.pathname.includes("/users/UserlistByDataGrid") ? "#4267B2" : "inherit"}
+                        fontWeight={router.pathname.includes("/users/UserlistByDataGrid") ? "bold" : "normal"}
+                    >
+                        유저 관리
+                    </Link>
                 </Box>
 
             </Box>

@@ -46,6 +46,7 @@ const CommonTextEditor = <TRow, TSummaryRow>({
                 onClose(true, false)
             }}
             height={"94%"}
+
         // className={gridStyles.inputStyle} // styles 객체에서 해당 클래스를 가져와서 적용
         />
     );
