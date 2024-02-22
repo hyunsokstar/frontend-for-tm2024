@@ -11,9 +11,9 @@ import CommonSelectBoxEdtior from '@/components/GridEditor/SelectBox/CommonSelec
 type Props = {};
 
 function getColumns(
-  optionsForSelectRole,
-  optionsForSelectGender,
-  optionsForSelectLevel
+  optionsForSelectRole: string[],
+  optionsForSelectGender: string[],
+  optionsForSelectLevel: string[]
 ) {
   return [
     SelectColumnForReactDataGrid,
