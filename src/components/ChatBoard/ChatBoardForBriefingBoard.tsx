@@ -145,14 +145,15 @@ const ChatBoardForBriefingBoard: React.FC<IProps> = ({ pageNum = "1", todoId, to
 
     return (
         <Box>
-            <Box overflowY={"scroll"} height={"50vh"}>
+            <Box overflowY="scroll" height="50vh" display="flex" flexDirection="column" alignItems="flex-start">
                 {briefings.length ? (
                     briefings.map((comment: any, index: number) => (
                         <Box
                             key={index}
                             m={1}
+                            alignSelf={comment.position === 'manager' ? 'flex-start' : 'flex-end'} // 매니저인 경우 왼쪽 정렬, 아닌 경우 오른쪽 정렬
                         >
-                            <Box display={"flex"} gap={2}>
+                            <Box display="flex" gap={2}>
                                 <Box>
                                     <Avatar src={comment.writer.profileImage} />
                                 </Box>
@@ -160,26 +161,20 @@ const ChatBoardForBriefingBoard: React.FC<IProps> = ({ pageNum = "1", todoId, to
                                     {comment.content}
                                 </Box>
                             </Box>
-                            <Box position="relative" display="inline-block"
-                                onMouseEnter={() => setIsHovering(true)} // 이미지에 마우스를 올렸을 때
-                                onMouseLeave={() => setIsHovering(false)} // 이미지에서 마우스가 벗어났을 때
-                            >
+                            <Box position="relative" display="inline-block">
                                 {comment.refImage && (
                                     <Box>
-                                        {/* <Img src={comment.refImage} alt="Uploaded" width={200} height={200} /> */}
                                         <ModalButtonForShowImageForBriefingBoard imageUrl={comment.refImage} />
                                     </Box>
                                 )}
                             </Box>
-
-
                         </Box>
                     ))
                 ) : (
                     <Box>No data</Box>
                 )}
-
             </Box>
+
             <Box>
                 <input type="file" onChange={handleFileInputChange} />
             </Box>
