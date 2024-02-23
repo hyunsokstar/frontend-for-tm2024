@@ -147,7 +147,28 @@ const getBasicColumns = (
                 />
             )
         },
+        {
+            key: 'briefing',
+            name: 'briefings',
+            width: 200,
+            renderCell(props: any) {
+                return (
+                    <Box
+                        display={"flex"}
+                        justifyContent={"flex-start"}
+                        alignItems={"center"}
+                    >
+                        <ModalButtonForTodoBrifingsForTodoId
+                            todoWriterEmail={props.row.email}
+                            todoId={props.row.id}
+                            briefings={props.row.briefings}
+                            isMainOrSub='sub'
+                        />
 
+                    </Box>
+                )
+            }
+        },
         {
             key: "priority",
             name: "priority",
@@ -230,23 +251,7 @@ const getBasicColumns = (
             name: 'elapsedTime',
             width: 200,
         },
-        {
-            key: 'briefing',
-            name: 'briefings',
-            width: 200,
-            renderCell(props: any) {
-                // const pageInfo = "uncompletedTodosPageForUser"
-                return <Box display={"flex"} justifyContent={"flex-start"} alignItems={"center"}>
-                    <ModalButtonForTodoBrifingsForTodoId
-                        todoWriterEmail={props.row.email}
-                        todoId={props.row.id}
-                        briefings={props.row.briefings}
-                        isMainOrSub='sub'
-                    />
 
-                </Box>
-            }
-        },
         {
             key: "skilNoteUrl",
             name: 'skilNoteUrl',

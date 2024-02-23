@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Box, Flex, Input, Button, useToast, Avatar, Spinner } from '@chakra-ui/react';
+import { Box, Flex, Input, Button, useToast, Avatar, Spinner, Tooltip, Img } from '@chakra-ui/react';
 import { RootState } from '@/store';
 import useApiForCreateChatBoardRow from '@/hooks/useApiForCreateChatBoardRow';
 import { IBriefing } from '@/types/typeforTodos';
 import { useMutation } from '@tanstack/react-query';
 import { apiForGetUrlForImageUpload, apiForUploadToCloudFlare } from '@/api/apiForCloudFlare';
+import Image from 'next/image';
+import ModalButtonForShowImageForBriefingBoard from '../Modal/ModalButtonForShowImageForBriefingBoard';
 
 interface IProps {
     todoId: string;
@@ -25,6 +27,12 @@ const ChatBoardForBriefingBoard: React.FC<IProps> = ({ pageNum = "1", todoId, to
     const createChatBoardRowMutation = useApiForCreateChatBoardRow(pageNum, pageInfo);
     const [urlToImageUpload, setUrlToImageUpload] = useState<string>("")
     const [isLoadingForImageUpload, setIsLoadingForImageUpload] = useState(false);
+
+    const [isHovering, setIsHovering] = useState(false);
+
+    const handleOpenImage = (imageUrl: string) => {
+        window.open(imageUrl, '_blank');
+    };
 
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -98,7 +106,23 @@ const ChatBoardForBriefingBoard: React.FC<IProps> = ({ pageNum = "1", todoId, to
             console.log('urlToImageUpload:', urlToImageUpload);
 
             console.log("임의의 이미지 url 을 메세지 저장할때 같이 보내서 저장");
-            await mutationForImageUploadToCloudFlare.mutate({ file: selectedFile, uploadURL: urlToImageUpload })
+
+            if (selectedFile) {
+                await mutationForImageUploadToCloudFlare.mutate({ file: selectedFile, uploadURL: urlToImageUpload })
+
+            } else {
+                createChatBoardRowMutation.mutate({
+                    todoId,
+                    userId: loginUser.id,
+                    content: inputValue,
+                    position,
+                    isMainOrSub,
+                    // refImage: result.variants[0]
+                });
+                setIsLoadingForImageUpload(false)
+            }
+
+            // await mutationForImageUploadToCloudFlare.mutate({ file: selectedFile, uploadURL: urlToImageUpload })
 
             // createChatBoardRowMutation.mutate({
             //     todoId,
@@ -136,11 +160,18 @@ const ChatBoardForBriefingBoard: React.FC<IProps> = ({ pageNum = "1", todoId, to
                                     {comment.content}
                                 </Box>
                             </Box>
-                            {comment.refImage && (
-                                <Box onClick={() => window.open(comment.refImage, '_blank')}>
-                                    <img src={comment.refImage} alt="Uploaded" style={{ width: 200, height: 200, cursor: 'pointer' }} />
-                                </Box>
-                            )}
+                            <Box position="relative" display="inline-block"
+                                onMouseEnter={() => setIsHovering(true)} // 이미지에 마우스를 올렸을 때
+                                onMouseLeave={() => setIsHovering(false)} // 이미지에서 마우스가 벗어났을 때
+                            >
+                                {comment.refImage && (
+                                    <Box>
+                                        {/* <Img src={comment.refImage} alt="Uploaded" width={200} height={200} /> */}
+                                        <ModalButtonForShowImageForBriefingBoard imageUrl={comment.refImage} />
+                                    </Box>
+                                )}
+                            </Box>
+
 
                         </Box>
                     ))
