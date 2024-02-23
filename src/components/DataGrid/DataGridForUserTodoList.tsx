@@ -729,9 +729,6 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
                         console.log("체크된 번호들: ", selectedRowIds);
                         setSelectedRows(selected);
                     }}
-                    // rowClass={(row, index) =>
-                    //     row.status === "complete" ? styles.completedRow : ""
-                    // }
                     style={{ width: "100%", height: pageInfo === "todosPageForAllUser" ? "70vh" : "50vh" }}
                     onRowsChange={setTodoList}
                 />

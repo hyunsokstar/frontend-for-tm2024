@@ -34,6 +34,9 @@ export const apiForGetUrlForImageUpload = () =>
 
 export const apiForUploadToCloudFlare = async ({ file, uploadURL }: any) => {
 
+    console.log("file to upload check ??? ", file);
+
+
     const form = new FormData();
     form.append("file", file);
 

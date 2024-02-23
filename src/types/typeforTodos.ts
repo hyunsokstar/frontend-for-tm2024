@@ -17,6 +17,7 @@ export interface IBriefing {
     position: string;
     createdAt: Date;
     updatedAt: Date;
+    refImage?: string;
 }
 
 export interface SupplementaryTodo {
@@ -123,6 +124,7 @@ export interface parameterTypeForCreateChatBoardRow {
     content: string,
     position: string,
     isMainOrSub: "main" | "sub"
+    refImage: "string";
 }
 
 export interface IParameterForUpdateRefSkilNoteForTodo {

@@ -40,13 +40,21 @@ export const apiForUpdateRefSkilnoteForTodo =
 
 export const apiForCreateChatBoardRow =
     (
-        { todoId, userId, content, position, isMainOrSub }: parameterTypeForCreateChatBoardRow
+        {
+            todoId,
+            userId,
+            content,
+            position,
+            isMainOrSub,
+            refImage
+        }: parameterTypeForCreateChatBoardRow
     ): any => {
         const dtoForChatBoard = {
             userId,
             position,
             content,
-            isMainOrSub
+            isMainOrSub,
+            refImage
         }
 
         return instance.post(

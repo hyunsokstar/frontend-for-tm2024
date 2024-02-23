@@ -14,14 +14,15 @@ interface ResponseTypeForTodoList {
     data: ResponseDataTypeForApiForGetTodoList
 }
 
-const useApiForGetUncompletedTodoListForUserId = ({ pageNum, userId, todoStatusOption }: IProps): ResponseTypeForTodoList => {
-    // console.log("pageNum, userId, todoStatusOption", pageNum, userId, todoStatusOption);
+const useApiForGetUncompletedTodoListForUserId =
+    ({ pageNum, userId, todoStatusOption }: IProps): ResponseTypeForTodoList => {
+        // console.log("pageNum, userId, todoStatusOption", pageNum, userId, todoStatusOption);
 
-    const { isLoading, error, data } = useQuery({
-        queryKey: ['uncompletedTodoList', pageNum, userId, todoStatusOption],
-        queryFn: apiForUncompletedTodoListForUserId,
-    });
-    return { isLoading, error, data };
-};
+        const { isLoading, error, data } = useQuery({
+            queryKey: ['uncompletedTodoList', pageNum, userId, todoStatusOption],
+            queryFn: apiForUncompletedTodoListForUserId,
+        });
+        return { isLoading, error, data };
+    };
 
 export default useApiForGetUncompletedTodoListForUserId;
