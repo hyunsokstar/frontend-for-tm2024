@@ -6,7 +6,7 @@ import { apiForMultiUpdateTodoRowsForChecked } from '@/api/apiForTodos';
 interface IProps {
     pageNum: any,
     userId: any,
-    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed";
+    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed" | "entry";
 }
 
 const useApiForMultiUpdateForTodoRowsForChecked = ({ pageNum, userId, todoStatusOption }: IProps) => {

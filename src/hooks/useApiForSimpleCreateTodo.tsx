@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 
 interface IProps {
     pageInfo?: string
-    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed";
+    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed" | "entry";
     userId: any,
 
 }

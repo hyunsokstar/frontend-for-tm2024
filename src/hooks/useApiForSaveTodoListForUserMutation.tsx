@@ -3,11 +3,11 @@ import { apiForSaveTodoRows } from '@/api/apiForTodos';
 import { useToast } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-// todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed";
+// todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed" | "entry";
 interface IProps {
     pageNum: any,
     userId: any,
-    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed";
+    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed" | "entry";
 }
 
 

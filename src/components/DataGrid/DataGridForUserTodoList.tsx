@@ -75,7 +75,7 @@ const getBasicColumns = (
     pageNum: string,
     mutationForUpdateRefSkilnoteForTodo: any,
     pageInfo: string,
-    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed",
+    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed" | "entry",
     userId: string
 ) => {
     return [
@@ -110,7 +110,7 @@ const getBasicColumns = (
             }) => (
                 <CommonSelectBoxEdtior
                     {...props}
-                    arrayForSelectOption={usersEmailInfo}
+                    arrayForSelectOption={[null, ...usersEmailInfo]}
                 />
             )
         },
@@ -185,7 +185,7 @@ const getBasicColumns = (
             }) => (
                 <CommonSelectBoxEdtior
                     {...props}
-                    arrayForSelectOption={["idea", "ready", "progress", "testing", "complete"]}
+                    arrayForSelectOption={["entry", "idea", "ready", "progress", "testing", "complete"]}
                 />
             )
         },
@@ -221,7 +221,17 @@ const getBasicColumns = (
                 )
             },
         },
-
+        // {
+        //     key: "isForToday",
+        //     name: "isForToday",
+        //     renderCell(props: any) {
+        //         return (
+        //             <Box display={"flex"} justifyContent={"flex-start"} alignItems={"center"} gap={0} border={"1px dotted gray"} height={"100%"}>
+        //                 {props.row.deadline === true ? "yes" : "no"}
+        //             </Box>
+        //         )
+        //     },
+        // },
         {
             key: 'startTime',
             name: 'startTime',
@@ -345,7 +355,7 @@ function getColumnsForUserUncompletedTodoList(
     pageNum: string,
     mutationForUpdateRefSkilnoteForTodo: any,
     pageInfo: string,
-    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed",
+    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed" | "entry",
     userId: string
 ) {
     const basicColumns = getBasicColumns(isMainOrSub, usersEmailInfo, pageNum, mutationForUpdateRefSkilnoteForTodo, pageInfo, todoStatusOption, userId)
@@ -399,7 +409,7 @@ interface ITypeForGridRows {
 }
 
 interface IProps {
-    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed";
+    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed" | "entry";
     pageInfo: "todosPageForAllUser" | "uncompletedTodosPageForUser";
     selectedUserId?: any;
 }
@@ -596,9 +606,9 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
             todoRowsToShow = dataForUncompletedTodoListForUser.todoList.map((row: ITypeForTodoRow) => {
                 return {
                     id: row.id,
-                    email: row.manager.email,
-                    managerId: row.manager.id,
-                    profileImage: row.manager.profileImage,
+                    email: row.manager?.email,
+                    managerId: row.manager?.id,
+                    profileImage: row.manager?.profileImage,
                     task: row.task,
                     supplementaryTodos: row.supplementaryTodos,
                     priority: row.priority,

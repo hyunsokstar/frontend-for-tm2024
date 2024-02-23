@@ -12,7 +12,7 @@ type Props = {
     supplementaryTodos: SupplementaryTodo[];
     countForSupplementTodos: number;
     usersEmailInfo: string[];
-    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed"
+    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed" | "entry"
     userId: string;
 };
 

@@ -13,7 +13,7 @@ const formatDateTime = (dateTime: string) => {
 type Props = {
     buttonText: string;
     selectedUserId?: any;
-    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed";
+    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed" | "entry";
 };
 
 const ModalButtonForTaskHistory: React.FC<Props> = ({ buttonText, selectedUserId, todoStatusOption }) => {

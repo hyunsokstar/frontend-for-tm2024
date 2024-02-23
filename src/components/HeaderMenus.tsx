@@ -33,11 +33,18 @@ const HeaderMenus = () => {
                         Home
                     </Link>
                     <Link
+                        href="/todos/todoListForEntry"
+                        color={router.pathname.includes("/todos/todoListForEntry") ? "#4267B2" : "inherit"}
+                        fontWeight={router.pathname.includes("/todos/todoListForEntry") ? "bold" : "normal"}
+                    >
+                        Todo(Entry)
+                    </Link>
+                    <Link
                         href="/Test/Todos/TodosPageByReactDataGrid"
                         color={router.pathname.includes("/Test/Todos") ? "#4267B2" : "inherit"}
                         fontWeight={router.pathname.includes("/Test/Todos") ? "bold" : "normal"}
                     >
-                        Todo
+                        Todo(Ready To Complete)
                     </Link>
 
                     <Link

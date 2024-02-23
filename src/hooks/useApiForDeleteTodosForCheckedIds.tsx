@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 type IProps = {
     pageNum: any,
     userId?: any;
-    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed";
+    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed" | "entry";
 }
 
 const useApiForDeleteTodosForCheckedIds = ({ pageNum, userId, todoStatusOption }: IProps) => {

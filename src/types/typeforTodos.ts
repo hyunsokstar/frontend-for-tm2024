@@ -39,6 +39,8 @@ export interface SupplementaryTodo {
 export interface ITypeForTodoRow {
     id: number;
     task: string;
+    isForToday: boolean,
+    isUrgent: false,
     details: string;
     status: string;
     startTime: string;
