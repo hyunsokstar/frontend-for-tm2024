@@ -72,6 +72,7 @@ const ChatBoardForBriefingBoard = ({ pageNum = "1", todoId, todoWriterEmail, bri
 
             </Box>
             {/* 채팅 입력 부분 */}
+            <Box>파일 선택</Box>
             <Flex mt={4}>
                 <Input
                     flex="1"

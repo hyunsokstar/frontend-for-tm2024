@@ -590,17 +590,11 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
 
     // 2244 
     useEffect(() => {
-        // let todoRowsToShow: ITypeForGridRows | {
-        //     id: number; email: string; task: string; status: string; startTime: string; // 변환된 형태로 저장
-        //     deadline: Date; elapsedTime: string; briefings: IBriefing[]; skilNoteUrl: string; refSkilNoteId: number;
-        // }[];
         let todoRowsToShow;
 
         if (dataForUncompletedTodoListForUser) {
             setUsersEmailInfo(dataForUncompletedTodoListForUser.usersEmailInfo)
         }
-
-        // console.log("dataForUncompletedTodoListForUser check ???", dataForUncompletedTodoListForUser);
 
         if (dataForUncompletedTodoListForUser && dataForUncompletedTodoListForUser.todoList.length > 0) {
             todoRowsToShow = dataForUncompletedTodoListForUser.todoList.map((row: ITypeForTodoRow) => {
@@ -624,8 +618,6 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
                 }
             })
             setTodoList(todoRowsToShow)
-            // setIsEnd(false)
-            // setTodoRows((prev: any) => [prev, todoRowsToShow])
         }
     }, [dataForUncompletedTodoListForUser])
 
@@ -635,7 +627,6 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
             <Box display={"flex"} justifyContent={"space-between"} gap={2} m={1}>
 
                 총 {dataForUncompletedTodoListForUser?.todoList.length} 개
-                {/* <Button>multi update</Button> */}
                 <Button onClick={() => basicOptionButtonClick("b1")}>b1</Button>
                 <Button onClick={() => basicOptionButtonClick("b2")}>b2</Button>
 
