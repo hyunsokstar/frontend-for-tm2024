@@ -3,7 +3,13 @@ import { apiForSaveSupplementaryTodoRows, apiForSaveTodoRows } from '@/api/apiFo
 import { useToast } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-const useApiForSaveSupplementaryTodoListForUserMutation = (pageNum: any, userId: any) => {
+interface IProps {
+    pageNum: any,
+    userId: any,
+    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed" | "entry";
+}
+
+const useApiForSaveSupplementaryTodoListForUserMutation = ({ pageNum, userId, todoStatusOption }: IProps) => {
     const queryClient = useQueryClient();
     const toast = useToast(); // useToast 훅 사용
 
@@ -14,7 +20,7 @@ const useApiForSaveSupplementaryTodoListForUserMutation = (pageNum: any, userId:
             console.log("result : ", result);
 
             queryClient.refetchQueries({
-                queryKey: ['uncompletedTodoList', parseInt(pageNum), userId]
+                queryKey: ['uncompletedTodoList', pageNum, userId, todoStatusOption]
             });
 
             toast({

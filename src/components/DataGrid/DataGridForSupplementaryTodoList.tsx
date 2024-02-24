@@ -322,7 +322,7 @@ const DataGridForSupplementaryTodoList = ({
 
     // mutations
     const mutationForUpdateRefSkilnoteForTodo = useApiForUpdateRefSkilnoteForTodo({ pageNum });
-    const mutationFordSupplementarySaveTodoRows = useApiForSaveSupplementaryTodoListForUserMutation(pageNum, loginUser.id);
+    const mutationFordSupplementarySaveTodoRows = useApiForSaveSupplementaryTodoListForUserMutation({ pageNum, userId, todoStatusOption });
 
     const mutationForSimpleCreateSupplementaryTodo = useApiForSimpleCreateSupplementaryTodo({ pageInfo });
     const deleteForSupplementaryTodosForCheckedIdsMutation = useApiForDeleteSupplementaryTodosForCheckedIds({ pageNum, pageInfo });
@@ -504,92 +504,99 @@ const DataGridForSupplementaryTodoList = ({
 
     return (
         <Box>
-            <Box display={"flex"} gap={2}>
+            <Box display={"flex"} gap={2} flexDirection={"column"}>
 
-                {/* supplementary todos check ! */}
-
-                <Button onClick={() => basicOptionButtonClick("b1")}>b1</Button>
-                <Button onClick={() => basicOptionButtonClick("b2")}>b2</Button>
-
-                <Box width={"20%"} mb={1}>
-                    {usersEmailInfo.length ? (
-                        <Select
-                            placeholder="default user"
-                            value={defaultUserEmail} // 현재 defaultUserEmail 상태값으로 선택
-                            onChange={handleSelectChange} // 선택 시 상태 업데이트
-                            size={"md"}
-                        >
-                            {usersEmailInfo.map((email, index) => (
-                                <option key={index} value={email}>
-                                    {email}
-                                </option>
-                            ))}
-                        </Select>
-                    ) : (
-                        "No users"
-                    )}
-                </Box>
-
-                {/* fix 0203 */}
-                {/* 데드라인  */}
-                <Box
-                    width={"14%"}
-                    // border={"1px solid green"}
-                    textAlign={"center"}
-                >
-                    {/* 0203 */}
-                    {/* fix */}
-                    {defaultDeadLine !== null ?
-                        (
-                            <Box display={"flex"} gap={1} justifyContent={"center"}>
-                                <Text>
-                                    {defaultDeadLine.toLocaleString()}
-                                </Text>
-                                <Button onClick={() => setDefaultDeadline(null)} ml={2} variant="ghost" size={"sm"}>
-                                    <CloseIcon />
-                                </Button>
-                            </Box>
-                        )
-                        : (
-                            <>
-                                <ModalButtonForSelectDeadLine button_text={"select deadline"} setDefaultDeadline={setDefaultDeadline} />
-                            </>
+                <Box display={"flex"} gap={2}>
+                    <Button onClick={() => basicOptionButtonClick("b1")}>b1</Button>
+                    <Button onClick={() => basicOptionButtonClick("b2")}>b2</Button>
+                    <Box width={"20%"}>
+                        {usersEmailInfo.length ? (
+                            <Select
+                                placeholder="default user"
+                                value={defaultUserEmail} // 현재 defaultUserEmail 상태값으로 선택
+                                onChange={handleSelectChange} // 선택 시 상태 업데이트
+                                size={"md"}
+                            >
+                                {usersEmailInfo.map((email, index) => (
+                                    <option key={index} value={email}>
+                                        {email}
+                                    </option>
+                                ))}
+                            </Select>
+                        ) : (
+                            "No users"
                         )}
-                </Box>
-                <Box>
-                    <SelectBoxForDefaultTodoStatus
-                        onChangeStatus={setDefaultTodoStatus}
-                    />
-                </Box>
-                <Button variant={"outline"} onClick={multiUpdateTodoRowsForCheckedButonClick}>update ({selectedRows.size})</Button>
+                    </Box>
 
-                <Box width={"30%"}>
-                    <InputGroup>
-                        <Input
-                            placeholder="Enter text"
-                            value={inputValue}
-                            onChange={handleInputChange}
+                    {/* fix 0203 */}
+                    {/* 데드라인  */}
+                    <Box
+                        width={"14%"}
+                        // border={"1px solid green"}
+                        textAlign={"center"}
+                    >
+                        {/* 0203 */}
+                        {/* fix */}
+                        {defaultDeadLine !== null ?
+                            (
+                                <Box display={"flex"} gap={1} justifyContent={"center"}>
+                                    <Text>
+                                        {defaultDeadLine.toLocaleString()}
+                                    </Text>
+                                    <Button onClick={() => setDefaultDeadline(null)} ml={2} variant="ghost" size={"sm"}>
+                                        <CloseIcon />
+                                    </Button>
+                                </Box>
+                            )
+                            : (
+                                <>
+                                    <ModalButtonForSelectDeadLine button_text={"select deadline"} setDefaultDeadline={setDefaultDeadline} />
+                                </>
+                            )}
+                    </Box>
+                    <Box>
+                        <SelectBoxForDefaultTodoStatus
+                            onChangeStatus={setDefaultTodoStatus}
                         />
-                        <InputRightElement width="4.5rem">
-                            <Button h="1.75rem" size="sm" onClick={createTodoButtonClick}>
-                                입력
-                            </Button>
-                        </InputRightElement>
-                    </InputGroup>
+                    </Box>
+
+                    <Button variant={"outline"} onClick={multiUpdateTodoRowsForCheckedButonClick}>update ({selectedRows.size})</Button>
+                    <Box>
+                        <Button variant={"outline"} onClick={addRowButtonClick}>Add Row</Button>
+                    </Box>
+                    <Box>
+                        <Button onClick={saveButtonClick}>save</Button>
+                    </Box>
+
+                    <Box>
+                        <Button variant={"outline"} onClick={deleteButtonClick}>Delete ({selectedRows.size})</Button>
+                    </Box>
+
                 </Box>
-                {/* row 설정 */}
-                <Box>
-                    <SelectBoxForNumberToAddRow rowNumToAdd={rowNumToAdd} setRowNumToAdd={setRowNumToAdd} />
+
+                <Box display={"flex"} border={"0px solid orange"} justifyContent={"space-between"} alignItems={"center"}>
+
+                    <Box>
+                        <SelectBoxForNumberToAddRow rowNumToAdd={rowNumToAdd} setRowNumToAdd={setRowNumToAdd} />
+                    </Box>
+
+                    <Box border={"0px solid green"} width={"100%"} p={1}>
+                        <InputGroup>
+                            <Input
+                                placeholder="Enter text"
+                                value={inputValue}
+                                onChange={handleInputChange}
+                                width={"100%"}
+                            />
+                            <InputRightElement>
+                                <Button h="1.75rem" size="sm" onClick={createTodoButtonClick}>
+                                    입력
+                                </Button>
+                            </InputRightElement>
+                        </InputGroup>
+                    </Box>
                 </Box>
-                <Box>
-                    <Button variant={"outline"} onClick={addRowButtonClick}>Add Row</Button>
-                </Box>
-                <Box>
-                    <Button onClick={saveButtonClick}>save</Button>
-                </Box>
-                <Box>
-                    <Button variant={"outline"} onClick={deleteButtonClick}>Delete ({selectedRows.size})</Button>
-                </Box>
+
             </Box>
 
 
