@@ -249,7 +249,6 @@ export const apiForMultiUpdateTodoRowsForChecked = (
     dtoForMultiUpdateTodoRowsForChecked
         : MultiUpdateTodoDto
 ) => {
-
     console.log("dtoForMultiUpdateTodoRowsForChecked : ", dtoForMultiUpdateTodoRowsForChecked);
 
     return instance.post(

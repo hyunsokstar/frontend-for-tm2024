@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useMemo, useState } from 'react';
+import React, { ChangeEvent, useEffect, useMemo, useState, KeyboardEvent } from 'react';
 import DataGrid, { RenderCheckboxProps, RenderSortStatusProps } from 'react-data-grid';
 import 'react-data-grid/lib/styles.css';
 import { SupplementaryTodo } from '@/types/typeforTodos';
@@ -324,8 +324,8 @@ const DataGridForSupplementaryTodoList = ({
     const mutationForUpdateRefSkilnoteForTodo = useApiForUpdateRefSkilnoteForTodo({ pageNum });
     const mutationFordSupplementarySaveTodoRows = useApiForSaveSupplementaryTodoListForUserMutation({ pageNum, userId, todoStatusOption });
 
-    const mutationForSimpleCreateSupplementaryTodo = useApiForSimpleCreateSupplementaryTodo({ pageInfo });
-    const deleteForSupplementaryTodosForCheckedIdsMutation = useApiForDeleteSupplementaryTodosForCheckedIds({ pageNum, pageInfo });
+    const mutationForSimpleCreateSupplementaryTodo = useApiForSimpleCreateSupplementaryTodo({ pageNum, userId, todoStatusOption });
+    const deleteForSupplementaryTodosForCheckedIdsMutation = useApiForDeleteSupplementaryTodosForCheckedIds({ pageNum, userId, todoStatusOption });
     const mutationForMultiUpdateForSupplementaryTodoRowsForChecked = useApiForMultiUpdateForSupplementaryTodoRowsForChecked({ pageNum, userId, todoStatusOption });
 
 
@@ -472,6 +472,11 @@ const DataGridForSupplementaryTodoList = ({
 
         mutationForMultiUpdateForSupplementaryTodoRowsForChecked.mutate(dtoForMultiUpdateSupplementaryTodoRowsForChecked);
     };
+    const handleInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            createTodoButtonClick();
+        }
+    }
 
     // 2244
     useEffect(() => {
@@ -580,16 +585,25 @@ const DataGridForSupplementaryTodoList = ({
                         <SelectBoxForNumberToAddRow rowNumToAdd={rowNumToAdd} setRowNumToAdd={setRowNumToAdd} />
                     </Box>
 
-                    <Box border={"0px solid green"} width={"100%"} p={1}>
+                    <Box border={"0px solid green"} width={"100%"} p={3}>
                         <InputGroup>
                             <Input
                                 placeholder="Enter text"
                                 value={inputValue}
                                 onChange={handleInputChange}
                                 width={"100%"}
+                                onKeyDown={handleInputKeyDown} // 수정됨
                             />
                             <InputRightElement>
-                                <Button h="1.75rem" size="sm" onClick={createTodoButtonClick}>
+                                <Button
+                                    size="sm"
+                                    variant={"outlined"}
+                                    border={"1px solid black"}
+                                    onClick={createTodoButtonClick}
+                                    mr={5}
+                                    colorScheme="teal"
+                                    px={6} // 수평 방향 패딩 추가
+                                >
                                     입력
                                 </Button>
                             </InputRightElement>
