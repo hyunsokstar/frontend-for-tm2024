@@ -198,6 +198,7 @@ const getBasicColumns = (
                 return <Box display={"flex"} justifyContent={"flex-start"} alignItems={"center"}>
                     <ModalButtonForTodoBrifingsForTodoId
                         todoWriterEmail={props.row.email}
+                        todoTitle={props.row.task}
                         todoId={props.row.id}
                         briefings={props.row.briefings}
                         pageInfo={pageInfo}
@@ -426,7 +427,7 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
 
     const [pageNum, setPageNum] = useState(1);
 
-    const userId = selectedUserId ? selectedUserId : loginUser.id
+    const userId = undefined
     const { isLoading, error, data: dataForUncompletedTodoListForUser }
         = useApiForGetUncompletedTodoListForUserId({ pageNum, userId, todoStatusOption });
 

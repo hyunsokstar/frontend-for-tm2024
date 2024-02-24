@@ -8,6 +8,7 @@ import { useMutation } from '@tanstack/react-query';
 import { apiForGetUrlForImageUpload, apiForUploadToCloudFlare } from '@/api/apiForCloudFlare';
 import Image from 'next/image';
 import ModalButtonForShowImageForBriefingBoard from '../Modal/ModalButtonForShowImageForBriefingBoard';
+import useApiForSelectManagerForUnsignedTask from '@/hooks/useApiForSelectManagerForUnsignedTask';
 
 interface IProps {
     todoId: string;
@@ -24,7 +25,14 @@ const ChatBoardForBriefingBoard: React.FC<IProps> = ({ pageNum = "1", todoId, to
     const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
     const loginUser = useSelector((state: RootState) => state.user.loginUser);
     const toast = useToast();
-    const createChatBoardRowMutation = useApiForCreateChatBoardRow(pageNum, pageInfo);
+    const userId = undefined
+
+    const todoStatusOption = "entry"
+
+    const mutationForSelectManagerForUnsginedTask = useApiForSelectManagerForUnsignedTask({ pageNum, userId, todoStatusOption })
+    const createChatBoardRowMutation = useApiForCreateChatBoardRow(pageNum, userId, todoStatusOption);
+
+
     const [urlToImageUpload, setUrlToImageUpload] = useState<string>("")
     const [isLoadingForImageUpload, setIsLoadingForImageUpload] = useState(false);
 
@@ -64,6 +72,7 @@ const ChatBoardForBriefingBoard: React.FC<IProps> = ({ pageNum = "1", todoId, to
             const position = todoWriterEmail === loginUser.email ? "manager" : "commenter";
 
             console.log("input value check ??? : " + inputValue);
+            console.log("chatboard row create");
 
 
             createChatBoardRowMutation.mutate({
@@ -92,11 +101,12 @@ const ChatBoardForBriefingBoard: React.FC<IProps> = ({ pageNum = "1", todoId, to
         if (isLoggedIn) {
             setIsLoadingForImageUpload(true)
             const position = todoWriterEmail === loginUser.email ? "manager" : "commenter";
-            console.log("position: ", position);
-            console.log('전송된 메시지:', inputValue);
-            console.log('선택한 파일 정보:', selectedFile); // 선택한 파일 정보 출력
-            console.log('loginUser.id:', loginUser.id);
-            console.log('urlToImageUpload:', urlToImageUpload);
+            // console.log("position: ", position);
+            // console.log('전송된 메시지:', inputValue);
+            // console.log('선택한 파일 정보:', selectedFile); // 선택한 파일 정보 출력
+            // console.log('loginUser.id:', loginUser.id);
+            // console.log('urlToImageUpload:', urlToImageUpload);
+            console.log("chatboard row create");
 
             console.log("임의의 이미지 url 을 메세지 저장할때 같이 보내서 저장");
 
@@ -128,8 +138,13 @@ const ChatBoardForBriefingBoard: React.FC<IProps> = ({ pageNum = "1", todoId, to
     const selectUserForTask = (comment: any) => {
         console.log("selectUserForTask 버튼 클릭", comment);
         console.log("todoId : ", todoId);
-        // 지원 요청 있는거 다삭제
         // 이 사람으로 담당자 배정
+        // todo, commentWriter 
+        // apiForSelectManagerForUnsignedTask (todoId, comment.writer)
+        mutationForSelectManagerForUnsginedTask.mutate({
+            todoId: todoId,
+            writerId: comment.writer.id
+        })
     }
 
     return (
@@ -151,7 +166,9 @@ const ChatBoardForBriefingBoard: React.FC<IProps> = ({ pageNum = "1", todoId, to
                                     {comment.content.includes('@지원요청') ? (
                                         <Box>
                                             {comment.content}
-                                            <Button onClick={() => selectUserForTask(comment)}>선택</Button>
+                                            {todoWriterEmail === undefined && (
+                                                <Button onClick={() => selectUserForTask(comment)}>선택</Button>
+                                            )}
                                         </Box>
                                     ) :
                                         <Box>

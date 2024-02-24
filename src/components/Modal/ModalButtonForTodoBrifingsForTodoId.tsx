@@ -10,10 +10,11 @@ interface IProps {
     briefings: IBriefing[];
     pageNum?: string;
     pageInfo?: string;
+    todoTitle?: string;
     isMainOrSub: "main" | "sub"
 }
 
-const ModalButtonForTodoBrifingsForTodoId = ({ pageNum, todoWriterEmail, todoId, briefings, pageInfo, isMainOrSub }: IProps) => {
+const ModalButtonForTodoBrifingsForTodoId = ({ pageNum, todoTitle, todoWriterEmail, todoId, briefings, pageInfo, isMainOrSub }: IProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const onOpen = () => setIsOpen(true);
@@ -25,7 +26,13 @@ const ModalButtonForTodoBrifingsForTodoId = ({ pageNum, todoWriterEmail, todoId,
             <Modal isOpen={isOpen} onClose={onClose} size={"5xl"}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Todo 브리핑을 위한 모달1</ModalHeader>
+                    <ModalHeader>
+                        <Box fontSize={"md"}>
+                            title: {todoTitle} <br />
+                            manager: {todoWriterEmail} <br />
+                            {todoWriterEmail === undefined ? " '@지원요청' 을 포함해 업무에 대해 요청 가능 합니다 !" : ""}
+                        </Box>
+                    </ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
                         {/* 여기에 채팅창 또는 내용을 넣어주세요 */}

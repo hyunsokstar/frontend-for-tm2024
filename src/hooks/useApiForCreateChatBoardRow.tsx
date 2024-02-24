@@ -6,7 +6,7 @@ import { ITypeForSaveChatBoardForTodo } from '@/types/typeforTodos';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 
-const useApiForCreateChatBoardRow = (pageNum: string, pageInfo?: string) => {
+const useApiForCreateChatBoardRow = (pageNum: any, userId: any, todoStatusOption: any) => {
     const queryClient = useQueryClient();
     const toast = useToast();
 
@@ -17,15 +17,15 @@ const useApiForCreateChatBoardRow = (pageNum: string, pageInfo?: string) => {
         mutationFn: apiForCreateChatBoardRow,
         onSuccess: (result: any) => {
             // console.log("result : ", result);
-            // console.log("pageNum ??: ", pageNum);
-            console.log("여기 실행 되는거 맞아?");
-            console.log("pageInfo : ", pageInfo);
-            console.log("typeofPageNum : ", typeof pageNum);
             // const userId = 2
+
+            console.log("pageNum : ?????", typeof pageNum, pageNum);
+            console.log("userId : ?????", typeof userId, userId);
+            console.log("todoStatusOption : ?????", typeof todoStatusOption, todoStatusOption);
 
 
             queryClient.refetchQueries({
-                queryKey: ['uncompletedTodoList', parseInt(pageNum), loginUser.id] // 수정 필요한 부분
+                queryKey: ['uncompletedTodoList', parseInt(pageNum), userId, todoStatusOption] // 수정 필요한 부분
             });
 
 

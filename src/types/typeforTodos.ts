@@ -139,3 +139,8 @@ export interface MultiUpdateTodoDto {
     defaultTodoStatus: string;
     defaultUserEmail: string | undefined;
 }
+
+export interface IParameterForSeleteTaskForUnsignedTask {
+    todoId: any;
+    writerId: any;
+}

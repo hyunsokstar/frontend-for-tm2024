@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
 import { QueryFunctionContext } from "@tanstack/react-query";
-import { IParameterForUpdateRefSkilNoteForTodo, ITypeForSaveChatBoardForTodo, MultiUpdateTodoDto, parameterTypeForCreateChatBoardRow } from "@/types/typeforTodos";
+import { IParameterForSeleteTaskForUnsignedTask, IParameterForUpdateRefSkilNoteForTodo, ITypeForSaveChatBoardForTodo, MultiUpdateTodoDto, parameterTypeForCreateChatBoardRow } from "@/types/typeforTodos";
 
 const instance = axios.create({
     baseURL: `${backendApi}/todos`,
@@ -269,3 +269,15 @@ export const apiForMultiUpdateSupplementaryTodoRowsForChecked = (
 
 // export const apiForUpdateTodoStatusFromReadyToProgress
 // isMain, todoId,  
+
+// apiForSelectManagerForUnsignedTask(todoId, comment.writer)
+
+export const apiForSelectManagerForUnsginedTask =
+    ({ todoId, writerId }: IParameterForSeleteTaskForUnsignedTask) => {
+
+        console.log("todoId, writerId : ", todoId, writerId);
+
+        return instance.post(
+            'selectManagerForUnsignedTask', { todoId, writerId }
+        ).then((response: any) => response.data)
+    }
