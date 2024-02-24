@@ -238,8 +238,9 @@ const DataGridForRoadMapList = (props: Props) => {
                     parentId: row.id,
                 });
             }
-        } else {
-            rows.splice(indexes[0] + 1, 1);
+            else {
+                rows.splice(indexes[0] + 1, 1);
+            }
         }
 
         setRoadMapList(rows); // 새로운 배열을 생성하여 상태 업데이트
