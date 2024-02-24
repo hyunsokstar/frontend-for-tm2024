@@ -20,13 +20,26 @@ const useApiForSaveTodoListForUserMutation = ({ pageNum, userId, todoStatusOptio
         onSuccess: (result) => {
             console.log("result : ", result);
 
-            if (todoStatusOption === "all_uncompleted" || todoStatusOption === "all_completed") {
+            console.log("typeof pagenum ", typeof pageNum);
+
+
+            console.log("this is save todos ?????", todoStatusOption);
+
+            if (todoStatusOption === "entry") {
+                console.log("here this is entry???????", todoStatusOption);
+
+                queryClient.refetchQueries({
+                    queryKey: ['uncompletedTodoList', pageNum, userId, "entry"]
+                });
+
+            } else if (todoStatusOption === "all_uncompleted" || todoStatusOption === "all_completed") {
                 queryClient.refetchQueries({
                     queryKey: ['uncompletedTodoList', parseInt(pageNum), userId, "all_uncompleted"]
                 });
                 queryClient.refetchQueries({
                     queryKey: ['uncompletedTodoList', parseInt(pageNum), userId, "all_completed"]
                 });
+
             } else {
 
                 queryClient.refetchQueries({

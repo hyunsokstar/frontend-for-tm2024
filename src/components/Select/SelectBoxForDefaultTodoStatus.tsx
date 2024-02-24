@@ -13,6 +13,7 @@ const SelectBoxForDefaultTodoStatus = ({ onChangeStatus }: Props) => {
     return (
         <Select defaultValue="" onChange={handleChange}>
             <option value="">선택</option>
+            <option value="entry">Idea</option>
             <option value="idea">Idea</option>
             <option value="ready">Ready</option>
             <option value="progress">Progress</option>

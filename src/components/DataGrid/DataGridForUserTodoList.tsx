@@ -339,7 +339,6 @@ const getBasicColumns = (
                                     textAlign={"center"}
                                 >
                                 </Button>
-                                {/* fix 0204 노트 선택 */}
                                 <ModalButtonForSelectNoteForTodo toDoId={props.row.id} pageInfo={pageInfo} buttonText={"선택"} isMainOrSub={isMainOrSub} />
                             </HStack>
                         }

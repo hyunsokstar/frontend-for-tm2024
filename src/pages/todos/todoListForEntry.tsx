@@ -7,7 +7,8 @@ const TodoListForEntry = (props: Props) => {
     return (
         <div>
             hi
-            <DataGridForUserTodoList pageInfo="todosPageForAllUser" todoStatusOption={'entry'} />
+            {/* <DataGridForUserTodoList pageInfo="todosPageForAllUser" todoStatusOption={'entry'} /> */}
+            <DataGridForUserTodoList pageInfo="todosPageForAllUser" todoStatusOption={'entry'} selectedUserId={undefined} />
         </div>
     )
 }
