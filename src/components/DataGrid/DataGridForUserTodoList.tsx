@@ -357,7 +357,7 @@ function getColumnsForUserUncompletedTodoList(
     mutationForUpdateRefSkilnoteForTodo: any,
     pageInfo: string,
     todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed" | "entry",
-    userId: string
+    userId: any
 ) {
     const basicColumns = getBasicColumns(isMainOrSub, usersEmailInfo, pageNum, mutationForUpdateRefSkilnoteForTodo, pageInfo, todoStatusOption, userId)
 
