@@ -22,7 +22,7 @@ const ModalButtonForTodoBrifingsForTodoIdForUser = ({ pageNum, todoWriterEmail, 
             <Modal isOpen={isOpen} onClose={onClose} size={"5xl"}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Todo 브리핑을 위한 모달</ModalHeader>
+                    <ModalHeader>Todo 브리핑을 위한 모달2</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
                         <ChatBoardForBriefingBoardForUser

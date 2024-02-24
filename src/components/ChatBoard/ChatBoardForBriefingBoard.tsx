@@ -28,13 +28,6 @@ const ChatBoardForBriefingBoard: React.FC<IProps> = ({ pageNum = "1", todoId, to
     const [urlToImageUpload, setUrlToImageUpload] = useState<string>("")
     const [isLoadingForImageUpload, setIsLoadingForImageUpload] = useState(false);
 
-    const [isHovering, setIsHovering] = useState(false);
-
-    const handleOpenImage = (imageUrl: string) => {
-        window.open(imageUrl, '_blank');
-    };
-
-
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.target.value);
     };
@@ -122,17 +115,6 @@ const ChatBoardForBriefingBoard: React.FC<IProps> = ({ pageNum = "1", todoId, to
                 setIsLoadingForImageUpload(false)
             }
 
-            // await mutationForImageUploadToCloudFlare.mutate({ file: selectedFile, uploadURL: urlToImageUpload })
-
-            // createChatBoardRowMutation.mutate({
-            //     todoId,
-            //     userId: loginUser.id,
-            //     content: inputValue,
-            //     position,
-            //     isMainOrSub,
-            //     refImage: "https://a0.muscache.com/im/pictures/miso/Hosting-13903824/original/82d996fb-d7c4-46a8-a713-febd281cd69f.jpeg"
-            // });
-
         } else {
             toast({
                 title: '로그인이 필요합니다.',
@@ -142,6 +124,13 @@ const ChatBoardForBriefingBoard: React.FC<IProps> = ({ pageNum = "1", todoId, to
             });
         }
     };
+
+    const selectUserForTask = (comment: any) => {
+        console.log("selectUserForTask 버튼 클릭", comment);
+        console.log("todoId : ", todoId);
+        // 지원 요청 있는거 다삭제
+        // 이 사람으로 담당자 배정
+    }
 
     return (
         <Box>
@@ -158,7 +147,18 @@ const ChatBoardForBriefingBoard: React.FC<IProps> = ({ pageNum = "1", todoId, to
                                     <Avatar src={comment.writer.profileImage} />
                                 </Box>
                                 <Box p={2} bg={comment.position === 'manager' ? 'gray.200' : 'blue.200'} borderRadius="md" mb={1}>
-                                    {comment.content}
+
+                                    {comment.content.includes('@지원요청') ? (
+                                        <Box>
+                                            {comment.content}
+                                            <Button onClick={() => selectUserForTask(comment)}>선택</Button>
+                                        </Box>
+                                    ) :
+                                        <Box>
+                                            {comment.content}
+                                        </Box>
+                                    }
+
                                 </Box>
                             </Box>
                             <Box position="relative" display="inline-block">
