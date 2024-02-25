@@ -15,6 +15,10 @@ const useSaveTechNotesMutation = () => {
                 queryKey: ['apiForGetAllTechNoteList']
             });
 
+            queryClient.refetchQueries({
+                queryKey: ['apiForGetAllTechNoteList']
+            });
+
             if (result.status === "error") {
                 toast({
                     title: "save tech note failure",

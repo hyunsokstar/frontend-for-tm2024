@@ -13,20 +13,37 @@ const useApiForDeleteTechNotesForCheckedIds = () => {
         mutationFn: apiForDeleteTechNotesForCheckedIds,
         onSuccess: (result) => {
             console.log("result : ", result);
+            const pageNum = 1
 
-            // 사용자 데이터를 다시 불러오는 쿼리를 리프레시
             queryClient.refetchQueries({
                 queryKey: ['apiForGetAllTechNoteList']
+
+            });
+            queryClient.refetchQueries({
+                queryKey: ['apiForGetAllRoadMapList', pageNum],
+
             });
 
-            // Chakra UI 토스트 표시
-            toast({
-                title: "Delete User",
-                description: result.message,
-                status: "success",
-                duration: 2000, // 토스트 메시지가 보여지는 시간 (2초)
-                isClosable: true, // 닫기 버튼 표시
-            });
+            if (result.success) {
+
+                // Chakra UI 토스트 표시
+                toast({
+                    title: "Delete User",
+                    description: result.message,
+                    status: "success",
+                    duration: 2000, // 토스트 메시지가 보여지는 시간 (2초)
+                    isClosable: true, // 닫기 버튼 표시
+                });
+            } else {
+                toast({
+                    title: "삭제 실패",
+                    description: result.message,
+                    status: "error",
+                    duration: 2000, // 토스트 메시지가 보여지는 시간 (2초)
+                    isClosable: true, // 닫기 버튼 표시
+                });
+            }
+
         },
     });
 

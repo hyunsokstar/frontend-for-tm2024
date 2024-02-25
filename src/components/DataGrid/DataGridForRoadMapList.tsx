@@ -12,6 +12,18 @@ import useApiForDeleteRoadMapsForCheckedIds from '@/hooks/useApiForDeleteRoadMap
 import useUser from '@/hooks/useUser';
 import CellExpanderFormatter from '@/pages/Test/ReactDataGrid/CellExpanderFormatter';
 import DataGridForTechNotesForRoadMap from './DataGridForTechNotesForRoadMap';
+import { format } from 'date-fns';
+
+
+const formatDateTime = (dateTime: string | any) => {
+    console.log("dateTime : ", typeof dateTime);
+
+    if (dateTime !== undefined) {
+        const time = new Date(dateTime);
+        return format(time, "MM-dd HH:mm");
+    }
+
+};
 
 interface ITypeForParameterForRenderCell {
     row: ITypeForRoadMapRow;
@@ -33,7 +45,10 @@ const columns = [
             if (row.type === 'DETAIL') {
                 return (
                     <Box width={"100%"}>
-                        <DataGridForTechNotesForRoadMap techNotes={row.techNotes ? row.techNotes : []} />
+                        <DataGridForTechNotesForRoadMap
+                            techNotes={row.techNotes ? row.techNotes : []}
+                            roadMapId={row.parentId}
+                        />
                     </Box>
                 )
             }
@@ -64,6 +79,7 @@ const columns = [
     {
         key: 'title',
         name: 'Title',
+        width: 500,
         renderEditCell: CommonTextEditor
     },
 
@@ -73,6 +89,28 @@ const columns = [
         width: 200,
         renderEditCell: CommonTextEditor
     },
+    {
+        key: 'createdAt',
+        name: 'Created At',
+        renderCell(props: any) {
+            // console.log("props.row.startTime : ", props.row);
+            // console.log("props.row.startTime : ", props.row.startTime);
+            if (props.row.startTime !== null && props.row.startTime !== "") {
+                // console.log("이게 실행 되면 에러 발생 인데 !");
+                console.log("props.row.createdAt : ", props.row.createdAt);
+
+                const value = formatDateTime(props.row.createdAt);
+                return (
+                    <>
+                        {value}
+                    </>
+                );
+            } else {
+                return ""
+            }
+        },
+    },
+
     // {
     //     key: 'skilnotes',
     //     name: 'Skil Notes',
@@ -242,7 +280,7 @@ const DataGridForRoadMapList = (props: Props) => {
         //         });
         //     }
         //     else {
-        //         updatedRows.splice(indexes[0] + 1, 1);
+        //         updat    edRows.splice(indexes[0] + 1, 1);
         //     }
         // }
 
@@ -332,6 +370,7 @@ const DataGridForRoadMapList = (props: Props) => {
                     title: row.title,
                     description: row.description,
                     category: row.category,
+                    createdAt: row.createdAt,
                     writer: row.writer,
                     expanded: false,
                     techNotes: row.techNotes
@@ -351,7 +390,7 @@ const DataGridForRoadMapList = (props: Props) => {
     }
 
     return (
-        <Box width={"100%"} border={"2px solid red"}>
+        <Box width={"100%"} border={"2px solid red"} >
 
             <Box display="flex" justifyContent="flex-end" mb={1}>
                 <Button onClick={handleSave} variant="outline" size="sm" mr={1}>
@@ -364,21 +403,24 @@ const DataGridForRoadMapList = (props: Props) => {
                     Add Row
                 </Button>
             </Box>
+            <Box>
+                {dataForRoadMapList ?
+                    <DataGrid
+                        columns={columns}
+                        rows={roadMapList}
 
-            {dataForRoadMapList && dataForRoadMapList?.roadMapList.length > 0 ?
-                <DataGrid
-                    columns={columns}
-                    rows={roadMapList}
+                        rowKeyGetter={(row) => row.id}
+                        renderers={{ renderCheckbox }}
+                        selectedRows={selectedRows}
+                        onSelectedRowsChange={setSelectedRows}
 
-                    rowKeyGetter={(row) => row.id}
-                    renderers={{ renderCheckbox }}
-                    selectedRows={selectedRows}
-                    onSelectedRowsChange={setSelectedRows}
+                        onRowsChange={onRowsChange}
+                        rowHeight={(row) => (row.type === 'DETAIL' ? 300 : 45)}
+                        style={{ height: "70vh" }}
+                    />
+                    : "no data"}
 
-                    onRowsChange={onRowsChange}
-                    rowHeight={(row) => (row.type === 'DETAIL' ? 300 : 45)}
-                />
-                : "no data"}
+            </Box>
         </Box>
     )
 }

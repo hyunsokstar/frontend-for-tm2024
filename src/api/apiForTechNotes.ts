@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
 import { MutationFunction, QueryFunctionContext } from "@tanstack/react-query";
+import { DtoForSaveTechNote, IParameterForLikeSkilNote, IParameterForLikeTechNote, TechNote } from "@/types/typeForTechNote";
 // import { access } from "fs";
 
 const instance = axios.create({
@@ -24,10 +25,10 @@ instance.interceptors.request.use(
     }
 );
 
-export const apiForSaveTechNotes = (techNotesToSave: TechNote[]) => {
-    console.log("techNotesToSave at api : ", techNotesToSave);
+export const apiForSaveTechNotes = ({ techNotesToSave, roadMapId }: DtoForSaveTechNote) => {
+    console.log("techNotesToSave at api : ", techNotesToSave, roadMapId);
     return instance.post(
-        'saveTechNotes', techNotesToSave
+        'saveTechNotes', { techNotesToSave, roadMapId }
     ).then((response: any) => response.data)
 }
 

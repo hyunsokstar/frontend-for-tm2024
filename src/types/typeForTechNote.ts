@@ -24,8 +24,7 @@ interface Skilnote {
 //     skilnotes: Skilnote[];
 // }
 
-
-type TechNote = {
+export type TechNote = {
     type: "MASTER";
     id: number;
     title: string;
@@ -53,12 +52,17 @@ type ResponseDataTypeForGetAllTechNoteList = {
     perPage: number;
 }
 
-type IParameterForLikeTechNote = {
+export type IParameterForLikeTechNote = {
     userId: string | number;
     techNoteId: string | number;
 }
 
-type IParameterForLikeSkilNote = {
+export type IParameterForLikeSkilNote = {
     userId: string | number;
     skilNoteId: string | number;
+}
+
+export interface DtoForSaveTechNote {
+    techNotesToSave: any[];
+    roadMapId?: any;
 }

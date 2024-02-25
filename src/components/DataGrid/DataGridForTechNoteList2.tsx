@@ -16,6 +16,7 @@ import { FaThumbsUp, FaRegThumbsUp, FaBookmark, FaRegBookmark } from 'react-icon
 
 import useApiForLikeTechNote from '@/hooks/useApiForLikeTechNote';
 import useApiForBookMarkTechNote from '@/hooks/useApiForBookMarkTechNote';
+import { TechNote } from '@/types/typeForTechNote';
 
 const options = [
     'email',
@@ -98,7 +99,6 @@ const DataGridForTechNoteList2 = () => {
         // 새 탭으로 열기
         window.open(newURL, '_blank');
     }
-
 
     // {
     //     key: 'expanded',
@@ -261,7 +261,7 @@ const DataGridForTechNoteList2 = () => {
     ];
 
     // mutation
-    const mutationForSaveTodoRows = useSaveTechNotesMutation();
+    const mutationForSaveTechNotes = useSaveTechNotesMutation();
 
     function onRowsChange(rows: TechNote[], { indexes, column }: any) {
         // console.log("indexes : ", indexes);
@@ -320,8 +320,10 @@ const DataGridForTechNoteList2 = () => {
             }
         })
 
-        // console.log('Selected Notes:', selectedNotes);
-        mutationForSaveTodoRows.mutate(techNoteRowsToSave);
+        console.log('techNoteRowsToSave ???', techNoteRowsToSave);
+        mutationForSaveTechNotes.mutate({
+            techNotesToSave: techNoteRowsToSave,
+        });
     };
 
     // fix
@@ -391,7 +393,7 @@ const DataGridForTechNoteList2 = () => {
     // 2244
     return (
         <Box width={"98%"} m={"auto"} border={"2px solid blue"}>
-            간편 입력 작업
+            간편 입력 작업2
             <Box display={"flex"} gap="2" ml={2} my={1} mt={2} >
                 <b>Group by:</b>
                 <Box display={"flex"} gap={2}>

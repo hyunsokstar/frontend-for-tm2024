@@ -52,6 +52,7 @@ export interface ITypeForSkilNoteRowForMasterDetail {
 
 export interface ITypeForTechNotesRowForRoadMapsMasterDetail {
     id: number;
+    email: string;
     title: string;
     description: string;
     category: string;

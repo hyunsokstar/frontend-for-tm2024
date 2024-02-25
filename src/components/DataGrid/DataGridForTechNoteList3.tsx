@@ -18,6 +18,7 @@ import { FaThumbsUp, FaRegThumbsUp, FaBookmark, FaRegBookmark } from 'react-icon
 
 import useApiForLikeTechNote from '@/hooks/useApiForLikeTechNote';
 import useApiForBookMarkTechNote from '@/hooks/useApiForBookMarkTechNote';
+import { TechNote } from '@/types/typeForTechNote';
 
 const options = [
     'email',
@@ -260,7 +261,7 @@ const DataGridForTechNoteList3 = ({
     ];
 
     // mutation
-    const mutationForSaveTodoRows = useSaveTechNotesMutation();
+    const mutationForSaveTechNotes = useSaveTechNotesMutation();
 
     function onRowsChange(rows: TechNote[], { indexes, column }: any) {
         // console.log("indexes : ", indexes);
@@ -320,7 +321,9 @@ const DataGridForTechNoteList3 = ({
         })
 
         // console.log('Selected Notes:', selectedNotes);
-        mutationForSaveTodoRows.mutate(techNoteRowsToSave);
+        mutationForSaveTechNotes.mutate({
+            techNotesToSave: techNoteRowsToSave,
+        });
     };
 
     // fix
