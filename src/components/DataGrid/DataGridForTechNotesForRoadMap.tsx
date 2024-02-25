@@ -1,4 +1,3 @@
-'use client'
 import React, { useEffect, useState } from 'react';
 import 'react-data-grid/lib/styles.css';
 import { Box, Button, Center, Text, useToast } from '@chakra-ui/react';
@@ -219,7 +218,7 @@ const DataGridForTechNotesForRoadMap: React.FC<Props> = ({ techNotes, roadMapId 
             })
             setNoteRows(rowsToUpdate);
         }
-    }, [])
+    }, [techNotes])
 
     return (
         <Box width={"100%"} >

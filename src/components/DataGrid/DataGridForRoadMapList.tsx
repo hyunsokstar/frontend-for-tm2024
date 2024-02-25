@@ -252,6 +252,8 @@ const DataGridForRoadMapList = (props: Props) => {
 
         mutationForSaveRoadMaps.mutate(roadMapsToSave); // API 호출
 
+        setSelectedRows(new Set())
+
     };
 
 
@@ -392,7 +394,7 @@ const DataGridForRoadMapList = (props: Props) => {
     return (
         <Box width={"100%"} border={"2px solid red"} >
 
-            <Box display="flex" justifyContent="flex-end" mb={1}>
+            <Box display="flex" justifyContent="flex-end" m={2}>
                 <Button onClick={handleSave} variant="outline" size="sm" mr={1}>
                     Save
                 </Button>
