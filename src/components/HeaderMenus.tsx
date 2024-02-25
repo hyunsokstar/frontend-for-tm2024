@@ -83,6 +83,16 @@ const HeaderMenus = () => {
                     >
                         유저 관리
                     </Link>
+                    {/* StarterKits\StarterKitList.tsx */}
+
+                    <Link
+                        href="/StarterKits/StarterKitList"
+                        color={router.pathname.includes("/StarterKits/StarterKitList") ? "#4267B2" : "inherit"}
+                        fontWeight={router.pathname.includes("/StarterKits/StarterKitList") ? "bold" : "normal"}
+                    >
+                        StarterKit
+                    </Link>
+
                 </Box>
 
             </Box>
