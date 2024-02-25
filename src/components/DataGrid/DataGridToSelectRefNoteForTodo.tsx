@@ -11,6 +11,7 @@ import useUser from '@/hooks/useUser';
 import DataGridForSkilNoteListForTechNoteId2 from '@/components/DataGrid/DataGridForSkilNoteListForTechNoteId2';
 import useApiForDeleteTechNotesForCheckedIds from '@/hooks/useApiForDeleteTechNotesForCheckedIds';
 import CellExpanderFormatter from '@/pages/Test/ReactDataGrid/CellExpanderFormatter';
+import { TechNote } from '@/types/typeForTechNote';
 
 interface IProps {
     isOpen: boolean
