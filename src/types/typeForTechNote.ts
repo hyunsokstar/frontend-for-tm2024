@@ -46,7 +46,7 @@ export type TechNote = {
     parentId: number;
 }
 
-type ResponseDataTypeForGetAllTechNoteList = {
+export type ResponseDataTypeForGetAllTechNoteList = {
     techNoteList: TechNote[];
     totalCount: number;
     perPage: number;
