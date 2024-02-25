@@ -69,7 +69,7 @@ type Props = {
     parentTodoId: number;
     supplementaryTodos: SupplementaryTodo[];
     usersEmailInfo: string[]
-    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed" | "entry",
+    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "complete" | "entry",
     userId: string
 }
 

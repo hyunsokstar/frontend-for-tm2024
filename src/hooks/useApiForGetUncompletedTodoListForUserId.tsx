@@ -5,7 +5,7 @@ import { useQuery, QueryFunctionContext } from "@tanstack/react-query";
 interface IProps {
     pageNum: any,
     userId: any,
-    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed" | "entry";
+    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "complete" | "entry";
 }
 
 interface ResponseTypeForTodoList {

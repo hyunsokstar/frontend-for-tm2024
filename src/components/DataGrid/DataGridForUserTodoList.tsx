@@ -75,7 +75,7 @@ const getBasicColumns = (
     pageNum: string,
     mutationForUpdateRefSkilnoteForTodo: any,
     pageInfo: string,
-    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed" | "entry",
+    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "complete" | "entry",
     userId: string
 ) => {
     return [
@@ -355,7 +355,7 @@ function getColumnsForUserUncompletedTodoList(
     pageNum: string,
     mutationForUpdateRefSkilnoteForTodo: any,
     pageInfo: string,
-    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed" | "entry",
+    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "complete" | "entry",
     userId: any
 ) {
     const basicColumns = getBasicColumns(isMainOrSub, usersEmailInfo, pageNum, mutationForUpdateRefSkilnoteForTodo, pageInfo, todoStatusOption, userId)
@@ -373,7 +373,7 @@ function getColumnsForUserUncompletedTodoList(
             return filteredColumns;
         }
 
-        if (todoStatusOption === "completed") {
+        if (todoStatusOption === "complete") {
             filteredColumns = basicColumns.filter(column => {
                 if (column.key !== 'elapsedTime') {
                     return column
@@ -409,7 +409,7 @@ interface ITypeForGridRows {
 }
 
 interface IProps {
-    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed" | "entry";
+    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "complete" | "entry";
     pageInfo: "todosPageForAllUser" | "uncompletedTodosPageForUser";
     selectedUserId?: any;
 }
@@ -654,7 +654,7 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
                     : ""}
 
                 {
-                    todoStatusOption !== "completed" && todoStatusOption !== "all_completed" ?
+                    todoStatusOption !== "complete" && todoStatusOption !== "all_completed" ?
                         (
                             <>
                                 <Box

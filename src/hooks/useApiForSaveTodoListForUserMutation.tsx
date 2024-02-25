@@ -3,11 +3,11 @@ import { apiForSaveTodoRows } from '@/api/apiForTodos';
 import { useToast } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-// todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed" | "entry";
+// todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "complete" | "entry";
 interface IProps {
     pageNum: any,
     userId: any,
-    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "completed" | "entry";
+    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "complete" | "entry";
 }
 
 
@@ -46,7 +46,7 @@ const useApiForSaveTodoListForUserMutation = ({ pageNum, userId, todoStatusOptio
                     queryKey: ['uncompletedTodoList', parseInt(pageNum), userId, todoStatusOption]
                 });
                 queryClient.refetchQueries({
-                    queryKey: ['uncompletedTodoList', parseInt(pageNum), userId, "completed"]
+                    queryKey: ['uncompletedTodoList', parseInt(pageNum), userId, "complete"]
                 });
                 queryClient.refetchQueries({
                     queryKey: ['uncompletedTodoList', parseInt(pageNum), userId, "idea"]
