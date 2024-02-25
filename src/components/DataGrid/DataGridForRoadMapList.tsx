@@ -224,27 +224,51 @@ const DataGridForRoadMapList = (props: Props) => {
     //     setRoadMapList(rows);
     // }
 
-    function onRowsChange(rows: ITypeForRoadMapRow[], { indexes }: RowsChangeData<ITypeForRoadMapRow>) {
+    function onRowsChange(rows: ITypeForRoadMapRow[], { indexes, column }: RowsChangeData<ITypeForRoadMapRow>) {
         console.log("onRowsChange excute check ??? roadmaps ??", rows);
 
-        const row = rows[indexes[0]];
+        const updatedRows = [...rows]; // 기존 배열을 복사하여 새로운 배열 생성
+
+        const row = updatedRows[indexes[0]];
+
+        // if (row.type === 'MASTER') {
+        //     if (row.expanded) {
+        //         updatedRows.splice(indexes[0] + 1, 0, {
+        //             type: 'DETAIL',
+        //             title: 'sample title',
+        //             id: row.id + 100,
+        //             techNotes: row.techNotes,
+        //             parentId: row.id,
+        //         });
+        //     }
+        //     else {
+        //         updatedRows.splice(indexes[0] + 1, 1);
+        //     }
+        // }
+
         if (row.type === 'MASTER') {
+            console.log("here 1?");
+
             if (row.expanded) {
-                rows.splice(indexes[0] + 1, 0, {
+                console.log("here2 ? ");
+                updatedRows.splice(indexes[0] + 1, 0, {
                     type: 'DETAIL',
                     title: 'sample title',
                     id: row.id + 100,
                     techNotes: row.techNotes,
                     parentId: row.id,
                 });
-            }
-            else {
-                rows.splice(indexes[0] + 1, 1);
+            } else {
+                console.log("here ?");
+                if (column.key === "expanded") {
+                    updatedRows.splice(indexes[0] + 1, 1);
+                }
             }
         }
+        setRoadMapList(updatedRows); // 새로운 배열을 상태로 설정
 
-        setRoadMapList(rows); // 새로운 배열을 생성하여 상태 업데이트
     }
+
 
     const handleDelete = () => {
         console.log('Delete button clicked');
