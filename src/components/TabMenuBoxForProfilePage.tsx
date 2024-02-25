@@ -25,7 +25,7 @@ const TabMenuBoxForProfilePage = ({ selectedUserId }: Props) => {
                     </TabPanel>
 
                     <TabPanel>
-                        <DataGridForUserTodoList selectedUserId={selectedUserId} pageInfo="uncompletedTodosPageForUser" todoStatusOption={'completed'} />
+                        <DataGridForUserTodoList selectedUserId={selectedUserId} pageInfo="uncompletedTodosPageForUser" todoStatusOption={'complete'} />
                     </TabPanel>
 
                     <TabPanel>
