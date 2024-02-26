@@ -110,6 +110,18 @@ const columns = [
             }
         },
     },
+    {
+        key: 'particiPants',
+        name: 'particiPants',
+        renderCell(props: any) {
+
+            return (
+                <Box>
+                    {props.row.participants.length}
+                </Box>
+            )
+        },
+    }
 
     // {
     //     key: 'skilnotes',
@@ -375,7 +387,8 @@ const DataGridForRoadMapList = (props: Props) => {
                     createdAt: row.createdAt,
                     writer: row.writer,
                     expanded: false,
-                    techNotes: row.techNotes
+                    techNotes: row.techNotes,
+                    participants: row.participants
                 });
             });
         }

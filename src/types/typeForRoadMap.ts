@@ -27,6 +27,7 @@ interface IMasterRoadMapRow {
     createdAt?: Date;
     updatedAt?: Date | null;
     techNotes?: ITypeForTechNotesRowForRoadMapsMasterDetail[]
+    participants?: ITypeForParticipantsRow[]
 }
 
 interface IDetailRoadMapRow {
@@ -36,6 +37,7 @@ interface IDetailRoadMapRow {
     title: string;
     parentId?: number;
     techNotes?: ITypeForTechNotesRowForRoadMapsMasterDetail[]
+    participants?: ITypeForParticipantsRow[]
 }
 
 export type ITypeForRoadMapRow = IMasterRoadMapRow | IDetailRoadMapRow;
@@ -61,6 +63,29 @@ export interface ITypeForTechNotesRowForRoadMapsMasterDetail {
     skilnotes: ITypeForSkilNoteRowForMasterDetail[]
 }
 
+export interface IUser {
+    id: number;
+    email: string;
+    password: string;
+    nickname: string;
+    role: string;
+    gender: string;
+    phoneNumber: string | null;
+    backEndLevel: number;
+    frontEndLevel: number;
+    profileImage: string;
+}
+
+export interface ITypeForParticipantsRow {
+    id: number;
+    currentNote: null; // 현재 노트의 타입은 무엇인지 알려주셨으면 더 좋을 것 같습니다.
+    authorityForEdit: boolean;
+    createdAt: string; // 날짜 형식 문자열로 저장된 것이기 때문에 해당 타입을 유추할 수 없습니다.
+    updatedAt: string; // 마찬가지로 날짜 형식 문자열로 저장된 것이기 때문에 해당 타입을 유추할 수 없습니다.
+    user: IUser;
+}
+
+
 interface ResponseTypeForRoadMapRow {
     id: any;
     writer: IWriterForRoadMap;
@@ -74,6 +99,7 @@ interface ResponseTypeForRoadMapRow {
     expanded: boolean;
     parentId?: number;
     techNotes: ITypeForTechNotesRowForRoadMapsMasterDetail[]
+    participants: ITypeForParticipantsRow[]
 }
 
 export interface ReponseTypeForGetAllRoadMapList {

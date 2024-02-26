@@ -145,6 +145,7 @@ const DataGridForSkilNoteListForTechNoteId2 = ({
         console.log("todoId : ", todoId, "skilNoteId", skilNoteId);
         console.log("isMainOrSub at function ?: ", isMainOrSub);
         mutationForSelectRefSkilnoteForTodo.mutate({ toDoId, skilNoteId, isMainOrSub })
+        // onCloseForTechNoteModal()
     }
 
     const columns = [
@@ -314,7 +315,7 @@ const DataGridForSkilNoteListForTechNoteId2 = ({
                             size={"xs"}
                             onClick={() => selectSkilNoteButtonHandler(toDoId, skilNoteId)}
                         >
-                            참조 노트 선택{toDoId}
+                            스킬 노트 선택
                         </Button>
                     </Box>
                 )

@@ -443,7 +443,7 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
     const [usersEmailInfo, setUsersEmailInfo] = useState<string[]>([])
     const [selectedRows, setSelectedRows] = useState((): ReadonlySet<number> => new Set());
 
-    const mutationForUpdateRefSkilnoteForTodo = useApiForUpdateRefSkilnoteForTodo({ pageNum });
+    const mutationForUpdateRefSkilnoteForTodo = useApiForUpdateRefSkilnoteForTodo({ pageNum, userId, todoStatusOption });
     const [rowNumToAdd, setRowNumToAdd] = useState<number>(1);
     const [defaultUserEmail, setDefaultUserEmail] = useState(loginUser.email);
     const [defaultDeadLine, setDefaultDeadline] = useState<Date | null>(null);

@@ -26,7 +26,7 @@ const useApiForSelectRefSkilnoteForTodo = (pageNum: number, pageInfo?: string) =
             if (pageInfo === "uncompletedTodosPageForUser") {
                 console.log("실행 for user");
                 queryClient.refetchQueries({
-                    queryKey: ['uncompletedTodoList', pageNum, loginUser.id] // 수정 필요한 부분
+                    queryKey: ['uncompletedTodoList', pageNum, undefined, "all_uncompleted"] // 수정 필요한 부분
                 });
             } else {
                 console.log("실행 for all user");

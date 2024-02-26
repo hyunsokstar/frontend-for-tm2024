@@ -304,7 +304,7 @@ const DataGridForTechNoteList3 = ({
             email: loginUser.email ? loginUser.email : ""
         }
 
-        setNoteRows((prev: TechNote[]) => [...prev, newRow])
+        setNoteRows((prev: TechNote[]) => [newRow, ...prev])
     }
 
     const saveHandler = () => {

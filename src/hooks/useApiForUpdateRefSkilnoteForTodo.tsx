@@ -5,10 +5,12 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 
 interface IProps {
-    pageNum?: any,
+    pageNum: any,
+    userId: any,
+    todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "complete" | "entry";
 }
 
-const useApiForUpdateRefSkilnoteForTodo = ({ pageNum }: IProps) => {
+const useApiForUpdateRefSkilnoteForTodo = ({ pageNum, userId, todoStatusOption }: IProps) => {
     const queryClient = useQueryClient();
     const toast = useToast();
 
@@ -38,7 +40,7 @@ const useApiForUpdateRefSkilnoteForTodo = ({ pageNum }: IProps) => {
             // }
 
             queryClient.refetchQueries({
-                queryKey: ['uncompletedTodoList', parseInt(pageNum), loginUser.id],
+                queryKey: ['uncompletedTodoList', pageNum, userId, todoStatusOption],
             });
 
         },

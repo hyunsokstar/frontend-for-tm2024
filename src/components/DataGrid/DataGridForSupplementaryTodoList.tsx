@@ -321,7 +321,7 @@ const DataGridForSupplementaryTodoList = ({
     const [defaultTodoStatus, setDefaultTodoStatus] = useState<string>("ready");
 
     // mutations
-    const mutationForUpdateRefSkilnoteForTodo = useApiForUpdateRefSkilnoteForTodo({ pageNum });
+    const mutationForUpdateRefSkilnoteForTodo = useApiForUpdateRefSkilnoteForTodo({ pageNum, userId, todoStatusOption });
     const mutationFordSupplementarySaveTodoRows = useApiForSaveSupplementaryTodoListForUserMutation({ pageNum, userId, todoStatusOption });
 
     const mutationForSimpleCreateSupplementaryTodo = useApiForSimpleCreateSupplementaryTodo({ pageNum, userId, todoStatusOption });

@@ -23,9 +23,6 @@ instance.interceptors.request.use(
         return Promise.reject(error);
     }
 
-    // todo get, '' 로 요청해서 응답 받는 api 요청 함수 추가 
-    // 함수 이름 apiForGetAllRoadMapList
-
 );
 
 
