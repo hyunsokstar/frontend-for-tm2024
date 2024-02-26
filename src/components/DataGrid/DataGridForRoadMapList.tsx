@@ -13,6 +13,7 @@ import useUser from '@/hooks/useUser';
 import CellExpanderFormatter from '@/pages/Test/ReactDataGrid/CellExpanderFormatter';
 import DataGridForTechNotesForRoadMap from './DataGridForTechNotesForRoadMap';
 import { format } from 'date-fns';
+import ModalButtonForParticipantsListForRoadMap from '../Modal/ModalButtonForParticipantsListForRoadMap';
 
 
 const formatDateTime = (dateTime: string | any) => {
@@ -39,7 +40,7 @@ const columns = [
         minWidth: 30,
         width: 30,
         colSpan(args: any) {
-            return args.type === 'ROW' && args.row.type === 'DETAIL' ? 5 : undefined;
+            return args.type === 'ROW' && args.row.type === 'DETAIL' ? 7 : undefined;
         },
         renderCell({ row, tabIndex, onRowChange }: ITypeForParameterForRenderCell) {
             if (row.type === 'DETAIL') {
@@ -117,7 +118,8 @@ const columns = [
 
             return (
                 <Box>
-                    {props.row.participants.length}
+                    {/* {props.row.participants.length} */}
+                    <ModalButtonForParticipantsListForRoadMap participants={props.row.participants ? props.row.participants : []} button_text={'participant'} />
                 </Box>
             )
         },
