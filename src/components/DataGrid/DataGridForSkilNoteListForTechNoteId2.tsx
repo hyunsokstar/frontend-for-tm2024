@@ -385,6 +385,7 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
             category: '',
             email: loginUser.email ? loginUser.email : "",
             expanded: false,
+            participants: [],
             likes: [],
             bookMarks: [],
             type: "MASTER"
