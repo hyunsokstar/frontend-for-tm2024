@@ -1,6 +1,7 @@
 import { ITypeForParticipantsRow } from '@/types/typeForRoadMap';
 import React, { useState } from 'react';
 import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from '@chakra-ui/react';
+import DataGridForParticipantsForRoadMap from '../DataGrid/DataGridForParticipantsForRoadMap';
 
 type Props = {
     participants: ITypeForParticipantsRow[];
@@ -9,6 +10,8 @@ type Props = {
 
 const ModalButtonForParticipantsListForRoadMap: React.FC<Props> = ({ participants, button_text }) => {
     const [isOpen, setIsOpen] = useState(false);
+
+    console.log("participants : ", participants);
 
     const handleOpenModal = () => {
         setIsOpen(true);
@@ -26,16 +29,19 @@ const ModalButtonForParticipantsListForRoadMap: React.FC<Props> = ({ participant
             <Modal isOpen={isOpen} onClose={handleCloseModal} size="6xl">
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Modal Title</ModalHeader>
+                    <ModalHeader>Participants For RoadMap</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        {/* 모달 내용을 이곳에 추가할 수 있습니다. */}
-                        {/* 예시: participants 배열을 사용하여 모달 바디를 렌더링 */}
+                        {/* 
                         <ul>
                             {participants.map((participant, index) => (
                                 <li key={index}>{participant.user.email}</li>
                             ))}
-                        </ul>
+                        </ul> 
+                        */}
+
+                        <DataGridForParticipantsForRoadMap participants={participants} />
+
                     </ModalBody>
                     <ModalFooter>
                         {/* 모달 하단에 필요한 내용이 있다면 여기에 추가할 수 있습니다. */}
