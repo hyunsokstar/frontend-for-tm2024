@@ -11,16 +11,15 @@ export interface Writer {
     profileImage: string | null;
 }
 
-// return {
-//     id: row.id,
-//     title: row.title,
-//     description: row.description,
-//     category: row.category,
-//     createdAt: row.createdAt,
-//     writer: row.writer,
-//     type: "MASTER",
-//     expanded: false
-// }
+export interface ITypeForPameterForParticipantsForSkilNoteRow {
+    id: number;
+    isCompleted: boolean;
+    authorityForEdit: boolean;
+    createdAt: string;
+    updatedAt: string;
+    user: Writer;
+}
+
 
 export type SkillNoteRow = {
     id: any;
@@ -40,6 +39,7 @@ export type SkillNoteRow = {
     countForSkilNoteContentsPages?: number;
     skilnote_contents?: []
     order?: number;
+    participants: ITypeForPameterForParticipantsForSkilNoteRow[]
 }
 
 export interface SkillNoteListResponse {

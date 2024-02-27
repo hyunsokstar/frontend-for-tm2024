@@ -112,7 +112,7 @@ const columns = [
         },
     },
     {
-        key: 'particiPants',
+        key: 'participants',
         name: 'particiPants',
         renderCell(props: any) {
 

@@ -20,6 +20,8 @@ import useApiForBookMarkSkilNote from "@/hooks/useApiForBookMarkSkilNote";
 import useApiForDeleteSkilNotesForCheckedIds from "@/hooks/useApiForDeleteSkilNotesForCheckedIds";
 import MyPagination from "../MyPagination";
 import ModalButtonForReorderSkilNoteList from "../Modal/ModalButtonForReorderSkilNoteList";
+import ModalButtonForParticipantsListForRoadMap from "../Modal/ModalButtonForParticipantsListForRoadMap";
+import ModalButtonForParticipantsListForSkilNote from "../Modal/ModalButtonForParticipantsListForSkilNote";
 
 
 interface IProps {
@@ -101,6 +103,7 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
                     bookMarks: [],
                     skilnote_contents: [],
                     countForSkilNoteContents: 0,
+                    participants: [],
                     order: 0
                 });
             } else {
@@ -214,6 +217,23 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
                     </Box>
                 )
             }
+        },
+
+        {
+            key: 'participants',
+            name: 'particiPants',
+            renderCell(props: any) {
+
+                return (
+                    <Box>
+                        {/* {props.row.participants.length} */}
+                        <ModalButtonForParticipantsListForSkilNote
+                            participants={props.row.participants ? props.row.participants : []}
+                            button_text={'participant'}
+                        />
+                    </Box>
+                )
+            },
         },
 
         {
@@ -395,6 +415,7 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
                     category: row.category,
                     createdAt: row.createdAt,
                     writer: row.writer,
+                    participants: row.participants,
                     likes: row.likes.map((like: any) => like.user.id),
                     bookMarks: row.bookMarks.map((bookmark: any) => bookmark.user.id),
                     countForSkilNoteContents: row.countForSkilNoteContents,

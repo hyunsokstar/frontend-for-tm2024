@@ -20,6 +20,7 @@ import useApiForBookMarkSkilNote from "@/hooks/useApiForBookMarkSkilNote";
 import useApiForDeleteSkilNotesForCheckedIds from "@/hooks/useApiForDeleteSkilNotesForCheckedIds";
 import MyPagination from "../MyPagination";
 import useApiForGetAllSkilNoteList from "@/hooks/useApiForGetAllSkilNoteList";
+import ModalButtonForParticipantsListForSkilNote from "../Modal/ModalButtonForParticipantsListForSkilNote";
 
 
 interface IProps {
@@ -101,6 +102,7 @@ const DataGridForSkilNoteListForTechNoteId2 = () => {
                     bookMarks: [],
                     skilnote_contents: [],
                     countForSkilNoteContents: 0,
+                    participants: [],
                     order: 0
                 });
             } else {
@@ -180,7 +182,22 @@ const DataGridForSkilNoteListForTechNoteId2 = () => {
                 )
             }
         },
+        {
+            key: 'participants',
+            name: 'particiPants',
+            renderCell(props: any) {
 
+                return (
+                    <Box>
+                        {/* {props.row.participants.length} */}
+                        <ModalButtonForParticipantsListForSkilNote
+                            participants={props.row.participants ? props.row.participants : []}
+                            button_text={'participant'}
+                        />
+                    </Box>
+                )
+            },
+        },
         {
             key: "likes",
             name: 'Likes',
@@ -349,6 +366,7 @@ const DataGridForSkilNoteListForTechNoteId2 = () => {
                     category: row.category,
                     createdAt: row.createdAt,
                     writer: row.writer,
+                    participants: row.participants,
                     likes: row.likes.map((like: any) => like.user.id),
                     bookMarks: row.bookMarks.map((bookmark: any) => bookmark.user.id),
                     countForSkilNoteContents: row.countForSkilNoteContents,

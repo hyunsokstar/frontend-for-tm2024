@@ -14,7 +14,7 @@ const SkilNoteListPage = (props: Props) => {
     return (
         <>
             <Head>
-                <title>스킬 노트 리스트</title>
+                <title>스킬 노트 리스트2</title>
             </Head>
             <DataGridForSkilNoteListForTechNoteId2 techNoteId={techNoteId} isOpen={true} />
         </>
