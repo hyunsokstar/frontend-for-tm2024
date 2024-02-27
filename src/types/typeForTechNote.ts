@@ -1,4 +1,3 @@
-import { ITypeForParticipantsRow } from './typeForRoadMap';
 interface Writer {
     id: number;
     email: string;

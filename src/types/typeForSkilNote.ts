@@ -39,7 +39,7 @@ export type SkillNoteRow = {
     countForSkilNoteContentsPages?: number;
     skilnote_contents?: []
     order?: number;
-    participants: ITypeForPameterForParticipantsForSkilNoteRow[]
+    participants?: ITypeForPameterForParticipantsForSkilNoteRow[]
 }
 
 export interface SkillNoteListResponse {
