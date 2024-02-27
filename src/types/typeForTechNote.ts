@@ -1,3 +1,4 @@
+import { ITypeForParticipantsRow } from './typeForRoadMap';
 interface Writer {
     id: number;
     email: string;
@@ -11,6 +12,8 @@ interface Writer {
     profileImage: string | null;
 }
 
+
+
 interface Skilnote {
     id: number;
     title: string;
@@ -20,9 +23,15 @@ interface Skilnote {
     updatedAt: string | null;
 }
 
-// interface Skilnotes {
-//     skilnotes: Skilnote[];
-// }
+export interface ITypeForParticipantsRow {
+    id: number;
+    isCompleted: boolean;
+    authorityForEdit: boolean;
+    createdAt: string;
+    updatedAt: string;
+    user: Writer;
+}
+
 
 export type TechNote = {
     type: "MASTER";
@@ -37,6 +46,7 @@ export type TechNote = {
     parentId?: any;
     skilnotes: Skilnote[];
     likes: any[]
+    participants: ITypeForParticipantsRow[]
     countForLikes: number;
     countForBookMarks: number;
     countForSkilNotes: number;

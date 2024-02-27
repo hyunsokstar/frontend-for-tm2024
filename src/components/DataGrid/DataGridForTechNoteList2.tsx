@@ -17,6 +17,7 @@ import { FaThumbsUp, FaRegThumbsUp, FaBookmark, FaRegBookmark } from 'react-icon
 import useApiForLikeTechNote from '@/hooks/useApiForLikeTechNote';
 import useApiForBookMarkTechNote from '@/hooks/useApiForBookMarkTechNote';
 import { TechNote } from '@/types/typeForTechNote';
+import ModalButtonForParticipantsListForTechNote from '../Modal/ModalButtonForParticipantsListForTechNote';
 
 const options = [
     'email',
@@ -170,6 +171,20 @@ const DataGridForTechNoteList2 = () => {
             },
         },
         {
+            key: 'participants',
+            name: 'participants',
+            renderCell(props: any) {
+                return (
+                    <Box>
+                        <ModalButtonForParticipantsListForTechNote
+                            participants={props.row.participants ? props.row.participants : []}
+                            button_text={'participant'}
+                        />
+                    </Box>
+                )
+            },
+        },
+        {
             key: "likes",
             name: 'Likes',
             width: 140,
@@ -301,6 +316,7 @@ const DataGridForTechNoteList2 = () => {
             title: '',
             description: '',
             category: '',
+            particiPants: [],
             email: loginUser.email ? loginUser.email : ""
         }
 
@@ -378,6 +394,7 @@ const DataGridForTechNoteList2 = () => {
                     category: row.category,
                     createdAt: row.createdAt,
                     skilnotes: row.skilnotes,
+                    participants: row.participants,
                     likes: row.likes.map((like: any) => like.user.id),
                     bookMarks: row.bookMarks.map((bookmark: any) => bookmark.user.id),
                     countForSkilNotes: row.countForSkilNotes,

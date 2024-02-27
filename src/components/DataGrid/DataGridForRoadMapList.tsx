@@ -115,11 +115,12 @@ const columns = [
         key: 'participants',
         name: 'particiPants',
         renderCell(props: any) {
-
             return (
                 <Box>
-                    {/* {props.row.participants.length} */}
-                    <ModalButtonForParticipantsListForRoadMap participants={props.row.participants ? props.row.participants : []} button_text={'participant'} />
+                    <ModalButtonForParticipantsListForRoadMap
+                        participants={props.row.participants ? props.row.participants : []}
+                        button_text={'participant'}
+                    />
                 </Box>
             )
         },
