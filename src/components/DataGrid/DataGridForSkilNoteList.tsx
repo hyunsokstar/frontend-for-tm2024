@@ -338,6 +338,7 @@ const DataGridForSkilNoteListForTechNoteId2 = () => {
             category: '',
             email: loginUser.email ? loginUser.email : "",
             expanded: false,
+            participants: [],
             likes: [],
             bookMarks: [],
             type: "MASTER"
