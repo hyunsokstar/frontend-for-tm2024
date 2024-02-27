@@ -16,6 +16,7 @@ export interface ITypeForParticipantsRow {
     id: number;
     user?: IUser;
     authorityForEdit: boolean;
+    isCompleted: boolean;
     currentNote?: null; // 현재 노트의 타입은 무엇인지 알려주셨으면 더 좋을 것 같습니다.
     createdAt: string; // 날짜 형식 문자열로 저장된 것이기 때문에 해당 타입을 유추할 수 없습니다.
     updatedAt?: string; // 마찬가지로 날짜 형식 문자열로 저장된 것이기 때문에 해당 타입을 유추할 수 없습니다.

@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react'
 import 'react-data-grid/lib/styles.css';
-import { Box } from '@chakra-ui/react'
+import { Box, Button } from '@chakra-ui/react'
 import DataGrid from 'react-data-grid';
 import { ITypeForParticipantsRow } from '@/types/typeForRoadMap';
 
@@ -45,13 +45,11 @@ const columns = [
 ];
 
 
-
 type Props = {
     participants: ITypeForParticipantsRow[]
 }
 
 const DataGridForParticipantsForRoadMap = ({ participants }: Props) => {
-
     const [participantRows, setParticipantRows] = useState<ITypeForParticipantsRow[]>([])
 
     useEffect(() => {
@@ -75,6 +73,8 @@ const DataGridForParticipantsForRoadMap = ({ participants }: Props) => {
 
     return (
         <Box width={"100%"} m={"auto"}>
+            <Button>Register</Button>
+
             <DataGrid columns={columns} rows={participantRows} />
         </Box>
     )

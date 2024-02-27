@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
 import { MutationFunction, QueryFunctionContext } from "@tanstack/react-query";
-import { DtoForSaveTechNote, IParameterForLikeSkilNote, IParameterForLikeTechNote, TechNote } from "@/types/typeForTechNote";
+import { DtoForSaveTechNote, IParameterForLikeSkilNote, IParameterForLikeTechNote, IParameterForUpdateIsCompletedForTechNote, TechNote } from "@/types/typeForTechNote";
 // import { access } from "fs";
 
 const instance = axios.create({
@@ -118,3 +118,13 @@ export const bookMarkSkilNote = async ({ userId, skilNoteId }: IParameterForLike
         throw error;
     }
 };
+
+export const apiForUpdateIsCompletedForTechNote = async ({ techNoteId, userId }: IParameterForUpdateIsCompletedForTechNote) => {
+    try {
+        const response = await instance.post('/participants', { techNoteId, userId });
+        console.log("response : ", response);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+} 

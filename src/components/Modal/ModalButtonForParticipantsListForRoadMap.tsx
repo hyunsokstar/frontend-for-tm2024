@@ -29,16 +29,9 @@ const ModalButtonForParticipantsListForRoadMap: React.FC<Props> = ({ participant
             <Modal isOpen={isOpen} onClose={handleCloseModal} size="6xl">
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Participants For RoadMap</ModalHeader>
+                    <ModalHeader>Participants For TechNote</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        {/* 
-                        <ul>
-                            {participants.map((participant, index) => (
-                                <li key={index}>{participant.user.email}</li>
-                            ))}
-                        </ul> 
-                        */}
 
                         <DataGridForParticipantsForRoadMap participants={participants} />
 

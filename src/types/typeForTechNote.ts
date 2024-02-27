@@ -75,3 +75,8 @@ export interface DtoForSaveTechNote {
     techNotesToSave: any[];
     roadMapId?: any;
 }
+
+export interface IParameterForUpdateIsCompletedForTechNote {
+    techNoteId: number;
+    userId: number;
+}

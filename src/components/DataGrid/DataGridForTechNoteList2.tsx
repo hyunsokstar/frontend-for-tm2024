@@ -177,6 +177,8 @@ const DataGridForTechNoteList2 = () => {
                 return (
                     <Box>
                         <ModalButtonForParticipantsListForTechNote
+                            techNoteId={props.row.id}
+                            techNoteTitle={props.row.title}
                             participants={props.row.participants ? props.row.participants : []}
                             button_text={'participant'}
                         />
@@ -410,7 +412,7 @@ const DataGridForTechNoteList2 = () => {
     // 2244
     return (
         <Box width={"98%"} m={"auto"} border={"2px solid blue"}>
-            간편 입력 작업2
+            메인 테크 노트 리스트
             <Box display={"flex"} gap="2" ml={2} my={1} mt={2} >
                 <b>Group by:</b>
                 <Box display={"flex"} gap={2}>

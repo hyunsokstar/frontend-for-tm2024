@@ -1,15 +1,21 @@
 import { ITypeForParticipantsRow } from '@/types/typeForRoadMap';
 import React, { useState } from 'react';
-import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from '@chakra-ui/react';
-import DataGridForParticipantsForRoadMap from '../DataGrid/DataGridForParticipantsForRoadMap';
-import DataGridForParticipantsForSkilNote from '../DataGrid/DataGridForParticipantsForSkilNote';
+import { Button, Text, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Center, Box } from '@chakra-ui/react';
+import DataGridForParticipantsForTechNote from '../DataGrid/DataGridForParticipantsForTechNote';
 
 type Props = {
     participants: ITypeForParticipantsRow[];
     button_text: string;
+    techNoteTitle: string;
+    techNoteId: number;
 };
 
-const ModalButtonForParticipantsListForTechNote: React.FC<Props> = ({ participants, button_text }) => {
+const ModalButtonForParticipantsListForTechNote: React.FC<Props> = ({
+    participants,
+    button_text,
+    techNoteTitle,
+    techNoteId
+}) => {
     const [isOpen, setIsOpen] = useState(false);
 
     console.log("participants : ", participants);
@@ -30,19 +36,23 @@ const ModalButtonForParticipantsListForTechNote: React.FC<Props> = ({ participan
             <Modal isOpen={isOpen} onClose={handleCloseModal} size="6xl">
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Participants For RoadMap</ModalHeader>
+                    <ModalHeader>Participants For Tech Note</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        {/* 
-                        <ul>
-                            {participants.map((participant, index) => (
-                                <li key={index}>{participant.user.email}</li>
-                            ))}
-                        </ul> 
-                        */}
+                        <Center mb={2}>
+                            <Text fontSize="xl" fontFamily="heading">
+                                TechNote: {techNoteTitle}
+                            </Text>
+                        </Center>
 
-                        <DataGridForParticipantsForSkilNote participants={participants} />
+                        <Box display={"flex"} justifyContent={"flex-end"} p={1}>
+                            <Button>Register</Button>
+                        </Box>
 
+                        <DataGridForParticipantsForTechNote
+                            participants={participants}
+                            techNoteId={techNoteId}
+                        />
                     </ModalBody>
                     <ModalFooter>
                         {/* 모달 하단에 필요한 내용이 있다면 여기에 추가할 수 있습니다. */}
