@@ -213,7 +213,7 @@ export const apiForRegisterParticipantsForSkilNote =
     async ({ skilNoteId, userId, techNoteId }: IParameterForUpdateIsCompletedForSkilNote) => {
         console.log("skilnoteId ? ", skilNoteId);
         console.log("userId : ?", userId);
-        console.log("techNoteId : ?", techNoteId);
+        console.log("techNoteId : ??? ", techNoteId);
 
         try {
             const response = await instance.post('/participants', { skilNoteId, userId, techNoteId });
