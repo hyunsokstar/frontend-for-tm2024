@@ -30,7 +30,9 @@ const ModalButtonForParticipantCorriculamnsForSkilNote: React.FC<IProps> = ({ te
                     <ModalCloseButton />
                     <ModalBody>
                         {/* <BasicDataGrid /> */}
-                        <DataGridForCorriculumnsForSkilNotesForTechNoteId curriculmns={data?.participants} />
+                        {data?.participants ?
+                            <DataGridForCorriculumnsForSkilNotesForTechNoteId curriculums={data?.participants} />
+                            : "no data"}
                     </ModalBody>
                     <ModalFooter>
                         <Button colorScheme="blue" mr={3} onClick={onClose}>
