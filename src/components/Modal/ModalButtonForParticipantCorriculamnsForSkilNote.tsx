@@ -31,7 +31,7 @@ const ModalButtonForParticipantCorriculamnsForSkilNote: React.FC<IProps> = ({ te
                     <ModalBody>
                         {/* <BasicDataGrid /> */}
                         {data?.participants ?
-                            <DataGridForCorriculumnsForSkilNotesForTechNoteId curriculums={data?.participants} />
+                            <DataGridForCorriculumnsForSkilNotesForTechNoteId curriculmns={data?.participants} />
                             : "no data"}
                     </ModalBody>
                     <ModalFooter>
