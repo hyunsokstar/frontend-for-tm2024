@@ -99,7 +99,7 @@ const DataGridForParticipantsForTechNote = ({
             setParticipantRows(participantsRowsForUpdate);
         }
 
-    }, [])
+    }, [participantRows])
 
 
     return (

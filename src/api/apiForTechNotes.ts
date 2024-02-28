@@ -121,6 +121,16 @@ export const bookMarkSkilNote = async ({ userId, skilNoteId }: IParameterForLike
 
 export const apiForUpdateIsCompletedForTechNote = async ({ techNoteId, userId }: IParameterForUpdateIsCompletedForTechNote) => {
     try {
+        const response = await instance.put('/participants/completed', { techNoteId, userId });
+        console.log("response : ", response);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const apiForRegisterParticipantsForTechNote = async ({ techNoteId, userId }: IParameterForUpdateIsCompletedForTechNote) => {
+    try {
         const response = await instance.post('/participants', { techNoteId, userId });
         console.log("response : ", response);
         return response;

@@ -1,7 +1,9 @@
 import { ITypeForParticipantsRow } from '@/types/typeForRoadMap';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Text, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Center, Box } from '@chakra-ui/react';
 import DataGridForParticipantsForTechNote from '../DataGrid/DataGridForParticipantsForTechNote';
+import useUser from '@/hooks/useUser';
+import useApiForRegisterParticipantsForTechNote from '@/hooks/useApiForRegisterParticipantsForTechNote';
 
 type Props = {
     participants: ITypeForParticipantsRow[];
@@ -17,8 +19,18 @@ const ModalButtonForParticipantsListForTechNote: React.FC<Props> = ({
     techNoteId
 }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const { isLoggedIn, loginUser, logout } = useUser();
+
+    const [participantList, setParticipantList] = useState<ITypeForParticipantsRow[]>([]);
+
+    const userId = loginUser.id;
+    const mutationForRegisterParticipantsForTechNote = useApiForRegisterParticipantsForTechNote(); // 커스텀 훅 호출
 
     console.log("participants : ", participants);
+
+    const registerButtonClick = () => {
+        mutationForRegisterParticipantsForTechNote.mutate({ userId, techNoteId })
+    };
 
     const handleOpenModal = () => {
         setIsOpen(true);
@@ -27,6 +39,16 @@ const ModalButtonForParticipantsListForTechNote: React.FC<Props> = ({
     const handleCloseModal = () => {
         setIsOpen(false);
     };
+
+    useEffect(() => {
+
+        console.log("participants : ", participants);
+
+
+        setParticipantList(participants)
+
+    }, [participants])
+
 
     return (
         <>
@@ -46,11 +68,13 @@ const ModalButtonForParticipantsListForTechNote: React.FC<Props> = ({
                         </Center>
 
                         <Box display={"flex"} justifyContent={"flex-end"} p={1}>
-                            <Button>Register</Button>
+                            <Button size="md" variant="outline" onClick={registerButtonClick}>
+                                Register
+                            </Button>
                         </Box>
 
                         <DataGridForParticipantsForTechNote
-                            participants={participants}
+                            participants={participantList}
                             techNoteId={techNoteId}
                         />
                     </ModalBody>
