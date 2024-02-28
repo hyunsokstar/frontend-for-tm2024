@@ -45,4 +45,5 @@ const ModalButtonForParticipantCorriculamnsForSkilNote: React.FC<IProps> = ({ te
     );
 }
 
+
 export default ModalButtonForParticipantCorriculamnsForSkilNote;
