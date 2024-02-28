@@ -85,3 +85,29 @@ export interface IParameterForUpdateIsCompletedForSkilNote {
     userId: number;
     techNoteId?: number;
 }
+
+
+export interface ITypeForSkilNote {
+    id: number;
+    title: string;
+    description: string;
+    category: string;
+    createdAt: string;
+    updatedAt: string | null;
+    order: number;
+}
+
+export interface ITypeForCurriculmnRowForSkilNoteForTechNote {
+    id: number;
+    isCompleted: boolean;
+    authorityForEdit: boolean;
+    createdAt: string;
+    updatedAt: string;
+    skilNote: ITypeForSkilNote;
+}
+
+
+export interface ResponseTypeForParticipantsDataForChildSkilNotesForTechNoteId {
+    success: boolean,
+    participants: ITypeForCurriculmnRowForSkilNoteForTechNote[]
+}

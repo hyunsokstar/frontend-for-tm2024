@@ -6,6 +6,7 @@ import DataGrid from 'react-data-grid';
 import { ITypeForParticipantsRow } from '@/types/typeForRoadMap';
 import useUser from '@/hooks/useUser';
 import SwitchForUpdateIsCompletedForTechNote from '../Switch/SwitchForUpdateIsCompletedForTechNote';
+import ModalButtonForParticipantCorriculamnsForSkilNote from '../Modal/ModalButtonForParticipantCorriculamnsForSkilNote';
 
 const getColumns = (
     techNoteId: number,
@@ -41,6 +42,18 @@ const getColumns = (
                         isCompleted={props.row.isCompleted}
                     />
 
+                </Box>
+            )
+        },
+        {
+            key: 'corriculumns',
+            name: 'corriculumns',
+            renderCell: (props: any) => (
+                <Box>
+                    <ModalButtonForParticipantCorriculamnsForSkilNote
+                        techNoteId={techNoteId}
+                        userId={props.row.userId}
+                    />
                 </Box>
             )
         },
@@ -89,6 +102,7 @@ const DataGridForParticipantsForTechNote = ({
 
                 return {
                     id: row.id,
+                    userId: row.user?.id,
                     email: row.user?.email,
                     authorityForEdit: row.authorityForEdit,
                     phoneNumber: row.user?.phoneNumber,
@@ -99,7 +113,7 @@ const DataGridForParticipantsForTechNote = ({
             setParticipantRows(participantsRowsForUpdate);
         }
 
-    }, [participantRows])
+    }, [])
 
 
     return (

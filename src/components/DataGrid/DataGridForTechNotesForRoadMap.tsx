@@ -10,6 +10,7 @@ import useApiForDeleteTechNotesForCheckedIds from '@/hooks/useApiForDeleteTechNo
 import CommonTextEditor from '../GridEditor/TextEditor/CommonTextEditor';
 import SelectBoxForUserEmail from '../GridEditor/SelectBox/SelectBoxForUserEmail';
 import { TechNote } from '@/types/typeForTechNote';
+import ModalButtonForParticipantsListForTechNote from '../Modal/ModalButtonForParticipantsListForTechNote';
 
 type Props = {
     techNotes: ITypeForTechNotesRowForRoadMapsMasterDetail[]; // techNotes 배열을 Props로 받음
@@ -65,6 +66,24 @@ const DataGridForTechNotesForRoadMap: React.FC<Props> = ({ techNotes, roadMapId 
             width: 200,
             renderEditCell: CommonTextEditor
         },
+
+        {
+            key: 'participants',
+            name: 'participants',
+            renderCell(props: any) {
+                return (
+                    <Box>
+                        <ModalButtonForParticipantsListForTechNote
+                            techNoteId={props.row.id}
+                            techNoteTitle={props.row.title}
+                            participants={props.row.participants ? props.row.participants : []}
+                            button_text={'participant'}
+                        />
+                    </Box>
+                )
+            },
+        },
+
         { key: 'createdAt', name: 'Created At' },
         { key: 'updatedAt', name: 'Updated At' },
         {
@@ -211,6 +230,7 @@ const DataGridForTechNotesForRoadMap: React.FC<Props> = ({ techNotes, roadMapId 
                     title: note.title,
                     skilnotes: note.skilnotes ? note.skilnotes : [],
                     description: note.description,
+                    participants: note.participants,
                     category: note.category,
                     createdAt: note.createdAt,
                     updatedAt: note.updatedAt

@@ -139,13 +139,23 @@ export const apiForRegisterParticipantsForTechNote = async ({ techNoteId, userId
     }
 }
 
-// export const apiForRegisterParticipantsForSkilNote =
-//     async ({ skilNoteId, userId }: IParameterForUpdateIsCompletedForSkilNote) => {
-//         try {
-//             const response = await instance.post('/participants', { skilNoteId, userId });
-//             console.log("response : ", response);
-//             return response;
-//         } catch (error) {
-//             throw error;
-//         }
-//     }
+export const apiForGetParticipantsColliculmnsForSkilNote = async ({ queryKey }: QueryFunctionContext) => {
+
+    try {
+        const [_, techNoteId, userId] = queryKey;
+
+        const response = await instance
+            .get("corriculmnsForSkilnote", {
+                params: {
+                    techNoteId,
+                    userId,
+                },
+            })
+
+        return response.data
+
+
+    } catch (error) {
+        throw error;
+    }
+}

@@ -312,6 +312,7 @@ const DataGridForRoadMapList = (props: Props) => {
                     id: row.id + 100,
                     techNotes: row.techNotes,
                     parentId: row.id,
+                    participants: row.participants
                 });
             } else {
                 console.log("here ?");
