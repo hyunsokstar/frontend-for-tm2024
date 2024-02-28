@@ -61,6 +61,8 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
             isBestByBookMarks,
         })
         : { isLoading: false, error: null, data: null };
+    console.log("dataForSkilNotesByTechNoteId : ", dataForSkilNotesByTechNoteId);
+
 
     const mutationToSaveSkilNoteRows = useSaveSkilNotesMutation({ techNoteId, pageNum });
     const mutationForLikeSkilNote = useApiForLikeSkilNote({ techNoteId, pageNum });
@@ -223,13 +225,15 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
             key: 'participants',
             name: 'particiPants',
             renderCell(props: any) {
-
                 return (
                     <Box>
                         {/* {props.row.participants.length} */}
+                        {/* 0228 */}
                         <ModalButtonForParticipantsListForSkilNote
                             participants={props.row.participants ? props.row.participants : []}
                             button_text={'participant'}
+                            skilNoteId={props.row.id}
+                            techNoteId={techNoteId}
                         />
                     </Box>
                 )

@@ -80,3 +80,8 @@ export interface IParameterForUpdateIsCompletedForTechNote {
     techNoteId: number;
     userId: number;
 }
+export interface IParameterForUpdateIsCompletedForSkilNote {
+    skilNoteId: number;
+    userId: number;
+    techNoteId: number;
+}

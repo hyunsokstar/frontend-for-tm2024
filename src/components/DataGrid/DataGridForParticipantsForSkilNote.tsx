@@ -70,7 +70,7 @@ const DataGridForParticipantsForSkilNote = ({ participants }: Props) => {
             setParticipantRows(participantsRowsForUpdate);
         }
 
-    }, [])
+    }, [participants])
 
 
     return (

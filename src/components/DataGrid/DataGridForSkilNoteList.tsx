@@ -193,7 +193,9 @@ const DataGridForSkilNoteListForTechNoteId2 = () => {
                         <ModalButtonForParticipantsListForSkilNote
                             participants={props.row.participants ? props.row.participants : []}
                             button_text={'participant'}
+                            skilNoteId={props.row.id}
                         />
+
                     </Box>
                 )
             },

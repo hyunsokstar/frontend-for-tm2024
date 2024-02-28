@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
 import { QueryFunctionContext } from "@tanstack/react-query";
 import { DtoForChangePagesOrderForSkilNote, SkillNoteListResponse, SkillNoteRow, dataForCreateSkilNoteContent, dataForUpdateSkilNoteContent, skilnoteRowToSave } from "@/types/typeForSkilNote";
+import { IParameterForUpdateIsCompletedForSkilNote } from "@/types/typeForTechNote";
 
 const instance = axios.create({
     baseURL: `${backendApi}/skilnotes`,
@@ -208,3 +209,17 @@ export const apiForGetAllSkilNoteList = async (
     }
 
 }
+export const apiForRegisterParticipantsForSkilNote =
+    async ({ skilNoteId, userId, techNoteId }: IParameterForUpdateIsCompletedForSkilNote) => {
+        console.log("skilnoteId ? ", skilNoteId);
+        console.log("userId : ?", userId);
+        console.log("techNoteId : ?", techNoteId);
+
+        try {
+            const response = await instance.post('/participants', { skilNoteId, userId, techNoteId });
+            console.log("response : ", response);
+            return response;
+        } catch (error) {
+            throw error;
+        }
+    }
