@@ -10,7 +10,7 @@ type Props = {
     participants: ITypeForParticipantsRow[];
     button_text: string;
     skilNoteId: number;
-    techNoteId: number;
+    techNoteId?: number;
 };
 
 const ModalButtonForParticipantsListForSkilNote: React.FC<Props>

@@ -83,5 +83,5 @@ export interface IParameterForUpdateIsCompletedForTechNote {
 export interface IParameterForUpdateIsCompletedForSkilNote {
     skilNoteId: number;
     userId: number;
-    techNoteId: number;
+    techNoteId?: number;
 }
