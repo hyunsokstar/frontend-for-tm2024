@@ -8,7 +8,7 @@ type Props = {
     curriculmns: ITypeForCurriculmnRowForSkilNoteForTechNote[];
 }
 
-const DataGridForCorriculumnsForSkilNotesForTechNoteId: React.FC<Props> = ({ curriculmns }) => {
+const DataGridForCorriculumnsForSkilNotesForTechNoteId: React.FC<Props> = ({ curriculmns: curriculmns }) => {
 
     console.log("curriculmns ??? ", curriculmns);
 
