@@ -91,6 +91,20 @@ const columns = [
         renderEditCell: CommonTextEditor
     },
     {
+        key: 'participants',
+        name: 'particiPants',
+        renderCell(props: any) {
+            return (
+                <Box>
+                    <ModalButtonForParticipantsListForRoadMap
+                        participants={props.row.participants ? props.row.participants : []}
+                        button_text={'participant'}
+                    />
+                </Box>
+            )
+        },
+    },
+    {
         key: 'createdAt',
         name: 'Created At',
         renderCell(props: any) {
@@ -111,20 +125,6 @@ const columns = [
             }
         },
     },
-    {
-        key: 'participants',
-        name: 'particiPants',
-        renderCell(props: any) {
-            return (
-                <Box>
-                    <ModalButtonForParticipantsListForRoadMap
-                        participants={props.row.participants ? props.row.participants : []}
-                        button_text={'participant'}
-                    />
-                </Box>
-            )
-        },
-    }
 
     // {
     //     key: 'skilnotes',
@@ -268,7 +268,6 @@ const DataGridForRoadMapList = (props: Props) => {
         mutationForSaveRoadMaps.mutate(roadMapsToSave); // API 호출
 
         setSelectedRows(new Set())
-
     };
 
 
