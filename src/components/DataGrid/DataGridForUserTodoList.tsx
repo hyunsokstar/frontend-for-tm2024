@@ -587,6 +587,29 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
         mutationForMultiUpdateForTodoRowsForChecked.mutate(dtoForMultiUpdateTodoRowsForChecked);
     };
 
+    const handleKeyDownForInsertButton = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            createTodoButtonClick();
+        }
+    };
+
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+        if (event.altKey) {
+            if (event.key === '1') {
+                document.getElementById('b1')?.click();
+            } else if (event.key === '2') {
+                document.getElementById('b2')?.click();
+            }
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
 
     // 2244 
     useEffect(() => {
@@ -627,8 +650,8 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
             <Box display={"flex"} justifyContent={"space-between"} gap={2} m={1}>
 
                 총 {dataForUncompletedTodoListForUser?.todoList.length} 개
-                <Button onClick={() => basicOptionButtonClick("b1")}>b1</Button>
-                <Button onClick={() => basicOptionButtonClick("b2")}>b2</Button>
+                <Button id="b1" onClick={() => basicOptionButtonClick('b1')}>b1</Button>
+                <Button id="b2" onClick={() => basicOptionButtonClick('b2')}>b2</Button>
 
                 {pageInfo === "todosPageForAllUser" && todoStatusOption !== "all_completed" ?
                     (
@@ -695,6 +718,8 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
                                             placeholder="Enter text"
                                             value={inputValue}
                                             onChange={handleInputChange}
+                                            onKeyDown={handleKeyDownForInsertButton} // Enter 키 누를 때 이벤트 처리
+
                                         />
                                         <InputRightElement width="4.5rem">
                                             <Button h="1.75rem" size="sm" onClick={createTodoButtonClick}>

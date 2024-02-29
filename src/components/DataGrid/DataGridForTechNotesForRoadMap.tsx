@@ -59,14 +59,12 @@ const DataGridForTechNotesForRoadMap: React.FC<Props> = ({ techNotes, roadMapId 
 
             renderEditCell: CommonTextEditor
         },
-
         {
             key: 'category',
             name: 'Category',
             width: 200,
             renderEditCell: CommonTextEditor
         },
-
         {
             key: 'participants',
             name: 'participants',
@@ -83,9 +81,6 @@ const DataGridForTechNotesForRoadMap: React.FC<Props> = ({ techNotes, roadMapId 
                 )
             },
         },
-
-        { key: 'createdAt', name: 'Created At' },
-        { key: 'updatedAt', name: 'Updated At' },
         {
             key: 'skilnotes',
             name: 'Skil Notes',
@@ -104,6 +99,10 @@ const DataGridForTechNotesForRoadMap: React.FC<Props> = ({ techNotes, roadMapId 
                 );
             },
         },
+
+        { key: 'createdAt', name: 'Created At' },
+        { key: 'updatedAt', name: 'Updated At' },
+
     ];
 
 
