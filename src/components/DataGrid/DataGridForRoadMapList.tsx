@@ -14,6 +14,7 @@ import CellExpanderFormatter from '@/pages/Test/ReactDataGrid/CellExpanderFormat
 import DataGridForTechNotesForRoadMap from './DataGridForTechNotesForRoadMap';
 import { format } from 'date-fns';
 import ModalButtonForParticipantsListForRoadMap from '../Modal/ModalButtonForParticipantsListForRoadMap';
+import ModalButtonForTechNoteForRoadMap from '../Modal/ModalButtonForTechNoteForRoadMap';
 
 
 const formatDateTime = (dateTime: string | any) => {
@@ -45,7 +46,7 @@ const columns = [
         renderCell({ row, tabIndex, onRowChange }: ITypeForParameterForRenderCell) {
             if (row.type === 'DETAIL') {
                 return (
-                    <Box width={"100%"}>
+                    <Box width={"100%"} bgColor={"#DCEDF9"}>
                         <DataGridForTechNotesForRoadMap
                             techNotes={row.techNotes ? row.techNotes : []}
                             roadMapId={row.parentId}
@@ -89,6 +90,22 @@ const columns = [
         name: 'Category',
         width: 200,
         renderEditCell: CommonTextEditor
+    },
+    {
+        key: 'techNote',
+        name: 'techNote',
+        width: 200,
+        // ModalButtonForTechNoteForRoadMap
+        renderCell(props: any) {
+            return (
+                <Box>
+                    <ModalButtonForTechNoteForRoadMap
+                        techNotes={props.row.techNotes}
+                        roadMapId={props.row.id}
+                    />
+                </Box>
+            )
+        },
     },
     {
         key: 'participants',
@@ -371,7 +388,7 @@ const DataGridForRoadMapList = (props: Props) => {
             return null; // 로그인 안 되어 있으면 아무것도 렌더링하지 않음
         }
 
-        setRoadMapList((prev: ITypeForRoadMapRow[]) => [...prev, newRow])
+        setRoadMapList((prev: ITypeForRoadMapRow[]) => [newRow, ...prev])
     };
 
     // 2244
