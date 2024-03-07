@@ -177,8 +177,8 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
         //     }
         // },
         {
-            key: "id",
-            name: "id",
+            key: "index",
+            name: "index",
             width: 20
         },
         {
@@ -407,11 +407,42 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
 
 
     // fix
+    // useEffect(() => {
+    //     // master detal step(1) 최초 type 과 expanded 를 설정에 추가
+    //     if (dataForSkilNotesByTechNoteId && dataForSkilNotesByTechNoteId.skilNoteList.length > 0) {
+    //         const initialSkilnoteRows = dataForSkilNotesByTechNoteId.skilNoteList.map((row, index) => {
+    //             return {
+    //                 index: index + 1,
+    //                 id: row.id,
+    //                 techNoteId: techNoteId,
+    //                 email: row.writer?.email,
+    //                 title: row.title,
+    //                 description: row.description,
+    //                 category: row.category,
+    //                 createdAt: row.createdAt,
+    //                 writer: row.writer,
+    //                 participants: row.participants,
+    //                 likes: row.likes.map((like: any) => like.user.id),
+    //                 bookMarks: row.bookMarks.map((bookmark: any) => bookmark.user.id),
+    //                 countForSkilNoteContents: row.countForSkilNoteContents,
+    //                 countForSkilNoteContentsPages: row.countForSkilNoteContentsPages,
+    //                 order: row.order,
+    //                 type: "MASTER",
+    //                 expanded: false
+    //             }
+    //         })
+    //         setSkilNoteRows(initialSkilnoteRows);
+    //     }
+    // }, [dataForSkilNotesByTechNoteId])
+
     useEffect(() => {
-        // master detal step(1) 최초 type 과 expanded 를 설정에 추가
+        // master detail step(1): 최초 type과 expanded를 설정에 추가
         if (dataForSkilNotesByTechNoteId && dataForSkilNotesByTechNoteId.skilNoteList.length > 0) {
-            const initialSkilnoteRows = dataForSkilNotesByTechNoteId.skilNoteList.map((row) => {
+            const initialSkilnoteRows = dataForSkilNotesByTechNoteId.skilNoteList.map((row, index) => {
+                // 역순으로 index 부여
+                const reversedIndex = dataForSkilNotesByTechNoteId.skilNoteList.length - index;
                 return {
+                    index: reversedIndex,
                     id: row.id,
                     techNoteId: techNoteId,
                     email: row.writer?.email,
@@ -428,11 +459,11 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
                     order: row.order,
                     type: "MASTER",
                     expanded: false
-                }
-            })
+                };
+            });
             setSkilNoteRows(initialSkilnoteRows);
         }
-    }, [dataForSkilNotesByTechNoteId])
+    }, [dataForSkilNotesByTechNoteId]);
 
 
 

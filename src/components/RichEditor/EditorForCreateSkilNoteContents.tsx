@@ -3,7 +3,6 @@ import { Box, Button, Grid, HStack, Input, InputGroup, InputLeftAddon, Text, VSt
 import TinyMCEEditor from "./TinyMCEEditor";
 import { useForm, SubmitHandler } from 'react-hook-form';
 import useApiForCreateSkilNoteContent from "@/hooks/useApiForCreateSkilNoteContent";
-// import SrcButtonForEditor from "../Button/SrcButtonForEditor";
 
 type Props = {
     skilNoteId: any,
@@ -99,6 +98,33 @@ const EditorForCreateSkilNoteContents = ({ skilNoteId, pageNum }: Props) => {
         return filePath;
     };
 
+    const transformFilePath3 = (filePath: string) => {
+        // 정규표현식을 사용하여 필요한 부분을 추출
+        const match = filePath.match(/[\\\/]([^\\\/]+[\\\/][^\\\/]+[\\\/][^\\\/]+)$/);
+        if (match) {
+            // 세 부분의 마지막 경로를 반환합니다.
+            return match[1];
+        }
+        return filePath;
+    };
+
+    const handleDoubleClick = () => {
+        // 'src' 버튼 더블 클릭 시 입력값 변환 함수 적용
+        const transformedValue3 = transformFilePath3(inputValueForFile);
+        // alert(transformedValue3) 
+        console.log("transformedValue3 : ", transformedValue3);
+        setInputValueForFile(transformedValue3);
+        // if (!inputValueForTitle) {
+        setInputValueForTitle(transformedValue3);
+        // }
+    };
+
+    <Button h='1.75rem' size='sm' onDoubleClick={handleDoubleClick}>
+        {show ? 'changed' : 'src'}
+    </Button>
+
+
+
     const handleClick = () => {
         // 'src' 버튼 클릭 시 입력값 변환 함수 적용
         const transformedValue1 = transformFilePath1(inputValueForFile);
@@ -129,14 +155,12 @@ const EditorForCreateSkilNoteContents = ({ skilNoteId, pageNum }: Props) => {
                                 onChange={handleChangeForTitle}
                             />
 
-                            {/* <Input
-                                {...register("file")}
-                                placeholder="file name"
-                            /> */}
-                            {/* hi */}
                             <InputGroup size='md'>
                                 <InputLeftAddon width='4.5rem'>
-                                    <Button h='1.75rem' size='sm' onClick={handleClick}>
+                                    <Button h='1.75rem' size='sm'
+                                        onClick={handleClick}
+                                        onDoubleClick={handleDoubleClick}
+                                    >
                                         {show ? 'changed' : 'src'}
                                     </Button>
                                 </InputLeftAddon>
