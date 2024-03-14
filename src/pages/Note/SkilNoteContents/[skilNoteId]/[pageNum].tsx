@@ -154,6 +154,7 @@ const SkilNoteContents = () => {
             </Head>
 
             <Box>
+                {/* skilnote content list page ! */}
                 {/* fix 0216 */}
                 <Box display={"flex"} border={"2px dotted black"} mx={2} p={0} gap={2}>
                     <Text>title: {dataForskilNoteContent?.title}</Text>

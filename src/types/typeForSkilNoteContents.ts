@@ -1,15 +1,15 @@
-// SkilNoteContentsModel.ts
-
-// "skilNoteContent": {
-//     "id": 306,
-//         "title": "todo1 for page",
-//             "file": ".todo",
-//                 "content": "<p>배포 과정과 관련한 액션 설정 하기</p>",
-//                     "page": 1,
-//                         "order": 1,
-//                             "createdAt": "2024-01-23T07:14:16.850Z",
-//                                 "updatedAt": null
-// }
+interface IWriter {
+    id: number;
+    email: string;
+    password: string;
+    nickname: string;
+    role: string;
+    gender: string;
+    phoneNumber: string | null;
+    backEndLevel: number;
+    frontEndLevel: number;
+    profileImage: string | null;
+}
 
 export interface ISkilNoteContent {
     id: number,
@@ -63,14 +63,45 @@ export interface TypeForRelatedSkilNoteRow {
     order: number;
 }
 
-// export type TypeForRelatedSkilNoteList = TypeForRelatedSkilNoteRow[];
+export interface ITypeForSkilNoteForMyBookMark {
+    id: number;
+    title: string;
+    description: string;
+    category: string;
+    createdAt: string;
+    updatedAt: string | null;
+    order: number;
+}
+
+
+export interface ITypeForSkilNoteContentForMyBookMark {
+    id: number;
+    title: string;
+    file: string;
+    content: string;
+    page: number;
+    order: number;
+    createdAt: string;
+    updatedAt: string | null;
+    skilNote: ITypeForSkilNoteForMyBookMark
+}
+export interface ITypeForMyBookMarksRow {
+    id: number;
+    createdAt: string;
+    updatedAt: string | null;
+    skilNoteContent: ITypeForSkilNoteContentForMyBookMark;
+}
+
+
+
 
 export type responseTypeForGetSkilNoteContents = {
     title: string;
-    writer: Writer;
+    writer: IWriter;
     skilnoteContents: SkilNoteContentsRow[]
     skilnotePagesCount: number;
     skilnoteContentsPagesInfo: SkilNoteContentsRow[]
     relatedSkilnoteList: TypeForRelatedSkilNoteRow[]
+    myBookMarks: ITypeForMyBookMarksRow[]
 };
 

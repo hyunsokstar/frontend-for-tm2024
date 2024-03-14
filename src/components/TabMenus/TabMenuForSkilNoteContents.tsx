@@ -42,15 +42,15 @@ const TabMenuForSkilNoteContents = ({
         const countForSkilNoteContents = dataForskilNoteContent?.skilnoteContents.length
         const skilnoteContents = dataForskilNoteContent?.skilnoteContents
         let totalCountForBookMark = 0
-        const myBookMarCount = skilnoteContents?.map((skilnote) => {
-            let countForBookMark = skilnote.bookMarks.filter((bookmark) => {
-                if (bookmark.user.email === loginUser.email) {
-                    console.log("check for bookmark");
-                    totalCountForBookMark++
-                }
-            })
-            return totalCountForBookMark
-        })
+        // const myBookMarCount = skilnoteContents?.map((skilnote) => {
+        //     let countForBookMark = skilnote.bookMarks.filter((bookmark) => {
+        //         if (bookmark.user.email === loginUser.email) {
+        //             console.log("check for bookmark");
+        //             totalCountForBookMark++
+        //         }
+        //     })
+        //     return totalCountForBookMark
+        // })
         setTotalCountForBookMarkCount(totalCountForBookMark)
 
         setCountForSkilNoteContents(countForSkilNoteContents)
@@ -66,7 +66,7 @@ const TabMenuForSkilNoteContents = ({
                     skilnotes
                 </Tab>
                 <Tab _selected={{ color: 'black.500', bg: 'green.200' }}>
-                    bm ({totalBookMarkCount})
+                    bm ({dataForskilNoteContent?.myBookMarks.length})
                 </Tab>
             </TabList>
             <TabPanels>
@@ -82,15 +82,10 @@ const TabMenuForSkilNoteContents = ({
                     />
                 </TabPanel>
                 <TabPanel>
-                    {/* <NavigatorForPages
-                        skilNoteId={skilNoteId}
-                        dataForskilNoteContent={dataForskilNoteContent}
-                    /> */}
                     <NavigaterForSkilNotePages2 skilNoteId={skilNoteId} pageNum={pageNum} dataForskilNoteContent={dataForskilNoteContent} />
                 </TabPanel>
                 <TabPanel>
                     <RelatedSkilNoteList relatedSkilnoteList={dataForskilNoteContent?.relatedSkilnoteList} />
-
                 </TabPanel>
                 <TabPanel>
                     <Box overflowY="scroll" height={"100vh"} border={"5px solid pink"}>

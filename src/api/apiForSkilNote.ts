@@ -76,7 +76,6 @@ export const apiForGetSkillNotesByTechNoteId = async (
     }
 };
 
-
 export const apiForGetSkilNoteContentListForSkilNoteId = async ({ queryKey }: QueryFunctionContext) => {
     const [queryName, skilNoteId, pageNum] = queryKey;
 

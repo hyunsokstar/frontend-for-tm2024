@@ -16,7 +16,7 @@ const ModalButtonForTechNoteForRoadMap: React.FC<Props> = ({ techNotes, roadMapI
 
     return (
         <>
-            <Button onClick={onOpen} border={"1px solid black"} variant={"outlined"} size={"sm"} >technotes ({techNotes.length})</Button>
+            <Button onClick={onOpen} border={"1px solid black"} variant={"outlined"} size={"sm"} >technotes ({techNotes?.length ? techNotes.length : 0})</Button>
             <Modal isOpen={isOpen} onClose={onClose} size={"7xl"}>
                 <ModalOverlay />
                 <ModalContent>
