@@ -18,14 +18,16 @@ const BuyPointsPage: React.FC = () => {
             IMP.init(code);
 
             const payment_props = {
-                "merchant_uid": merchantUid + "tm2024", // UUID 사용
-                "name": "tm2024 point",
+                "merchant_uid": merchantUid, // UUID 사용
+                "name": "tm2024_point",
                 "amount": points, // 입력한 포인트 값을 amount에 설정
             }
 
             IMP.request_pay(payment_props, function (response: any) {
                 // 결제 완료 후 처리할 로직 작성
-                location.href = "127.0.0.1:3000/";
+                // location.href = "/";
+                console.log("response : ", response);
+
             });
         } catch (error) {
             console.error(error);
