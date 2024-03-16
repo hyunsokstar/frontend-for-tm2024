@@ -4,6 +4,12 @@ import { useRouter } from 'next/router';
 import { Box, Button, Input, Heading, Flex } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 
+declare global {
+    interface Window {
+        IMP: any;
+    }
+}
+
 const BuyPointsPage: React.FC = () => {
     const router = useRouter();
     const [points, setPoints] = useState<number>(0);
@@ -24,8 +30,8 @@ const BuyPointsPage: React.FC = () => {
             }
 
             IMP.request_pay(payment_props, function (response: any) {
-                // 결제 완료 후 처리할 로직 작성
                 router.push("/"); // 홈페이지로 이동
+                console.log("결제 후 resposne check !");
                 console.log("response : ", response);
 
             });
