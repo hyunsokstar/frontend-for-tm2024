@@ -16,20 +16,14 @@ const useApiForCreateChatBoardRow = (pageNum: any, userId: any, todoStatusOption
     const mutationForCreateChatBoardRow = useMutation<ITypeForSaveChatBoardForTodo, any, any, any>({
         mutationFn: apiForCreateChatBoardRow,
         onSuccess: (result: any) => {
-            // console.log("result : ", result);
-            // const userId = 2
 
             console.log("pageNum : ?????", typeof pageNum, pageNum);
             console.log("userId : ?????", typeof userId, userId);
             console.log("todoStatusOption : ?????", typeof todoStatusOption, todoStatusOption);
 
-
             queryClient.refetchQueries({
                 queryKey: ['uncompletedTodoList', parseInt(pageNum), userId, todoStatusOption] // 수정 필요한 부분
             });
-
-
-            // todoId에 따라 다른 queryKey를 사용할 수 있도록 수정 필요
 
             toast({
                 title: "Chat board row created successfully",

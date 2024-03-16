@@ -9,12 +9,15 @@ import store from "../store/index"
 const queryClient = new QueryClient();
 
 function UserBoard({ Component, pageProps }) {
+
+
     return (
         <QueryClientProvider client={queryClient}>
             <ChakraProvider>
                 <Provider store={store}>
                     <HeaderMenus />
                     <Component {...pageProps} />
+                    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
                 </Provider>
             </ChakraProvider>
             {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
