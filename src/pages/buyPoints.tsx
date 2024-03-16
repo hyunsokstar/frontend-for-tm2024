@@ -25,7 +25,7 @@ const BuyPointsPage: React.FC = () => {
 
             IMP.request_pay(payment_props, function (response: any) {
                 // 결제 완료 후 처리할 로직 작성
-                // location.href = "/";
+                router.push("/"); // 홈페이지로 이동
                 console.log("response : ", response);
 
             });
