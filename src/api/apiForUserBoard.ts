@@ -168,3 +168,24 @@ export const apiForGetAllUserEmails = async (): Promise<string[]> => {
         throw error; // 에러를 던져서 처리할 수 있도록 합니다.
     }
 };
+
+
+export const apiForUpdateUserCashPoints =
+    ({ cashPointsToBuy }: { cashPointsToBuy: number }) => {
+
+        console.log("cashPointsToBuy : ", { cashPointsToBuy });
+
+
+        return instance.put(`buyPoints`, { cashPointsToBuy })
+            .then((response) => {
+                // 성공 시 처리
+                return response.data;
+            })
+            .catch((error) => {
+                // 에러 처리
+                console.log("api error : ", error);
+
+                return error; // 에러를 그대로 던지기
+            });
+
+    } 

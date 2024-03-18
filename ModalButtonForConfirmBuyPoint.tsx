@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useToast } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
+import useApiForUpdateUserCashPoints from '@/hooks/useApiForUpdateUserCashPoints';
 
 
 type Props = {
@@ -14,6 +15,8 @@ const ModalButtonForConfirmBuyPoint: React.FC<Props> = ({ button_text, cashPoint
     const [isOpen, setIsOpen] = React.useState(false);
     const toast = useToast();
     const [merchantUid, setMerchantUid] = useState<string>(uuidv4()); // UUID 생성 및 상태 관리
+    const updateUserCashPointsMutation = useApiForUpdateUserCashPoints();
+
 
     const handleConfirm = () => {
         if (!isLoggedIn) {
@@ -61,15 +64,16 @@ const ModalButtonForConfirmBuyPoint: React.FC<Props> = ({ button_text, cashPoint
                 console.log("response : ", response);
 
                 if (response.success) {
+                    updateUserCashPointsMutation.mutate({ cashPointsToBuy: response.paid_amount })
 
-                    toast({
-                        title: "point 구매 성공",
-                        description: `${response.paid_amount} 원을 결제 성공 !`,
-                        status: "warning",
-                        duration: 3000,
-                        position: "top",
-                        isClosable: true,
-                    });
+                    // toast({
+                    //     title: "point 구매 성공",
+                    //     description: `${response.paid_amount} 원을 결제 성공 !`,
+                    //     status: "warning",
+                    //     duration: 3000,
+                    //     position: "top",
+                    //     isClosable: true,
+                    // });
 
                     setPurchaseAmountForPoints(0)
                     setIsOpen(false);
