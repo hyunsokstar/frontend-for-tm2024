@@ -29,10 +29,10 @@ const useUser = () => {
         if (accessToken && refreshToken) {
             try {
                 const result = await apiForLoginCheckWithAccessToken(accessToken);
-                // console.log("result for check login user : ", result);
+                console.log("result for check login user : ", result);
 
                 if (result.success) {
-                    const { id, email, nickname, following, followers } = result.user;
+                    const { id, email, nickname, following, followers, cashPoints } = result.user;
                     // console.log("login success by access token");
 
                     // 받아온 정보를 이용하여 로그인 상태 갱신
@@ -42,7 +42,8 @@ const useUser = () => {
                             email,
                             nickname,
                             following,
-                            followers
+                            followers,
+                            cashPoints
                         })
                     );
                 } else {

@@ -110,6 +110,7 @@ const HeaderMenus = () => {
                         <Link href={`/UserProfile/${loginUser.id}`}>
                             <a>{loginUser.email}님</a>
                         </Link>
+                        ({loginUser.cashPoints} 원)
                         {/* {loginUser.id} */}
                     </Box>
                     <Button

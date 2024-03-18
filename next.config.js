@@ -9,7 +9,7 @@
 // export default nextConfig;
 
 module.exports = {
-    reactStrictMode: true,
+    reactStrictMode: false,
     env: {
         PORTONE_SHOP_ID: process.env.PORTONE_SHOP_ID,
         PORTONE_API_KEY: process.env.PORTONE_API_KEY,

@@ -9,6 +9,7 @@ interface UserState {
         nickname: string;
         following: any[];
         followers: any[];
+        cashPoints: number;
     };
 }
 
@@ -19,7 +20,8 @@ const initialState: UserState = {
         email: '',
         nickname: '',
         following: [],
-        followers: []
+        followers: [],
+        cashPoints: 0
     },
 };
 
@@ -27,14 +29,24 @@ export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        setLoginUser: (state, action: PayloadAction<{ id: number, email: string; nickname: string, following: any[], followers: any[] }>) => {
-            const { id, email, nickname, following, followers } = action.payload;
+        setLoginUser: (
+            state, action:
+                PayloadAction<{
+                    id: number,
+                    email: string;
+                    nickname: string,
+                    following: any[],
+                    followers: any[],
+                    cashPoints: number
+                }>) => {
+            const { id, email, nickname, following, followers, cashPoints } = action.payload;
             state.loginUser = {
                 id,
                 email,
                 nickname,
                 following,
-                followers
+                followers,
+                cashPoints
             };
             state.isLoggedIn = true; // 로그인 상태 변경
         },
@@ -45,10 +57,10 @@ export const userSlice = createSlice({
                 email: '',
                 nickname: '',
                 following: [],
-                followers: []
-            }; // 로그아웃 시 유저 정보 초기화
+                followers: [],
+                cashPoints: 0
+            };
         },
-        // 다른 액션들도 추가 가능
     },
 });
 

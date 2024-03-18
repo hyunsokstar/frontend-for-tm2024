@@ -55,7 +55,7 @@ const ModalButtonForLogin: React.FC<ModalButtonForLoginProps> = ({ buttonText })
         // mutationFn: apiForLogin,
         onSuccess: (result) => {
             // 성공시 처리
-            console.log("result : ", result);
+            console.log("login result : ", result);
 
             if (result.success) {
                 dispatch(
@@ -64,7 +64,8 @@ const ModalButtonForLogin: React.FC<ModalButtonForLoginProps> = ({ buttonText })
                         email: result.email,
                         nickname: result.nickname,
                         following: result.following,
-                        followers: result.followers
+                        followers: result.followers,
+                        cashPoints: result.cashPoints
                     })
                 );
                 localStorage.setItem('accessToken', result.accessToken);
