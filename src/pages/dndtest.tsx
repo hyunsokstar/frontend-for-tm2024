@@ -9,7 +9,7 @@ const MyDndComponent = () => {
         { id: '3', text: 'Todo 3' },
     ]);
 
-    const handleDragEnd = (result) => {
+    const handleDragEnd = (result: any) => {
         if (!result.destination) return;
 
         const items = Array.from(todos);
