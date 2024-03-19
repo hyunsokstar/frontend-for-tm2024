@@ -29,7 +29,7 @@ const useUser = () => {
         if (accessToken && refreshToken) {
             try {
                 const result = await apiForLoginCheckWithAccessToken(accessToken);
-                console.log("result for check login user : ", result);
+                // console.log("result for check login user : ", result);
 
                 if (result.success) {
                     const { id, email, nickname, following, followers, cashPoints } = result.user;

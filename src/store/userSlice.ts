@@ -9,7 +9,7 @@ interface UserState {
         nickname: string;
         following: any[];
         followers: any[];
-        cashPoints: number;
+        cashPoints?: number;
     };
 }
 
@@ -37,7 +37,7 @@ export const userSlice = createSlice({
                     nickname: string,
                     following: any[],
                     followers: any[],
-                    cashPoints: number
+                    cashPoints?: number
                 }>) => {
             const { id, email, nickname, following, followers, cashPoints } = action.payload;
             state.loginUser = {
