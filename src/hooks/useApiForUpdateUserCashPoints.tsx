@@ -24,7 +24,7 @@ const useApiForUpdateUserCashPoints = () => {
             });
 
             // 페이지 이동
-            router.push('/');
+            router.push('/PaymentHistory');
 
             return result.data;
         },

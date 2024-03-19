@@ -30,3 +30,10 @@ export type Row = {
     phoneNumber: string | null;
 };
 
+export interface RowTypeForPaymentHistoryData {
+    id: number;
+    paymentAmount: number;
+    merchantUid: string;
+    createdAt: string;
+}
+

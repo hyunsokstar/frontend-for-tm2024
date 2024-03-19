@@ -64,7 +64,7 @@ const ModalButtonForConfirmBuyPoint: React.FC<Props> = ({ button_text, cashPoint
                 console.log("response : ", response);
 
                 if (response.success) {
-                    updateUserCashPointsMutation.mutate({ cashPointsToBuy: response.paid_amount })
+                    updateUserCashPointsMutation.mutate({ cashPointsToBuy: response.paid_amount, merchantUid })
 
                     // toast({
                     //     title: "point 구매 성공",

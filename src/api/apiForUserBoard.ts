@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
 import { QueryFunctionContext } from "@tanstack/react-query";
 import { IParamterTypeForLogin } from "@/types/typeForAuthentication";
-import { IUser } from "@/types/typeForUserBoard";
+import { IUser, RowTypeForPaymentHistoryData } from "@/types/typeForUserBoard";
 
 const instance = axios.create({
     baseURL: `${backendApi}/users`,
@@ -21,6 +21,16 @@ instance.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+export async function apiForGetUsersPaymentHistory():
+    Promise<AxiosResponse<any>> {
+    try {
+        const response = await instance.get('/payment-history');
+        return response.data;
+    } catch (error: any) {
+        throw new Error(error.response.data.message);
+    }
+}
 
 // 1122
 export const apiForSaveOrUpdateUserInfoForChecked = async (data: IUser[]) => {
@@ -171,12 +181,11 @@ export const apiForGetAllUserEmails = async (): Promise<string[]> => {
 
 
 export const apiForUpdateUserCashPoints =
-    ({ cashPointsToBuy }: { cashPointsToBuy: number }) => {
-
+    ({ cashPointsToBuy, merchantUid }: { cashPointsToBuy: number, merchantUid: string }) => {
         console.log("cashPointsToBuy : ", { cashPointsToBuy });
+        console.log("merchantUid : ", merchantUid);
 
-
-        return instance.put(`buyPoints`, { cashPointsToBuy })
+        return instance.put(`buyPoints`, { cashPointsToBuy, merchantUid })
             .then((response) => {
                 // 성공 시 처리
                 return response.data;
