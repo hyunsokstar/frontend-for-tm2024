@@ -92,6 +92,15 @@ const HeaderMenus = () => {
                     >
                         StarterKit
                     </Link>
+
+                    <Link
+                        href="/Challenge/FrontChallenges"
+                        color={router.pathname.includes("/Challenge/FrontChallenges") ? "#4267B2" : "inherit"}
+                        fontWeight={router.pathname.includes("/Challenge/FrontChallenges") ? "bold" : "normal"}
+                    >
+                        Front Challenges
+                    </Link>
+
                     <Link
                         href="/buyPoints"
                         color={router.pathname.includes("/buyPoints") ? "#4267B2" : "inherit"}
