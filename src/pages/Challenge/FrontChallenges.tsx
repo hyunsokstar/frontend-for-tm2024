@@ -4,13 +4,16 @@ import {
     Box, ButtonGroup, IconButton, Flex, Text, HStack, Button
 } from '@chakra-ui/react'; // Chakra UI 버튼을 사용합니다.
 import { FaSave, FaTrash, FaPlus } from 'react-icons/fa'; // 아이콘을 사용합니다.
-import DataGrid, { Column } from 'react-data-grid';
+import DataGrid, { Column, RenderCheckboxProps, RenderSortStatusProps } from 'react-data-grid';
 import useApiForGetAllChallengesWithPageNum from '@/hooks/useApiForGetAllChallengesWithPageNum';
 import { IChallengeRow } from '@/types/typeforChallenges';
 import CommonTextEditor from '@/components/GridEditor/TextEditor/CommonTextEditor';
 import CommonDateTimePicker from '@/components/GridEditor/DateTimePicker/CommonDateTimePicker';
+import { SelectColumnForReactDataGrid } from '@/components/Formatter/CheckBox/SelectColumnForRdg';
+
 
 const columns: Column<IChallengeRow>[] = [
+    SelectColumnForReactDataGrid,
     {
         key: 'id',
         name: 'ID'
@@ -47,6 +50,8 @@ const FrontChallenges = (props: Props) => {
     const [pageNum, setPageNum] = useState(1); // pageNum 상태 선언 및 초기값 설정
     const [challengeRows, setChallengeRows] = useState<IChallengeRow[]>([])
     const { isLoading, error, data: dataForChallenges } = useApiForGetAllChallengesWithPageNum(pageNum);
+    const [selectedRows, setSelectedRows] = useState((): ReadonlySet<number> => new Set());
+
     console.log("dataForChallenges : ", dataForChallenges);
 
     useEffect(() => {
@@ -122,10 +127,36 @@ const FrontChallenges = (props: Props) => {
 
 
             <DataGrid
+                rowKeyGetter={(row) => row.id}
+                renderers={{ renderSortStatus, renderCheckbox }}
                 columns={columns}
-                rows={challengeRows} />
+                rows={challengeRows}
+                selectedRows={selectedRows}
+                onSelectedRowsChange={(selected) => {
+                    const selectedRowIds = Array.from(selected.values());
+                    console.log("체크된 번호들: ", selectedRowIds);
+                    setSelectedRows(selected);
+                }}
+            />
         </Box>
     );
 };
+
+function renderCheckbox({ onChange, ...props }: RenderCheckboxProps) {
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+        onChange(e.target.checked, (e.nativeEvent as MouseEvent).shiftKey);
+    }
+    return <input type="checkbox" {...props} onChange={handleChange} />;
+}
+
+function renderSortStatus({ sortDirection, priority }: RenderSortStatusProps) {
+    return (
+        <>
+            {sortDirection !== undefined ? (sortDirection === 'ASC' ? '\u2B9D' : '\u2B9F') : null}
+            <span>{priority}</span>
+        </>
+    );
+}
+
 
 export default FrontChallenges;
