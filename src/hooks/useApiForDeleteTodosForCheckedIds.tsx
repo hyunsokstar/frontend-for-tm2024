@@ -15,9 +15,6 @@ const useApiForDeleteTodosForCheckedIds = ({ pageNum, userId, todoStatusOption }
     const queryClient = useQueryClient();
     const toast = useToast(); // useToast 훅 사용
 
-    const loginUser = useSelector((state: RootState) => state.user.loginUser);
-    const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
-
     const mutation = useMutation({
         mutationFn: apiForDeleteTodosForCheckedRows,
         onSuccess: (result) => {

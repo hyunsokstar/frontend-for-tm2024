@@ -23,6 +23,15 @@ instance.interceptors.request.use(
     }
 );
 
+export const apiForDeleteChallenge = async (challengeId: number): Promise<void> => {
+    try {
+        await instance.delete(`/${challengeId}`);
+    } catch (error) {
+        throw new Error(`Error deleting challenge: ${error}`);
+    }
+};
+
+
 export const apiForCreateChallenge =
     async (createChallengeDto: ICreateChallengeDto): Promise<IChallengeRow> => {
         try {

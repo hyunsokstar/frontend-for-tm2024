@@ -9,41 +9,86 @@ import useApiForGetAllChallengesWithPageNum from '@/hooks/useApiForGetAllChallen
 import { IChallengeRow } from '@/types/typeforChallenges';
 import CommonTextEditor from '@/components/GridEditor/TextEditor/CommonTextEditor';
 import CommonDateTimePicker from '@/components/GridEditor/DateTimePicker/CommonDateTimePicker';
-import { SelectColumnForReactDataGrid } from '@/components/Formatter/CheckBox/SelectColumnForRdg';
 import ModalButtonForSimpleCreateChallenge from '@/components/Modal/ModalButtonForSimpleCreateChallenge';
+import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
+import { format } from 'date-fns';
+import useUser from '@/hooks/useUser';
+import useApiForDeleteChallenges from '@/hooks/useApiForDeleteChallenges';
 
+const formatDateTime = (dateTime: string | any) => {
+    console.log("dateTime : ", typeof dateTime);
 
-const columns: Column<IChallengeRow>[] = [
-    SelectColumnForReactDataGrid,
-    {
-        key: 'id',
-        name: 'ID'
-    },
-    {
-        key: 'email',
-        name: 'Writer Email'
-    },
-    {
-        key: 'challengeName',
-        name: 'Challenge Name',
-        renderEditCell: CommonTextEditor
-    },
-    {
-        key: 'description',
-        name: 'Description',
-        renderEditCell: CommonTextEditor
-    },
-    {
-        key: 'prize',
-        name: 'Prize',
-        renderEditCell: CommonTextEditor
-    },
-    {
-        key: 'deadline',
-        name: 'Deadline',
-        renderEditCell: CommonDateTimePicker
-    },
-];
+    if (dateTime !== undefined) {
+        const time = new Date(dateTime);
+        return format(time, "MM-dd HH:mm");
+    }
+
+};
+
+const getColumns = ({ loginUser, handleEdit, handleDelete }: any): any[] => {
+    return [
+        {
+            key: 'email',
+            name: 'Writer Email'
+        },
+        {
+            key: 'challengeName',
+            name: 'Challenge Name',
+            renderEditCell: CommonTextEditor
+        },
+        {
+            key: 'description',
+            name: 'Description',
+            renderEditCell: CommonTextEditor
+        },
+        {
+            key: 'prize',
+            name: 'Prize',
+            renderEditCell: CommonTextEditor
+        },
+        {
+            key: 'deadline',
+            name: 'Deadline',
+            renderEditCell: CommonDateTimePicker,
+            renderCell: (props: any) => (
+                <Box>
+                    {formatDateTime(props.row.deadline)}
+                </Box>
+            )
+        },
+        {
+            key: 'utils',
+            name: 'utils',
+            renderCell: (props: any) => (
+                <Box>
+                    {loginUser.email === props.row.email ?
+                        <>
+                            <IconButton
+                                aria-label="Edit"
+                                icon={<EditIcon />}
+                                onClick={() => handleEdit(props.row.id)}
+                                variant="outline"
+                                size="xs"
+                                mr={2}
+                                colorScheme="primary" // 버튼 색상 적용
+                                _hover={{ bg: 'blue.100' }} // 호버 시에 배경색 변경
+                            />
+                            <IconButton
+                                aria-label="Delete"
+                                icon={<DeleteIcon />}
+                                onClick={() => handleDelete(props.row.id)}
+                                variant="outline"
+                                size="xs"
+                                colorScheme="danger" // 버튼 색상 적용
+                                _hover={{ bg: 'red.200' }} // 호버 시에 배경색 변경
+                            />
+                        </>
+                        : ""}
+                </Box>
+            )
+        }
+    ];
+};
 
 type Props = {}
 
@@ -52,8 +97,26 @@ const FrontChallenges = (props: Props) => {
     const [challengeRows, setChallengeRows] = useState<IChallengeRow[]>([])
     const { isLoading, error, data: dataForChallenges } = useApiForGetAllChallengesWithPageNum(pageNum);
     const [selectedRows, setSelectedRows] = useState((): ReadonlySet<number> => new Set());
+    const { isLoggedIn, loginUser, logout } = useUser();
+    const deleteChallengesMutation = useApiForDeleteChallenges(pageNum);
+
 
     console.log("dataForChallenges : ", dataForChallenges);
+    // 수정 및 삭제 버튼 클릭 시 실행될 함수 정의
+    const handleEdit = (id: number) => {
+        // 수정 버튼 클릭 시 실행될 로직을 구현합니다.
+        console.log('Edit button clicked for row with id:', id);
+    };
+
+    const handleDelete = (challengeId: number) => {
+        try {
+            deleteChallengesMutation.mutateAsync(challengeId);
+        } catch (error) {
+            console.error('챌린지 삭제 중 에러 발생:', error);
+        }
+
+    };
+    const columns = getColumns({ loginUser, handleEdit, handleDelete })
 
     useEffect(() => {
         let challengeRowsToUpdate;
@@ -114,15 +177,7 @@ const FrontChallenges = (props: Props) => {
                         Save
                     </Button>
 
-                    {/* <Button
-                        aria-label="Add Row"
-                        leftIcon={<FaPlus />}
-                        colorScheme="green"
-                        variant="outline"
-                        onClick={handleAddRowButtonClick}
-                    >
-                        Create
-                    </Button> */}
+
                     <ModalButtonForSimpleCreateChallenge />
 
                 </HStack>
