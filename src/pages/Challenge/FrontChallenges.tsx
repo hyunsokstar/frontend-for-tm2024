@@ -10,6 +10,7 @@ import { IChallengeRow } from '@/types/typeforChallenges';
 import CommonTextEditor from '@/components/GridEditor/TextEditor/CommonTextEditor';
 import CommonDateTimePicker from '@/components/GridEditor/DateTimePicker/CommonDateTimePicker';
 import { SelectColumnForReactDataGrid } from '@/components/Formatter/CheckBox/SelectColumnForRdg';
+import ModalButtonForSimpleCreateChallenge from '@/components/Modal/ModalButtonForSimpleCreateChallenge';
 
 
 const columns: Column<IChallengeRow>[] = [
@@ -113,15 +114,17 @@ const FrontChallenges = (props: Props) => {
                         Save
                     </Button>
 
-                    <Button
+                    {/* <Button
                         aria-label="Add Row"
                         leftIcon={<FaPlus />}
                         colorScheme="green"
                         variant="outline"
                         onClick={handleAddRowButtonClick}
                     >
-                        Add Row
-                    </Button>
+                        Create
+                    </Button> */}
+                    <ModalButtonForSimpleCreateChallenge />
+
                 </HStack>
             </Flex>
 
@@ -138,6 +141,7 @@ const FrontChallenges = (props: Props) => {
                     setSelectedRows(selected);
                 }}
             />
+
         </Box>
     );
 };

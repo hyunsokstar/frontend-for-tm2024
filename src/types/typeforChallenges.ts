@@ -28,3 +28,10 @@ export interface responseTypeForGetAllChallengeList {
     totalCount: number;
     perPage: number;
 }
+
+export interface ICreateChallengeDto {
+    challengeName: string;
+    description: string;
+    prize: number;
+    deadline: string; // 적절한 날짜 형식으로 제공해야 합니다.
+}

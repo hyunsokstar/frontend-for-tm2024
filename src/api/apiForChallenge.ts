@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
 import { QueryFunctionContext } from "@tanstack/react-query";
-import { responseTypeForGetAllChallengeList } from "@/types/typeforChallenges";
+import { IChallengeRow, ICreateChallengeDto, responseTypeForGetAllChallengeList } from "@/types/typeforChallenges";
 
 const instance = axios.create({
     baseURL: `${backendApi}/challenges`,
@@ -22,6 +22,17 @@ instance.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+export const apiForCreateChallenge =
+    async (createChallengeDto: ICreateChallengeDto): Promise<IChallengeRow> => {
+        try {
+            const response = await instance.post('', createChallengeDto);
+            return response.data;
+        } catch (error) {
+            console.log("error : ", error);
+            throw error; // 에러 객체 그대로 던지기
+        }
+    };
 
 
 export const apiForGetAllChallengesWithPageNum = async (pageNum: number): Promise<responseTypeForGetAllChallengeList> => {
