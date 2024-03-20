@@ -1,4 +1,4 @@
-import { UpdateChallengeDto } from './../../../backend-for-tm2024/src/challenges/dto/update-challenge.dto';
+
 export interface IWriter {
     id: number;
     email: string;

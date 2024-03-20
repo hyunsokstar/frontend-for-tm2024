@@ -13,9 +13,7 @@ const useApiForUpdateChallenge = ({ pageNum }: IProps) => {
     const mutationForUpdateChallenge = useMutation({
         mutationFn: apiForUpdateChallenge,
         onSuccess: (data: any) => {
-            // 챌린지가 성공적으로 업데이트된 경우의 처리
             console.log("Challenge updated successfully: ", data);
-            // 추가적으로 필요한 로직 구현
             toast({
                 title: "Challenge updated successfully",
                 status: "success",
