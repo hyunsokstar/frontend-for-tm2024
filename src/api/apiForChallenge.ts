@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
 import { QueryFunctionContext } from "@tanstack/react-query";
-import { IChallengeRow, ICreateChallengeDto, responseTypeForGetAllChallengeList } from "@/types/typeforChallenges";
+import { IChallengeRow, ICreateChallengeDto, IParamterForApiForUpdateChallenge, IUpdateChallengeDto, responseTypeForGetAllChallengeList } from "@/types/typeforChallenges";
 
 const instance = axios.create({
     baseURL: `${backendApi}/challenges`,
@@ -23,11 +23,21 @@ instance.interceptors.request.use(
     }
 );
 
+export const apiForUpdateChallenge = async ({ challengeId, updateChallengeDto }: IParamterForApiForUpdateChallenge): Promise<any> => {
+    try {
+        const response = await instance.put(`/${challengeId}`, updateChallengeDto);
+        return response.data;
+    } catch (error) {
+        throw error; // 에러 객체 그대로 던지기
+    }
+};
+
+
 export const apiForDeleteChallenge = async (challengeId: number): Promise<void> => {
     try {
         await instance.delete(`/${challengeId}`);
     } catch (error) {
-        throw new Error(`Error deleting challenge: ${error}`);
+        throw error; // 에러 객체 그대로 던지기
     }
 };
 

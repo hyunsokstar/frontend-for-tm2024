@@ -14,6 +14,7 @@ import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
 import { format } from 'date-fns';
 import useUser from '@/hooks/useUser';
 import useApiForDeleteChallenges from '@/hooks/useApiForDeleteChallenges';
+import ModalButtonForUpdateChallenge from '@/components/Modal/ModalButtonForUpdateChallenge';
 
 const formatDateTime = (dateTime: string | any) => {
     console.log("dateTime : ", typeof dateTime);
@@ -25,7 +26,7 @@ const formatDateTime = (dateTime: string | any) => {
 
 };
 
-const getColumns = ({ loginUser, handleEdit, handleDelete }: any): any[] => {
+const getColumns = ({ loginUser, pageNum, handleEdit, handleDelete }: any): any[] => {
     return [
         {
             key: 'email',
@@ -63,16 +64,9 @@ const getColumns = ({ loginUser, handleEdit, handleDelete }: any): any[] => {
                 <Box>
                     {loginUser.email === props.row.email ?
                         <>
-                            <IconButton
-                                aria-label="Edit"
-                                icon={<EditIcon />}
-                                onClick={() => handleEdit(props.row.id)}
-                                variant="outline"
-                                size="xs"
-                                mr={2}
-                                colorScheme="primary" // 버튼 색상 적용
-                                _hover={{ bg: 'blue.100' }} // 호버 시에 배경색 변경
-                            />
+
+                            <ModalButtonForUpdateChallenge challenge={props.row} buttonText={'update'} challengeId={props.row.id} pageNum={pageNum} />
+
                             <IconButton
                                 aria-label="Delete"
                                 icon={<DeleteIcon />}
@@ -116,7 +110,7 @@ const FrontChallenges = (props: Props) => {
         }
 
     };
-    const columns = getColumns({ loginUser, handleEdit, handleDelete })
+    const columns = getColumns({ loginUser, pageNum, handleEdit, handleDelete })
 
     useEffect(() => {
         let challengeRowsToUpdate;

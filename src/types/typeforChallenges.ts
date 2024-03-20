@@ -1,3 +1,4 @@
+import { UpdateChallengeDto } from './../../../backend-for-tm2024/src/challenges/dto/update-challenge.dto';
 export interface IWriter {
     id: number;
     email: string;
@@ -34,4 +35,21 @@ export interface ICreateChallengeDto {
     description: string;
     prize: number;
     deadline: string; // 적절한 날짜 형식으로 제공해야 합니다.
+}
+
+export interface IUpdateChallengeDto {
+    challengeName: string;
+    description: string;
+    prize: number;
+    deadline: string; // 적절한 날짜 형식으로 제공해야 합니다.
+}
+
+export interface IParamterForApiForUpdateChallenge {
+    challengeId: number
+    updateChallengeDto: IUpdateChallengeDto
+}
+
+export interface IFormDataForUpdateChallenge {
+    challengeId: number;
+    UpdateChallengeDto: IUpdateChallengeDto
 }
