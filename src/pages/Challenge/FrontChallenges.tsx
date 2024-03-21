@@ -15,6 +15,7 @@ import { format } from 'date-fns';
 import useUser from '@/hooks/useUser';
 import useApiForDeleteChallenges from '@/hooks/useApiForDeleteChallenges';
 import ModalButtonForUpdateChallenge from '@/components/Modal/ModalButtonForUpdateChallenge';
+import ModalButtonForSubChallengeList from '@/components/Modal/ModalButtonForSubChallengeList';
 
 const formatDateTime = (dateTime: string | any) => {
     console.log("dateTime : ", typeof dateTime);
@@ -43,9 +44,16 @@ const getColumns = ({ loginUser, pageNum, handleEdit, handleDelete }: any): any[
             renderEditCell: CommonTextEditor
         },
         {
-            key: 'prize',
-            name: 'Prize',
-            renderEditCell: CommonTextEditor
+            key: 'subChallenges',
+            name: 'subChallenges',
+            renderCell: (props: any) => (
+                <Box>
+                    <ModalButtonForSubChallengeList
+                        buttonText={'subChallenges'}
+                        subChallenges={props.row.subChallenges}
+                    />
+                </Box>
+            )
         },
         {
             key: 'deadline',
@@ -125,7 +133,8 @@ const FrontChallenges = (props: Props) => {
                     createdAt: row.createdAt,
                     updatedAt: row.updatedAt,
                     writer: row.writer,
-                    email: row.writer.email
+                    email: row.writer.email,
+                    subChallenges: row.subChallenges
                 }
             })
             setChallengeRows(challengeRowsToUpdate); // challengeRowsToUpdate가 정의된 경우에만 setChallengeRows 호출

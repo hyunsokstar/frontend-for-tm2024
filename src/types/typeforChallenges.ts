@@ -13,6 +13,16 @@ export interface IWriter {
     profileImage: string | null;
 }
 
+export type SubChallengeRow = {
+    id: number;
+    subChallengeName: string;
+    description: string;
+    prize: number;
+    deadline: string; // ISO 8601 형식의 문자열
+    createdAt: string; // ISO 8601 형식의 문자열
+    updatedAt: string; // ISO 8601 형식의 문자열
+};
+
 export interface IChallengeRow {
     id: number;
     challengeName: string;
@@ -22,6 +32,7 @@ export interface IChallengeRow {
     createdAt: Date;
     updatedAt: Date;
     writer: IWriter;
+    subChallenges: SubChallengeRow[]
 }
 
 export interface responseTypeForGetAllChallengeList {
