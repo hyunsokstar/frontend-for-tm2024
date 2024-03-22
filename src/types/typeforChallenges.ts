@@ -65,3 +65,10 @@ export interface IFormDataForUpdateChallenge {
     challengeId: number;
     UpdateChallengeDto: IUpdateChallengeDto
 }
+
+export interface CreateSubChallengeDto {
+    challengeName: string;
+    description: string;
+    prize: number;
+    deadline: string; // ISO 8601 형식의 문자열
+}

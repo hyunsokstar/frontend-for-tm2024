@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
 import { QueryFunctionContext } from "@tanstack/react-query";
-import { IChallengeRow, ICreateChallengeDto, IParamterForApiForUpdateChallenge, IUpdateChallengeDto, responseTypeForGetAllChallengeList } from "@/types/typeforChallenges";
+import { CreateSubChallengeDto, IChallengeRow, ICreateChallengeDto, IParamterForApiForUpdateChallenge, IUpdateChallengeDto, responseTypeForGetAllChallengeList } from "@/types/typeforChallenges";
 
 const instance = axios.create({
     baseURL: `${backendApi}/challenges`,
@@ -60,5 +60,14 @@ export const apiForGetAllChallengesWithPageNum = async (pageNum: number): Promis
         return response.data;
     } catch (error) {
         throw new Error(`Error fetching challenges: ${error}`);
+    }
+};
+
+export const apiForCreateSubChallenge = async (challengeId: number, createSubChallengeDto: CreateSubChallengeDto): Promise<AxiosResponse<any>> => {
+    try {
+        const response = await instance.post(`/${challengeId}/subChallenges`, createSubChallengeDto);
+        return response;
+    } catch (error) {
+        throw error;
     }
 };

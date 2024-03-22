@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 import DataGridForSubChallenges from '../DataGrid/DataGridForSubChallenges';
 import { IChallengeRow, SubChallengeRow } from '@/types/typeforChallenges';
+import ModalButtonForCreateSubChallenge from './ModalButtonForCreateSubChallenge';
 
 type Props = {
     pageNum: number;
@@ -40,6 +41,10 @@ const ModalButtonForSubChallengeList: React.FC<Props> = ({
                     <ModalHeader>{challenge.challengeName}'s subchallenges</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
+                        <Box display={"flex"} justifyContent={"flex-end"} m={2}>
+                            <ModalButtonForCreateSubChallenge challengeId={challenge.id} pageNum={pageNum} />
+                        </Box>
+
                         <DataGridForSubChallenges
                             mainChallenge={challenge}
                             pageNum={pageNum}
