@@ -23,9 +23,9 @@ instance.interceptors.request.use(
     }
 );
 
-export const apiForUpdateChallenge = async ({ challengeId, updateChallengeDto }: IParamterForApiForUpdateChallenge): Promise<any> => {
+export const apiForUpdateChallenge = async ({ isMainOrSub, challengeId, updateChallengeDto }: IParamterForApiForUpdateChallenge): Promise<any> => {
     try {
-        const response = await instance.put(`/${challengeId}`, updateChallengeDto);
+        const response = await instance.put(`/${challengeId}`, { isMainOrSub, updateChallengeDto });
         return response.data;
     } catch (error) {
         throw error; // 에러 객체 그대로 던지기
@@ -33,9 +33,9 @@ export const apiForUpdateChallenge = async ({ challengeId, updateChallengeDto }:
 };
 
 
-export const apiForDeleteChallenge = async (challengeId: number): Promise<void> => {
+export const apiForDeleteChallenge = async ({ isMainOrSub, challengeId }: any): Promise<void> => {
     try {
-        await instance.delete(`/${challengeId}`);
+        await instance.delete(`/${isMainOrSub}/${challengeId}`);
     } catch (error) {
         throw error; // 에러 객체 그대로 던지기
     }

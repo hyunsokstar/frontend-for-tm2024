@@ -20,6 +20,7 @@ import { EditIcon } from '@chakra-ui/icons';
 import { IChallengeRow } from '@/types/typeforChallenges';
 
 interface ModalButtonProps {
+    isMainOrSub: string;
     buttonText: string;
     challengeId: number;
     pageNum: number; // 페이지 번호도 props로 전달받아야 합니다.
@@ -33,7 +34,7 @@ interface IFormDataForUpdateChallenge {
     deadline: string;
 }
 
-const ModalButtonForUpdateChallenge: React.FC<ModalButtonProps> = ({ buttonText, challengeId, challenge, pageNum }) => {
+const ModalButtonForUpdateChallenge: React.FC<ModalButtonProps> = ({ isMainOrSub, buttonText, challengeId, challenge, pageNum }) => {
     const { register, handleSubmit, reset } = useForm<IFormDataForUpdateChallenge>(); // useForm에 제네릭 타입 지정
     const [isOpen, setIsOpen] = useState(false);
     const toast = useToast();
@@ -54,6 +55,7 @@ const ModalButtonForUpdateChallenge: React.FC<ModalButtonProps> = ({ buttonText,
 
     const onSubmit = (data: IFormDataForUpdateChallenge) => {
         mutationForUpdateChallenge.mutate({
+            isMainOrSub: isMainOrSub,
             challengeId: challengeId,
             updateChallengeDto: {
                 challengeName: data.challengeName,

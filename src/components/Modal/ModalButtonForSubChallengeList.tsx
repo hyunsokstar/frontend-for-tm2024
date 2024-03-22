@@ -12,15 +12,19 @@ import {
     Box,
 } from '@chakra-ui/react';
 import DataGridForSubChallenges from '../DataGrid/DataGridForSubChallenges';
-import { SubChallengeRow } from '@/types/typeforChallenges';
+import { IChallengeRow, SubChallengeRow } from '@/types/typeforChallenges';
 
 type Props = {
+    pageNum: number;
     buttonText: string;
     subChallenges: SubChallengeRow[];
+    challenge: IChallengeRow
 };
 
 const ModalButtonForSubChallengeList: React.FC<Props> = ({
+    pageNum,
     buttonText,
+    challenge,
     subChallenges,
 }: Props) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -33,10 +37,14 @@ const ModalButtonForSubChallengeList: React.FC<Props> = ({
             <Modal isOpen={isOpen} onClose={onClose} size={"6xl"}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>{buttonText}</ModalHeader>
+                    <ModalHeader>{challenge.challengeName}'s subchallenges</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        <DataGridForSubChallenges subChallenges={subChallenges} />
+                        <DataGridForSubChallenges
+                            mainChallenge={challenge}
+                            pageNum={pageNum}
+                            subChallenges={subChallenges}
+                        />
                     </ModalBody>
                     <ModalFooter>
                         <Button colorScheme="blue" mr={3} onClick={onClose}>

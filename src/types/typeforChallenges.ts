@@ -15,7 +15,7 @@ export interface IWriter {
 
 export type SubChallengeRow = {
     id: number;
-    subChallengeName: string;
+    challengeName: string;
     description: string;
     prize: number;
     deadline: string; // ISO 8601 형식의 문자열
@@ -56,6 +56,7 @@ export interface IUpdateChallengeDto {
 }
 
 export interface IParamterForApiForUpdateChallenge {
+    isMainOrSub: string;
     challengeId: number
     updateChallengeDto: IUpdateChallengeDto
 }

@@ -49,7 +49,9 @@ const getColumns = ({ loginUser, pageNum, handleEdit, handleDelete }: any): any[
             renderCell: (props: any) => (
                 <Box>
                     <ModalButtonForSubChallengeList
+                        pageNum={pageNum}
                         buttonText={'subChallenges'}
+                        challenge={props.row}
                         subChallenges={props.row.subChallenges}
                     />
                 </Box>
@@ -72,13 +74,18 @@ const getColumns = ({ loginUser, pageNum, handleEdit, handleDelete }: any): any[
                 <Box>
                     {loginUser.email === props.row.email ?
                         <>
-
-                            <ModalButtonForUpdateChallenge challenge={props.row} buttonText={'update'} challengeId={props.row.id} pageNum={pageNum} />
+                            <ModalButtonForUpdateChallenge
+                                isMainOrSub="main"
+                                challenge={props.row}
+                                buttonText={'update'}
+                                challengeId={props.row.id}
+                                pageNum={pageNum}
+                            />
 
                             <IconButton
                                 aria-label="Delete"
                                 icon={<DeleteIcon />}
-                                onClick={() => handleDelete(props.row.id)}
+                                onClick={() => handleDelete("main", props.row.id)}
                                 variant="outline"
                                 size="xs"
                                 colorScheme="danger" // 버튼 색상 적용
@@ -110,9 +117,9 @@ const FrontChallenges = (props: Props) => {
         console.log('Edit button clicked for row with id:', id);
     };
 
-    const handleDelete = (challengeId: number) => {
+    const handleDelete = (isMainOrSub: string, challengeId: number) => {
         try {
-            deleteChallengesMutation.mutateAsync(challengeId);
+            deleteChallengesMutation.mutateAsync({ isMainOrSub, challengeId });
         } catch (error) {
             console.error('챌린지 삭제 중 에러 발생:', error);
         }
