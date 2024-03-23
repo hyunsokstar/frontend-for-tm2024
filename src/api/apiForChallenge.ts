@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
 import { QueryFunctionContext } from "@tanstack/react-query";
-import { CreateSubChallengeDto, IChallengeRow, ICreateChallengeDto, IParamterForApiForUpdateChallenge, IUpdateChallengeDto, responseTypeForGetAllChallengeList } from "@/types/typeforChallenges";
+import { CreateSubChallengeDto, IChallengeRow, ICreateChallengeDto, IParamterForApiForUpdateChallenge, ITypeForChallengersRow, IUpdateChallengeDto, ResponseTypeForGetAllParticipantsForSubChallenges, responseTypeForGetAllChallengeList } from "@/types/typeforChallenges";
 
 const instance = axios.create({
     baseURL: `${backendApi}/challenges`,
@@ -71,3 +71,17 @@ export const apiForCreateSubChallenge = async (challengeId: number, createSubCha
         throw error;
     }
 };
+
+export const apiForGetAllParticipantsListForSubchallenges = async (subChallengeId: number): Promise<AxiosResponse<ResponseTypeForGetAllParticipantsForSubChallenges>> => {
+    console.log("subChallengeId : ", subChallengeId);
+
+    try {
+        const response = await instance.get(`/sub-challenges/${subChallengeId}/participants`);
+        console.log("response : ", response);
+
+        return response
+    } catch (error) {
+        throw new Error("서버 오류가 발생했습니다.");
+    }
+};
+

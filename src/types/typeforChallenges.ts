@@ -72,3 +72,31 @@ export interface CreateSubChallengeDto {
     prize: number;
     deadline: string; // ISO 8601 형식의 문자열
 }
+
+export interface IUser {
+    id: number;
+    email: string;
+    password: string;
+    nickname: string;
+    cashPoints: number;
+    role: string;
+    gender: string;
+    phoneNumber: string | null;
+    backEndLevel: number;
+    frontEndLevel: number;
+    profileImage: string | null;
+}
+
+export interface ITypeForChallengersRow {
+    id: number;
+    createdAt: string;
+    updatedAt: string;
+    noteUrl: string;
+    user: IUser;
+}
+
+
+export interface ResponseTypeForGetAllParticipantsForSubChallenges {
+    success: true,
+    participantsForSubChallenge: ITypeForChallengersRow[]
+}

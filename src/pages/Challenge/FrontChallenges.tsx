@@ -110,7 +110,7 @@ const FrontChallenges = (props: Props) => {
     const deleteChallengesMutation = useApiForDeleteChallenges(pageNum);
 
 
-    console.log("dataForChallenges : ", dataForChallenges);
+    // console.log("dataForChallenges : ", dataForChallenges);
     // 수정 및 삭제 버튼 클릭 시 실행될 함수 정의
     const handleEdit = (id: number) => {
         // 수정 버튼 클릭 시 실행될 로직을 구현합니다.
