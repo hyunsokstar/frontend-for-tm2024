@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
 import { QueryFunctionContext } from "@tanstack/react-query";
-import { DtoForChangePagesOrderForSkilNote, SkillNoteListResponse, SkillNoteRow, dataForCreateSkilNoteContent, dataForUpdateSkilNoteContent, skilnoteRowToSave } from "@/types/typeForSkilNote";
+import { DtoForChangePagesOrderForSkilNote, ITypeForResponseTypeForGetAllMySkilNoteListForSelectNoteForChallenge, SkillNoteListResponse, SkillNoteRow, dataForCreateSkilNoteContent, dataForUpdateSkilNoteContent, skilnoteRowToSave } from "@/types/typeForSkilNote";
 import { IParameterForUpdateIsCompletedForSkilNote } from "@/types/typeForTechNote";
 
 const instance = axios.create({
@@ -24,6 +24,37 @@ instance.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+// export const apiForGetAllMySkilNoteList = async (
+//     pageNum: number = 1,
+// ): Promise<AxiosResponse<ITypeForResponseTypeForGetAllMySkilNoteListForSelectNoteForChallenge>> => {
+//     try {
+//         const response = await instance.get("my-notes", {
+//             params: { pageNum }
+//         });
+
+//         console.log("response for my skil note list !!! ", response.data);
+
+
+//         return response.data;
+//     } catch (error) {
+//         throw new Error(`Error in fetching all my skill notes: ${error}`);
+//     }
+// };
+
+export const apiForGetAllMySkilNoteList = async (
+    pageNum: number = 1
+): Promise<ITypeForResponseTypeForGetAllMySkilNoteListForSelectNoteForChallenge> => {
+    try {
+        const response = await instance.get("my-notes", {
+            params: { pageNum }
+        });
+        console.log("response for my skil note list !!! ", response.data);
+        return response.data; // response.data를 직접 반환
+    } catch (error) {
+        throw new Error(`Error in fetching all my skill notes: ${error}`);
+    }
+};
 
 // todo
 // /${skilnoteId}/contents/${pageNum}

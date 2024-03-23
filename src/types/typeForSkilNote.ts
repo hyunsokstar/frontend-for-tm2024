@@ -76,3 +76,20 @@ export interface DtoForChangePagesOrderForSkilNote {
     targetOrder: string,
     destinationOrder: any
 }
+
+export interface ITypeForSkilNoteListRowForSelectNoteForChallenges {
+    id: number;
+    title: string;
+    description: string;
+    category: string;
+    createdAt: string;
+    updatedAt: null | string;
+    order: number;
+}
+
+
+export interface ITypeForResponseTypeForGetAllMySkilNoteListForSelectNoteForChallenge {
+    perPage: number;
+    totalCount: number;
+    allMySkilNoteList: ITypeForSkilNoteListRowForSelectNoteForChallenges[]
+}

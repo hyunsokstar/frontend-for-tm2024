@@ -65,7 +65,12 @@ const ModalButtonForAllParticipantsForSubChallenges: React.FC<Props> = ({ subCha
                             </Button>
                         </Box>
 
-                        <DataGridForChallengersForSubChallenges subChallengeId={subChallengeId} participantsForSubChallenge={dataForChallengers ? dataForChallengers?.data.participantsForSubChallenge : []} />
+                        <DataGridForChallengersForSubChallenges
+                            subChallengeId={subChallengeId}
+                            participantsForSubChallenge={dataForChallengers ? dataForChallengers?.data.participantsForSubChallenge : []}
+                            subChallengeName={subChallengeName}
+                        />
+
                     </ModalBody>
                     <ModalFooter>
                         <Button colorScheme="blue" mr={3} onClick={handleConfirm}>
