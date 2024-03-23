@@ -5,9 +5,10 @@ import DataGridForChallengersForSubChallenges from '../DataGrid/DataGridForChall
 
 interface Props {
     subChallengeId: number;
+    subChallengeName: string;
 }
 
-const ModalButtonForAllParticipantsForSubChallenges: React.FC<Props> = ({ subChallengeId }) => {
+const ModalButtonForAllParticipantsForSubChallenges: React.FC<Props> = ({ subChallengeId, subChallengeName }) => {
     const [isOpen, setIsOpen] = React.useState(false);
 
     const handleOpen = () => setIsOpen(true);
@@ -31,11 +32,10 @@ const ModalButtonForAllParticipantsForSubChallenges: React.FC<Props> = ({ subCha
             <Modal isOpen={isOpen} onClose={handleClose} size={"6xl"}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Modal Title</ModalHeader>
+                    <ModalHeader>{subChallengeName} 's participants</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        {/* 모달 내용 */}
-                        <DataGridForChallengersForSubChallenges participantsForSubChallenge={dataForChallengers.data.participantsForSubChallenge} />
+                        <DataGridForChallengersForSubChallenges subChallengeId={subChallengeId} participantsForSubChallenge={dataForChallengers.data.participantsForSubChallenge} />
                     </ModalBody>
                     <ModalFooter>
                         <Button colorScheme="blue" mr={3} onClick={handleConfirm}>

@@ -23,6 +23,28 @@ instance.interceptors.request.use(
     }
 );
 
+// 여기에 추가
+export const apiForUpdateIsPassedForParticipantForSubChallenge = async (
+    subChallengeId: number,
+    participantId: number,
+    isPassed: boolean
+): Promise<AxiosResponse<{ message: string }>> => {
+
+    console.log("subChallengeId : ", subChallengeId);
+    console.log("participantId : ", participantId);
+    console.log("isPassed : ", isPassed);
+
+    try {
+        return await instance.put(
+            `/sub-challenges/${subChallengeId}/participants/${participantId}/is-passed`,
+            { isPassed }
+        );
+    } catch (error) {
+        throw error;
+    }
+};
+
+
 export const apiForUpdateChallenge = async ({ isMainOrSub, challengeId, updateChallengeDto }: IParamterForApiForUpdateChallenge): Promise<any> => {
     try {
         const response = await instance.put(`/${challengeId}`, { isMainOrSub, updateChallengeDto });
@@ -81,7 +103,7 @@ export const apiForGetAllParticipantsListForSubchallenges = async (subChallengeI
 
         return response
     } catch (error) {
-        throw new Error("서버 오류가 발생했습니다.");
+        throw error;
     }
 };
 

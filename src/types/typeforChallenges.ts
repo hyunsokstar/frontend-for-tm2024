@@ -93,6 +93,7 @@ export interface ITypeForChallengersRow {
     updatedAt: string;
     noteUrl: string;
     user: IUser;
+    isPassed: boolean;
 }
 
 
