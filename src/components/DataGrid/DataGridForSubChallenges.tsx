@@ -38,13 +38,11 @@ const DataGridForSubChallenges = ({
 
     const columns = [
         { key: 'challengeName', name: 'Sub Challenge Name' },
-        // { key: 'description', name: 'Description' },
         {
             key: 'participants',
             name: 'participants',
             renderCell: (props: any) => (
                 <Box>
-                    {/* 모달 버튼 */}
                     <ModalButtonForAllParticipantsForSubChallenges
                         subChallengeName={props.row.challengeName}
                         subChallengeId={props.row.id}

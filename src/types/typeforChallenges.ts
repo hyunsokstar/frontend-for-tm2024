@@ -99,5 +99,6 @@ export interface ITypeForChallengersRow {
 
 export interface ResponseTypeForGetAllParticipantsForSubChallenges {
     success: true,
+    participantsEmailList: string[],
     participantsForSubChallenge: ITypeForChallengersRow[]
 }

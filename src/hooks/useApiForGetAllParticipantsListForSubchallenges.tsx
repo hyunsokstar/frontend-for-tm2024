@@ -4,6 +4,10 @@ import { useQuery } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios'; // AxiosResponse 임포트
 
 const useApiForGetAllParticipantsListForSubchallenges = (subChallengeId: number) => {
+
+    console.log("subChallengeId !!! ", subChallengeId);
+
+
     const { isLoading, error, data } = useQuery<AxiosResponse<ResponseTypeForGetAllParticipantsForSubChallenges>>({
         queryKey: ['apiForGetAllParticipantsListForSubchallenges', subChallengeId],
         queryFn: () => apiForGetAllParticipantsListForSubchallenges(subChallengeId),

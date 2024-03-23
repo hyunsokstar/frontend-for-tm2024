@@ -107,3 +107,12 @@ export const apiForGetAllParticipantsListForSubchallenges = async (subChallengeI
     }
 };
 
+export const apiForAddParticipantForSubChallenge = async (subChallengeId: number, noteUrl: string): Promise<AxiosResponse<{ message: string }>> => {
+    try {
+        const response = await instance.post<{ message: string }>(`/sub-challenges/${subChallengeId}/participants`, { noteUrl });
+        return response;
+    } catch (error) {
+        throw new Error("서버 오류가 발생했습니다.");
+    }
+};
+
