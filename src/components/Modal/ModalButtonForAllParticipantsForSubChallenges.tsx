@@ -6,11 +6,12 @@ import useUser from '@/hooks/useUser';
 import useApiForAddParticipantForSubChallenge from '@/hooks/useApiForAddParticipantForSubChallenge';
 
 interface Props {
+    pageNum: number
     subChallengeId: number;
     subChallengeName: string;
 }
 
-const ModalButtonForAllParticipantsForSubChallenges: React.FC<Props> = ({ subChallengeId, subChallengeName }) => {
+const ModalButtonForAllParticipantsForSubChallenges: React.FC<Props> = ({ pageNum, subChallengeId, subChallengeName }) => {
     const [isOpen, setIsOpen] = React.useState(false);
 
     const handleOpen = () => setIsOpen(true);
@@ -30,13 +31,14 @@ const ModalButtonForAllParticipantsForSubChallenges: React.FC<Props> = ({ subCha
     const handleJoinOrLeave = () => {
         if (participantsEmailList.includes(loginUser.email)) {
             // 이미 참가한 경우, 탈퇴 처리
-            const noteUrl = "www.daum.net"
+            const noteUrl = ""
             if (noteUrl !== null) {
                 mutationForAddParticipantForSubChallenge.mutate(noteUrl)
             }
         } else {
             // 참가한 경우, 참가 처리
-            const noteUrl = prompt('참가하려면 noteUrl을 입력해주세요.');
+            // const noteUrl = prompt('참가하려면 noteUrl을 입력해주세요.');
+            const noteUrl = ""
             if (noteUrl !== null) {
                 mutationForAddParticipantForSubChallenge.mutate(noteUrl)
             }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Box } from '@chakra-ui/react';
+import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Box, IconButton } from '@chakra-ui/react';
 import DataGridForMySkilNoteListForSelectNoteForChallenge from '../DataGrid/DataGridForMySkilNoteListForSelectNoteForChallenge';
+import { FaStickyNote } from 'react-icons/fa'; // 노트 아이콘을 사용하기 위한 React 아이콘 라이브러리
 
 type IProps = {
     subChallengeId: number;
@@ -22,7 +23,14 @@ const ModalButtonForSelectNoteForChallengeReport: React.FC<IProps>
 
         return (
             <Box>
-                <Button onClick={handleOpenModal} variant={"outline"} size={"xs"}>note</Button>
+                <IconButton
+                    aria-label="Open note"
+                    icon={<FaStickyNote />} // 노트 아이콘
+                    variant="outline"
+                    size="xs"
+                    onClick={handleOpenModal} // 클릭 이벤트 핸들러
+                    _hover={{ backgroundColor: "green.100" }}
+                />
                 <Modal isOpen={isOpen} onClose={handleCloseModal} size={"6xl"}>
                     <ModalOverlay />
                     <ModalContent>

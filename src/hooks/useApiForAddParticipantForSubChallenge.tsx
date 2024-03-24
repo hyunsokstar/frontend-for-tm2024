@@ -26,7 +26,7 @@ const useApiForAddParticipantForSubChallenge = ({ subChallengeId }: IProps) => {
             });
 
             queryClient.refetchQueries({
-                queryKey: ['apiForGetAllParticipantsForSubChallenges', subChallengeId]
+                queryKey: ['apiForGetAllParticipantsListForSubchallenges', subChallengeId]
             });
         },
         onError: (error: any) => {
