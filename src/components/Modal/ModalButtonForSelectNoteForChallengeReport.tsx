@@ -3,11 +3,13 @@ import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, Mo
 import DataGridForMySkilNoteListForSelectNoteForChallenge from '../DataGrid/DataGridForMySkilNoteListForSelectNoteForChallenge';
 
 type IProps = {
+    subChallengeId: number;
+    participantId: number;
     subChallengeName: string;
 }
 
 const ModalButtonForSelectNoteForChallengeReport: React.FC<IProps>
-    = ({ subChallengeName }) => {
+    = ({ subChallengeId, participantId, subChallengeName }) => {
         const [isOpen, setIsOpen] = useState(false);
 
         const handleOpenModal = () => {
@@ -27,7 +29,8 @@ const ModalButtonForSelectNoteForChallengeReport: React.FC<IProps>
                         <ModalHeader>select note for {subChallengeName}</ModalHeader>
                         <ModalCloseButton />
                         <ModalBody>
-                            <DataGridForMySkilNoteListForSelectNoteForChallenge />
+                            participantId: {participantId}
+                            <DataGridForMySkilNoteListForSelectNoteForChallenge setIsOpen={setIsOpen} participantId={participantId} subChallengeId={subChallengeId} />
                         </ModalBody>
                         <ModalFooter>
                             <Button colorScheme="blue" mr={3} onClick={handleCloseModal}>

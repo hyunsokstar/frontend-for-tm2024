@@ -23,6 +23,33 @@ instance.interceptors.request.use(
     }
 );
 
+export interface UpdateParticipantNoteUrlResponse {
+    success: boolean;
+    message: string;
+}
+
+export interface IParameterForUpdateParticipantNoteUrl {
+    participantId: number,
+    noteUrlForUpdate: string
+}
+
+export const apiForUpdateParticipantNoteUrl = async (
+    {
+        participantId,
+        noteUrlForUpdate
+    }: IParameterForUpdateParticipantNoteUrl
+): Promise<UpdateParticipantNoteUrlResponse> => {
+    try {
+        const response = await instance.put(
+            `${backendApi}/challenges/participant/${participantId}`,
+            { noteUrlForUpdate }
+        );
+        return response.data;
+    } catch (error) {
+        throw new Error(`Error updating participant note URL: ${error}`);
+    }
+};
+
 // 여기에 추가
 export const apiForUpdateIsPassedForParticipantForSubChallenge = async (
     subChallengeId: number,

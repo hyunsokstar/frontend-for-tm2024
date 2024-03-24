@@ -22,7 +22,11 @@ const getColumns = (subChallengeId: number, isLoggedIn: boolean, subChallengeNam
                         {row.noteUrl}
                         {
                             isLoggedIn ?
-                                <ModalButtonForSelectNoteForChallengeReport subChallengeName={subChallengeName} />
+                                <ModalButtonForSelectNoteForChallengeReport
+                                    subChallengeId={subChallengeId}
+                                    participantId={row.id}
+                                    subChallengeName={subChallengeName}
+                                />
                                 : ""
                         }
                     </Box>
@@ -62,6 +66,7 @@ const DataGridForChallengersForSubChallenges = ({ subChallengeId, participantsFo
         if (participantsForSubChallenge) {
             participantsRowsToUpdate = participantsForSubChallenge.map((row) => {
                 return {
+                    id: row.id,
                     email: row.user.email,
                     noteUrl: row.noteUrl,
                     user: row.user,

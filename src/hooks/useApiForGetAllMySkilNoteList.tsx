@@ -13,7 +13,6 @@ const useApiForGetAllMySkilNoteList = ({ pageNum }: IProps) => {
         queryFn: async () => {
             const response = await apiForGetAllMySkilNoteList(pageNum);
             console.log("response at use api for all my skil note list ", response);
-
             return response;
         },
     };

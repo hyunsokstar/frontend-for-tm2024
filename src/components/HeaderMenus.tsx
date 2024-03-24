@@ -98,7 +98,7 @@ const HeaderMenus = () => {
                         color={router.pathname.includes("/Challenge/FrontChallenges") ? "#4267B2" : "inherit"}
                         fontWeight={router.pathname.includes("/Challenge/FrontChallenges") ? "bold" : "normal"}
                     >
-                        Front Challenges
+                        Challenges
                     </Link>
 
                     <Link
