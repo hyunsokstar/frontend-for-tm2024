@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
 import { QueryFunctionContext } from "@tanstack/react-query";
-import { CreateSubChallengeDto, IChallengeRow, ICreateChallengeDto, IParamterForApiForUpdateChallenge, ITypeForChallengersRow, ITypeForResponseTypeForGetAllMySkilNoteListForSelectNoteForChallenge, IUpdateChallengeDto, ResponseTypeForGetAllParticipantsForSubChallenges, responseTypeForGetAllChallengeList } from "@/types/typeforChallenges";
+import { CreateSubChallengeDto, IChallengeRow, ICreateChallengeDto, IParamterForApiForUpdateChallenge, IUpdateChallengeDto, ResponseTypeForGetAllParticipantsForSubChallenges, responseTypeForGetAllChallengeList } from "@/types/typeforChallenges";
 
 const instance = axios.create({
     baseURL: `${backendApi}/challenges`,
@@ -56,10 +56,6 @@ export const apiForUpdateIsPassedForParticipantForSubChallenge = async (
     participantId: number,
     isPassed: boolean
 ): Promise<AxiosResponse<{ message: string }>> => {
-
-    console.log("subChallengeId : ", subChallengeId);
-    console.log("participantId : ", participantId);
-    console.log("isPassed : ", isPassed);
 
     try {
         return await instance.put(
