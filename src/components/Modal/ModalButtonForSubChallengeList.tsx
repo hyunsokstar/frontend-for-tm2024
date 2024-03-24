@@ -50,6 +50,7 @@ const ModalButtonForSubChallengeList: React.FC<Props> = ({
                             pageNum={pageNum}
                             subChallenges={subChallenges}
                         />
+
                     </ModalBody>
                     <ModalFooter>
                         <Button colorScheme="blue" mr={3} onClick={onClose}>

@@ -1,3 +1,4 @@
+import { IBriefing } from '@/types/typeforTodos';
 
 export interface IWriter {
     id: number;
@@ -13,6 +14,15 @@ export interface IWriter {
     profileImage: string | null;
 }
 
+export interface IBriefingForSubChallengeRow {
+    id: number;
+    content: string;
+    position: "manager" | "commenter"; // 혹은 enum으로 정의된 타입으로 변경하세요
+    createdAt: Date;
+    updatedAt: Date;
+    refImage: string | null; // 혹은 이미지 URL을 나타내는 타입으로 변경하세요
+}
+
 export type SubChallengeRow = {
     id: number;
     challengeName: string;
@@ -21,6 +31,7 @@ export type SubChallengeRow = {
     deadline: string; // ISO 8601 형식의 문자열
     createdAt: string; // ISO 8601 형식의 문자열
     updatedAt: string; // ISO 8601 형식의 문자열
+    briefings: IBriefingForSubChallengeRow[]
 };
 
 export interface IChallengeRow {

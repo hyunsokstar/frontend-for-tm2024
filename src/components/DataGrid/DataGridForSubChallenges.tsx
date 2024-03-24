@@ -8,6 +8,7 @@ import ModalButtonForUpdateChallenge from '../Modal/ModalButtonForUpdateChalleng
 import { DeleteIcon } from '@chakra-ui/icons';
 import useApiForDeleteChallenges from '@/hooks/useApiForDeleteChallenges';
 import ModalButtonForAllParticipantsForSubChallenges from '../Modal/ModalButtonForAllParticipantsForSubChallenges';
+import ModalButtonForBriefingListForSubChallenge from '../Modal/ModalButtonForBriefingListForSubChallenge';
 
 
 type Props = {
@@ -38,6 +39,17 @@ const DataGridForSubChallenges = ({
 
     const columns = [
         { key: 'challengeName', name: 'Sub Challenge Name' },
+
+        {
+            key: 'briefings',
+            name: 'briefings',
+            renderCell: (props: any) => (
+                <Box>
+                    <ModalButtonForBriefingListForSubChallenge briefingsForSubChallenge={props.row.briefings} />
+                </Box>
+            )
+        },
+
         {
             key: 'participants',
             name: 'participants',
