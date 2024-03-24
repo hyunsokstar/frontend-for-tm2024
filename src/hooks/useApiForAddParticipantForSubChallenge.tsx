@@ -16,7 +16,7 @@ const useApiForAddParticipantForSubChallenge = ({ subChallengeId }: IProps) => {
         onSuccess: (data: any) => {
             // 참가자가 성공적으로 추가된 경우의 처리
             console.log("Participant added successfully: ", data);
-            console.log("subChallengeId ??? ", subChallengeId);
+            console.log("subChallengeId ???: ", subChallengeId);
             // 추가적으로 필요한 로직 구현
             toast({
                 title: data.data.message,
@@ -26,7 +26,7 @@ const useApiForAddParticipantForSubChallenge = ({ subChallengeId }: IProps) => {
             });
 
             queryClient.refetchQueries({
-                queryKey: ['apiForGetAllParticipantsListForSubchallenges', subChallengeId]
+                queryKey: ['apiForGetAllParticipantsForSubChallenges', subChallengeId]
             });
         },
         onError: (error: any) => {

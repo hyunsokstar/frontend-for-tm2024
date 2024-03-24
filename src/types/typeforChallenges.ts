@@ -32,6 +32,7 @@ export type SubChallengeRow = {
     createdAt: string; // ISO 8601 형식의 문자열
     updatedAt: string; // ISO 8601 형식의 문자열
     briefings: IBriefingForSubChallengeRow[]
+    writer: IWriter;
 };
 
 export interface IChallengeRow {
@@ -114,3 +115,15 @@ export interface ResponseTypeForGetAllParticipantsForSubChallenges {
     participantsForSubChallenge: ITypeForChallengersRow[]
 }
 
+
+export interface CreateBriefingForSubChallengeDto {
+    // 필요한 속성들을 정의하세요.
+    content: string;
+    refImageUrl?: string;
+    position: 'manager' | 'commenter';
+}
+
+export interface IParameterForCreateBriefingForSubChallenge {
+    subChallengeId: number,
+    createBriefingForSubChallengeDto: CreateBriefingForSubChallengeDto
+}

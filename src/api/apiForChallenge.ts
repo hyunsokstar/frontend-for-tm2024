@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
 import { QueryFunctionContext } from "@tanstack/react-query";
-import { CreateSubChallengeDto, IChallengeRow, ICreateChallengeDto, IParamterForApiForUpdateChallenge, IUpdateChallengeDto, ResponseTypeForGetAllParticipantsForSubChallenges, responseTypeForGetAllChallengeList } from "@/types/typeforChallenges";
+import { CreateBriefingForSubChallengeDto, CreateSubChallengeDto, IChallengeRow, ICreateChallengeDto, IParameterForCreateBriefingForSubChallenge, IParamterForApiForUpdateChallenge, IUpdateChallengeDto, ResponseTypeForGetAllParticipantsForSubChallenges, responseTypeForGetAllChallengeList } from "@/types/typeforChallenges";
 
 const instance = axios.create({
     baseURL: `${backendApi}/challenges`,
@@ -139,4 +139,16 @@ export const apiForAddParticipantForSubChallenge = async (subChallengeId: number
     }
 };
 
-
+export const apiForCreateBriefingForSubChallenge = async (
+    {
+        subChallengeId,
+        createBriefingForSubChallengeDto
+    }: IParameterForCreateBriefingForSubChallenge
+): Promise<any> => {
+    try {
+        const response = await instance.post(`/sub-challenges/${subChallengeId}/briefing-for-sub-challenge`, createBriefingForSubChallengeDto);
+        return response.data;
+    } catch (error) {
+        throw new Error(`Error creating briefing for sub-challenge: ${error}`);
+    }
+};

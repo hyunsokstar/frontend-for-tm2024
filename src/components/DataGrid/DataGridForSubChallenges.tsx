@@ -12,9 +12,9 @@ import ModalButtonForBriefingListForSubChallenge from '../Modal/ModalButtonForBr
 
 
 type Props = {
+    pageNum: number
     mainChallenge: IChallengeRow
     subChallenges: SubChallengeRow[];
-    pageNum: number
 }
 
 const DataGridForSubChallenges = ({
@@ -45,7 +45,12 @@ const DataGridForSubChallenges = ({
             name: 'briefings',
             renderCell: (props: any) => (
                 <Box>
-                    <ModalButtonForBriefingListForSubChallenge briefingsForSubChallenge={props.row.briefings} />
+                    <ModalButtonForBriefingListForSubChallenge
+                        writerIdForSubChallenge={props.row.writer.id}
+                        pageNum={pageNum}
+                        subChallengeId={props.row.id}
+                        briefingsForSubChallenge={props.row.briefings}
+                    />
                 </Box>
             )
         },

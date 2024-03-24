@@ -1,13 +1,37 @@
-import { IBriefingForSubChallengeRow } from '@/types/typeforChallenges';
-import { Box, Avatar, Button } from '@chakra-ui/react';
-import React from 'react';
+import { IBriefingForSubChallengeRow, CreateBriefingForSubChallengeDto } from '@/types/typeforChallenges';
+import { Box, Avatar, Button, Input, InputGroup, InputRightElement } from '@chakra-ui/react';
+import React, { useState } from 'react';
 import ModalButtonForShowImageForBriefingBoard from '../Modal/ModalButtonForShowImageForBriefingBoard';
+import useCreateBriefingForSubChallengeMutation from '@/hooks/useApiForCreateBriefingForSubChallenge';
 
 type IProps = {
+    pageNum: number
+    position: "manager" | "commenter"
+    subChallengeId: number;
     briefingsForSubChallenge: IBriefingForSubChallengeRow[];
 }
 
-const ChatBoardForBriefingsForSubChallenge: React.FC<IProps> = ({ briefingsForSubChallenge }) => {
+const ChatBoardForBriefingsForSubChallenge: React.FC<IProps> = ({ pageNum, position, subChallengeId, briefingsForSubChallenge }) => {
+    const [inputValue, setInputValue] = useState('');
+    const createBriefingMutation = useCreateBriefingForSubChallengeMutation(pageNum);
+
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setInputValue(event.target.value);
+    };
+
+    const handleSubmit = () => {
+        if (inputValue.trim() !== '') {
+            const newBriefing: CreateBriefingForSubChallengeDto = {
+                content: inputValue.trim(),
+                position: position
+            };
+            createBriefingMutation.mutate({
+                subChallengeId,
+                createBriefingForSubChallengeDto: newBriefing
+            });
+            setInputValue(''); // 입력 필드 초기화
+        }
+    };
 
     return (
         <Box>
@@ -17,7 +41,7 @@ const ChatBoardForBriefingsForSubChallenge: React.FC<IProps> = ({ briefingsForSu
                         <Box
                             key={index}
                             m={1}
-                            alignSelf={briefing.position === 'manager' ? 'flex-start' : 'flex-end'} // 매니저인 경우 왼쪽 정렬, 아닌 경우 오른쪽 정렬
+                            alignSelf={briefing.position === 'manager' ? 'flex-start' : 'flex-end'}
                         >
                             <Box display="flex" gap={2}>
                                 <Box>
@@ -39,6 +63,23 @@ const ChatBoardForBriefingsForSubChallenge: React.FC<IProps> = ({ briefingsForSu
                 ) : (
                     <Box>No data</Box>
                 )}
+            </Box>
+            <Box>
+                <InputGroup mt={2}>
+                    <Input value={inputValue} onChange={handleInputChange} />
+                    <InputRightElement>
+                        <Box>
+                            <Button
+                                mr={2}
+                                onClick={handleSubmit}
+                                size={"xs"}
+                                variant={"outline"}
+                            >
+                                입력
+                            </Button>
+                        </Box>
+                    </InputRightElement>
+                </InputGroup>
             </Box>
         </Box>
     );
