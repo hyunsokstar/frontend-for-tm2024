@@ -22,6 +22,10 @@ const getColumns = (subChallengeId: number, isLoggedIn: boolean, subChallengeNam
                     <Box>
                         <Box>
                             {row.noteUrl === "" ?
+
+
+
+
                                 <Box display={"flex"} justifyContent={"space-between"}>
                                     {
                                         isLoggedIn ?
@@ -112,7 +116,7 @@ const DataGridForChallengersForSubChallenges = ({ subChallengeId, participantsFo
                     email: row.user.email,
                     noteUrl: row.noteUrl,
                     user: row.user,
-                    isPassed: row.isPassed
+                    isPassed: row.isPassed,
                 };
             });
             setParticipantsRows(participantsRowsToUpdate);
