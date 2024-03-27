@@ -21,6 +21,7 @@ export interface IBriefingForSubChallengeRow {
     createdAt: Date;
     updatedAt: Date;
     refImage: string | null; // 혹은 이미지 URL을 나타내는 타입으로 변경하세요
+    writer: IWriter
 }
 
 export type SubChallengeRow = {

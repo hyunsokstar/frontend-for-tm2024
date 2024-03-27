@@ -45,7 +45,7 @@ const ChatBoardForBriefingsForSubChallenge: React.FC<IProps> = ({ pageNum, posit
                         >
                             <Box display="flex" gap={2}>
                                 <Box>
-                                    <Avatar />
+                                    <Avatar src={briefing?.writer?.profileImage} />
                                 </Box>
                                 <Box p={2} bg={briefing.position === 'manager' ? 'gray.200' : 'blue.200'} borderRadius="md" mb={1}>
                                     {briefing.content}
