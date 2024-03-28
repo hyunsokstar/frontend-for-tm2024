@@ -37,20 +37,10 @@ const TabMenuForSkilNoteContents = ({
     useEffect(() => {
 
         const countForSkilNotePages = dataForskilNoteContent?.skilnotePagesCount;
-        console.log("skilnotePagesCount : ", dataForskilNoteContent?.skilnotePagesCount);
-
         const countForSkilNoteContents = dataForskilNoteContent?.skilnoteContents.length
         const skilnoteContents = dataForskilNoteContent?.skilnoteContents
         let totalCountForBookMark = 0
-        // const myBookMarCount = skilnoteContents?.map((skilnote) => {
-        //     let countForBookMark = skilnote.bookMarks.filter((bookmark) => {
-        //         if (bookmark.user.email === loginUser.email) {
-        //             console.log("check for bookmark");
-        //             totalCountForBookMark++
-        //         }
-        //     })
-        //     return totalCountForBookMark
-        // })
+
         setTotalCountForBookMarkCount(totalCountForBookMark)
 
         setCountForSkilNoteContents(countForSkilNoteContents)
