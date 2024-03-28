@@ -24,7 +24,6 @@ const SkilNoteContents = () => {
     const [isEditMode, setIsEditMode] = useState(false);
 
     const { data: dataForskilNoteContent } = useApiForGetSkilNoteContentsForSkilNoteId(skilNoteId, pageNum);
-
     // console.log("dataForskilNoteContent : ", dataForskilNoteContent);
 
     const handlerForEditModeClick = () => {
@@ -39,16 +38,12 @@ const SkilNoteContents = () => {
         if (selectedCard) {
             // smooth scroll
             // selectedCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
             // smooth scroll 끝난 후 정확한 위치로 추가 스크롤
             // selectedCard.scrollIntoView({ behavior: 'instant', block: 'start' });
-
             selectedCard.scrollIntoView({ behavior: 'smooth' });
-
             setTimeout(() => {
                 selectedCard.scrollIntoView({ behavior: 'instant', block: 'start' });
             }, 500); // 애니메이션 시간 고려
-
         }
     };
 
@@ -172,9 +167,14 @@ const SkilNoteContents = () => {
                         <Button onClick={deleteHandlerForCheckedRows}>delete</Button>
                     </Box>
 
-                    <Box display={"flex"} gap={2} >
-                        <Button width={"50%"} size={"md"} onClick={handleBeforeClick}>Before</Button>
-                        <Button width={"50%"} size={"md"} onClick={handleNextClick}>Next</Button>
+                    <Box display={"flex"} justifyContent={"space-between"} width={"40%"} pl={2} alignItems={"center"}>
+                        <Box>
+                            current page: {pageNum}
+                        </Box>
+                        <Box display={"flex"} gap={1}>
+                            <Button width={"50%"} variant="outline" size={"md"} onClick={handleBeforeClick}>Before</Button>
+                            <Button width={"50%"} variant="outline" size={"md"} onClick={handleNextClick}>Next</Button>
+                        </Box>
                     </Box>
 
                 </Box>
