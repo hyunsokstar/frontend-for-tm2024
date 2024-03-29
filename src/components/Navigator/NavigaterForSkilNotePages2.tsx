@@ -67,6 +67,7 @@ interface IProps {
 // skilnoteContents: SkilNoteContentsRow[]
 const NavigaterForSkilNotePages2 = ({ skilNoteId, pageNum, dataForskilNoteContent }: IProps) => {
     const [items, setItems] = useState<Item[]>(getItems(5));
+    const [currentPage, setCurrentPage] = useState()
     console.log("dataForskilNoteContent : ", dataForskilNoteContent);
     const mutationForChangePagesOrderForSkilNote = useApiForChangePagesOrderForSkilNote({ skilNoteId: skilNoteId, pageNum: pageNum });
     const router = useRouter(); // useRouter를 초기화
@@ -76,17 +77,16 @@ const NavigaterForSkilNotePages2 = ({ skilNoteId, pageNum, dataForskilNoteConten
         mutationForCreateNextPageForSkilnoteContent.mutate(skilNoteId)
     }
 
-    const handleButtonClick = (page: any) => {
+    const handlePageButtonClick = (page: any) => {
+        setCurrentPage(page)
         router.push(`/Note/SkilNoteContents/${skilNoteId}/${page}`); // 해당 페이지로 이동
     }
 
     const onDragEnd = (result: DropResult) => {
-
         // 드래그한 요소의 data-page 속성 가져오기
         const draggedItemPage = document.getElementById(result.draggableId)?.getAttribute("data-page");
         console.log("옮긴 박스의 order number : ", draggedItemPage);
         console.log("도착지의 oreder number ", result.destination && result.destination.index + 1);
-
 
         const destinationOrder = result.destination ? result.destination.index + 1 : null;
 
@@ -115,7 +115,10 @@ const NavigaterForSkilNotePages2 = ({ skilNoteId, pageNum, dataForskilNoteConten
                                         <Draggable key={item.id} draggableId={String(item.id)} index={index}>
                                             {(provided, snapshot) => (
                                                 <Box display={"flex"} gap={2} alignItems={"center"} key={index}>
-                                                    <Button variant={"outline"} onClick={() => handleButtonClick(item.page)} border={"1px solid black"} mb={1}>
+                                                    <Button
+                                                        backgroundColor={currentPage === index + 1 ? "lightgreen" : ""}
+                                                        variant={"outline"} onClick={() => handlePageButtonClick(item.page)} border={"1px solid black"} mb={1}
+                                                    >
                                                         {index + 1}
                                                     </Button>
                                                     <Box
