@@ -25,22 +25,17 @@ instance.interceptors.request.use(
     }
 );
 
-// export const apiForGetAllMySkilNoteList = async (
-//     pageNum: number = 1,
-// ): Promise<AxiosResponse<ITypeForResponseTypeForGetAllMySkilNoteListForSelectNoteForChallenge>> => {
-//     try {
-//         const response = await instance.get("my-notes", {
-//             params: { pageNum }
-//         });
-
-//         console.log("response for my skil note list !!! ", response.data);
-
-
-//         return response.data;
-//     } catch (error) {
-//         throw new Error(`Error in fetching all my skill notes: ${error}`);
-//     }
-// };
+export const apiForCreateNextPageForSkilnoteContent = async (skilNoteId: number) => {
+    try {
+        const response = await instance.post(
+            `/create-next-page-for-skilnotecontent/${skilNoteId}`,
+            {}
+        );
+        return response.data;
+    } catch (error: any) {
+        throw new Error(error.response.data.message || error.message);
+    }
+};
 
 export const apiForGetAllMySkilNoteList = async (
     pageNum: number = 1
@@ -52,7 +47,7 @@ export const apiForGetAllMySkilNoteList = async (
         console.log("response for my skil note list !!! ", response.data);
         return response.data; // response.data를 직접 반환
     } catch (error) {
-        throw new Error(`Error in fetching all my skill notes: ${error}`);
+        throw error
     }
 };
 

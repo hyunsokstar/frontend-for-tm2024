@@ -9,6 +9,7 @@ import dynamic from "next/dynamic";
 import { responseTypeForGetSkilNoteContents } from "@/types/typeForSkilNoteContents";
 import useApiForChangePagesOrderForSkilNote from "@/hooks/useApiForChangePagesOrderForSkilNote";
 import { useRouter } from "next/router";
+import useApiForCreateNextPageForSkilnoteContent from "@/hooks/useApiForCreateNextPageForSkilnoteContent";
 
 const Droppable = dynamic(
     () => import("react-beautiful-dnd").then((res) => res.Droppable),
@@ -68,8 +69,12 @@ const NavigaterForSkilNotePages2 = ({ skilNoteId, pageNum, dataForskilNoteConten
     const [items, setItems] = useState<Item[]>(getItems(5));
     console.log("dataForskilNoteContent : ", dataForskilNoteContent);
     const mutationForChangePagesOrderForSkilNote = useApiForChangePagesOrderForSkilNote({ skilNoteId: skilNoteId, pageNum: pageNum });
-
     const router = useRouter(); // useRouter를 초기화
+    const mutationForCreateNextPageForSkilnoteContent = useApiForCreateNextPageForSkilnoteContent(skilNoteId, pageNum);
+
+    const createPageButtonClick = () => {
+        mutationForCreateNextPageForSkilnoteContent.mutate(skilNoteId)
+    }
 
     const handleButtonClick = (page: any) => {
         router.push(`/Note/SkilNoteContents/${skilNoteId}/${page}`); // 해당 페이지로 이동
@@ -93,60 +98,59 @@ const NavigaterForSkilNotePages2 = ({ skilNoteId, pageNum, dataForskilNoteConten
             });
         }
 
-        // if (!result.destination) {
-        //     return;
-        // }
-
-        // const newItems = reorder(
-        //     items,
-        //     result.source.index,
-        //     result.destination.index
-        // );
-
-        // setItems(newItems);
-
     };
 
     return (
-        <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable droppableId="droppable">
-                {(provided, snapshot) => (
-                    <Box
-                        ref={provided.innerRef}
-                        style={getListStyle(snapshot.isDraggingOver)}
-                    >
-                        {
-                            dataForskilNoteContent ? dataForskilNoteContent.skilnoteContentsPagesInfo.map((item, index) => (
-                                <Draggable key={item.id} draggableId={String(item.id)} index={index}>
-                                    {(provided, snapshot) => (
-                                        <Box display={"flex"} gap={2} alignItems={"center"} key={index}>
-                                            <Button variant={"outline"} onClick={() => handleButtonClick(item.page)} border={"1px solid black"} mb={1}>
-                                                {index + 1}
-                                            </Button>
-                                            <Box
-                                                ref={provided.innerRef}
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
-                                                style={getItemStyle(
-                                                    provided.draggableProps.style,
-                                                    snapshot.isDragging
-                                                )}
-                                                id={String(item.id)}
-                                                data-page={item.page}
-                                            >
-                                                {item.title}
-                                            </Box>
-                                        </Box>
-                                    )}
-                                </Draggable>
-                            )) :
-                                "no data"
-                        }
-                        {provided.placeholder}
-                    </Box>
-                )}
-            </Droppable>
-        </DragDropContext>
+        <Box>
+            <Box>
+                <DragDropContext onDragEnd={onDragEnd}>
+                    <Droppable droppableId="droppable">
+                        {(provided, snapshot) => (
+                            <Box
+                                ref={provided.innerRef}
+                                style={getListStyle(snapshot.isDraggingOver)}
+                            >
+                                {
+                                    dataForskilNoteContent ? dataForskilNoteContent.skilnoteContentsPagesInfo.map((item, index) => (
+                                        <Draggable key={item.id} draggableId={String(item.id)} index={index}>
+                                            {(provided, snapshot) => (
+                                                <Box display={"flex"} gap={2} alignItems={"center"} key={index}>
+                                                    <Button variant={"outline"} onClick={() => handleButtonClick(item.page)} border={"1px solid black"} mb={1}>
+                                                        {index + 1}
+                                                    </Button>
+                                                    <Box
+                                                        ref={provided.innerRef}
+                                                        {...provided.draggableProps}
+                                                        {...provided.dragHandleProps}
+                                                        style={getItemStyle(
+                                                            provided.draggableProps.style,
+                                                            snapshot.isDragging
+                                                        )}
+                                                        id={String(item.id)}
+                                                        data-page={item.page}
+                                                    >
+                                                        {item.title}
+                                                    </Box>
+                                                </Box>
+                                            )}
+                                        </Draggable>
+                                    )) :
+                                        "no data"
+                                }
+                                {provided.placeholder}
+                            </Box>
+                        )}
+                    </Droppable>
+                </DragDropContext>
+            </Box>
+
+            <Box display={"flex"} justifyContent={"space-between"} mt={2} width={"100%"} border={"1px solid green"}>
+                <Button variant={"outline"} width={"100%"} onClick={createPageButtonClick}>
+                    Create Page
+                </Button>
+            </Box>
+
+        </Box>
     );
 };
 

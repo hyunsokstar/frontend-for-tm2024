@@ -24,18 +24,6 @@ type Item = {
     file?: string
 };
 
-// const getItems = (count: number): Item[] =>
-//     Array.from({ length: count }, (v, k) => k).map((k) => ({
-//         id: `${k + 1}`,
-//         order: `${k + 1}`,
-//     }));
-
-const getItems = (count: number): Item[] =>
-    Array.from({ length: count }, (v, k) => ({
-        id: `${k + 1}`,
-        order: `${k + 1} (${v})`,
-    }));
-
 const reorder = (
     list: Item[],
     startIndex: number,
@@ -80,13 +68,24 @@ interface IProps {
 const NavigatorForScrollContents =
     ({ dataForskilNoteContent, skilNoteId, pageNum, scrollToCard, scrollCardToEditor, checkedRows, setCheckedRows }: IProps) => {
         const [items, setItems] = useState<Item[]>([]);
+        const [currentIndex, setCurrentIndex] = useState<Number>()
+
+        const contentIndexButtonClick = (index: number) => {
+            console.log("index : ", index);
+            setCurrentIndex(index + 1)
+        }
 
         const mutationForUpdateOrderForSkilNoteContents = useApiForUpdateOrderForSkilNoteContents(skilNoteId, pageNum);
         const dispatch = useDispatch();
 
         const onDragEnd = (result: DropResult) => {
-            console.log("옮긴 박스의 order number : ", result.draggableId);
+            console.log("옮길 박스의 현재 index : ", result.source.index + 1);
             console.log("도착지의 oreder number ", result.destination && result.destination.index + 1);
+
+            if (result.destination && result.source.index + 1 === result.destination?.index + 1) {
+                return;
+            }
+
 
             if (!result.destination) {
                 return;
@@ -140,26 +139,29 @@ const NavigatorForScrollContents =
             return matches ? matches[1] : null;
         }
 
+        // 색깔 조절
         function getBackgroundColor(fileType: any): string {
-            const yellowTone = "#FFFFCC"; // 노란색 계통 배경색
+            const yellowTone = "#FFFFE0";
 
             switch (fileType) {
                 case "todo":
-                    return "red.100"
+                    return "pink"; // Blue (Material Design's primary blue)
                 case "tsx":
-                    return "green.100"; // 초록색 계열
+                    return "#abe7ad"; // Green (Material Design's primary green)
                 case "ts":
-                    return "orange.100"; // 파란색 계열
+                    return "#FF9800"; // Orange (Material Design's primary orange)
                 case "css":
-                    return "pink.100"; // 주황색 계열
+                    return "#9C27B0"; // Purple (Material Design's primary purple)
                 case "test":
-                    return "pruple.200"; // 주황색 계열
+                    return "#7abdf3"; // Light Blue (Material Design's primary light blue)
                 case "cmd":
-                    return "skyblue"; // 주황색 계열
+                    return "#a7eee7"; // Teal (Material Design's primary teal)
                 default:
                     return yellowTone;
             }
         }
+
+
 
         useEffect(() => {
 
@@ -180,7 +182,6 @@ const NavigatorForScrollContents =
 
         }, [dataForskilNoteContent])
 
-        // console.log("items : ", items);
 
         return (
             <Box overflowY={"scroll"} height={"70vh"}>
@@ -212,14 +213,16 @@ const NavigatorForScrollContents =
                                                     border={checkedRows.includes(parseInt(item.id)) ? "1px solid red" : "1px solid black"}
                                                     width={"100%"}
                                                     display={"flex"}
-                                                    // flexDirection={"column"}
                                                     flexWrap={"wrap"}
                                                     gap={2}
                                                     justifyContent={"center"}
                                                     alignItems={"center"}
                                                 >
                                                     <Box>
-                                                        <Button size={"sm"} variant={"outline"} border={"1px solid black"} m={0}>
+                                                        <Button
+                                                            size={"sm"} variant={"outline"} border={"1px solid black"} m={0} onClick={(i) => contentIndexButtonClick(index)}
+                                                            backgroundColor={index + 1 === currentIndex ? "paleturquoise" : ""}
+                                                        >
                                                             {index + 1}
                                                         </Button>
                                                     </Box>
@@ -234,8 +237,6 @@ const NavigatorForScrollContents =
                                                         : ""}
 
                                                 </Box>
-                                                {/* <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
-                                                </Box> */}
                                             </Box>
                                         )}
                                     </Draggable>
