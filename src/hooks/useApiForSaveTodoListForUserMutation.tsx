@@ -29,7 +29,7 @@ const useApiForSaveTodoListForUserMutation = ({ pageNum, userId, todoStatusOptio
                 console.log("here this is entry???????", todoStatusOption);
 
                 queryClient.refetchQueries({
-                    queryKey: ['uncompletedTodoList', pageNum, userId, "entry"]
+                    queryKey: ['uncompletedTodoList', pageNum, userId, todoStatusOption]
                 });
 
             } else if (todoStatusOption === "all_uncompleted" || todoStatusOption === "all_completed") {

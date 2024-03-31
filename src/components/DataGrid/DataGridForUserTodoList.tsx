@@ -426,7 +426,7 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
 
     const [pageNum, setPageNum] = useState(1);
 
-    const userId = undefined
+    const userId = loginUser
     const { isLoading, error, data: dataForUncompletedTodoListForUser }
         = useApiForGetUncompletedTodoListForUserId({ pageNum, userId, todoStatusOption });
 
@@ -448,6 +448,9 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
     const [defaultUserEmail, setDefaultUserEmail] = useState(loginUser.email);
     const [defaultDeadLine, setDefaultDeadline] = useState<Date | null>(null);
     const [defaultTodoStatus, setDefaultTodoStatus] = useState<string>("ready");
+
+    console.log("hi for entry : ", pageNum, userId, todoStatusOption);
+
 
     const mutationForSaveTodoRows = useApiForSaveTodoListForUserMutation({ pageNum, userId, todoStatusOption });
     const deleteForTodosForCheckedIdsMutation = useApiForDeleteTodosForCheckedIds({ pageNum, userId, todoStatusOption });
@@ -513,10 +516,28 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
 
     const handleSave = () => {
         const todoRowsForSave = todoList?.filter(row => selectedRows.has(row.id)) || [];
-        console.log('todoRowsForSave : ', todoRowsForSave);
+
+        // 담당자 이메일 유효성 검사
+        const invalidEmails = todoRowsForSave.filter(row => !row.email || row.email === "");
+
+        // 담당자를 선택하지 않은 경우 Toast 알림 출력
+        if (invalidEmails.length > 0) {
+            toast({
+                title: "담당자를 선택해 주세요.",
+                status: "error",
+                duration: 3000,
+                isClosable: true,
+            });
+            return;
+        }
+
+        // 유효성 검사를 통과한 todoRows만 전송
         mutationForSaveTodoRows.mutate({ todoRowsForSave });
-        setSelectedRows(new Set())
+
+        // 선택된 행 초기화
+        setSelectedRows(new Set());
     };
+
 
     const createTodoButtonClick = () => {
         if (!defaultUserEmail || defaultDeadLine === null || !rowNumToAdd || !inputValue) {
@@ -743,6 +764,7 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
             </Box>
 
             <Box>
+                {/* hi for entry */}
                 <DataGrid
                     rowKeyGetter={(row) => row.id}
                     columns={columns}
