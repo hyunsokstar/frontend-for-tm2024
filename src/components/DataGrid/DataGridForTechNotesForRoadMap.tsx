@@ -12,12 +12,23 @@ import SelectBoxForUserEmail from '../GridEditor/SelectBox/SelectBoxForUserEmail
 import { TechNote } from '@/types/typeForTechNote';
 import ModalButtonForParticipantsListForTechNote from '../Modal/ModalButtonForParticipantsListForTechNote';
 
+import { format } from 'date-fns';
+
+
 type Props = {
     techNotes: ITypeForTechNotesRowForRoadMapsMasterDetail[]; // techNotes 배열을 Props로 받음
     roadMapId: any
 };
 
+const formatDateTime = (dateTime: string | any) => {
+    console.log("dateTime : ", typeof dateTime);
 
+    if (dateTime !== undefined) {
+        const time = new Date(dateTime);
+        return format(time, "MM-dd HH:mm");
+    }
+
+};
 
 const DataGridForTechNotesForRoadMap: React.FC<Props> = ({ techNotes, roadMapId }) => {
     const toast = useToast();
@@ -100,7 +111,20 @@ const DataGridForTechNotesForRoadMap: React.FC<Props> = ({ techNotes, roadMapId 
             },
         },
 
-        { key: 'createdAt', name: 'Created At' },
+
+
+        {
+            key: 'createdAt',
+            name: 'Created At',
+            renderCell(props: any) {
+                const value = formatDateTime(props.row.createdAt);
+                return (
+                    <>
+                        {value}
+                    </>
+                );
+            },
+        },
         { key: 'updatedAt', name: 'Updated At' },
 
     ];
