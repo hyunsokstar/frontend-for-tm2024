@@ -105,9 +105,7 @@ const SkilNoteContents = () => {
     };
 
 
-
     const allCheckHandler = () => {
-
         const AllIdsForSkilNoteContents = dataForskilNoteContent?.skilnoteContents.map((row) => {
             return row.id
         })

@@ -33,7 +33,6 @@ const CardForSkilNoteContent = ({ noteObj, skilNoteId, index, pageNum, checkedRo
 
     const mutationForBookMarkSkilNoteContent = useApiForBookMarkSkilNoteContent(skilNoteId, pageNum);
 
-
     // console.log("bookMarks : ", bookMarks);
     const bookMarkButtonHandler = (userId: any, skilNoteContentId: any) => {
 
@@ -44,7 +43,7 @@ const CardForSkilNoteContent = ({ noteObj, skilNoteId, index, pageNum, checkedRo
         const textToCopy = stripHtmlTags(noteObj?.content || '');
         copyToClipboard(textToCopy);
         setCopied(true);
-        setTimeout(() => setCopied(false), 1500); // 1.5초 후에 copied 상태를 false로 변경
+        setTimeout(() => setCopied(false), 1500);
     };
 
     const stripHtmlTags = (html: string) => {

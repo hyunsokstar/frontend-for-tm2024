@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Button, Flex, HStack, Icon, Input, Radio, RadioGroup, Select, Stack, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, Flex, HStack, Icon, Radio, RadioGroup, Stack, Text, Skeleton } from "@chakra-ui/react";
 // import DataGrid, { RenderCheckboxProps, SelectColumn } from 'react-data-grid';
 import DataGrid, { RenderCheckboxProps, RowsChangeData, SelectColumn, TreeDataGrid, textEditor } from 'react-data-grid';
 
@@ -20,7 +20,6 @@ import useApiForBookMarkSkilNote from "@/hooks/useApiForBookMarkSkilNote";
 import useApiForDeleteSkilNotesForCheckedIds from "@/hooks/useApiForDeleteSkilNotesForCheckedIds";
 import MyPagination from "../MyPagination";
 import ModalButtonForReorderSkilNoteList from "../Modal/ModalButtonForReorderSkilNoteList";
-import ModalButtonForParticipantsListForRoadMap from "../Modal/ModalButtonForParticipantsListForRoadMap";
 import ModalButtonForParticipantsListForSkilNote from "../Modal/ModalButtonForParticipantsListForSkilNote";
 
 
@@ -145,37 +144,6 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
 
     const columns = [
         SelectColumnForReactDataGrid,
-        // step2 expanded 칼럼을 설정한뒤 클릭하면 row.expanded 가 toggle 되도록 설정
-        // {
-        //     key: 'expanded',
-        //     name: '',
-        //     width: 50,
-        //     colSpan(args: any) {
-        //         return args.type === 'ROW' && args.row.type === 'DETAIL' ? 9 : undefined;
-        //     }, renderCell({ row, tabIndex, onRowChange }: any) {
-        //         if (row.type === "DETAIL") {
-        //             return (
-        //                 <Flex display="grid" gridTemplateColumns="1fr 1fr" lineHeight={"20px"} height={"96%"} mx={2} mt={2} gap={2}>
-        //                     <Box border={"1px solid blue"}>Description</Box>
-        //                     <Box border={"1px solid red"}>관련 게시판</Box>
-        //                 </Flex>
-
-        //             )
-        //         }
-        //         else {
-        //             return (
-        //                 <CellExpanderFormatter
-        //                     expanded={row.expanded}
-        //                     tabIndex={tabIndex}
-        //                     onCellExpand={() => {
-        //                         onRowChange({ ...row, expanded: !row.expanded });
-        //                     }}
-        //                 />
-        //             )
-        //         }
-
-        //     }
-        // },
         {
             key: "index",
             name: "index",
@@ -573,7 +541,23 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
                             rowGrouper={rowGrouper}
                             groupBy={selectedOptions}
                         />
-                        : "no data"}
+                        :
+                        <Box>
+                            {isLoading ? (
+                                <>
+                                    <Skeleton height="20px" my="2" />
+                                    <Skeleton height="20px" mb="2" />
+                                    <Skeleton height="20px" mb="2" />
+                                    {/* 원하는 만큼 Skeleton을 추가하고 각각의 아이템에 대한 높이와 여백을 조절할 수 있습니다. */}
+                                </>
+                            ) : (
+                                <>
+                                    {/* 로딩 중이 아닐 때 실제 데이터를 렌더링합니다. */}
+                                    {/* 예시: <ListItem data={data} /> */}
+                                    <Box>No data</Box>
+                                </>
+                            )}                        </Box>
+                    }
                 </Box>
 
             </Box>
