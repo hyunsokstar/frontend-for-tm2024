@@ -21,7 +21,7 @@ const ModalButtonForParticipantsListForSkilNote: React.FC<Props>
         const { isLoggedIn, loginUser, logout } = useUser();
         const userId = loginUser.id;
 
-        console.log("participants : ", participants);
+        // console.log("participants : ", participants);
 
         const handleOpenModal = () => {
             setIsOpen(true);
@@ -37,7 +37,7 @@ const ModalButtonForParticipantsListForSkilNote: React.FC<Props>
 
         return (
             <>
-                <Button onClick={handleOpenModal} size="sm" variant={"outlined"} border={"1px solid green"}>
+                <Button onClick={handleOpenModal} size="xs" variant={"outlined"} border={"1px solid green"}>
                     {button_text} ({participants.length})
                 </Button>
                 <Modal isOpen={isOpen} onClose={handleCloseModal} size="6xl">

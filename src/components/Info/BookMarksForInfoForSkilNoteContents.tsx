@@ -12,10 +12,7 @@ type Props = {
 }
 
 const BookMarksForInfoForSkilNoteContents = ({ dataForskilNoteContent }: Props) => {
-    // const [checkedRows, setCheckedRows] = useState<number[]>([]);
-    // const [isEditMode, setIsEditMode] = useState(false);
     const loginUser = useSelector((state: RootState) => state.user.loginUser);
-
     console.log("dataForskilNoteContent ??:", dataForskilNoteContent);
 
     return (

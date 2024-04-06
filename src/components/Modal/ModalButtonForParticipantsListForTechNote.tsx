@@ -52,7 +52,7 @@ const ModalButtonForParticipantsListForTechNote: React.FC<Props> = ({
 
     return (
         <>
-            <Button onClick={handleOpenModal} size="sm" variant={"outlined"} border={"1px solid green"}>
+            <Button onClick={handleOpenModal} size="xs" variant={"outlined"} border={"1px solid green"}>
                 {button_text} ({participants.length})
             </Button>
             <Modal isOpen={isOpen} onClose={handleCloseModal} size="6xl">

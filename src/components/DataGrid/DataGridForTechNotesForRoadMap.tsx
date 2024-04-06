@@ -100,7 +100,7 @@ const DataGridForTechNotesForRoadMap: React.FC<Props> = ({ techNotes, roadMapId 
                 return (
                     <Box border={"0px solid red"}>
                         <Button onClick={() => skilNotePageButtonClick(row.id)}
-                            size={"sm"}
+                            size={"xs"}
                             variant={"outline"}
                         >
                             {/* 스킬 노트 ({row.skilnotes.length}) */}
@@ -265,11 +265,11 @@ const DataGridForTechNotesForRoadMap: React.FC<Props> = ({ techNotes, roadMapId 
 
     return (
         <Box width={"100%"} >
-            <Box display={"flex"} gap={2} px={2} justifyContent={"flex-end"} my={1}>
-                <Button onClick={deleteHandler} variant={"outline"}>Delete</Button>
-                <Button onClick={saveHandler} variant={"outline"}>save</Button>
+            <Box display={"flex"} gap={2} px={2} justifyContent={"flex-end"} my={1} pt="2" pb={1} bgColor={"white"}>
+                <Button onClick={deleteHandler} size="sm" variant={"outline"} border={"1px solid black"}>Delete</Button>
+                <Button onClick={saveHandler} size="sm" variant={"outline"} border={"1px solid black"}>save</Button>
                 {isLoggedIn ?
-                    <Button onClick={addRowHandler} variant={"outline"}>add</Button>
+                    <Button onClick={addRowHandler} size="sm" variant={"outline"} border={"1px solid black"}>add</Button>
                     : ""}
             </Box>
             <Box>

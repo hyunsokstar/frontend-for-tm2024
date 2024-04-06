@@ -53,7 +53,7 @@ const TabMenuForSkilNoteContents = ({
                 <Tab _selected={{ color: 'black.500', bg: 'blue.300' }}>Contents({countForSkilNoteContents})</Tab>
                 <Tab _selected={{ color: 'black.500', bg: 'red.300' }}>Pages ({countForSkilNotePages})</Tab>
                 <Tab _selected={{ color: 'yellow.300', bg: 'brown' }}>
-                    skilnotes
+                    skilnotes ({dataForskilNoteContent?.relatedSkilnoteList.length})
                 </Tab>
                 <Tab _selected={{ color: 'black.500', bg: 'green.200' }}>
                     bm ({dataForskilNoteContent?.myBookMarks.length})
