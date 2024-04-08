@@ -542,21 +542,43 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
                             groupBy={selectedOptions}
                         />
                         :
-                        <Box>
+                        <Box px={6}>
                             {isLoading ? (
-                                <Box px={5}>
-                                    <Skeleton height="20px" my="2" />
-                                    <Skeleton height="20px" mb="2" />
-                                    <Skeleton height="20px" mb="2" />
-                                    {/* 원하는 만큼 Skeleton을 추가하고 각각의 아이템에 대한 높이와 여백을 조절할 수 있습니다. */}
+                                <Box>
+                                    <Flex align="center" justify="space-between" my={2}>
+                                        <Checkbox isChecked={false} isDisabled />
+                                        <Skeleton height="20px" width="60%" />
+                                        <Skeleton height="30px" width="80px" />
+                                    </Flex>
+                                    <Flex align="center" justify="space-between" my={2}>
+                                        <Checkbox isChecked={false} isDisabled />
+                                        <Skeleton height="20px" width="60%" />
+                                        <Skeleton height="30px" width="80px" />
+                                    </Flex>
+                                    <Flex align="center" justify="space-between" my={2}>
+                                        <Checkbox isChecked={false} isDisabled />
+                                        <Skeleton height="20px" width="60%" />
+                                        <Skeleton height="30px" width="80px" />
+                                    </Flex>
+                                    <Flex align="center" justify="space-between" my={2}>
+                                        <Checkbox isChecked={false} isDisabled />
+                                        <Skeleton height="20px" width="60%" />
+                                        <Skeleton height="30px" width="80px" />
+                                    </Flex>
+                                    <Flex align="center" justify="space-between" my={2}>
+                                        <Checkbox isChecked={false} isDisabled />
+                                        <Skeleton height="20px" width="60%" />
+                                        <Skeleton height="30px" width="80px" />
+                                    </Flex>
                                 </Box>
                             ) : (
-                                <>
+                                <Box>
                                     {/* 로딩 중이 아닐 때 실제 데이터를 렌더링합니다. */}
                                     {/* 예시: <ListItem data={data} /> */}
                                     <Box>No data</Box>
-                                </>
-                            )}                        </Box>
+                                </Box>
+                            )}
+                        </Box>
                     }
                 </Box>
 
