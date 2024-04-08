@@ -21,6 +21,7 @@ import useApiForDeleteSkilNotesForCheckedIds from "@/hooks/useApiForDeleteSkilNo
 import MyPagination from "../MyPagination";
 import ModalButtonForReorderSkilNoteList from "../Modal/ModalButtonForReorderSkilNoteList";
 import ModalButtonForParticipantsListForSkilNote from "../Modal/ModalButtonForParticipantsListForSkilNote";
+import SkeletonForBoard from "../Skeleton/SkeletonForBoard";
 
 
 interface IProps {
@@ -545,31 +546,7 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
                         <Box px={6}>
                             {isLoading ? (
                                 <Box>
-                                    <Flex align="center" justify="space-between" my={2}>
-                                        <Checkbox isChecked={false} isDisabled />
-                                        <Skeleton height="20px" width="60%" />
-                                        <Skeleton height="30px" width="80px" />
-                                    </Flex>
-                                    <Flex align="center" justify="space-between" my={2}>
-                                        <Checkbox isChecked={false} isDisabled />
-                                        <Skeleton height="20px" width="60%" />
-                                        <Skeleton height="30px" width="80px" />
-                                    </Flex>
-                                    <Flex align="center" justify="space-between" my={2}>
-                                        <Checkbox isChecked={false} isDisabled />
-                                        <Skeleton height="20px" width="60%" />
-                                        <Skeleton height="30px" width="80px" />
-                                    </Flex>
-                                    <Flex align="center" justify="space-between" my={2}>
-                                        <Checkbox isChecked={false} isDisabled />
-                                        <Skeleton height="20px" width="60%" />
-                                        <Skeleton height="30px" width="80px" />
-                                    </Flex>
-                                    <Flex align="center" justify="space-between" my={2}>
-                                        <Checkbox isChecked={false} isDisabled />
-                                        <Skeleton height="20px" width="60%" />
-                                        <Skeleton height="30px" width="80px" />
-                                    </Flex>
+                                    <SkeletonForBoard />
                                 </Box>
                             ) : (
                                 <Box>
