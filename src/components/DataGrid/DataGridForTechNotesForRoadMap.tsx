@@ -77,22 +77,6 @@ const DataGridForTechNotesForRoadMap: React.FC<Props> = ({ techNotes, roadMapId 
             renderEditCell: CommonTextEditor
         },
         {
-            key: 'participants',
-            name: 'participants',
-            renderCell(props: any) {
-                return (
-                    <Box>
-                        <ModalButtonForParticipantsListForTechNote
-                            techNoteId={props.row.id}
-                            techNoteTitle={props.row.title}
-                            participants={props.row.participants ? props.row.participants : []}
-                            button_text={'participant'}
-                        />
-                    </Box>
-                )
-            },
-        },
-        {
             key: 'skilnotes',
             name: 'Skil Notes',
             width: 220,
@@ -110,8 +94,22 @@ const DataGridForTechNotesForRoadMap: React.FC<Props> = ({ techNotes, roadMapId 
                 );
             },
         },
-
-
+        {
+            key: 'participants',
+            name: 'participants',
+            renderCell(props: any) {
+                return (
+                    <Box>
+                        <ModalButtonForParticipantsListForTechNote
+                            techNoteId={props.row.id}
+                            techNoteTitle={props.row.title}
+                            participants={props.row.participants ? props.row.participants : []}
+                            button_text={'participant'}
+                        />
+                    </Box>
+                )
+            },
+        },
 
         {
             key: 'createdAt',

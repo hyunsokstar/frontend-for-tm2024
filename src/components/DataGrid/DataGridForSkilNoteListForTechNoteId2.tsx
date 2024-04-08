@@ -544,12 +544,12 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
                         :
                         <Box>
                             {isLoading ? (
-                                <>
+                                <Box px={5}>
                                     <Skeleton height="20px" my="2" />
                                     <Skeleton height="20px" mb="2" />
                                     <Skeleton height="20px" mb="2" />
                                     {/* 원하는 만큼 Skeleton을 추가하고 각각의 아이템에 대한 높이와 여백을 조절할 수 있습니다. */}
-                                </>
+                                </Box>
                             ) : (
                                 <>
                                     {/* 로딩 중이 아닐 때 실제 데이터를 렌더링합니다. */}
