@@ -17,7 +17,7 @@ const BookMarksForInfoForSkilNoteContents = ({ dataForskilNoteContent }: Props) 
 
     return (
         <>
-            {dataForskilNoteContent ? dataForskilNoteContent.myBookMarks.map((bookmark) => {
+            {dataForskilNoteContent ? dataForskilNoteContent?.myBookMarks?.map((bookmark) => {
                 return <Box>
                     <CardForMyBookMarksForSkilNoteContent key={bookmark.id} bookmark={bookmark} />
                 </Box>

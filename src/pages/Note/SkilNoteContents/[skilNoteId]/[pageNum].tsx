@@ -77,7 +77,6 @@ const SkilNoteContents = () => {
     };
 
 
-
     const handleNextClick = () => {
         const currentUrl = window.location.href;
         console.log('currentUrl : ', currentUrl);
@@ -135,9 +134,7 @@ const SkilNoteContents = () => {
         deleteForSkilNoteContentsForCheckedIdsMutation.mutate(checkedRows)
         setCheckedRows([])
     }
-
     // console.log("dataForskilNoteContent : ", dataForskilNoteContent);
-
 
     // 2244
     return (

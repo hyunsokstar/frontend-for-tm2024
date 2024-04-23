@@ -1,4 +1,4 @@
-import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
+import { Box, Button, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import NavigatorForScrollContents from '../Navigator/NavigatorForScrollContents'
 import { responseTypeForGetSkilNoteContents } from '@/types/typeForSkilNoteContents'
@@ -6,6 +6,8 @@ import NavigatorForPages from '../Navigator/NavigatorForSkilNotePages'
 import BookMarksForInfoForSkilNoteContents from '../Info/BookMarksForInfoForSkilNoteContents'
 import { useSelector } from 'react-redux'
 import { RootState } from '@/store'
+import { useRouter } from "next/router";
+
 import NavigaterForSkilNotePages2 from '../Navigator/NavigaterForSkilNotePages2'
 import RelatedSkilNoteList from '../List/RelatedSkilNoteList'
 
@@ -29,10 +31,19 @@ const TabMenuForSkilNoteContents = ({
     setCheckedRows,
     scrollCardToEditor
 }: IProps) => {
+    const router = useRouter(); // useRouter를 초기화
+
     const [countForSkilNoteContents, setCountForSkilNoteContents] = useState<any>()
     const [countForSkilNotePages, setCountForSkilNotePages] = useState<any>()
     const [totalBookMarkCount, setTotalCountForBookMarkCount] = useState<any>()
     const loginUser = useSelector((state: RootState) => state.user.loginUser);
+    const [currentPage, setCurrentPage] = useState(1)
+
+
+    const handlePageButtonClick = (page: any) => {
+        setCurrentPage(page)
+        router.push(`/Note/SkilNoteContents/${skilNoteId}/${page}`); // 해당 페이지로 이동
+    }
 
     useEffect(() => {
 
@@ -56,11 +67,36 @@ const TabMenuForSkilNoteContents = ({
                     skilnotes ({dataForskilNoteContent?.relatedSkilnoteList.length})
                 </Tab>
                 <Tab _selected={{ color: 'black.500', bg: 'green.200' }}>
-                    bm ({dataForskilNoteContent?.myBookMarks.length})
+                    bm ({dataForskilNoteContent?.myBookMarks?.length})
                 </Tab>
             </TabList>
+
             <TabPanels>
                 <TabPanel p={0}>
+                    {
+                        dataForskilNoteContent && dataForskilNoteContent.skilnoteContentsPagesInfo.length ? (
+                            <Box display="flex" flexWrap="wrap">
+                                {dataForskilNoteContent.skilnoteContentsPagesInfo.map((item, index) => (
+                                    <Button
+                                        key={index}
+                                        backgroundColor={currentPage === index + 1 ? "lightgreen" : ""}
+                                        variant="outline"
+                                        onClick={() => handlePageButtonClick(item.page)}
+                                        border="1px solid black"
+                                        ml={2}
+                                        mb={2}
+                                        size="sm"
+                                    >
+                                        {item.page}
+                                    </Button>
+                                ))}
+                            </Box>
+                        ) : (
+                            "no data"
+                        )
+                    }
+
+
                     <NavigatorForScrollContents
                         skilNoteId={skilNoteId}
                         pageNum={pageNum}
