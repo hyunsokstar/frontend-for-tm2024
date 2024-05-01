@@ -103,11 +103,10 @@ const DataGridForSkilNoteListForTechNoteId2 = () => {
                     skilnote_contents: [],
                     countForSkilNoteContents: 0,
                     participants: [],
-                    order: 0
+                    order: 0,
+                    viewCount: 0
                 });
             } else {
-                console.log("here ?");
-
                 if (column.key === "expanded")
                     rows.splice(indexes[0] + 1, 1);
             }
