@@ -302,6 +302,13 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
             key: "viewCount",
             name: 'viewCount',
             width: 140,
+            renderCell(props: any) {
+                return (
+                    <div onClick={() => { alert("hi") }}>
+                        {props.row.viewCount}
+                    </div>
+                )
+            },
         }
 
     ];
