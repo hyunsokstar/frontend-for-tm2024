@@ -342,6 +342,7 @@ const DataGridForSkilNoteListForTechNoteId2 = () => {
             participants: [],
             likes: [],
             bookMarks: [],
+            viewCount: 0,
             type: "MASTER"
         }
 

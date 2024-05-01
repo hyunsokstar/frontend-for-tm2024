@@ -39,7 +39,7 @@ export type SkillNoteRow = {
     countForSkilNoteContentsPages?: number;
     skilnote_contents?: []
     order?: number;
-    viewCount: number;
+    viewCount?: number;
     participants?: ITypeForPameterForParticipantsForSkilNoteRow[]
 }
 
