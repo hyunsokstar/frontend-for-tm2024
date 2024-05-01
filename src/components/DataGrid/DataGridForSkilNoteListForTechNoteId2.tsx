@@ -159,7 +159,7 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
         {
             key: 'title',
             name: 'Title',
-            width: 600,
+            width: 650,
             renderEditCell: CommonTextEditor
         },
         // {
@@ -167,12 +167,12 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
         //     name: 'description',
         //     renderEditCell: CommonTextEditor
         // },
-        {
-            key: 'category',
-            name: 'category',
-            width: 300,
-            renderEditCell: CommonTextEditor
-        },
+        // {
+        //     key: 'category',
+        //     name: 'category',
+        //     width: 300,
+        //     renderEditCell: CommonTextEditor
+        // },
         // { key: 'createdAt', name: 'createdAt' },
         {
             key: 'detailButton',
@@ -297,16 +297,12 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
                 }
             },
         },
-        // {
-        //     key: "order",
-        //     name: "order",
-        //     renderEditCell: CommonTextEditor
-        // }
-        // {
-        //     key: "select",
-        //     name: 'select',
-        //     hidden: false
-        // }
+
+        {
+            key: "viewCount",
+            name: 'viewCount',
+            width: 140,
+        }
 
     ];
 
@@ -426,6 +422,7 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
                     countForSkilNoteContents: row.countForSkilNoteContents,
                     countForSkilNoteContentsPages: row.countForSkilNoteContentsPages,
                     order: row.order,
+                    viewCount: row.viewCount,
                     type: "MASTER",
                     expanded: false
                 };
