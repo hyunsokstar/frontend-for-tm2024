@@ -7,11 +7,11 @@ import { useSelector } from 'react-redux';
 
 interface IProps {
     pageNum: any,
-    userId: any,
+
     todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "complete" | "entry";
 }
 
-const seApiForDeleteSupplementaryTodosForCheckedIds = ({ pageNum, userId, todoStatusOption }: IProps) => {
+const seApiForDeleteSupplementaryTodosForCheckedIds = ({ pageNum, todoStatusOption }: IProps) => {
     const queryClient = useQueryClient();
     const toast = useToast(); // useToast 훅 사용
 
@@ -33,7 +33,7 @@ const seApiForDeleteSupplementaryTodosForCheckedIds = ({ pageNum, userId, todoSt
             //     });
             // }
             queryClient.refetchQueries({
-                queryKey: ['uncompletedTodoList', pageNum, userId, todoStatusOption],
+                queryKey: ['uncompletedTodoList', pageNum, todoStatusOption],
             });
 
             toast({

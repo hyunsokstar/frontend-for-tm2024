@@ -79,7 +79,7 @@ const TabMenuForSkilNoteContents = ({
                                 {dataForskilNoteContent.skilnoteContentsPagesInfo.map((item, index) => (
                                     <Button
                                         key={index}
-                                        backgroundColor={currentPage === index + 1 ? "lightgreen" : ""}
+                                        backgroundColor={currentPage === item.page ? "lightgreen" : ""}
                                         variant="outline"
                                         onClick={() => handlePageButtonClick(item.page)}
                                         border="1px solid black"

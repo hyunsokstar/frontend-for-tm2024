@@ -7,11 +7,10 @@ import { useSelector } from 'react-redux';
 
 interface IProps {
     pageNum: any,
-    userId: any,
     todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "complete" | "entry";
 }
 
-const useApiForSimpleCreateSupplementaryTodo = ({ pageNum, userId, todoStatusOption }: IProps) => {
+const useApiForSimpleCreateSupplementaryTodo = ({ pageNum, todoStatusOption }: IProps) => {
     const queryClient = useQueryClient();
     const toast = useToast();
 
@@ -26,9 +25,8 @@ const useApiForSimpleCreateSupplementaryTodo = ({ pageNum, userId, todoStatusOpt
 
 
             queryClient.refetchQueries({
-                queryKey: ['uncompletedTodoList', pageNum, userId, todoStatusOption],
+                queryKey: ['uncompletedTodoList', pageNum, todoStatusOption],
             });
-
 
             toast({
                 title: "Todo created successfully",

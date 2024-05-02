@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 
 
-const useApiForCreateChatBoardRow = (pageNum: any, userId: any, todoStatusOption: any) => {
+const useApiForCreateChatBoardRow = (pageNum: number, todoStatusOption: any) => {
     const queryClient = useQueryClient();
     const toast = useToast();
 
@@ -17,13 +17,13 @@ const useApiForCreateChatBoardRow = (pageNum: any, userId: any, todoStatusOption
     const mutationForCreateChatBoardRow = useMutation<ITypeForSaveChatBoardForTodo, any, any, any>({
         mutationFn: apiForCreateChatBoardRow,
         onSuccess: (result: any) => {
-
             console.log("pageNum : ?????", typeof pageNum, pageNum);
-            console.log("userId : ?????", typeof userId, userId);
+            // console.log("userId : ?????", typeof userId, userId);
             console.log("todoStatusOption : ?????", typeof todoStatusOption, todoStatusOption);
+            // queryKey: ['uncompletedTodoList', pageNum, userId, todoStatusOption],
 
             queryClient.refetchQueries({
-                queryKey: ['uncompletedTodoList', parseInt(pageNum), userId, todoStatusOption] // 수정 필요한 부분
+                queryKey: ['uncompletedTodoList', pageNum, todoStatusOption]
             });
 
             toast({

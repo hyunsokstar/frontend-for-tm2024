@@ -40,7 +40,7 @@ import SelectBoxForDefaultTodoStatus from '../Select/SelectBoxForDefaultTodoStat
 
 
 const formatDateTime = (dateTime: string | any) => {
-    console.log("dateTime : ", typeof dateTime);
+    // console.log("dateTime : ", typeof dateTime);
 
     if (dateTime !== undefined) {
         const time = new Date(dateTime);
@@ -293,6 +293,7 @@ const getBasicColumns = (
     ]
 }
 
+
 // 1122
 const DataGridForSupplementaryTodoList = ({
     parentTodoId,
@@ -324,8 +325,8 @@ const DataGridForSupplementaryTodoList = ({
     const mutationForUpdateRefSkilnoteForTodo = useApiForUpdateRefSkilnoteForTodo({ pageNum, userId, todoStatusOption });
     const mutationFordSupplementarySaveTodoRows = useApiForSaveSupplementaryTodoListForUserMutation({ pageNum, userId, todoStatusOption });
 
-    const mutationForSimpleCreateSupplementaryTodo = useApiForSimpleCreateSupplementaryTodo({ pageNum, userId, todoStatusOption });
-    const deleteForSupplementaryTodosForCheckedIdsMutation = useApiForDeleteSupplementaryTodosForCheckedIds({ pageNum, userId, todoStatusOption });
+    const mutationForSimpleCreateSupplementaryTodo = useApiForSimpleCreateSupplementaryTodo({ pageNum, todoStatusOption });
+    const deleteForSupplementaryTodosForCheckedIdsMutation = useApiForDeleteSupplementaryTodosForCheckedIds({ pageNum, todoStatusOption });
     const mutationForMultiUpdateForSupplementaryTodoRowsForChecked = useApiForMultiUpdateForSupplementaryTodoRowsForChecked({ pageNum, userId, todoStatusOption });
 
 

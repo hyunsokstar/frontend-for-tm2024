@@ -14,12 +14,13 @@ interface IProps {
     todoId: string;
     todoWriterEmail: string;
     briefings: IBriefing[];
-    pageNum?: string;
+    pageNum?: number;
     pageInfo?: string;
     isMainOrSub: "main" | "sub";
 }
 
-const ChatBoardForBriefingBoard: React.FC<IProps> = ({ pageNum = "1", todoId, todoWriterEmail, briefings, pageInfo, isMainOrSub }) => {
+
+const ChatBoardForBriefingBoard: React.FC<IProps> = ({ pageNum = 1, todoId, todoWriterEmail, briefings, pageInfo, isMainOrSub }) => {
     const [inputValue, setInputValue] = useState('');
     const [selectedFile, setSelectedFile] = useState<File | null>(null); // 파일 선택 상태 추가
     const isLoggedIn = useSelector((state: RootState) => state.user.isLoggedIn);
@@ -27,10 +28,10 @@ const ChatBoardForBriefingBoard: React.FC<IProps> = ({ pageNum = "1", todoId, to
     const toast = useToast();
     const userId = undefined
 
-    const todoStatusOption = "entry"
+    const todoStatusOption = "all_uncompleted"
 
     const mutationForSelectManagerForUnsginedTask = useApiForSelectManagerForUnsignedTask({ pageNum, userId, todoStatusOption })
-    const createChatBoardRowMutation = useApiForCreateChatBoardRow(pageNum, userId, todoStatusOption);
+    const createChatBoardRowMutation = useApiForCreateChatBoardRow(pageNum, todoStatusOption);
 
 
     const [urlToImageUpload, setUrlToImageUpload] = useState<string>("")

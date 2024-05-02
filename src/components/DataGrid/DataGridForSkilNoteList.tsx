@@ -350,7 +350,6 @@ const DataGridForSkilNoteListForTechNoteId2 = () => {
     }
 
     const handleSearchButtonForClick = (searchOption: string, searchText: string) => {
-        console.log("hi search : ", searchOption, searchText);
         queryClient.refetchQueries({
             queryKey: ['apiForGetAllSkilNoteList', pageNum, searchOption, searchText],
         });

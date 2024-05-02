@@ -38,6 +38,7 @@ import StarRatingForPriority from '../StarRating/StarRatingForPriority';
 import ModalButtonForSupplementTodos from '../Modal/ModalButtonForSupplementTodos';
 import SelectBoxForDefaultTodoStatus from '../Select/SelectBoxForDefaultTodoStatus';
 import useApiForMultiUpdateForTodoRowsForChecked from '@/hooks/useApiForMultiUpdateForTodoRowsForChecked';
+import useApiForGetUncompletedTodoList from '@/hooks/useApiForGetUncompletedTodoList';
 
 
 const formatDateTime = (dateTime: string) => {
@@ -427,10 +428,8 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
     const [pageNum, setPageNum] = useState(1);
 
     const userId = loginUser
-    const { isLoading, error, data: dataForUncompletedTodoListForUser }
-        = useApiForGetUncompletedTodoListForUserId({ pageNum, userId, todoStatusOption });
-
-    // console.log("dataForUncompletedTodoListForUser : ", dataForUncompletedTodoListForUser);
+    const { isLoading, error, data: dataForUncompletedTodoList }
+        = useApiForGetUncompletedTodoList({ pageNum, todoStatusOption });
 
     const [inputValue, setInputValue] = useState('');
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -467,7 +466,7 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
         pageInfo,
         todoStatusOption,
         userId
-    ), [dataForUncompletedTodoListForUser, usersEmailInfo]);
+    ), [dataForUncompletedTodoList, usersEmailInfo]);
 
     const deleteButtonHandler = () => {
         const selectedRowsArray = Array.from(selectedRows);
@@ -636,12 +635,12 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
     useEffect(() => {
         let todoRowsToShow;
 
-        if (dataForUncompletedTodoListForUser) {
-            setUsersEmailInfo(dataForUncompletedTodoListForUser.usersEmailInfo)
+        if (dataForUncompletedTodoList) {
+            setUsersEmailInfo(dataForUncompletedTodoList.usersEmailInfo)
         }
 
-        if (dataForUncompletedTodoListForUser && dataForUncompletedTodoListForUser.todoList.length > 0) {
-            todoRowsToShow = dataForUncompletedTodoListForUser.todoList.map((row: ITypeForTodoRow) => {
+        if (dataForUncompletedTodoList && dataForUncompletedTodoList.todoList.length > 0) {
+            todoRowsToShow = dataForUncompletedTodoList.todoList.map((row: ITypeForTodoRow) => {
                 return {
                     id: row.id,
                     email: row.manager?.email,
@@ -663,14 +662,14 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
             })
             setTodoList(todoRowsToShow)
         }
-    }, [dataForUncompletedTodoListForUser])
+    }, [dataForUncompletedTodoList])
 
     return (
         <Box width="100%" mt={2} my={1} px={1} border={"1px solid black"} py={2}>
 
             <Box display={"flex"} justifyContent={"space-between"} gap={2} m={1}>
 
-                총 {dataForUncompletedTodoListForUser?.todoList.length} 개
+                총 {dataForUncompletedTodoList?.todoList.length} 개
                 <Button id="b1" onClick={() => basicOptionButtonClick('b1')}>b1</Button>
                 <Button id="b2" onClick={() => basicOptionButtonClick('b2')}>b2</Button>
 

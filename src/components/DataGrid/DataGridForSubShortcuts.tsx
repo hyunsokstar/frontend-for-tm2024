@@ -92,7 +92,7 @@ const DataGridForSubShortcuts = ({ subShortCuts }: IProps) => {
     }, [subShortCuts]);
 
     return (
-        <Box width={"100%"} m={"auto"}>
+        <Box width={"100%"} border={"1px solid gray"} mt={2}>
             <DataGrid columns={columns} rows={subShortcutRows} />
         </Box>
     );

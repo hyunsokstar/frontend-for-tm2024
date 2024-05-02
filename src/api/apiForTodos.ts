@@ -78,12 +78,27 @@ export const apiForGetAllTodoList = ({ queryKey }: QueryFunctionContext) => {
 export const apiForUncompletedTodoListForUserId = ({ queryKey }: QueryFunctionContext) => {
     const [_, pageNum, userId, todoStatusOption] = queryKey;
 
-
     return instance
         .get('forUser', {
             params: {
                 pageNum: pageNum,
                 userId: userId,
+                todoStatusOption: todoStatusOption
+            },
+        })
+        .then((response) => {
+            return response.data;
+        });
+};
+
+export const apiForUncompletedTodoList = ({ queryKey }: QueryFunctionContext) => {
+    const [_, pageNum, todoStatusOption] = queryKey;
+
+    return instance
+        .get('uncompleted', {
+            params: {
+                pageNum: pageNum,
+                // userId: userId,
                 todoStatusOption: todoStatusOption
             },
         })

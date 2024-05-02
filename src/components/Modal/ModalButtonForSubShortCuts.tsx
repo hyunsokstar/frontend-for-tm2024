@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from "@chakra-ui/react";
+import { Button, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Box } from "@chakra-ui/react";
 import { ITypeForSubShortCutListRow } from '@/types/typeForShortCut';
 import DataGridForSubShortcuts from '../DataGrid/DataGridForSubShortcuts';
 
@@ -23,15 +23,9 @@ const ModalButtonForSubShortCuts: React.FC<Props> = ({ buttonText, subShortCuts 
                     <ModalHeader>Sub Shortcuts</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        {/* 서브 단축키 데이터를 모달 내부에 표시 */}
-                        {/* {subShortCuts ? subShortCuts.map((subShortCut) => (
-                            <div key={subShortCut.id}>
-                                <p>ID: {subShortCut.id}</p>
-                                <p>Shortcut: {subShortCut.shortcut}</p>
-                                <p>Description: {subShortCut.description}</p>
-                                <p>Category: {subShortCut.category}</p>
-                            </div>
-                        )) : "no data for sub short cuts"} */}
+                        <Box display={"flex"} justifyContent={"flex-end"}>
+                            <Button variant={"outline"} size="sm">add shortcut</Button>
+                        </Box>
                         <DataGridForSubShortcuts subShortCuts={subShortCuts} />
                     </ModalBody>
                     <ModalFooter>

@@ -8,7 +8,7 @@ const TechNoteList = (props: Props) => {
     return (
         <>
             <Head>
-                <title>Tech Note</title>
+                <title>Tech Note here?</title>
             </Head>
 
             <DataGridForTechNoteList2 />

@@ -24,7 +24,7 @@ const useApiForSelectManagerForUnsignedTask = ({ pageNum, userId, todoStatusOpti
 
 
             queryClient.refetchQueries({
-                queryKey: ['uncompletedTodoList', parseInt(pageNum), userId, todoStatusOption],
+                queryKey: ['uncompletedTodoList', pageNum, userId, todoStatusOption],
             });
 
             // 성공적인 알림 메시지를 띄웁니다.

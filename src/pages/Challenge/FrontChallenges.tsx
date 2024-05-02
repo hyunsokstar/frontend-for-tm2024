@@ -18,7 +18,7 @@ import ModalButtonForUpdateChallenge from '@/components/Modal/ModalButtonForUpda
 import ModalButtonForSubChallengeList from '@/components/Modal/ModalButtonForSubChallengeList';
 
 const formatDateTime = (dateTime: string | any) => {
-    console.log("dateTime : ", typeof dateTime);
+    // console.log("dateTime : ", typeof dateTime);
 
     if (dateTime !== undefined) {
         const time = new Date(dateTime);
