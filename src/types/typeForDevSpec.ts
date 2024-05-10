@@ -1,10 +1,6 @@
-export interface GroupedDevSpecs {
-    language: DevSpec[];
-    backend: DevSpec[];
-    frontend: DevSpec[];
-    orm: DevSpec[];
-    css: DevSpec[];
-}
+export type GroupedDevSpecs = {
+    [key: string]: { id: number; spec: string; category: string }[];
+};
 
 export interface DevSpec {
     id: number;

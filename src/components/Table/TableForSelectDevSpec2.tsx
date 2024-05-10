@@ -18,6 +18,7 @@ type SelectOption = {
     [key: string]: { id: number; spec: string; category: string }[];
 };
 
+
 type SelectedItems = {
     [key: string]: string[];
 };
