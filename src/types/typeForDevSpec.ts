@@ -11,3 +11,5 @@ export interface DevSpec {
     spec: string;
     category: string;
 }
+
+// FavoriteDevSpec

@@ -75,9 +75,15 @@ import TableForSelectDevSpec from '@/components/Table/TableForSelectDevSpec'
 import { Box, Button, Divider, Heading } from '@chakra-ui/react'
 import useApiForGetAllDevSpecList from '@/hooks/useApiForGetAllDevSpecList'
 import TableForSelectDevSpec2 from '@/components/Table/TableForSelectDevSpec2'
+import useApiForGetAllFavoriteDevSpecsData from '@/hooks/useApiForGetAllFavoriteDevSpecsData'
+import TableForFavoriteDevSpecList from '@/components/Table/TableForFavoriteDevSpecList'
 
 const DevSpecSurvey = () => {
   const { isLoading, error, data } = useApiForGetAllDevSpecList()
+  const { isLoading: loadingForFavoriteDevSpec, error: errorForFoavoriteDevSpec, data: dataForFavoriteDevSpec } = useApiForGetAllFavoriteDevSpecsData();
+
+  console.log("dataForFavoriteDevSpec : ", dataForFavoriteDevSpec);
+
 
   if (isLoading) {
     return <div>Loading...</div>
@@ -88,22 +94,18 @@ const DevSpecSurvey = () => {
   }
 
   return (
-    <Box w="80%" mx="auto" p={2}>
-      <Heading size={"lg"} mb={4}>Dev Spec Survey</Heading>
-      <Box display={"flex"} flexDirection={"column"} justifyContent={"center"} px={2}>
-        {/* <TableForSelectDevSpec data={data ? data : []} /> */}
-        {/* <TableForSelectDevSpec2 /> */}
+    <Box w="80%" mx="auto">
+      <Box display={"flex"} flexDirection={"column"} justifyContent={"center"}>
+        <Heading size={"lg"} mb={4}>Dev Spec Selection</Heading>
         <TableForSelectDevSpec2 data={data} />
 
       </Box>
       <br />
-      <hr />
+      <Divider my={2} />
 
-      <h2>
-        My Favorite Skil Set
-      </h2>
+      <Heading size={"lg"} mb={4}>My Favorite Skil Set</Heading>
 
-      {/* <ModalButtonForSelectDevSpec /> */}
+      <TableForFavoriteDevSpecList data={dataForFavoriteDevSpec} />
 
     </Box>
   )
