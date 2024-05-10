@@ -109,6 +109,14 @@ const HeaderMenus = () => {
                         결제(Test)
                     </Link>
 
+                    <Link
+                        href="/DevSpecSurvey"
+                        color={router.pathname.includes("/DevSpecSurvey") ? "#4267B2" : "inherit"}
+                        fontWeight={router.pathname.includes("/DevSpecSurvey") ? "bold" : "normal"}
+                    >
+                        Dev Spec Survey
+                    </Link>
+
                 </Box>
 
             </Box>
