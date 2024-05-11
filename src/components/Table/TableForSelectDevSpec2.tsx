@@ -46,6 +46,7 @@ const TableForSelectDevSpec2 = ({ data }: { data: SelectOption }) => {
         const frontend = selectedItems.frontend[0]
         const orm = selectedItems.orm[0]
         const css = selectedItems.css[0]
+        const app = selectedItems.app[0]
 
         console.log("language : ", language);
         console.log("backend : ", backend);
@@ -59,6 +60,7 @@ const TableForSelectDevSpec2 = ({ data }: { data: SelectOption }) => {
             frontend,
             orm,
             css,
+            app
         });
 
     }
