@@ -32,7 +32,7 @@ const TableForSelectDevSpec2 = ({ data }: { data: SelectOption }) => {
     });
 
     const toast = useToast();
-    const [isReadyToRegisterFavoriteDevSkilSet, setIsReadyToRegisterFavoriteDevSkilSet] = useState(false);
+    const [isReadyToRegisterFavoriteDevSkilSet, setIsReadyToRegisterFavoriteDevSkilSet] = useState<boolean>(false);
 
     const mutationForCreateFavoriteDevSpec = useApiForCreateFavoriteDevSpec(); // 훅 호출
 
@@ -56,17 +56,17 @@ const TableForSelectDevSpec2 = ({ data }: { data: SelectOption }) => {
     };
 
     const handleRadioChange = (category: string, value: string) => {
-        if (selectedItems[category]) {
-            // 이미 선택된 값이 있고, 새로운 값이 선택되려고 할 때는 Toast 메시지를 표시
-            toast({
-                title: '알림',
-                description: '이미 선택된 영역에는 하나의 값만 선택할 수 있습니다.',
-                status: 'warning',
-                duration: 3000,
-                isClosable: true,
-            });
-            return;
-        }
+        // if (selectedItems[category]) {
+        //     // 이미 선택된 값이 있고, 새로운 값이 선택되려고 할 때는 Toast 메시지를 표시
+        //     toast({
+        //         title: '알림',
+        //         description: '이미 선택된 영역에는 하나의 값만 선택할 수 있습니다.',
+        //         status: 'warning',
+        //         duration: 3000,
+        //         isClosable: true,
+        //     });
+        //     return;
+        // }
 
         setSelectedItems((prevSelectedItems) => ({
             ...prevSelectedItems,
@@ -76,13 +76,13 @@ const TableForSelectDevSpec2 = ({ data }: { data: SelectOption }) => {
 
     const categoryOrder = ['language', 'backend', 'frontend', 'orm', 'css'];
 
-    function checkFiveEssentialDevSpecs(selectedItems: SelectedItems) {
+    function checkFiveEssentialDevSpecs(selectedItems: SelectedItems): boolean {
         return (
-            selectedItems.language &&
-            selectedItems.backend &&
-            selectedItems.frontend &&
-            selectedItems.orm &&
-            selectedItems.css
+            !!selectedItems.language &&
+            !!selectedItems.backend &&
+            !!selectedItems.frontend &&
+            !!selectedItems.orm &&
+            !!selectedItems.css
         );
     }
 
