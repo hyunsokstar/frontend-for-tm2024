@@ -4,6 +4,7 @@ import useApiForGetAllDevSpecList from '@/hooks/useApiForGetAllDevSpecList';
 import TableForSelectDevSpec2 from '@/components/Table/TableForSelectDevSpec2';
 import useApiForGetAllFavoriteDevSpecsData from '@/hooks/useApiForGetAllFavoriteDevSpecsData';
 import TableForFavoriteDevSpecList from '@/components/Table/TableForFavoriteDevSpecList';
+import TableForSelectDevSpec3 from '@/components/Table/TableForSelectDevSpec3';
 
 const DevSpecSurvey = () => {
   const { isLoading, error, data } = useApiForGetAllDevSpecList();
@@ -23,7 +24,7 @@ const DevSpecSurvey = () => {
     <Box w="80%" mx="auto">
       <Box display={"flex"} flexDirection={"column"} justifyContent={"center"}>
         <Heading size={"lg"} mb={4}>Dev Spec Selection</Heading>
-        {data && <TableForSelectDevSpec2 data={data} />}
+        {data && <TableForSelectDevSpec3 data={data} />}
       </Box>
       <br />
       <Divider my={2} />
