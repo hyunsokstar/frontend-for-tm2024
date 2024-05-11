@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
-import { FavoriteDevSpecRow } from "@/types/typeForFavoriteDevSpec";
+import { FavoriteDevSpecRow, FavoriteDevSpecRowForCreate } from "@/types/typeForFavoriteDevSpec";
 
 const instance = axios.create({
     baseURL: `${backendApi}/favorite-dev-spec`,
@@ -23,6 +23,14 @@ instance.interceptors.request.use(
     }
 );
 
+export const like = (id: number): Promise<AxiosResponse<FavoriteDevSpecRow>> => {
+    return instance.patch(`/${id}/like`);
+};
+
+export const dislike = (id: number): Promise<AxiosResponse<FavoriteDevSpecRow>> => {
+    return instance.patch(`/${id}/dislike`);
+};
+
 export const getAllFavoriteDevSpecs = async (): Promise<FavoriteDevSpecRow[]> => {
     try {
         const response: AxiosResponse<FavoriteDevSpecRow[]> = await instance.get('/');
@@ -34,7 +42,7 @@ export const getAllFavoriteDevSpecs = async (): Promise<FavoriteDevSpecRow[]> =>
 };
 
 // 여기에 추가
-export const createFavoriteDevSpec = async (data: FavoriteDevSpecRow): Promise<FavoriteDevSpecRow> => {
+export const createFavoriteDevSpec = async (data: FavoriteDevSpecRowForCreate): Promise<FavoriteDevSpecRow> => {
     try {
         const response: AxiosResponse<FavoriteDevSpecRow> = await instance.post('/', data);
         return response.data;

@@ -22,13 +22,14 @@ type SelectedItems = {
     [key: string]: string;
 };
 
-const TableForSelectDevSpec2 = ({ data }: { data: SelectOption }) => {
+const TableForSelectDevSpec3 = ({ data }: { data: SelectOption }) => {
     const [selectedItems, setSelectedItems] = useState<SelectedItems>({
         language: '',
         backend: '',
         frontend: '',
         orm: '',
         css: '',
+        app: ''
     });
 
     const toast = useToast();
@@ -38,7 +39,7 @@ const TableForSelectDevSpec2 = ({ data }: { data: SelectOption }) => {
 
     const registerFavoriteDevSpecButtonClick = () => {
         console.log('selectedItems : ', selectedItems);
-        const { language, backend, frontend, orm, css } = selectedItems;
+        const { language, backend, frontend, orm, css, app } = selectedItems;
 
         console.log('language : ', language);
         console.log('backend : ', backend);
@@ -52,6 +53,7 @@ const TableForSelectDevSpec2 = ({ data }: { data: SelectOption }) => {
             frontend,
             orm,
             css,
+            app
         });
     };
 
@@ -149,4 +151,4 @@ const TableForSelectDevSpec2 = ({ data }: { data: SelectOption }) => {
     );
 };
 
-export default TableForSelectDevSpec2;
+export default TableForSelectDevSpec3;
