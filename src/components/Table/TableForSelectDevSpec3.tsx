@@ -48,6 +48,8 @@ const TableForSelectDevSpec3 = ({ data }: { data: SelectOption }) => {
         console.log('frontend : ', frontend);
         console.log('orm : ', orm);
         console.log('css : ', css);
+        console.log("app : ", app);
+
 
         mutationForCreateFavoriteDevSpec.mutate({
             language,
@@ -78,7 +80,7 @@ const TableForSelectDevSpec3 = ({ data }: { data: SelectOption }) => {
         }));
     };
 
-    const categoryOrder = ['language', 'backend', 'frontend', 'orm', 'css'];
+    const categoryOrder = ['language', 'backend', 'frontend', 'orm', 'css', 'app'];
 
     function checkFiveEssentialDevSpecs(selectedItems: SelectedItems): boolean {
         return (
@@ -86,7 +88,8 @@ const TableForSelectDevSpec3 = ({ data }: { data: SelectOption }) => {
             !!selectedItems.backend &&
             !!selectedItems.frontend &&
             !!selectedItems.orm &&
-            !!selectedItems.css
+            !!selectedItems.css &&
+            !!selectedItems.app
         );
     }
 
@@ -127,7 +130,7 @@ const TableForSelectDevSpec3 = ({ data }: { data: SelectOption }) => {
             <Divider my={2} />
 
             <Box display={"flex"} justifyContent={"space-between"} alignItems={"center"}>
-                <Heading size={"lg"} mb={4}>My Favorite Dev Spec</Heading>
+                <Heading size={"lg"} mb={4}>My Favorite Dev Spec </Heading>
 
                 <Box display={"flex"} justifyContent={"flex-end"} p={1}>
                     {isReadyToRegisterFavoriteDevSkilSet ?

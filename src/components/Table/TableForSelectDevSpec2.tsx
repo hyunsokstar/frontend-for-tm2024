@@ -31,6 +31,7 @@ const TableForSelectDevSpec2 = ({ data }: { data: SelectOption }) => {
         frontend: [],
         orm: [],
         css: [],
+        app: []
     });
 
     const toast = useToast();
@@ -85,7 +86,7 @@ const TableForSelectDevSpec2 = ({ data }: { data: SelectOption }) => {
         }));
     };
 
-    const categoryOrder = ['language', 'backend', 'frontend', 'orm', 'css'];
+    const categoryOrder = ['language', 'backend', 'frontend', 'orm', 'css', 'app'];
 
     function checkFiveEssentialDevSpecs(selectedItems: SelectedItems) {
         return (
@@ -93,7 +94,8 @@ const TableForSelectDevSpec2 = ({ data }: { data: SelectOption }) => {
             selectedItems.backend.length === 1 &&
             selectedItems.frontend.length === 1 &&
             selectedItems.orm.length === 1 &&
-            selectedItems.css.length === 1
+            selectedItems.css.length === 1 &&
+            selectedItems.app.length === 1
         );
     }
 

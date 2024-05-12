@@ -40,7 +40,7 @@ const TableForFavoriteDevSpecList = ({ data }: IProps) => {
             <Table variant="striped" colorScheme="teal" size="xs"> {/* size 속성을 사용하여 테이블 크기를 조절 */}
                 <Thead>
                     <Tr>
-                        <Th>ID</Th>
+                        <Th>Index</Th>
                         <Th>Language</Th>
                         <Th>Backend</Th>
                         <Th>Frontend</Th>

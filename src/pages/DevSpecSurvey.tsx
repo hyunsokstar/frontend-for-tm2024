@@ -20,6 +20,9 @@ const DevSpecSurvey = () => {
     return <div>Error: {error?.message || errorForFavoriteDevSpec?.message}</div>;
   }
 
+  console.log("data : ", data);
+
+
   return (
     <Box w="80%" mx="auto">
       <Box display={"flex"} flexDirection={"column"} justifyContent={"center"}>
