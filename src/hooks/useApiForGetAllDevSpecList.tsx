@@ -5,6 +5,7 @@ import { GroupedDevSpecs } from '@/types/typeForDevSpec'
 
 type Props = {}
 
+
 const useApiForGetAllDevSpecList = () => {
     const { isLoading, error, data } = useQuery<GroupedDevSpecs>({
         queryKey: ['apiForGetAllGroupedByCategory'],

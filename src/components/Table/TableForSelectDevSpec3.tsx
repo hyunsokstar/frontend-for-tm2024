@@ -13,6 +13,7 @@ import {
     useToast,
 } from '@chakra-ui/react';
 import useApiForCreateFavoriteDevSpec from '@/hooks/useApiForCreateFavoriteDevSpec';
+import ModalButtonForAddDevSpec from '../Modal/ModalButtonForAddDevSpec';
 
 type SelectOption = {
     [key: string]: { id: number; spec: string; category: string }[];
@@ -22,6 +23,7 @@ type SelectedItems = {
     [key: string]: string;
 };
 
+// ModalButtonForAddDevSpec
 const TableForSelectDevSpec3 = ({ data }: { data: SelectOption }) => {
     const [selectedItems, setSelectedItems] = useState<SelectedItems>({
         language: '',
@@ -98,9 +100,13 @@ const TableForSelectDevSpec3 = ({ data }: { data: SelectOption }) => {
             <Box display={"flex"} justifyContent={"space-between"} gap={3}>
                 {Object.keys(data).map((category) => (
                     <Box key={category} width={"20%"} p={1}>
-                        <Text fontWeight="bold" mb={2}>
-                            {category}
-                        </Text>
+                        <Box display={"flex"} justifyContent={"space-between"} pl={"2"}>
+                            <Text fontWeight="bold" mb={2}>
+                                {category}
+                            </Text>
+                            {/* <Button size="xs" variant="outline">+</Button> */}
+                            <ModalButtonForAddDevSpec category={category} />
+                        </Box>
 
                         <RadioGroup
                             value={selectedItems[category]}

@@ -26,13 +26,20 @@ instance.interceptors.request.use(
     }
 );
 
-// export const apiForSaveTechNotes = ({ techNotesToSave, roadMapId }: DtoForSaveTechNote) => {
-//     console.log("techNotesToSave at api : ", techNotesToSave, roadMapId);
-//     return instance.post(
-//         'saveTechNotes', { techNotesToSave, roadMapId }
-//     ).then((response: any) => response.data)
-// }
+// 인터페이스 및 DTO 반영
+interface CreateDevSpecDto {
+    spec: string;
+    category: string;
+}
 
+export const createDevSpec = async (createDevSpecDto: CreateDevSpecDto): Promise<AxiosResponse<GroupedDevSpecs>> => {
+    try {
+        const response = await instance.post('/', createDevSpecDto);
+        return response.data;
+    } catch (error: any) {
+        throw new Error(error.response.data.message);
+    }
+};
 
 export const apiForGetAllGroupedByCategory = (): Promise<GroupedDevSpecs> => {
     return instance.get<GroupedDevSpecs>('grouped-by-category').then((response) => response.data);

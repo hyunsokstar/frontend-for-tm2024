@@ -8,4 +8,7 @@ export interface DevSpec {
     category: string;
 }
 
-// FavoriteDevSpec
+export interface CreateDevSpecDto {
+    spec: string;
+    category: string;
+}
