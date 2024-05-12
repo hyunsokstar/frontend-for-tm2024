@@ -8,6 +8,18 @@ export interface FavoriteDevSpecRow {
     app: string;
     likeCount?: number;
     dislikeCount?: number;
+
+    authGithub: string;
+    authNote: string;
+    boardGithub: string;
+    boardNote: string;
+    chatGithub: string;
+    chatNote: string;
+    paymentGithub: string;
+    paymentNote: string;
+    devOpsGithub: string;
+    devOpsNote: string;
+
 }
 
 export interface FavoriteDevSpecRowForCreate {
@@ -22,3 +34,19 @@ export interface FavoriteDevSpecRowForCreate {
     dislikeCount?: number;
 }
 
+export interface UpdateFavoriteDevSpecBoilerPlateInfoDto {
+    authGithub?: string;
+    authNote?: string;
+    boardGithub?: string;
+    boardNote?: string;
+    chatGithub?: string;
+    chatNote?: string;
+    paymentGithub?: string;
+    paymentNote?: string;
+    devOpsGithub?: string;
+    devOpsNote?: string;
+}
+
+export interface UpdateFavoriteDevSpecParameter {
+    id: number, data: UpdateFavoriteDevSpecBoilerPlateInfoDto
+}

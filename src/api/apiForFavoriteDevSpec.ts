@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
-import { FavoriteDevSpecRow, FavoriteDevSpecRowForCreate } from "@/types/typeForFavoriteDevSpec";
+import { FavoriteDevSpecRow, FavoriteDevSpecRowForCreate, UpdateFavoriteDevSpecParameter } from "@/types/typeForFavoriteDevSpec";
 
 const instance = axios.create({
     baseURL: `${backendApi}/favorite-dev-spec`,
@@ -51,3 +51,17 @@ export const createFavoriteDevSpec = async (data: FavoriteDevSpecRowForCreate): 
         throw error;
     }
 };
+
+export const updateFavoriteDevSpec = async ({ id, data }: UpdateFavoriteDevSpecParameter): Promise<any> => {
+
+    console.log("id : ", id);
+    console.log("data : ", data);
+
+
+    try {
+        const response = await instance.put(`${id}/boiler-plate`, data);
+        return response;
+    } catch (error: any) {
+        throw error
+    };
+}
