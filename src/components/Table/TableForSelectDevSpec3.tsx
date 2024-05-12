@@ -140,7 +140,7 @@ const TableForSelectDevSpec3 = ({ data }: { data: SelectOption }) => {
                 </Box>
             </Box>
 
-            <SimpleGrid columns={5} gap={3} mt={4}>
+            <SimpleGrid columns={6} gap={3} mt={4}>
                 {categoryOrder.map((category) => {
                     const selectedItemForCategory = selectedItems[category];
 
