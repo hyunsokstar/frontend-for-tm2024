@@ -47,7 +47,7 @@ const TableForFavoriteDevSpecList = ({ data }: IProps) => {
                         <Th>ORM</Th>
                         <Th>CSS</Th>
                         <Th>APP</Th>
-                        <Th>StarterKit</Th>
+                        <Th>Boiler Plate</Th>
                         <Th>like / dislike</Th>
                     </Tr>
                 </Thead>
