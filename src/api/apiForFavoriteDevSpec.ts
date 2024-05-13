@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
-import { FavoriteDevSpecRow, FavoriteDevSpecRowForCreate, UpdateFavoriteDevSpecParameter } from "@/types/typeForFavoriteDevSpec";
+import { FavoriteDevSpecRow, FavoriteDevSpecRowForCreate, IDtoTypeForUpdateFavoriteDevSpecCompany, UpdateFavoriteDevSpecParameter } from "@/types/typeForFavoriteDevSpec";
 
 const instance = axios.create({
     baseURL: `${backendApi}/favorite-dev-spec`,
@@ -22,6 +22,16 @@ instance.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+export const updateCompany = async ({ id, company }: IDtoTypeForUpdateFavoriteDevSpecCompany): Promise<void> => {
+    try {
+        const response: AxiosResponse<void> = await instance.put(`${id}/company`, { company });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
 
 export const like = (id: number): Promise<AxiosResponse<FavoriteDevSpecRow>> => {
     return instance.patch(`/${id}/like`);

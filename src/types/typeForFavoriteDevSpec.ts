@@ -1,5 +1,6 @@
 export interface FavoriteDevSpecRow {
     id: number;
+    company: string;
     language: string;
     backend: string;
     frontend: string;
@@ -49,4 +50,9 @@ export interface UpdateFavoriteDevSpecBoilerPlateInfoDto {
 
 export interface UpdateFavoriteDevSpecParameter {
     id: number, data: UpdateFavoriteDevSpecBoilerPlateInfoDto
+}
+
+export interface IDtoTypeForUpdateFavoriteDevSpecCompany {
+    id: number,
+    company: string
 }
