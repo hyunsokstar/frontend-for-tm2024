@@ -20,6 +20,7 @@ export interface FavoriteDevSpecRow {
     paymentNote: string;
     devOpsGithub: string;
     devOpsNote: string;
+    figma: string;
 
 }
 

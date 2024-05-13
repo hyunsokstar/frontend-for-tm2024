@@ -126,24 +126,37 @@ const ModalButtonForUpdateBoilerPlate = ({ devSpec }: IProps) => {
                                         </Stack>
                                     </Stack>
                                 </FormControl>
-                                <Button type="submit" colorScheme="green" size="sm">
+
+                                <FormControl mb={1}>
+                                    <FormLabel>Figma</FormLabel>
+                                    <Stack spacing={1}>
+                                        <Stack direction="row" spacing={2}>
+                                            <Input size="sm" {...register("figma")} defaultValue={devSpec.figma} />
+                                            <Button size="xs" variant="outline" colorScheme="blue" onClick={() => handleAddLink(devSpec.figma)}>
+                                                <FaRegStickyNote />
+                                            </Button>
+                                        </Stack>
+                                    </Stack>
+                                </FormControl>
+
+                            </Stack>
+                            <Box display="flex" gap={1} width={"100%"} mt={2}>
+                                <Button type="submit" colorScheme="green" size="sm" flex="1">
                                     제출
                                 </Button>
-                            </Stack>
+                                <Button
+                                    colorScheme="red"
+                                    size="sm"
+                                    onClick={onClose}
+                                    flex="1"
+                                >
+                                    취소
+                                </Button>
+                            </Box>
                         </form>
                     </ModalBody>
 
                     <ModalFooter>
-                        <Box display="flex" gap={1} width={"100%"}>
-                            <Button
-                                colorScheme="red"
-                                size="sm"
-                                onClick={onClose}
-                                flex="1"
-                            >
-                                취소
-                            </Button>
-                        </Box>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
