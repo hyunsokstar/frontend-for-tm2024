@@ -22,6 +22,7 @@ import { useApiForUpdateLikeCountForFavoriteDevSpec } from '@/hooks/useApiForUpd
 import useApiForUpdateDislikeCountForFavoriteDevSpec from '@/hooks/useApiForUpdateDisLikeCountForFavoriteDevSpec';
 import ModalButtonForUpdateBoilerPlate from '../Modal/ModalButtonForUpdateBoilerPlate';
 import useApiForUpdateCompanyForFavoriteDevSpec from '@/hooks/useApiForUpdateCompanyForFavoriteDevSpec';
+import ModalButtonLibrariesForFavoriteDevSpec from '../Modal/ModalButtonLibrariesForFavoriteDevSpec';
 
 
 interface IProps {
@@ -58,7 +59,8 @@ const TableForFavoriteDevSpecList = ({ data }: IProps) => {
                         <Th>ORM</Th>
                         <Th>CSS</Th>
                         <Th>APP</Th>
-                        <Th>Boiler Plate</Th>
+                        <Th>librarys</Th>
+                        <Th>BP</Th>
                         <Th>like / dislike</Th>
                     </Tr>
                 </Thead>
@@ -75,7 +77,8 @@ const TableForFavoriteDevSpecList = ({ data }: IProps) => {
                                                 border={"1px solid green"}
                                                 value={inputCompany}
                                                 onChange={(e) => setInputCompany(e.target.value)}
-                                            />                                            <InputRightElement >
+                                            />
+                                            <InputRightElement >
                                                 <IconButton
                                                     size="xs"
                                                     variant="outline"
@@ -84,9 +87,10 @@ const TableForFavoriteDevSpecList = ({ data }: IProps) => {
                                                     aria-label="Update"
                                                     m={1}
                                                     onClick={() => {
-                                                        updateCompany({ id: devSpec.id, company: inputCompany }); // mutation function 호출
+                                                        updateCompany({ id: devSpec.id, company: inputCompany });
                                                     }}
-                                                />                                          </InputRightElement>
+                                                />
+                                            </InputRightElement>
                                         </InputGroup>
                                     )
                                 }
@@ -97,6 +101,12 @@ const TableForFavoriteDevSpecList = ({ data }: IProps) => {
                             <Td>{devSpec.orm}</Td>
                             <Td>{devSpec.css}</Td>
                             <Td>{devSpec.app}</Td>
+                            <Td>
+                                <ModalButtonLibrariesForFavoriteDevSpec
+                                    idForFavoriteDevSpec={devSpec.id}
+                                    libraries={devSpec.libraries}
+                                />
+                            </Td>
                             <Td>
                                 <Box display={"flex"} gap={1}>
                                     <ModalButtonForUpdateBoilerPlate devSpec={devSpec} />

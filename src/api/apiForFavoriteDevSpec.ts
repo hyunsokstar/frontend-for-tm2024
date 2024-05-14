@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
-import { FavoriteDevSpecRow, FavoriteDevSpecRowForCreate, IDtoTypeForUpdateFavoriteDevSpecCompany, UpdateFavoriteDevSpecParameter } from "@/types/typeForFavoriteDevSpec";
+import { CreateLibraryForFavoriteDevSpecDto, FavoriteDevSpecRow, FavoriteDevSpecRowForCreate, IDtoTypeForUpdateFavoriteDevSpecCompany, LibraryForFavoriteDevSpec, ParameterTypeForAddLibraryToFavoriteDevSpec, UpdateFavoriteDevSpecParameter } from "@/types/typeForFavoriteDevSpec";
 
 const instance = axios.create({
     baseURL: `${backendApi}/favorite-dev-spec`,
@@ -74,4 +74,21 @@ export const updateFavoriteDevSpec = async ({ id, data }: UpdateFavoriteDevSpecP
     } catch (error: any) {
         throw error
     };
+}
+
+// interface CreateLibraryForFavoriteDevSpecDto {
+//     library: string;
+//     siteUrl?: string;
+//     description?: string; // description 속성 추가
+// }
+
+// addLibraryToFavoriteDevSpec 함수 정의
+export async function addLibraryToFavoriteDevSpec({ favoriteDevSpecId, createLibraryDto }: ParameterTypeForAddLibraryToFavoriteDevSpec)
+    : Promise<LibraryForFavoriteDevSpec> {
+    try {
+        const response: AxiosResponse<LibraryForFavoriteDevSpec> = await instance.post(`/${favoriteDevSpecId}/libraries`, createLibraryDto);
+        return response.data;
+    } catch (error) {
+        throw error
+    }
 }

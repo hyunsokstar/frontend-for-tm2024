@@ -17,8 +17,6 @@ const useApiForSimpleCreateXXXXXXXXXX = ({ }: IProps) => {
     const useApiForSimpleCreateXXXXXX = useMutation({
         mutationFn: apiForSimpleCreateSupplementaryTodo,
         onSuccess: (data: any) => {
-            let pageNum = 1
-
 
             queryClient.refetchQueries({
                 queryKey: ['xxxxxxxxxxxxxxxx'],
