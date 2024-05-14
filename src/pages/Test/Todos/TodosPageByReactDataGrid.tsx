@@ -1,5 +1,6 @@
 import DataGridForUserTodoList from '@/components/DataGrid/DataGridForUserTodoList'
 import ModalButtonForTaskHistory from '@/components/Modal/ModalButtonForTaskHistory'
+import { Box } from '@chakra-ui/react'
 import React from 'react'
 
 
@@ -7,8 +8,8 @@ type Props = {}
 
 const TodosPageByReactDataGrid = (props: Props) => {
     return (
-        <>
-            uncomplted:
+        <Box width={"100%"}>
+            uncompleted:
             <DataGridForUserTodoList pageInfo="todosPageForAllUser" todoStatusOption={'all_uncompleted'} selectedUserId={undefined} />
 
             <br />
@@ -17,7 +18,7 @@ const TodosPageByReactDataGrid = (props: Props) => {
             <br />
             <DataGridForUserTodoList pageInfo="todosPageForAllUser" todoStatusOption={'all_completed'} />
 
-        </>
+        </Box>
     )
 }
 
