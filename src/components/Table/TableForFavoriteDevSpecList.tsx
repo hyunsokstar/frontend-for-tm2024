@@ -23,6 +23,7 @@ import useApiForUpdateDislikeCountForFavoriteDevSpec from '@/hooks/useApiForUpda
 import ModalButtonForUpdateBoilerPlate from '../Modal/ModalButtonForUpdateBoilerPlate';
 import useApiForUpdateCompanyForFavoriteDevSpec from '@/hooks/useApiForUpdateCompanyForFavoriteDevSpec';
 import ModalButtonLibrariesForFavoriteDevSpec from '../Modal/ModalButtonLibrariesForFavoriteDevSpec';
+import InputForUpdateCompanyForFavoriteDevSpecRow from '../Input/InputForUpdateCompanyForFavoriteDevSpecRow';
 
 
 interface IProps {
@@ -71,27 +72,7 @@ const TableForFavoriteDevSpecList = ({ data }: IProps) => {
                             <Td>
                                 {devSpec.company !== "" ? devSpec.company :
                                     (
-                                        <InputGroup size='xs' width={"80%"}>
-                                            <Input
-                                                size={"xs"}
-                                                border={"1px solid green"}
-                                                value={inputCompany}
-                                                onChange={(e) => setInputCompany(e.target.value)}
-                                            />
-                                            <InputRightElement >
-                                                <IconButton
-                                                    size="xs"
-                                                    variant="outline"
-                                                    colorScheme="green"
-                                                    icon={<AiOutlineArrowUp />}
-                                                    aria-label="Update"
-                                                    m={1}
-                                                    onClick={() => {
-                                                        updateCompany({ id: devSpec.id, company: inputCompany });
-                                                    }}
-                                                />
-                                            </InputRightElement>
-                                        </InputGroup>
+                                        <InputForUpdateCompanyForFavoriteDevSpecRow idForFavoriteDevSpec={devSpec.id} />
                                     )
                                 }
                             </Td>
@@ -102,6 +83,7 @@ const TableForFavoriteDevSpecList = ({ data }: IProps) => {
                             <Td>{devSpec.css}</Td>
                             <Td>{devSpec.app}</Td>
                             <Td>
+                                {/* <Button>library</Button> */}
                                 <ModalButtonLibrariesForFavoriteDevSpec
                                     idForFavoriteDevSpec={devSpec.id}
                                     libraries={devSpec.libraries}
