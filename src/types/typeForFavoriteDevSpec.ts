@@ -1,8 +1,17 @@
+export enum LibraryCategory {
+    BACKEND = 'backend',
+    STATE_MANAGEMENT = 'state_management',
+    UI = 'ui',
+}
+
 export interface LibraryRowForFavoriteDevSpec {
     id: number;
     library: string;
     description: string;
     siteUrl: string;
+    // category: string;
+    category: LibraryCategory;
+
 }
 
 

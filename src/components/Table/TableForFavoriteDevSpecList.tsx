@@ -43,9 +43,7 @@ const TableForFavoriteDevSpecList = ({ data }: IProps) => {
     const handleDislike = (id: number) => {
         updateDislikeCount(id);
     };
-
     console.log("data : ", data);
-
 
     return (
         <div style={{ maxWidth: '100%', overflowX: 'auto' }}>
@@ -83,7 +81,6 @@ const TableForFavoriteDevSpecList = ({ data }: IProps) => {
                             <Td>{devSpec.css}</Td>
                             <Td>{devSpec.app}</Td>
                             <Td>
-                                {/* <Button>library</Button> */}
                                 <ModalButtonLibrariesForFavoriteDevSpec
                                     idForFavoriteDevSpec={devSpec.id}
                                     libraries={devSpec.libraries}
