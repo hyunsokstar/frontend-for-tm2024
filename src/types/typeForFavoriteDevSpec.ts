@@ -9,9 +9,22 @@ export interface LibraryRowForFavoriteDevSpec {
     library: string;
     description: string;
     siteUrl: string;
-    // category: string;
     category: LibraryCategory;
+}
 
+export enum ToolCategory {
+    Editor = 'editor',
+    Collaboration = 'collaboration',
+    DesignSystem = 'design_system',
+    DeploymentOperation = 'deployment_operation',
+}
+
+export interface ToolsRowForFavoriteDevSpec {
+    id: number;
+    tool: string;
+    description: string;
+    siteUrl: string;
+    category: ToolCategory;
 }
 
 
@@ -40,6 +53,7 @@ export interface FavoriteDevSpecRow {
     figma: string;
 
     libraries: LibraryRowForFavoriteDevSpec[]
+    tools: ToolsRowForFavoriteDevSpec[]
 }
 
 export interface FavoriteDevSpecRowForCreate {

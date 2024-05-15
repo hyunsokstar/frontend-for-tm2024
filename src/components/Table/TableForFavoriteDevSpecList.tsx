@@ -24,6 +24,7 @@ import ModalButtonForUpdateBoilerPlate from '../Modal/ModalButtonForUpdateBoiler
 import useApiForUpdateCompanyForFavoriteDevSpec from '@/hooks/useApiForUpdateCompanyForFavoriteDevSpec';
 import ModalButtonLibrariesForFavoriteDevSpec from '../Modal/ModalButtonLibrariesForFavoriteDevSpec';
 import InputForUpdateCompanyForFavoriteDevSpecRow from '../Input/InputForUpdateCompanyForFavoriteDevSpecRow';
+import ModalButtonToolsForFavoriteDevSpec from '../Modal/ModalButtonToolsForFavoriteDevSpec';
 
 
 interface IProps {
@@ -84,6 +85,12 @@ const TableForFavoriteDevSpecList = ({ data }: IProps) => {
                                 <ModalButtonLibrariesForFavoriteDevSpec
                                     idForFavoriteDevSpec={devSpec.id}
                                     libraries={devSpec.libraries}
+                                />
+                            </Td>
+                            <Td>
+                                <ModalButtonToolsForFavoriteDevSpec
+                                    idForFavoriteDevSpec={devSpec.id}
+                                    tools={devSpec.tools}
                                 />
                             </Td>
                             <Td>
