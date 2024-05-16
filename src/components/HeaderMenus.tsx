@@ -117,6 +117,14 @@ const HeaderMenus = () => {
                         Dev Spec Survey
                     </Link>
 
+                    <Link
+                        href="/DevRelay"
+                        color={router.pathname.includes("/DevRelay") ? "#4267B2" : "inherit"}
+                        fontWeight={router.pathname.includes("/DevRelay") ? "bold" : "normal"}
+                    >
+                        Dev Relay
+                    </Link>
+
                 </Box>
 
             </Box>

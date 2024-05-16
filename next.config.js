@@ -10,6 +10,7 @@
 
 module.exports = {
     reactStrictMode: false,
+    cacheBust: true,
     env: {
         PORTONE_SHOP_ID: process.env.PORTONE_SHOP_ID,
         PORTONE_API_KEY: process.env.PORTONE_API_KEY,

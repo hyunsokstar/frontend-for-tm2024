@@ -32,6 +32,9 @@ const ModalButtonLibrariesForFavoriteDevSpec: React.FC<Props> = ({
 }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
+    console.log("libraries : ", libraries);
+
+
     return (
         <>
             <Button

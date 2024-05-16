@@ -6,15 +6,9 @@ import {
     Tr,
     Th,
     Td,
-    Tooltip,
     IconButton,
     chakra,
-    Button,
     Box,
-    Input,
-    InputGroup,
-    InputRightElement,
-    Flex,
 } from '@chakra-ui/react';
 import { FavoriteDevSpecRow } from '@/types/typeForFavoriteDevSpec';
 import { AiFillLike, AiFillDislike, AiOutlineArrowUp } from 'react-icons/ai';
