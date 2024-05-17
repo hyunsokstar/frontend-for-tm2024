@@ -1,9 +1,15 @@
-// 응답 타입에 대한 인터페이스 타입도 필요
-export interface DevRelayResponse {
+export interface DevAssignmentSubmissionRow {
     id: number;
-    devTitle: string;
-    devNote: string;
+    title: string;
+    noteUrl: string;
     figmaUrl: string;
-    githubUrl: string;
-    dayOfTheWeek: string;
+    youtubeUrl: string;
+}
+
+export interface DevAssignmentRow {
+    id: number;
+    day: string;
+    title: string;
+    category: string;
+    submissions: DevAssignmentSubmissionRow[]; // 수정된 부분: submissions 필드 추가
 }

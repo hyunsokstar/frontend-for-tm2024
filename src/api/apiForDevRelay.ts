@@ -3,7 +3,7 @@ import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
 import { QueryFunctionContext } from "@tanstack/react-query";
 import { access } from "fs";
-import { DevRelayResponse } from "@/types/typeForDevRelay";
+import { DevAssignmentRow } from "@/types/typeForDevRelay";
 
 const instance = axios.create({
     baseURL: `${backendApi}/dev-relay`,
@@ -29,7 +29,7 @@ instance.interceptors.request.use(
 
 
 // findAllDevRelays 함수 정의
-export const findAllDevRelays = async (): Promise<DevRelayResponse[]> => {
+export const findAllDevRelays = async (): Promise<DevAssignmentRow[]> => {
     try {
         const response = await instance.get('dev-assignments');
         return response.data;

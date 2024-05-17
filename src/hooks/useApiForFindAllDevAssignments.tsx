@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { findAllDevRelays } from "@/api/apiForDevRelay";
-import { DevRelayResponse } from "@/types/typeForDevRelay";
+import { DevAssignmentRow } from "@/types/typeForDevRelay";
 
 const useApiForFindAllDevAssignments = () => {
-    const { isLoading, error, data } = useQuery<DevRelayResponse[]>({
+    const { isLoading, error, data } = useQuery<DevAssignmentRow[]>({
         queryKey: ['apiForGetFindAllDevRelays'],
         queryFn: findAllDevRelays
     });

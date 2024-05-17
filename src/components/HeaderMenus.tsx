@@ -44,7 +44,7 @@ const HeaderMenus = () => {
                         color={router.pathname.includes("/Test/Todos") ? "#4267B2" : "inherit"}
                         fontWeight={router.pathname.includes("/Test/Todos") ? "bold" : "normal"}
                     >
-                        Todo(Ready To Complete)
+                        Todo(ready)
                     </Link>
 
                     <Link

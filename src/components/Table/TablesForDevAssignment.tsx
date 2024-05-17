@@ -1,38 +1,78 @@
 import React from 'react';
-import { Box, Table, Td, Th, Tr, Text } from '@chakra-ui/react';
+import { Box, Table, Thead, Tbody, Td, Th, Tr, Text, Flex, IconButton, Link, Image } from '@chakra-ui/react';
+import { MdOutlineLink, MdOutlineNoteAdd } from 'react-icons/md';
+import { FiFigma } from 'react-icons/fi';
+import { AiFillYoutube } from 'react-icons/ai'; // YouTube 아이콘 추가
+import { DevAssignmentRow } from '@/types/typeForDevRelay';
 
 interface Props {
-    dataForAllDevAssignments: any[];
+    dataForAllDevAssignments: DevAssignmentRow[];
 }
 
 const TablesForDevAssignment: React.FC<Props> = ({ dataForAllDevAssignments }) => {
+    const pastelColors = ['teal.500', 'blue.500', 'purple.500', 'pink.500', 'orange.500']; // Array of pastel colors
+
     return (
         <>
-            {dataForAllDevAssignments.map(({ day, title }) => {
-                const pastelColors = ['teal', 'blue', 'purple', 'pink', 'orange']; // Array of pastel colors
-                const colorIndex = dataForAllDevAssignments.indexOf({ day, title }); // Get index for color assignment
+            {dataForAllDevAssignments.map(({ day, title, submissions }) => {
+                const colorIndex = pastelColors.findIndex((color) => color === day);
+                const dayColor = colorIndex !== -1 ? pastelColors[(colorIndex + 1) % pastelColors.length] : 'gray.600';
 
                 return (
                     <Box key={day} marginX={2} mb={4}>
-                        <Text fontSize="lg" fontWeight="bold" textAlign="center" color={pastelColors[colorIndex % pastelColors.length]}>{day}</Text>
-                        <Table variant="simple" color={pastelColors[colorIndex % pastelColors.length]} size={"xs"}>
-                            <thead>
+                        <Text fontSize="lg" fontWeight="bold" textAlign="center" color={dayColor}>
+                            {day.charAt(0).toUpperCase() + day.slice(1)}
+                        </Text>
+                        <Table variant="simple" size={'xs'}>
+                            <Thead>
                                 <Tr>
-                                    <Th>Title</Th>
+                                    <Td>
+                                        <Text color="blue.500" fontWeight="bold" fontFamily="sans-serif">{title}</Text>
+                                    </Td>
+                                    <Td></Td>
                                 </Tr>
-                            </thead>
-                            <tbody>
-                                <Tr>
-                                    <Td>{title}</Td>
-                                </Tr>
-                                {/* Fake data with subtle text color */}
-                                <Tr>
-                                    <Td color="#888">Todo 1</Td>
-                                </Tr>
-                                <Tr>
-                                    <Td color="#888">Todo 2</Td>
-                                </Tr>
-                            </tbody>
+
+                            </Thead>
+                            <Tbody>
+                                {submissions.map(({ id, title: subTitle, noteUrl, figmaUrl, youtubeUrl }) => (
+                                    <Tr key={id}>
+                                        <Td color="gray.700">{subTitle}</Td>
+                                        <Td>
+                                            <Flex justifyContent="space-between">
+                                                <Link href={noteUrl} isExternal>
+                                                    <IconButton
+                                                        aria-label="Note"
+                                                        icon={<MdOutlineNoteAdd />}
+                                                        size="xs"
+                                                        colorScheme="gray"
+                                                        variant="ghost"
+                                                    />
+                                                </Link>
+                                                <Link href={figmaUrl} isExternal>
+                                                    <IconButton
+                                                        aria-label="Figma"
+                                                        icon={<FiFigma />}
+                                                        size="xs"
+                                                        colorScheme="gray"
+                                                        variant="ghost"
+                                                        marginLeft={2}
+                                                    />
+                                                </Link>
+                                                <Link href={youtubeUrl} isExternal>
+                                                    <IconButton
+                                                        aria-label="YouTube"
+                                                        icon={<AiFillYoutube />} // YouTube 아이콘으로 변경
+                                                        size="xs"
+                                                        colorScheme="gray"
+                                                        variant="ghost"
+                                                        marginLeft={2}
+                                                    />
+                                                </Link>
+                                            </Flex>
+                                        </Td>
+                                    </Tr>
+                                ))}
+                            </Tbody>
                         </Table>
                     </Box>
                 );
