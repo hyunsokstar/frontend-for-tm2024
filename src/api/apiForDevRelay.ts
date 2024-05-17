@@ -1,9 +1,7 @@
 // src\api\apiForDevRelay.ts
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
-import { QueryFunctionContext } from "@tanstack/react-query";
-import { access } from "fs";
-import { DevAssignmentRow } from "@/types/typeForDevRelay";
+import { CreateDevAssignmentSubmission, DevAssignmentRow, IParameterForCreateDevAssignmentSubmission } from "@/types/typeForDevRelay";
 
 const instance = axios.create({
     baseURL: `${backendApi}/dev-relay`,
@@ -35,5 +33,21 @@ export const findAllDevRelays = async (): Promise<DevAssignmentRow[]> => {
         return response.data;
     } catch (error) {
         throw error;
+    }
+};
+
+export const createDevAssignmentSubmission = async ({
+    devAssignmentId,
+    createDevAssignmentSubmissionDto
+}: IParameterForCreateDevAssignmentSubmission
+) => {
+    try {
+        const response: AxiosResponse = await instance.post(
+            `${devAssignmentId}/dev-assignment-submission`,
+            createDevAssignmentSubmissionDto
+        );
+        return response.data;
+    } catch (error) {
+        throw new Error(`Failed to create dev assignment submission: ${error}`);
     }
 };

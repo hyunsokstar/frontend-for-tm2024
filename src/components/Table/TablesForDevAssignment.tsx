@@ -1,9 +1,10 @@
 import React from 'react';
 import { Box, Table, Thead, Tbody, Td, Th, Tr, Text, Flex, IconButton, Link, Image } from '@chakra-ui/react';
-import { MdOutlineLink, MdOutlineNoteAdd } from 'react-icons/md';
+import { MdAdd, MdOutlineLink, MdOutlineNoteAdd } from 'react-icons/md';
 import { FiFigma } from 'react-icons/fi';
 import { AiFillYoutube } from 'react-icons/ai'; // YouTube 아이콘 추가
 import { DevAssignmentRow } from '@/types/typeForDevRelay';
+import ModalButtonForAddSubmisstion from '../Modal/ModalButtonForAddSubmisstion';
 
 interface Props {
     dataForAllDevAssignments: DevAssignmentRow[];
@@ -14,7 +15,7 @@ const TablesForDevAssignment: React.FC<Props> = ({ dataForAllDevAssignments }) =
 
     return (
         <>
-            {dataForAllDevAssignments.map(({ day, title, submissions }) => {
+            {dataForAllDevAssignments.map(({ id, day, title, submissions }) => {
                 const colorIndex = pastelColors.findIndex((color) => color === day);
                 const dayColor = colorIndex !== -1 ? pastelColors[(colorIndex + 1) % pastelColors.length] : 'gray.600';
 
@@ -29,7 +30,13 @@ const TablesForDevAssignment: React.FC<Props> = ({ dataForAllDevAssignments }) =
                                     <Td>
                                         <Text color="blue.500" fontWeight="bold" fontFamily="sans-serif">{title}</Text>
                                     </Td>
-                                    <Td></Td>
+                                    <Td>
+                                        {/* 여기에 + 버튼 추가 variant outline size xs 적절한 색 설정*/}
+                                        <Box display={"flex"} justifyContent={"flex-end"} my={1}>
+
+                                            <ModalButtonForAddSubmisstion devAssignmentId={id} />
+                                        </Box>
+                                    </Td>
                                 </Tr>
 
                             </Thead>
