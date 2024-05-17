@@ -1,29 +1,31 @@
-import React from 'react';
-import { Box, Center, Text } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { Box } from '@chakra-ui/react';
 import useApiForFindAllDevAssignments from '@/hooks/useApiForFindAllDevAssignments';
 import TablesForDevAssignment from '@/components/Table/TablesForDevAssignment';
+import { AssignmentCategory } from '@/types/typeForDevRelay';
+import CategoryMenuForDevAssignment from '@/components/Menus/CategoryMenuForDevAssignment';
 
 const DevRelay: React.FC = () => {
-    const { isLoading, error, data: dataForAllDevAssignments } = useApiForFindAllDevAssignments(); // useApiForFindAllDevRelays 훅 사용하여 데이터 가져오기
+    const [selectedCategory, setSelectedCategory] = useState<AssignmentCategory | null>(null);
+    const { isLoading, error, data: dataForAllDevAssignments } = useApiForFindAllDevAssignments(selectedCategory);
     console.log("dataForAllDevAssignments : ", dataForAllDevAssignments);
 
+    const handleCategorySelect = (category: AssignmentCategory) => {
+        setSelectedCategory(category); // 카테고리 선택 시 상태 업데이트
+        console.log("Selected category:", category);
+    };
 
     return (
-        <Box display="grid" gridTemplateColumns="repeat(3, 1fr)" gridGap={4} paddingX={4}>
-
-            <Box bg="teal.500" p={4} gridColumn="1 / -1">
-                <Center>
-                    <Box bg="teal.500" p={4} gridColumn="1 / -1">
-                        <Text color="white" fontWeight="bold" fontFamily="sans-serif" fontSize="xl">
-                            웹 개발 핵심 기능 구현
-                        </Text>
-                    </Box>
-                </Center>
+        <Box>
+            <Box mb={5}>
+                <CategoryMenuForDevAssignment selectedCategory={selectedCategory} onSelectCategory={handleCategorySelect} /> {/* 선택된 카테고리 상태 전달 */}
             </Box>
 
-            <TablesForDevAssignment
-                dataForAllDevAssignments={dataForAllDevAssignments ? dataForAllDevAssignments : []}
-            />
+            <Box display="grid" gridTemplateColumns="repeat(3, 1fr)" gridGap={4} paddingX={4}>
+                <TablesForDevAssignment
+                    dataForAllDevAssignments={dataForAllDevAssignments ? dataForAllDevAssignments : []}
+                />
+            </Box>
         </Box>
     );
 };

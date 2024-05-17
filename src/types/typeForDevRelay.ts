@@ -6,13 +6,23 @@ export interface DevAssignmentSubmissionRow {
     youtubeUrl: string;
 }
 
+export enum AssignmentCategory {
+    BASIC = 'basic',
+    FRAMEWORK = 'framework',
+    LIBRARY = 'library',
+    UI = 'ui',
+    DEVOPS = 'devops',
+    LANGUAGE = 'language',
+}
+
 export interface DevAssignmentRow {
     id: number;
     day: string;
     title: string;
-    category: string;
-    submissions: DevAssignmentSubmissionRow[]; // 수정된 부분: submissions 필드 추가
+    category: AssignmentCategory; // enum으로 변경
+    submissions: DevAssignmentSubmissionRow[];
 }
+
 
 export interface CreateDevAssignmentSubmission {
     title: string;

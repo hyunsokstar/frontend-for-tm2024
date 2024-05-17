@@ -1,7 +1,7 @@
 // src\api\apiForDevRelay.ts
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
-import { CreateDevAssignmentSubmission, DevAssignmentRow, IParameterForCreateDevAssignmentSubmission } from "@/types/typeForDevRelay";
+import { AssignmentCategory, CreateDevAssignmentSubmission, DevAssignmentRow, IParameterForCreateDevAssignmentSubmission } from "@/types/typeForDevRelay";
 
 const instance = axios.create({
     baseURL: `${backendApi}/dev-relay`,
@@ -27,9 +27,13 @@ instance.interceptors.request.use(
 
 
 // findAllDevRelays 함수 정의
-export const findAllDevRelays = async (): Promise<DevAssignmentRow[]> => {
+export const findAllDevAssingments = async (selectedCategory: AssignmentCategory | null): Promise<DevAssignmentRow[]> => {
     try {
-        const response = await instance.get('dev-assignments');
+        const response = await instance.get('dev-assignments', {
+            params: {
+                category: selectedCategory // 선택된 카테고리를 쿼리 파라미터로 전달
+            }
+        });
         return response.data;
     } catch (error) {
         throw error;
