@@ -6,14 +6,11 @@ export interface DevAssignmentSubmissionRow {
     youtubeUrl: string;
 }
 
-export enum AssignmentCategory {
-    BASIC = 'basic',
-    FRAMEWORK = 'framework',
-    LIBRARY = 'library',
-    UI = 'ui',
-    DEVOPS = 'devops',
-    LANGUAGE = 'language',
+export interface AssignmentCategory {
+    id: number;
+    name: string;
 }
+
 
 export interface DevAssignmentRow {
     id: number;

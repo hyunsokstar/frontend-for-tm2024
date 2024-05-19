@@ -25,6 +25,37 @@ instance.interceptors.request.use(
     }
 );
 
+export const findDevAssignmentsByCategory = async (categoryId: number): Promise<DevAssignmentRow[]> => {
+    try {
+        const response = await instance.get(`/${categoryId}/dev-assignments`);
+        return response.data;
+    } catch (error) {
+        // 에러 처리 로직 추가
+        throw error;
+    }
+};
+
+
+export async function getAllCategories(): Promise<AssignmentCategory[]> {
+    try {
+        const response = await instance.get('/categories');
+        return response.data;
+    } catch (error) {
+        console.error("카테고리를 가져오는 중 에러 발생:", error);
+        throw error;
+    }
+}
+
+export async function getDevAssignmentsByCategory(categoryId: number): Promise<DevAssignmentRow[]> {
+    try {
+        const response = await instance.get(`/${categoryId}/dev-assignments`);
+        return response.data;
+    } catch (error) {
+        console.error("DevAssignment 리스트를 가져오는 중 에러 발생:", error);
+        throw error;
+    }
+}
+
 
 // findAllDevRelays 함수 정의
 export const findAllDevAssingments = async (selectedCategory: AssignmentCategory | null): Promise<DevAssignmentRow[]> => {
