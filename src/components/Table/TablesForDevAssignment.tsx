@@ -16,7 +16,7 @@ const TablesForDevAssignment = ({ devAssignments }: Props) => {
                     <Table>
                         <Thead>
                             <Tr>
-                                <Th>{assignment.title}</Th>
+                                <Th colSpan={3}>{assignment.title}</Th>
                             </Tr>
                         </Thead>
                         <Tbody>

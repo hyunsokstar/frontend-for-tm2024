@@ -131,7 +131,7 @@ const HeaderMenus = () => {
             {isLoggedIn ? (
                 <Flex alignItems="center">
                     <Box fontSize="sm" fontWeight="bold">
-                        안녕하세요,{' '}
+                        {/* 안녕하세요,{' '} */}
                         <Link href={`/UserProfile/${loginUser.id}`}>
                             <a>{loginUser.email}님</a>
                         </Link>

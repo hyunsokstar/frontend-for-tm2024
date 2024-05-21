@@ -4,6 +4,8 @@ import { AddIcon } from '@chakra-ui/icons';
 import useApiForGetAllCategoriesForDevAssignments from '@/hooks/useApiForGetAllCategoriesForDevAssignments';
 import CategoryListForDevAssignment from '@/components/List/CategoryListForDevAssignment';
 import DevAssignmentListForCategory from '@/components/List/DevAssignmentListForCategory';
+import ModalButtonForCreateCategoryForDevAssignment from '@/components/Modal/ModalButtonForCreateCateogryForDevAssignment';
+import ModalButtonForCreateDevAssignmentForCategory from '@/components/Modal/ModalButtonForCreateDevAssignmentForCategory';
 
 type Props = {};
 
@@ -23,6 +25,11 @@ const DevRelay: React.FC<Props> = () => {
         console.log('Add new category');
     };
 
+    console.log(
+        "selectedCategory.id", selectedCategory
+    );
+
+
     return (
         <Flex h="100vh">
             <Box
@@ -36,13 +43,17 @@ const DevRelay: React.FC<Props> = () => {
                 p={4}
             >
                 <Box display="flex" justifyContent="flex-end" pr={0} mb={2}>
-                    <IconButton
+                    {/* <IconButton
                         aria-label="Add category"
                         icon={<AddIcon />}
                         variant="outline"
                         size="xs"
                         onClick={handleAddCategory}
-                    />
+                    /> */}
+
+                    <ModalButtonForCreateCategoryForDevAssignment />
+
+
                 </Box>
                 <CategoryListForDevAssignment
                     categories={data || []}
@@ -52,6 +63,12 @@ const DevRelay: React.FC<Props> = () => {
             </Box>
             <Box flex="1" p={4}>
                 {/* 메인 콘텐츠 영역 */}
+                <Box flex="1" p={4} display="flex" justifyContent="flex-end">
+                    {/* + 버튼 */}
+                    {/* <IconButton aria-label="추가" icon={<AddIcon />} /> */}
+                    <ModalButtonForCreateDevAssignmentForCategory categoryId={selectedCategory} />
+                </Box>
+
                 {selectedCategory !== null && <DevAssignmentListForCategory categoryId={selectedCategory} />}
             </Box>
         </Flex>

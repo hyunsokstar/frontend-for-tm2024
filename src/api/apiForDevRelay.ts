@@ -1,13 +1,12 @@
 // src\api\apiForDevRelay.ts
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
-import { AssignmentCategory, CreateDevAssignmentSubmission, DevAssignmentRow, IParameterForCreateDevAssignmentSubmission } from "@/types/typeForDevRelay";
+import { AssignmentCategory, CategoryForDevAssignmentDto, CreateDevAssignmentDto, CreateDevAssignmentSubmission, DevAssignmentRow, IParameterForCreateDevAssignmentSubmission } from "@/types/typeForDevRelay";
 
 const instance = axios.create({
     baseURL: `${backendApi}/dev-relay`,
     withCredentials: true,
 });
-
 
 instance.interceptors.request.use(
     (config) => {
@@ -24,6 +23,25 @@ instance.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+export async function apiForCreateDevAssignment(categoryId: number, createDevAssignmentDto: CreateDevAssignmentDto) {
+    try {
+        const response: any = await instance.post(`/${categoryId}/create-dev-assignment`, createDevAssignmentDto);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
+export const apiForCreateCategory = async (categoryDto: CategoryForDevAssignmentDto): Promise<AxiosResponse> => {
+    try {
+        const response = await instance.post('category', categoryDto);
+        return response;
+    } catch (error) {
+        throw new Error(`Error creating category: ${error}`);
+    }
+}
 
 export const findDevAssignmentsByCategory = async (categoryId: number): Promise<DevAssignmentRow[]> => {
     try {

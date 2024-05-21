@@ -1,3 +1,13 @@
+export interface CreateDevAssignmentDto {
+    day: string;
+    title: string;
+}
+
+export interface CategoryForDevAssignmentDto {
+    name: string;
+}
+
+
 export interface DevAssignmentSubmissionRow {
     id: number;
     title: string;
@@ -10,7 +20,6 @@ export interface AssignmentCategory {
     id: number;
     name: string;
 }
-
 
 export interface DevAssignmentRow {
     id: number;
