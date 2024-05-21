@@ -5,7 +5,7 @@ import useApiForCreateDevAssignment from '@/hooks/useApiForCreateDevAssignment';
 import { CreateDevAssignmentDto } from '@/types/typeForDevRelay';
 
 interface IProps {
-    categoryId: number;
+    categoryId: any;
 }
 
 const ModalButtonForCreateDevAssignmentForCategory = ({ categoryId }: IProps) => {
