@@ -8,7 +8,7 @@ interface Category {
 }
 
 interface Props {
-    categories: Category[];
+    categories: any[];
     selectedCategory: number | null;
     onSelectCategory: (categoryId: number) => void;
 }
