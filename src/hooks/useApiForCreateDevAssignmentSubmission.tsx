@@ -11,7 +11,7 @@ const useApiForCreateDevAssignmentSubmission = () => {
         onSuccess: (data: any) => {
             // Refetch the data for apiForGetFindAllDevRelays
             queryClient.refetchQueries({
-                queryKey: ['apiForGetFindAllDevRelays'],
+                queryKey: ['devAssignments'],
             });
 
             toast({

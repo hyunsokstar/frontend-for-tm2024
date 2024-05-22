@@ -1,7 +1,10 @@
 import React from 'react'
-import { Grid, GridItem, Table, Thead, Tbody, Tr, Th, Td, IconButton, Tooltip, Flex } from '@chakra-ui/react'
-import { FaStickyNote, FaFigma, FaYoutube } from 'react-icons/fa' // 노트, 피그마, 유튜브 모양 아이콘
+import { Grid, GridItem, Table, Thead, Tbody, Tr, Th, Td, IconButton, Tooltip, Flex, Box, Button } from '@chakra-ui/react'
+import { FaFigma, FaYoutube } from 'react-icons/fa' // 노트, 피그마, 유튜브 모양 아이콘
+import { MdNoteAlt } from "react-icons/md";
+import { AddIcon } from "@chakra-ui/icons";
 import { DevAssignmentRow } from '@/types/typeForDevRelay'
+import ModalButtonForAddSubmisstion from '../Modal/ModalButtonForAddSubmisstion';
 
 type Props = {
     devAssignments: DevAssignmentRow[]
@@ -16,29 +19,38 @@ const TablesForDevAssignment = ({ devAssignments }: Props) => {
                     <Table>
                         <Thead>
                             <Tr>
-                                <Th colSpan={3}>{assignment.title}</Th>
+                                <Th colSpan={3}>
+                                    {/* {assignment.title} */}
+                                    <Flex justifyContent="space-between">
+                                        <Box>{assignment.title}</Box>
+                                        <ModalButtonForAddSubmisstion devAssignmentId={assignment.id} />
+                                    </Flex>
+                                </Th>
+
                             </Tr>
                         </Thead>
                         <Tbody>
                             {assignment.submissions.map((submission) => (
                                 <Tr key={submission.id}>
                                     <Td>
-                                        {submission.title}
+                                        <Flex justifyContent="space-between">
+                                            <Box>{submission.title}</Box>
+                                            {/* <Button
+                                                size="xs"
+                                                variant="outline"
+                                                colorScheme="blue"
+                                                onClick={() => {
+                                                    // handle button click
+                                                }}
+                                                leftIcon={<AddIcon />}
+                                            >
+                                                Add
+                                            </Button> */}
+                                        </Flex>
                                     </Td>
                                     <Td>
                                         <Flex gap={1}>
-                                            <Tooltip label="Note" hasArrow>
-                                                <IconButton
-                                                    aria-label="Note"
-                                                    icon={<FaStickyNote />} // 노트 모양 아이콘
-                                                    variant="outline"
-                                                    size="xs" // 아이콘 버튼 크기를 xs로 설정
-                                                    as="a" // IconButton을 anchor 요소로 변환
-                                                    href={submission.noteUrl} // 클릭 시 이동할 주소
-                                                    target="_blank" // 새 탭에서 열림
-                                                    rel="noopener noreferrer" // 보안 상의 이유로 권장되는 속성
-                                                />
-                                            </Tooltip>
+
                                             <Tooltip label="Figma" hasArrow>
                                                 <IconButton
                                                     aria-label="Figma"
@@ -51,6 +63,20 @@ const TablesForDevAssignment = ({ devAssignments }: Props) => {
                                                     rel="noopener noreferrer" // 보안 상의 이유로 권장되는 속성
                                                 />
                                             </Tooltip>
+
+                                            <Tooltip label="Note" hasArrow>
+                                                <IconButton
+                                                    aria-label="Note"
+                                                    icon={<MdNoteAlt />} // 노트 모양 아이콘
+                                                    variant="outline"
+                                                    size="xs" // 아이콘 버튼 크기를 xs로 설정
+                                                    as="a" // IconButton을 anchor 요소로 변환
+                                                    href={submission.noteUrl} // 클릭 시 이동할 주소
+                                                    target="_blank" // 새 탭에서 열림
+                                                    rel="noopener noreferrer" // 보안 상의 이유로 권장되는 속성
+                                                />
+                                            </Tooltip>
+
                                             <Tooltip label="YouTube" hasArrow>
                                                 <IconButton
                                                     aria-label="YouTube"

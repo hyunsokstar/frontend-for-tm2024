@@ -4,6 +4,7 @@ import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalFooter,
 import { MdAdd } from 'react-icons/md';
 import useApiForCreateDevAssignmentSubmission from '@/hooks/useApiForCreateDevAssignmentSubmission';
 import { IParameterForCreateDevAssignmentSubmission } from '@/types/typeForDevRelay';
+import { AddIcon } from "@chakra-ui/icons";
 
 interface FormData {
     title: string;
@@ -34,14 +35,18 @@ const ModalButtonForAddSubmisstion: React.FC<Props> = ({ devAssignmentId }) => {
 
     return (
         <>
-            <IconButton
-                aria-label="Add"
-                icon={<MdAdd />}
+            <Button
                 size="xs"
-                colorScheme="teal"
                 variant="outline"
+                colorScheme="blue"
                 onClick={() => setIsOpen(true)}
-            />
+
+                leftIcon={<AddIcon />}
+            >
+                Add
+            </Button>
+
+
             <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
                 <ModalOverlay />
                 <ModalContent>
