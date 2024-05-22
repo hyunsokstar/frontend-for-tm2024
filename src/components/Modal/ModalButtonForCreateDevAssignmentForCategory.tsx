@@ -22,13 +22,8 @@ const ModalButtonForCreateDevAssignmentForCategory = ({ categoryId }: IProps) =>
         const createDevAssignmentDto: CreateDevAssignmentDto = {
             day,
             title,
-            // add any other necessary properties
         };
-
-        // call the createDevAssignment function and pass in the CreateDevAssignmentDto object
         createDevAssignment(createDevAssignmentDto);
-
-        // close the modal
         onClose();
     };
 
