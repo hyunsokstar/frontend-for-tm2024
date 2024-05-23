@@ -11,7 +11,7 @@ interface IProps {
 
 const ModalButtonForUpdateCategoryForDevAssignment = ({ categoryId, categoryText }: IProps) => {
     const [isOpen, setIsOpen] = useState(false);
-    const { register, handleSubmit, errors } = useForm(); // defaultValues 제거
+    const { register, handleSubmit } = useForm(); // defaultValues 제거
     const mutationForUpdateCategoryForDevAssignment = useApiForUpdateCategoryForDevAssignment();
 
     const onSubmit = (data: any) => {
