@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, GridItem, Table, Thead, Tbody, Tr, Th, Td, IconButton, Tooltip, Flex, Box } from '@chakra-ui/react'
+import { Grid, GridItem, Table, Thead, Tbody, Tr, Th, Td, IconButton, Tooltip, Flex, Box, Heading, Spacer } from '@chakra-ui/react'
 import { FaFigma, FaYoutube } from 'react-icons/fa' // 노트, 피그마, 유튜브 모양 아이콘
 import { MdNoteAlt } from "react-icons/md";
 import { AddIcon } from "@chakra-ui/icons";
@@ -15,13 +15,16 @@ const TablesForDevAssignment = ({ devAssignments }: Props) => {
         <Grid templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(3, 1fr)' }} gap={6}>
             {devAssignments.map((assignment) => (
                 <GridItem key={assignment.id} w='100%'>
-                    <h2>{assignment.day}</h2>
-                    <Table border="1px" borderColor="gray.200" borderRadius="md" width="100%" mb={6}>
+                    <Heading as="h2" size="md" mb={4}>
+                        {assignment.day}
+                    </Heading>
+                    <Table border="1px" borderColor="gray.200" borderRadius="sm" width="100%" mb={6}>
                         <Thead>
                             <Tr>
                                 <Th colSpan={3}>
                                     <Flex justifyContent="space-between">
                                         <Box>{assignment.title}</Box>
+                                        <Spacer />
                                         <ModalButtonForAddSubmisstion devAssignmentId={assignment.id} />
                                     </Flex>
                                 </Th>
@@ -47,6 +50,7 @@ const TablesForDevAssignment = ({ devAssignments }: Props) => {
                                                     href={submission.figmaUrl}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
+                                                    _hover={{ bgColor: 'purple.200' }} // 호버 시 색상 변경
                                                 />
                                             </Tooltip>
                                             <Tooltip label="Note" hasArrow>
@@ -59,6 +63,7 @@ const TablesForDevAssignment = ({ devAssignments }: Props) => {
                                                     href={submission.noteUrl}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
+                                                    _hover={{ bgColor: 'teal.200' }} // 호버 시 색상 변경
                                                 />
                                             </Tooltip>
                                             <Tooltip label="YouTube" hasArrow>
@@ -71,6 +76,7 @@ const TablesForDevAssignment = ({ devAssignments }: Props) => {
                                                     href={submission.youtubeUrl}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
+                                                    _hover={{ bgColor: 'red.200' }} // 호버 시 색상 변경
                                                 />
                                             </Tooltip>
                                         </Flex>

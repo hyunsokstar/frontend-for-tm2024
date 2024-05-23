@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import HeaderMenus from "../components/HeaderMenus"
 import store from "../store/index"
 
+
 const queryClient = new QueryClient();
 
 function UserBoard({ Component, pageProps }) {

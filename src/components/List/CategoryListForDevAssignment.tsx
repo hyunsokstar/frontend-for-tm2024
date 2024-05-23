@@ -35,6 +35,10 @@ const CategoryListForDevAssignment: React.FC<Props> = ({ categories, selectedCat
             {categories.map((category, index) => (
                 <Box key={category.id} display="flex" justifyContent="space-between" alignItems={"center"} py={1} pr={1} mb={2}
                     bg={selectedCategory === category.id ? pastelColors[index % pastelColors.length] : ''}
+                    _hover={{
+                        bg: pastelColors[index % pastelColors.length],
+                        textDecoration: 'underline',
+                    }}
                 >
                     <Text
                         cursor="pointer"
@@ -44,10 +48,6 @@ const CategoryListForDevAssignment: React.FC<Props> = ({ categories, selectedCat
                         px={2}
                         borderRadius="md"
                         // bg={selectedCategory === category.id ? pastelColors[index % pastelColors.length] : ''}
-                        _hover={{
-                            bg: pastelColors[index % pastelColors.length],
-                            textDecoration: 'underline',
-                        }}
                         transition="background-color 0.2s, text-decoration 0.2s"
                     >
                         {category.name}

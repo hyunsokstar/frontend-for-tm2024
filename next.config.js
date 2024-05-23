@@ -17,7 +17,6 @@ module.exports = {
         PORTONE_API_SECRET: process.env.PORTONE_API_SECRET, // Add other necessary variables
     },
 
-
     webpackDevMiddleware: (config) => {
         config.watchOptions = {
             poll: 1000, // 파일 변경 감지 주기 (밀리초)
