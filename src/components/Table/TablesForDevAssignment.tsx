@@ -16,7 +16,7 @@ const TablesForDevAssignment = ({ devAssignments }: Props) => {
             {devAssignments.map((assignment) => (
                 <GridItem key={assignment.id} w='100%'>
                     <h2>{assignment.day}</h2>
-                    <Table border="1px" borderColor="gray.200" borderRadius="md" borderCollapse="collapse" width="100%" mb={6}>
+                    <Table border="1px" borderColor="gray.200" borderRadius="md" width="100%" mb={6}>
                         <Thead>
                             <Tr>
                                 <Th colSpan={3}>
