@@ -1,7 +1,7 @@
 // src\api\apiForDevRelay.ts
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
-import { AssignmentCategory, CategoryForDevAssignmentDto, CreateDevAssignmentDto, CreateDevAssignmentSubmission, DevAssignmentRow, IParameterForCreateDevAssignmentSubmission } from "@/types/typeForDevRelay";
+import { AssignmentCategory, CategoryForDevAssignmentDto, CreateDevAssignmentDto, CreateDevAssignmentSubmission, DevAssignmentRow, IParameterForCreateDevAssignmentSubmission, IParameterForUpdateCategoryForDevAssignment } from "@/types/typeForDevRelay";
 
 const instance = axios.create({
     baseURL: `${backendApi}/dev-relay`,
@@ -23,6 +23,15 @@ instance.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+export const updateCategoryForDevAssignment = async ({ id, updateCategoryDto }: IParameterForUpdateCategoryForDevAssignment): Promise<CategoryForDevAssignmentDto> => {
+    try {
+        const response = await instance.put(`/category-for-dev-assignment/${id}`, updateCategoryDto);
+        return response.data;
+    } catch (error) {
+        throw new Error("카테고리 업데이트에 실패했습니다.");
+    }
+};
 
 export async function apiForCreateDevAssignment(categoryId: number, createDevAssignmentDto: CreateDevAssignmentDto) {
     try {

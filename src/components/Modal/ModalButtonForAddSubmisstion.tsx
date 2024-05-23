@@ -43,7 +43,7 @@ const ModalButtonForAddSubmisstion: React.FC<Props> = ({ devAssignmentId }) => {
 
                 leftIcon={<AddIcon />}
             >
-                Add
+                제출
             </Button>
 
 

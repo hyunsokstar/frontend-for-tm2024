@@ -41,3 +41,8 @@ export interface IParameterForCreateDevAssignmentSubmission {
     devAssignmentId: number;
     createDevAssignmentSubmissionDto: CreateDevAssignmentSubmission
 }
+
+export interface IParameterForUpdateCategoryForDevAssignment {
+    id: number;
+    updateCategoryDto: CategoryForDevAssignmentDto;
+}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, GridItem, Table, Thead, Tbody, Tr, Th, Td, IconButton, Tooltip, Flex, Box, Button } from '@chakra-ui/react'
+import { Grid, GridItem, Table, Thead, Tbody, Tr, Th, Td, IconButton, Tooltip, Flex, Box } from '@chakra-ui/react'
 import { FaFigma, FaYoutube } from 'react-icons/fa' // 노트, 피그마, 유튜브 모양 아이콘
 import { MdNoteAlt } from "react-icons/md";
 import { AddIcon } from "@chakra-ui/icons";
@@ -16,17 +16,15 @@ const TablesForDevAssignment = ({ devAssignments }: Props) => {
             {devAssignments.map((assignment) => (
                 <GridItem key={assignment.id} w='100%'>
                     <h2>{assignment.day}</h2>
-                    <Table>
+                    <Table border="1px" borderColor="gray.200" borderRadius="md" borderCollapse="collapse" width="100%" mb={6}>
                         <Thead>
                             <Tr>
                                 <Th colSpan={3}>
-                                    {/* {assignment.title} */}
                                     <Flex justifyContent="space-between">
                                         <Box>{assignment.title}</Box>
                                         <ModalButtonForAddSubmisstion devAssignmentId={assignment.id} />
                                     </Flex>
                                 </Th>
-
                             </Tr>
                         </Thead>
                         <Tbody>
@@ -35,58 +33,44 @@ const TablesForDevAssignment = ({ devAssignments }: Props) => {
                                     <Td>
                                         <Flex justifyContent="space-between">
                                             <Box>{submission.title}</Box>
-                                            {/* <Button
-                                                size="xs"
-                                                variant="outline"
-                                                colorScheme="blue"
-                                                onClick={() => {
-                                                    // handle button click
-                                                }}
-                                                leftIcon={<AddIcon />}
-                                            >
-                                                Add
-                                            </Button> */}
                                         </Flex>
                                     </Td>
                                     <Td>
                                         <Flex gap={1}>
-
                                             <Tooltip label="Figma" hasArrow>
                                                 <IconButton
                                                     aria-label="Figma"
-                                                    icon={<FaFigma />} // 피그마 모양 아이콘
+                                                    icon={<FaFigma />}
                                                     variant="outline"
-                                                    size="xs" // 아이콘 버튼 크기를 xs로 설정
-                                                    as="a" // IconButton을 anchor 요소로 변환
-                                                    href={submission.figmaUrl} // 클릭 시 이동할 주소
-                                                    target="_blank" // 새 탭에서 열림
-                                                    rel="noopener noreferrer" // 보안 상의 이유로 권장되는 속성
+                                                    size="xs"
+                                                    as="a"
+                                                    href={submission.figmaUrl}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
                                                 />
                                             </Tooltip>
-
                                             <Tooltip label="Note" hasArrow>
                                                 <IconButton
                                                     aria-label="Note"
-                                                    icon={<MdNoteAlt />} // 노트 모양 아이콘
+                                                    icon={<MdNoteAlt />}
                                                     variant="outline"
-                                                    size="xs" // 아이콘 버튼 크기를 xs로 설정
-                                                    as="a" // IconButton을 anchor 요소로 변환
-                                                    href={submission.noteUrl} // 클릭 시 이동할 주소
-                                                    target="_blank" // 새 탭에서 열림
-                                                    rel="noopener noreferrer" // 보안 상의 이유로 권장되는 속성
+                                                    size="xs"
+                                                    as="a"
+                                                    href={submission.noteUrl}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
                                                 />
                                             </Tooltip>
-
                                             <Tooltip label="YouTube" hasArrow>
                                                 <IconButton
                                                     aria-label="YouTube"
-                                                    icon={<FaYoutube />} // 유튜브 모양 아이콘
+                                                    icon={<FaYoutube />}
                                                     variant="outline"
-                                                    size="xs" // 아이콘 버튼 크기를 xs로 설정
-                                                    as="a" // IconButton을 anchor 요소로 변환
-                                                    href={submission.youtubeUrl} // 클릭 시 이동할 주소
-                                                    target="_blank" // 새 탭에서 열림
-                                                    rel="noopener noreferrer" // 보안 상의 이유로 권장되는 속성
+                                                    size="xs"
+                                                    as="a"
+                                                    href={submission.youtubeUrl}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
                                                 />
                                             </Tooltip>
                                         </Flex>

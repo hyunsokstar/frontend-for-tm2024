@@ -1,5 +1,7 @@
 import React from 'react';
-import { Box, Text } from '@chakra-ui/react';
+import { Box, Button, Text, IconButton } from '@chakra-ui/react';
+import { EditIcon } from '@chakra-ui/icons';
+import ModalButtonForUpdateCategoryForDevAssignment from '../Modal/ModalButtonForUpdateCategoryForDevAssignment';
 
 interface Category {
     id: number;
@@ -31,24 +33,27 @@ const CategoryListForDevAssignment: React.FC<Props> = ({ categories, selectedCat
     return (
         <Box>
             {categories.map((category, index) => (
-                <Text
-                    key={category.id}
-                    cursor="pointer"
-                    fontWeight={selectedCategory === category.id ? 'bold' : 'normal'}
-                    onClick={() => onSelectCategory(category.id)}
-                    py={2}
-                    px={4}
-                    borderRadius="md"
-                    bg={selectedCategory === category.id ? pastelColors[index % pastelColors.length] : ''} // 선택된 카테고리에 파스텔톤 색상 적용
-                    _hover={{
-                        bg: pastelColors[index % pastelColors.length], // 마우스 오버 시 파스텔톤 배경색 변경
-                        textDecoration: 'underline',
-                    }}
-                    transition="background-color 0.2s, text-decoration 0.2s"
-                    mb={2}
+                <Box key={category.id} display="flex" justifyContent="space-between" alignItems={"center"} py={1} pr={1} mb={2}
+                    bg={selectedCategory === category.id ? pastelColors[index % pastelColors.length] : ''}
                 >
-                    {category.name}
-                </Text>
+                    <Text
+                        cursor="pointer"
+                        fontWeight={selectedCategory === category.id ? 'bold' : 'normal'}
+                        onClick={() => onSelectCategory(category.id)}
+                        // py={2}
+                        px={2}
+                        borderRadius="md"
+                        // bg={selectedCategory === category.id ? pastelColors[index % pastelColors.length] : ''}
+                        _hover={{
+                            bg: pastelColors[index % pastelColors.length],
+                            textDecoration: 'underline',
+                        }}
+                        transition="background-color 0.2s, text-decoration 0.2s"
+                    >
+                        {category.name}
+                    </Text>
+                    <ModalButtonForUpdateCategoryForDevAssignment categoryId={category.id} categoryText={category.name} />
+                </Box>
             ))}
         </Box>
     );
