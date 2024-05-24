@@ -33,13 +33,9 @@ const CategoryListForDevAssignment: React.FC<Props> = ({ categories, selectedCat
 
     const handleCopyLink = (categoryId: number) => {
         const link = `http://127.0.0.1:3000/DevRelay?categoryId=${categoryId}`;
-        if (navigator.clipboard) {
-            navigator.clipboard.writeText(link)
-                .then(() => alert('링크가 복사되었습니다.'))
-                .catch((err) => console.error('링크 복사 실패:', err));
-        } else {
-            console.error('클립보드 API가 지원되지 않습니다.');
-        }
+        navigator.clipboard.writeText(link)
+            .then(() => alert('링크가 복사되었습니다.'))
+            .catch((err) => console.error('링크 복사 실패:', err));
     };
 
     return (
