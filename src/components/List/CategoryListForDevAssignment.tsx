@@ -1,6 +1,6 @@
 import React from 'react';
-import { Box, Button, Text, IconButton } from '@chakra-ui/react';
-import { EditIcon } from '@chakra-ui/icons';
+import { Box, Button, Text, IconButton, Spacer } from '@chakra-ui/react';
+import { EditIcon, CopyIcon } from '@chakra-ui/icons'; // 복사 아이콘 추가
 import ModalButtonForUpdateCategoryForDevAssignment from '../Modal/ModalButtonForUpdateCategoryForDevAssignment';
 
 interface Category {
@@ -15,7 +15,6 @@ interface Props {
     onSelectCategory: (categoryId: number) => void;
 }
 
-// 파스텔톤 색상 정의
 const pastelColors = [
     'teal.200',
     'pink.200',
@@ -31,8 +30,7 @@ const pastelColors = [
 
 const CategoryListForDevAssignment: React.FC<Props> = ({ categories, selectedCategory, onSelectCategory }) => {
 
-    const handleCopyLink = (categoryId: number) => {
-        const link = `http://127.0.0.1:3000/DevRelay?categoryId=${categoryId}`;
+    const handleCopyLink = (link: string) => {
         navigator.clipboard.writeText(link)
             .then(() => alert('링크가 복사되었습니다.'))
             .catch((err) => console.error('링크 복사 실패:', err));
@@ -48,24 +46,25 @@ const CategoryListForDevAssignment: React.FC<Props> = ({ categories, selectedCat
                         textDecoration: 'underline',
                     }}
                 >
-                    <Button
-                        ml={2}
-                        size="xs"
-                        variant={"outline"}
-                        onClick={() => handleCopyLink(category.id)}
-                    >{category.id}</Button>
                     <Text
                         cursor="pointer"
                         fontWeight={selectedCategory === category.id ? 'bold' : 'normal'}
                         onClick={() => onSelectCategory(category.id)}
-                        // py={2}
                         px={2}
                         borderRadius="md"
-                        // bg={selectedCategory === category.id ? pastelColors[index % pastelColors.length] : ''}
                         transition="background-color 0.2s, text-decoration 0.2s"
                     >
                         {category.name} ({category.dev_assignments_count})
                     </Text>
+                    <Spacer /> {/* 우측 여백 추가 */}
+                    <IconButton
+                        aria-label="Copy Link" // 접근성을 위해 라벨 추가
+                        icon={<CopyIcon />} // 복사 아이콘 추가
+                        variant="outline"
+                        size="xs"
+                        mr={1}
+                        onClick={() => handleCopyLink(`http://127.0.0.1:3000/DevRelay?categoryId=${category.id}`)}
+                    />
                     <ModalButtonForUpdateCategoryForDevAssignment categoryId={category.id} categoryText={category.name} />
                 </Box>
             ))}
