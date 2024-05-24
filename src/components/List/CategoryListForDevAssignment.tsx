@@ -30,6 +30,14 @@ const pastelColors = [
 ];
 
 const CategoryListForDevAssignment: React.FC<Props> = ({ categories, selectedCategory, onSelectCategory }) => {
+
+    const handleCopyLink = (categoryId: number) => {
+        const link = `http://127.0.0.1:3000/DevRelay?categoryId=${categoryId}`;
+        navigator.clipboard.writeText(link)
+            .then(() => alert('링크가 복사되었습니다.'))
+            .catch((err) => console.error('링크 복사 실패:', err));
+    };
+
     return (
         <Box>
             {categories.map((category, index) => (
@@ -40,6 +48,12 @@ const CategoryListForDevAssignment: React.FC<Props> = ({ categories, selectedCat
                         textDecoration: 'underline',
                     }}
                 >
+                    <Button
+                        ml={2}
+                        size="xs"
+                        variant={"outline"}
+                        onClick={() => handleCopyLink(category.id)}
+                    >{category.id}</Button>
                     <Text
                         cursor="pointer"
                         fontWeight={selectedCategory === category.id ? 'bold' : 'normal'}

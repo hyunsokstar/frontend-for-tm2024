@@ -8,7 +8,6 @@ import {
     ModalBody,
     ModalCloseButton,
     Button,
-    IconButton,
     FormControl,
     FormLabel,
     Input,
@@ -52,13 +51,14 @@ const ModalButtonForCreateCategoryForDevAssignment = (props: Props) => {
 
     return (
         <>
-            <IconButton
-                aria-label="Add category"
-                icon={<AddIcon />}
+            <Button
+                leftIcon={<AddIcon />}
                 variant="outline"
                 size="xs"
                 onClick={handleOpenModal}
-            />
+            >
+                Add category
+            </Button>
 
             <Modal isOpen={isOpen} onClose={handleCloseModal}>
                 <ModalOverlay />

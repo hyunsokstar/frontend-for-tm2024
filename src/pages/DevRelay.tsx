@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Flex, Box, Button, IconButton } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
 import useApiForGetAllCategoriesForDevAssignments from '@/hooks/useApiForGetAllCategoriesForDevAssignments';
@@ -6,12 +6,21 @@ import CategoryListForDevAssignment from '@/components/List/CategoryListForDevAs
 import DevAssignmentListForCategory from '@/components/List/DevAssignmentListForCategory';
 import ModalButtonForCreateCategoryForDevAssignment from '@/components/Modal/ModalButtonForCreateCateogryForDevAssignment';
 import ModalButtonForCreateDevAssignmentForCategory from '@/components/Modal/ModalButtonForCreateDevAssignmentForCategory';
+import { useRouter } from 'next/router';
 
 type Props = {};
 
 const DevRelay: React.FC<Props> = () => {
+    const router = useRouter();
     const { isLoading, error, data } = useApiForGetAllCategoriesForDevAssignments();
     const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+
+    useEffect(() => {
+        const categoryId = router.query.categoryId;
+        if (categoryId) {
+            setSelectedCategory(parseInt(categoryId as string));
+        }
+    }, [router.query.categoryId]);
 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
@@ -29,7 +38,6 @@ const DevRelay: React.FC<Props> = () => {
         "selectedCategory.id", selectedCategory
     );
 
-
     return (
         <Flex h="100vh">
             <Box
@@ -43,16 +51,7 @@ const DevRelay: React.FC<Props> = () => {
                 p={4}
             >
                 <Box display="flex" justifyContent="flex-end" pr={0} mb={2}>
-                    {/* <IconButton
-                        aria-label="Add category"
-                        icon={<AddIcon />}
-                        variant="outline"
-                        size="xs"
-                        onClick={handleAddCategory}
-                    /> */}
-
                     <ModalButtonForCreateCategoryForDevAssignment />
-
                 </Box>
                 <CategoryListForDevAssignment
                     categories={data || []}
@@ -61,10 +60,7 @@ const DevRelay: React.FC<Props> = () => {
                 />
             </Box>
             <Box flex="1" p={4}>
-                {/* 메인 콘텐츠 영역 */}
                 <Box flex="1" p={4} display="flex" justifyContent="flex-end">
-                    {/* + 버튼 */}
-                    {/* <IconButton aria-label="추가" icon={<AddIcon />} /> */}
                     <ModalButtonForCreateDevAssignmentForCategory categoryId={selectedCategory} />
                 </Box>
 
