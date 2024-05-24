@@ -50,7 +50,7 @@ const CategoryListForDevAssignment: React.FC<Props> = ({ categories, selectedCat
                         // bg={selectedCategory === category.id ? pastelColors[index % pastelColors.length] : ''}
                         transition="background-color 0.2s, text-decoration 0.2s"
                     >
-                        {category.name}
+                        {category.name} ({category.dev_assignments_count})
                     </Text>
                     <ModalButtonForUpdateCategoryForDevAssignment categoryId={category.id} categoryText={category.name} />
                 </Box>

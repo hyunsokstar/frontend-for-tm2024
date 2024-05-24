@@ -38,7 +38,7 @@ const DevRelay: React.FC<Props> = () => {
                 marginLeft={'-10px'}
                 borderRightColor={'blue.200'}
                 borderRightWidth={1}
-                w={{ base: '100%', md: '15%' }}
+                w={{ base: '100%', md: '20%' }}
                 overflowY="auto"
                 p={4}
             >
@@ -52,7 +52,6 @@ const DevRelay: React.FC<Props> = () => {
                     /> */}
 
                     <ModalButtonForCreateCategoryForDevAssignment />
-
 
                 </Box>
                 <CategoryListForDevAssignment

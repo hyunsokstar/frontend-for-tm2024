@@ -1,3 +1,10 @@
+
+export interface AssignmentCategory {
+    id: number;
+    name: string;
+    dev_assignments_count: number;
+}
+
 export interface CreateDevAssignmentDto {
     day: string;
     title: string;
@@ -14,11 +21,6 @@ export interface DevAssignmentSubmissionRow {
     noteUrl: string;
     figmaUrl: string;
     youtubeUrl: string;
-}
-
-export interface AssignmentCategory {
-    id: number;
-    name: string;
 }
 
 export interface DevAssignmentRow {
