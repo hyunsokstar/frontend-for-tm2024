@@ -37,7 +37,7 @@ const TablesForDevAssignment = ({ devAssignments }: Props) => {
                         <Table border="1px" borderColor="gray.200" borderRadius="sm" width="100%" mb={6}>
                             <Thead>
                                 <Tr>
-                                    <Th colSpan={3}>
+                                    <Th colSpan={5}>
                                         <Flex justifyContent="space-between">
                                             <Box>{assignment.title}</Box>
                                             <Spacer />
@@ -49,54 +49,58 @@ const TablesForDevAssignment = ({ devAssignments }: Props) => {
                             <Tbody>
                                 {assignment.submissions.map((submission) => (
                                     <Tr key={submission.id}>
-                                        <Td>
-                                            <Flex justifyContent="space-between">
+                                        <Td colSpan={3} padding={0} p={1}>
+                                            <Flex width="100%" justifyContent="flex-end" border="0px solid red">
                                                 <Box>{submission.title}</Box>
+                                                <Spacer />
+                                                <Box display="flex" gap={1} justifyContent={"flex-end"}>
+                                                    <Tooltip label="Figma" hasArrow>
+                                                        <IconButton
+                                                            aria-label="Figma"
+                                                            icon={<FaFigma />}
+                                                            variant="outline"
+                                                            size="xs"
+                                                            as="a"
+                                                            href={submission.figmaUrl}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            _hover={{ bgColor: "purple.200" }} // 호버 시 색상 변경
+                                                        />
+                                                    </Tooltip>
+                                                    <Tooltip label="Note" hasArrow>
+                                                        <IconButton
+                                                            aria-label="Note"
+                                                            icon={<MdNoteAlt />}
+                                                            variant="outline"
+                                                            size="xs"
+                                                            as="a"
+                                                            href={submission.noteUrl}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            _hover={{ bgColor: "teal.200" }} // 호버 시 색상 변경
+                                                        />
+                                                    </Tooltip>
+                                                    <Tooltip label="YouTube" hasArrow>
+                                                        <IconButton
+                                                            aria-label="YouTube"
+                                                            icon={<FaYoutube />}
+                                                            variant="outline"
+                                                            size="xs"
+                                                            as="a"
+                                                            href={submission.youtubeUrl}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            _hover={{ bgColor: "red.200" }} // 호버 시 색상 변경
+                                                        />
+                                                    </Tooltip>
+                                                </Box>
                                             </Flex>
+
                                         </Td>
-                                        <Td>
-                                            <Flex gap={1}>
-                                                <Tooltip label="Figma" hasArrow>
-                                                    <IconButton
-                                                        aria-label="Figma"
-                                                        icon={<FaFigma />}
-                                                        variant="outline"
-                                                        size="xs"
-                                                        as="a"
-                                                        href={submission.figmaUrl}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        _hover={{ bgColor: "purple.200" }} // 호버 시 색상 변경
-                                                    />
-                                                </Tooltip>
-                                                <Tooltip label="Note" hasArrow>
-                                                    <IconButton
-                                                        aria-label="Note"
-                                                        icon={<MdNoteAlt />}
-                                                        variant="outline"
-                                                        size="xs"
-                                                        as="a"
-                                                        href={submission.noteUrl}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        _hover={{ bgColor: "teal.200" }} // 호버 시 색상 변경
-                                                    />
-                                                </Tooltip>
-                                                <Tooltip label="YouTube" hasArrow>
-                                                    <IconButton
-                                                        aria-label="YouTube"
-                                                        icon={<FaYoutube />}
-                                                        variant="outline"
-                                                        size="xs"
-                                                        as="a"
-                                                        href={submission.youtubeUrl}
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                        _hover={{ bgColor: "red.200" }} // 호버 시 색상 변경
-                                                    />
-                                                </Tooltip>
-                                            </Flex>
-                                        </Td>
+                                        {/* <Td width={"30%"} border={"2px solid pink"} textAlign={"end"}>
+
+
+                                        </Td> */}
                                     </Tr>
                                 ))}
                             </Tbody>
