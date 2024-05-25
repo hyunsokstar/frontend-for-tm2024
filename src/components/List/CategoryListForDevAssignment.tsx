@@ -1,6 +1,6 @@
 // src/components/List/CategoryListForDevAssignment.tsx
 import React from 'react';
-import { Box, Button, Text, IconButton, Spacer, useClipboard } from '@chakra-ui/react';
+import { Box, Button, Text, IconButton, Spacer } from '@chakra-ui/react';
 import { EditIcon, CopyIcon } from '@chakra-ui/icons';
 import ModalButtonForUpdateCategoryForDevAssignment from '../Modal/ModalButtonForUpdateCategoryForDevAssignment';
 
@@ -29,8 +29,10 @@ const pastelColors = [
     'gray.200', // 연한 회색
 ];
 
+// subject list 목록 옆의 복사 버튼 클릭 하면 http://127.0.0.1:3000/DevRelay?categoryId=${categories.id}` clip board 복사 with "clipboard": "^2.0.11",
+
 const CategoryListForDevAssignment: React.FC<Props> = ({ categories, selectedCategory, onSelectCategory }) => {
-    const { hasCopied, onCopy } = useClipboard(`http://127.0.0.1:3000/DevRelay?categoryId=${categories.id}`);
+    // const { hasCopied, onCopy } = useClipboard(`http://127.0.0.1:3000/DevRelay?categoryId=${categories.id}`);
 
     return (
         <Box>
@@ -62,7 +64,7 @@ const CategoryListForDevAssignment: React.FC<Props> = ({ categories, selectedCat
                             variant="outline"
                             size="xs"
                             mr={1}
-                            onClick={onCopy}
+                        // onClick={onCopy}
                         />
                         <ModalButtonForUpdateCategoryForDevAssignment categoryId={category.id} categoryText={category.name} />
                     </Box>
