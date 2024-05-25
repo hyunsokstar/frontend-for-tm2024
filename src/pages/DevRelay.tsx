@@ -9,19 +9,20 @@ import ModalButtonForCreateCategoryForDevAssignment from '@/components/Modal/Mod
 import ModalButtonForCreateDevAssignmentForCategory from '@/components/Modal/ModalButtonForCreateDevAssignmentForCategory';
 import { useRouter } from 'next/router';
 import useApiForGetAllSubjects from '@/hooks/useApiForGetAllSubjects';
+import { IoMdAdd } from "react-icons/io";
+import { IconButton, useColorModeValue } from '@chakra-ui/react';
+import ModalButtonForCreateSubject from '@/components/Modal/ModalButtonForAddSubject';
 
-type MenuItem = {
-    id: number;
-    name: string;
-};
 
 const DevRelay: React.FC = () => {
     const router = useRouter();
     const { isLoading: isSubjectsLoading, error: subjectsError, data: subjects } = useApiForGetAllSubjects();
     const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
     const [selectedSubject, setSelectedSubject] = useState<number>();
-
     const { isLoading, error, data } = useApiForGetAllCategoriesForDevAssignments(selectedSubject);
+
+    const bgColor = useColorModeValue('gray.200', 'gray.700');
+    const iconColor = useColorModeValue('gray.800', 'white');
 
     useEffect(() => {
         const categoryId = router.query.categoryId;
@@ -42,17 +43,9 @@ const DevRelay: React.FC = () => {
         setSelectedCategory(categoryId);
     };
 
-    const handleAddCategory = () => {
-        // 새 카테고리를 추가하는 로직을 여기에 구현하세요.
-        console.log('Add new category');
-    };
-
     const handleSubjectClick = (subjectId: number) => {
         setSelectedSubject(subjectId);
         setSelectedCategory(null)
-        // if (!selectedCategory && data) {
-        //     setSelectedCategory(data[0].id);
-        // }
     };
 
     return (
@@ -74,6 +67,7 @@ const DevRelay: React.FC = () => {
                         <Text fontWeight="bold">{subject.name}</Text>
                     </Box>
                 ))}
+                <ModalButtonForCreateSubject />
             </Flex>
             <Flex h="100vh">
                 <Box

@@ -33,6 +33,24 @@ instance.interceptors.request.use(
     }
 );
 
+export const apiForcreateSubjectForCategory = async (
+    name: string
+): Promise<SubjectForCategoryRow> => {
+    const url = "/subjects";
+
+    try {
+        const response: AxiosResponse<SubjectForCategoryRow> = await instance.post(
+            url,
+            { name } // 직접 요청 본문에 name 필드를 설정합니다.
+        );
+
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
 export async function getAllCategories(): Promise<AssignmentCategory[]> {
     try {
         const response = await instance.get('/categories');

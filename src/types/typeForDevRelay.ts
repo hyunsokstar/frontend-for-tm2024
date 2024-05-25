@@ -53,3 +53,4 @@ export interface SubjectForCategoryRow {
     id: number;
     name: string;
 }
+
