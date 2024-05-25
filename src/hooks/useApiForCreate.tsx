@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 
 
 interface IProps {
-
 }
 
 const useApiForSimpleCreateXXXXXXXXXX = ({ }: IProps) => {

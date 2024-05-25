@@ -33,6 +33,10 @@ instance.interceptors.request.use(
     }
 );
 
+export const apiForDeleteSubject = (id: number): Promise<AxiosResponse<{ id: number; name: string }>> => {
+    return instance.delete(`/subjects/${id}`);
+};
+
 export const apiForcreateSubjectForCategory = async (
     name: string
 ): Promise<SubjectForCategoryRow> => {

@@ -4,7 +4,7 @@ import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody,
 import { IoMdAdd } from 'react-icons/io';
 import useApiForCreateSubject from '@/hooks/useApiForCreateSubject';
 
-const ModalFormForAddSubject = () => {
+const ModalButtonForCreateSubject = () => {
     const [isOpen, setIsOpen] = useState(false);
     const mutationForCreateSubject = useApiForCreateSubject();
 
@@ -26,6 +26,7 @@ const ModalFormForAddSubject = () => {
                 variant={"outline"}
                 size="sm"
                 onClick={() => setIsOpen(true)}
+                ml={1}
             />
             <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
                 <ModalOverlay />
@@ -54,4 +55,4 @@ const ModalFormForAddSubject = () => {
     );
 };
 
-export default ModalFormForAddSubject;
+export default ModalButtonForCreateSubject;
