@@ -48,3 +48,8 @@ export interface IParameterForUpdateCategoryForDevAssignment {
     id: number;
     updateCategoryDto: CategoryForDevAssignmentDto;
 }
+
+export interface SubjectForCategoryRow {
+    id: number;
+    name: string;
+}

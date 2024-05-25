@@ -1,7 +1,16 @@
 // src\api\apiForDevRelay.ts
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
-import { AssignmentCategory, CategoryForDevAssignmentDto, CreateDevAssignmentDto, CreateDevAssignmentSubmission, DevAssignmentRow, IParameterForCreateDevAssignmentSubmission, IParameterForUpdateCategoryForDevAssignment } from "@/types/typeForDevRelay";
+import {
+    AssignmentCategory,
+    CategoryForDevAssignmentDto,
+    CreateDevAssignmentDto,
+    CreateDevAssignmentSubmission,
+    DevAssignmentRow,
+    IParameterForCreateDevAssignmentSubmission,
+    IParameterForUpdateCategoryForDevAssignment,
+    SubjectForCategoryRow
+} from "@/types/typeForDevRelay";
 
 const instance = axios.create({
     baseURL: `${backendApi}/dev-relay`,
@@ -23,6 +32,36 @@ instance.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+export async function getAllCategories(): Promise<AssignmentCategory[]> {
+    try {
+        const response = await instance.get('/categories');
+        return response.data;
+    } catch (error) {
+        console.error("카테고리를 가져오는 중 에러 발생:", error);
+        throw error;
+    }
+}
+
+export async function getAllCategoriesForSubject(subjectId?: number): Promise<AssignmentCategory[]> {
+    try {
+        const response = await instance.get(`/categories-by-subject/${subjectId}`);
+        return response.data;
+    } catch (error) {
+        console.error("카테고리를 가져오는 중 에러 발생:", error);
+        throw error;
+    }
+}
+
+export const getAllSubjects = async (): Promise<SubjectForCategoryRow[]> => {
+    try {
+        const response: AxiosResponse<SubjectForCategoryRow[]> = await instance.get("/subjects");
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
 
 export const updateCategoryForDevAssignment = async ({ id, updateCategoryDto }: IParameterForUpdateCategoryForDevAssignment): Promise<CategoryForDevAssignmentDto> => {
     try {
@@ -61,17 +100,6 @@ export const findDevAssignmentsByCategory = async (categoryId: number): Promise<
         throw error;
     }
 };
-
-
-export async function getAllCategories(): Promise<AssignmentCategory[]> {
-    try {
-        const response = await instance.get('/categories');
-        return response.data;
-    } catch (error) {
-        console.error("카테고리를 가져오는 중 에러 발생:", error);
-        throw error;
-    }
-}
 
 export async function getDevAssignmentsByCategory(categoryId: number): Promise<DevAssignmentRow[]> {
     try {

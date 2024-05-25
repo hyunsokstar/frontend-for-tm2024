@@ -1,6 +1,7 @@
+// src/components/List/CategoryListForDevAssignment.tsx
 import React from 'react';
-import { Box, Button, Text, IconButton, Spacer } from '@chakra-ui/react';
-import { EditIcon, CopyIcon } from '@chakra-ui/icons'; // 복사 아이콘 추가
+import { Box, Button, Text, IconButton, Spacer, useClipboard } from '@chakra-ui/react';
+import { EditIcon, CopyIcon } from '@chakra-ui/icons';
 import ModalButtonForUpdateCategoryForDevAssignment from '../Modal/ModalButtonForUpdateCategoryForDevAssignment';
 
 interface Category {
@@ -29,45 +30,44 @@ const pastelColors = [
 ];
 
 const CategoryListForDevAssignment: React.FC<Props> = ({ categories, selectedCategory, onSelectCategory }) => {
-
-    const handleCopyLink = (link: string) => {
-        navigator.clipboard.writeText(link)
-            .then(() => alert('링크가 복사되었습니다.'))
-            .catch((err) => console.error('링크 복사 실패:', err));
-    };
+    const { hasCopied, onCopy } = useClipboard(`http://127.0.0.1:3000/DevRelay?categoryId=${categories.id}`);
 
     return (
         <Box>
-            {categories.map((category, index) => (
-                <Box key={category.id} display="flex" justifyContent="space-between" alignItems={"center"} py={1} pr={1} mb={2}
-                    bg={selectedCategory === category.id ? pastelColors[index % pastelColors.length] : ''}
-                    _hover={{
-                        bg: pastelColors[index % pastelColors.length],
-                        textDecoration: 'underline',
-                    }}
-                >
-                    <Text
-                        cursor="pointer"
-                        fontWeight={selectedCategory === category.id ? 'bold' : 'normal'}
-                        onClick={() => onSelectCategory(category.id)}
-                        px={2}
-                        borderRadius="md"
-                        transition="background-color 0.2s, text-decoration 0.2s"
+            {categories.length === 0 ? (
+                <Text>데이터 없음</Text>
+            ) : (
+                categories.map((category, index) => (
+                    <Box key={category.id} display="flex" justifyContent="space-between" alignItems={"center"} py={1} pr={1} mb={2}
+                        bg={selectedCategory === category.id ? pastelColors[index % pastelColors.length] : ''}
+                        _hover={{
+                            bg: pastelColors[index % pastelColors.length],
+                            textDecoration: 'underline',
+                        }}
                     >
-                        {category.name} ({category.dev_assignments_count})
-                    </Text>
-                    <Spacer /> {/* 우측 여백 추가 */}
-                    <IconButton
-                        aria-label="Copy Link" // 접근성을 위해 라벨 추가
-                        icon={<CopyIcon />} // 복사 아이콘 추가
-                        variant="outline"
-                        size="xs"
-                        mr={1}
-                        onClick={() => handleCopyLink(`http://127.0.0.1:3000/DevRelay?categoryId=${category.id}`)}
-                    />
-                    <ModalButtonForUpdateCategoryForDevAssignment categoryId={category.id} categoryText={category.name} />
-                </Box>
-            ))}
+                        <Text
+                            cursor="pointer"
+                            fontWeight={selectedCategory === category.id ? 'bold' : 'normal'}
+                            onClick={() => onSelectCategory(category.id)}
+                            px={2}
+                            borderRadius="md"
+                            transition="background-color 0.2s, text-decoration 0.2s"
+                        >
+                            {category.name} ({category.dev_assignments_count})
+                        </Text>
+                        <Spacer />
+                        <IconButton
+                            aria-label="Copy Link"
+                            icon={<CopyIcon />}
+                            variant="outline"
+                            size="xs"
+                            mr={1}
+                            onClick={onCopy}
+                        />
+                        <ModalButtonForUpdateCategoryForDevAssignment categoryId={category.id} categoryText={category.name} />
+                    </Box>
+                ))
+            )}
         </Box>
     );
 };
