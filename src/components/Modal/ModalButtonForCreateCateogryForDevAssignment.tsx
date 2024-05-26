@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react';
 import { useToast } from '@chakra-ui/react';
 import useApiForCreateCategoryForDevAssignment from '@/hooks/useApiForCreateCategoryForDevAssignment';
-import { AddIcon } from '@chakra-ui/icons';
+import { FiEdit3 } from 'react-icons/fi';
 
 type Props = {};
 
@@ -52,12 +52,12 @@ const ModalButtonForCreateCategoryForDevAssignment = (props: Props) => {
     return (
         <>
             <Button
-                leftIcon={<AddIcon />}
-                variant="outline"
-                size="xs"
+                w="100%"
+                colorScheme="teal"
+                leftIcon={<FiEdit3 />}
                 onClick={handleOpenModal}
             >
-                Add category
+                카테고리 추가
             </Button>
 
             <Modal isOpen={isOpen} onClose={handleCloseModal}>

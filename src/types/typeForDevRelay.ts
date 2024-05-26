@@ -52,5 +52,12 @@ export interface IParameterForUpdateCategoryForDevAssignment {
 export interface SubjectForCategoryRow {
     id: number;
     name: string;
+    countForCategories: number
 }
+
+export interface CategoryResponse {
+    id: number;
+    name: string;
+}
+
 

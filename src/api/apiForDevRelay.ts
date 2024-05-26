@@ -4,6 +4,7 @@ import { backendApi } from "./commonApi";
 import {
     AssignmentCategory,
     CategoryForDevAssignmentDto,
+    CategoryResponse,
     CreateDevAssignmentDto,
     CreateDevAssignmentSubmission,
     DevAssignmentRow,
@@ -32,6 +33,10 @@ instance.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+export const apiForDeleteCategory = (id: number): Promise<AxiosResponse<CategoryResponse>> => {
+    return instance.delete(`/categories/${id}`);
+};
 
 export const apiForDeleteSubject = (id: number): Promise<AxiosResponse<{ id: number; name: string }>> => {
     return instance.delete(`/subjects/${id}`);

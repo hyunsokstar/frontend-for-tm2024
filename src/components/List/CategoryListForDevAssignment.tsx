@@ -1,19 +1,28 @@
-// src/components/List/CategoryListForDevAssignment.tsx
 import React from 'react';
-import { Box, Button, Text, IconButton, Spacer } from '@chakra-ui/react';
-import { EditIcon, CopyIcon } from '@chakra-ui/icons';
+import {
+    Box,
+    Button,
+    Text,
+    IconButton,
+    Spacer,
+    useColorModeValue,
+} from '@chakra-ui/react';
+import { FiEdit3, FiTrash } from 'react-icons/fi';
 import ModalButtonForUpdateCategoryForDevAssignment from '../Modal/ModalButtonForUpdateCategoryForDevAssignment';
+import useApiForDeleteCategory from '@/hooks/useApiForDeleteCategory';
 
 interface Category {
+    dev_assignments_count: number;
     id: number;
     name: string;
     color: string;
 }
 
 interface Props {
-    categories: any[];
+    categories: Category[];
     selectedCategory: number | null;
     onSelectCategory: (categoryId: number) => void;
+    subjectId: number; // subjectId prop을 추가합니다.
 }
 
 const pastelColors = [
@@ -29,47 +38,68 @@ const pastelColors = [
     'gray.200', // 연한 회색
 ];
 
-// subject list 목록 옆의 복사 버튼 클릭 하면 http://127.0.0.1:3000/DevRelay?categoryId=${categories.id}` clip board 복사 with "clipboard": "^2.0.11",
+const CategoryListForDevAssignment: React.FC<Props> = ({
+    categories,
+    selectedCategory,
+    onSelectCategory,
+    subjectId
+}) => {
+    const bgColor = useColorModeValue('gray.100', 'gray.700');
 
-const CategoryListForDevAssignment: React.FC<Props> = ({ categories, selectedCategory, onSelectCategory }) => {
-    // const { hasCopied, onCopy } = useClipboard(`http://127.0.0.1:3000/DevRelay?categoryId=${categories.id}`);
+    // useApiForDeleteCategory custom hook을 사용하여 카테고리 삭제 함수를 생성합니다.
+    const { mutate: deleteCategory } = useApiForDeleteCategory({ subjectId });
 
     return (
-        <Box>
+        <Box bg={bgColor} p={4} rounded="md">
             {categories.length === 0 ? (
                 <Text>데이터 없음</Text>
             ) : (
-                categories.map((category, index) => (
-                    <Box key={category.id} display="flex" justifyContent="space-between" alignItems={"center"} py={1} pr={1} mb={2}
-                        bg={selectedCategory === category.id ? pastelColors[index % pastelColors.length] : ''}
-                        _hover={{
-                            bg: pastelColors[index % pastelColors.length],
-                            textDecoration: 'underline',
-                        }}
-                    >
-                        <Text
-                            cursor="pointer"
-                            fontWeight={selectedCategory === category.id ? 'bold' : 'normal'}
-                            onClick={() => onSelectCategory(category.id)}
-                            px={2}
-                            borderRadius="md"
-                            transition="background-color 0.2s, text-decoration 0.2s"
+                <Box>
+                    {categories.map((category, index) => (
+                        <Box
+                            key={category.id}
+                            display="flex"
+                            justifyContent="space-between"
+                            alignItems="center"
+                            py={1}
+                            pr={1}
+                            mb={2}
+                            bg={
+                                selectedCategory === category.id
+                                    ? pastelColors[index % pastelColors.length]
+                                    : ''
+                            }
+                            _hover={{
+                                bg: pastelColors[index % pastelColors.length],
+                                textDecoration: 'underline',
+                            }}
                         >
-                            {category.name} ({category.dev_assignments_count})
-                        </Text>
-                        <Spacer />
-                        <IconButton
-                            aria-label="Copy Link"
-                            icon={<CopyIcon />}
-                            variant="outline"
-                            size="xs"
-                            mr={1}
-                        // onClick={onCopy}
-                        />
-                        <ModalButtonForUpdateCategoryForDevAssignment categoryId={category.id} categoryText={category.name} />
-                    </Box>
-                ))
+                            <Text
+                                cursor="pointer"
+                                fontWeight={selectedCategory === category.id ? 'bold' : 'normal'}
+                                onClick={() => onSelectCategory(category.id)}
+                                px={2}
+                                borderRadius="md"
+                                transition="background-color 0.2s, text-decoration 0.2s"
+                            >
+                                {category.name} ({category.dev_assignments_count})
+                            </Text>
+                            <Spacer />
+
+                            <ModalButtonForUpdateCategoryForDevAssignment categoryId={0} categoryText={category.name} />
+                            <IconButton
+                                aria-label="Delete"
+                                icon={<FiTrash />}
+                                variant="outline"
+                                size="xs"
+                                colorScheme="red"
+                                onClick={() => deleteCategory(category.id)}
+                            />
+                        </Box>
+                    ))}
+                </Box>
             )}
+
         </Box>
     );
 };

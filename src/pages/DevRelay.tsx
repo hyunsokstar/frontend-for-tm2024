@@ -68,7 +68,7 @@ const DevRelay: React.FC = () => {
                         display={"flex"}
                         gap={2}
                     >
-                        <Text fontWeight="bold">{subject.name}</Text>
+                        <Text fontWeight="bold">{subject.name} ({subject.countForCategories})</Text>
                         <IconButton
                             aria-label="Delete Subject"
                             icon={<MinusIcon />}
@@ -101,10 +101,11 @@ const DevRelay: React.FC = () => {
                         categories={data || []}
                         selectedCategory={selectedCategory}
                         onSelectCategory={handleCategoryClick}
+                        subjectId={selectedSubject as number}
                     />
                 </Box>
-                <Box flex="1" p={4}>
-                    <Box flex="1" p={4} display="flex" justifyContent="flex-end">
+                <Box flex="1" p={0}>
+                    <Box flex="1" mt={1} display="flex" justifyContent="flex-end">
                         <ModalButtonForCreateDevAssignmentForCategory categoryId={selectedCategory} />
                     </Box>
 
