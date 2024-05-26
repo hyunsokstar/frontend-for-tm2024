@@ -10,16 +10,16 @@ import {
 import { FiEdit3, FiTrash } from 'react-icons/fi';
 import ModalButtonForUpdateCategoryForDevAssignment from '../Modal/ModalButtonForUpdateCategoryForDevAssignment';
 import useApiForDeleteCategory from '@/hooks/useApiForDeleteCategory';
+import { AssignmentCategory } from '@/types/typeForDevRelay';
 
 interface Category {
     dev_assignments_count: number;
     id: number;
     name: string;
-    color: string;
 }
 
 interface Props {
-    categories: Category[];
+    categories: AssignmentCategory[];
     selectedCategory: number | null;
     onSelectCategory: (categoryId: number) => void;
     subjectId: number; // subjectId prop을 추가합니다.
