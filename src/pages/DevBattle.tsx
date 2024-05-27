@@ -33,27 +33,25 @@ const DevBattle = () => {
     const devBattles = data as DevBattleResponse[]; // Cast data to DevBattleResponse[]
 
     return (
-        <Box display={"flex"}>
-            <VStack spacing={4} p={4}>
-                <Tabs variant="soft-rounded" colorScheme="green">
-                    <TabList>
-                        {devBattles.map((devBattle) => (
-                            <Tab key={devBattle.id}>{devBattle.subject}</Tab>
-                        ))}
-                    </TabList>
-                    <TabPanels w="100%" alignItems="center">
-                        {devBattles.map((devBattle, index) => (
-                            <TabPanel w="100%" alignItems="center" key={index}>
-                                <DevBattleDetail
-                                    title={devBattle.subject}
-                                    tags={devBattle.tags?.map((tag) => tag.name) || []} // Extract tag names
-                                    teamMembers={teamMembers}
-                                />
-                            </TabPanel>
-                        ))}
-                    </TabPanels>
-                </Tabs>
-            </VStack>
+        <Box display={"flex"} width={"100%"} border={"0px solid blue"}>
+            <Tabs variant="soft-rounded" colorScheme="green" width={"100%"}>
+                <TabList p={2}>
+                    {devBattles.map((devBattle) => (
+                        <Tab key={devBattle.id}>{devBattle.subject}</Tab>
+                    ))}
+                </TabList>
+                <TabPanels alignItems="center" p={2}>
+                    {devBattles.map((devBattle, index) => (
+                        <TabPanel w="100%" alignItems="center" key={index}>
+                            <DevBattleDetail
+                                title={devBattle.subject}
+                                tags={devBattle.tags?.map((tag) => tag.name) || []} // Extract tag names
+                                teamMembers={teamMembers}
+                            />
+                        </TabPanel>
+                    ))}
+                </TabPanels>
+            </Tabs>
         </Box>
     );
 };

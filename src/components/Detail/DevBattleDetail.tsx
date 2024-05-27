@@ -1,25 +1,6 @@
 import React from 'react';
 import { Grid, GridItem, Box, Avatar, Text, HStack, VStack } from '@chakra-ui/react';
 
-// const teamMembers = [
-//     {
-//         name: 'Alice',
-//         image: 'https://bit.ly/broken-link',
-//     },
-//     {
-//         name: 'Bob',
-//         image: 'https://bit.ly/broken-link',
-//     },
-//     {   
-//         name: 'Charlie',
-//         image: 'https://bit.ly/broken-link',
-//     },
-//     {
-//         name: 'Dave',
-//         image: 'https://bit.ly/broken-link',
-//     },
-// ];
-
 interface temMember {
     name: string,
     image: string
@@ -35,12 +16,12 @@ const DevBattleDetail = (
     { title, tags, teamMembers }: IProps
 ) => {
     return (
-        <VStack spacing={4} p={4}>
+        <Box p={0} border={"0px solid green"} width={"100%"}>
             <VStack spacing={2} alignItems="flex-start">
                 <Text fontSize="3xl" fontWeight="bold">
                     Battle Subject: {title}
                 </Text>
-                <HStack spacing={2}>
+                <HStack spacing={2} pb={2}>
                     <Text fontSize="md" fontWeight="medium" color="gray.500">
                         Tag:
                     </Text>
@@ -100,7 +81,8 @@ const DevBattleDetail = (
                 </GridItem>
 
                 <GridItem bg="green.100">
-                    <VStack spacing={2} p={2} h="100%" alignItems="center" justifyContent="center">
+                    <VStack spacing={2} p={2} h="100%" alignItems="center"
+                        justifyContent="center">
                         <Text fontSize="2xl" fontWeight="bold" textAlign="center">
                             GoLang + Supabase 팀
                         </Text>
@@ -110,12 +92,12 @@ const DevBattleDetail = (
                             ))}
                         </HStack>
                     </VStack>
-                    <Box p={4} bg="green.50">
-                        <Text>Body section for GoLang + Supabase 팀</Text>
+                    <Box p={4} bg="purple.50">
+                        <Text>GoLang + Supabase 팀</Text>
                     </Box>
                 </GridItem>
             </Grid>
-        </VStack>
+        </Box>
     );
 };
 
