@@ -1,5 +1,9 @@
-import React from 'react'
-import { Grid, GridItem, Box, Divider, Avatar, Text, HStack, VStack } from '@chakra-ui/react'
+import React from 'react';
+import { VStack, Tabs, TabList, TabPanels, Tab, TabPanel, Box } from '@chakra-ui/react';
+import DevBattleDetail from '@/components/Detail/DevBattleDetail';
+import { DevBattleResponse } from '@/types/typeForDevBattle';
+import { apiForFindAllDevBattleList } from '@/api/apiForDevBattle';
+import useApiForFindAllDevBattleList from '@/hooks/useApiForFindAllDevBattleList';
 
 const teamMembers = [
     {
@@ -18,58 +22,40 @@ const teamMembers = [
         name: 'Dave',
         image: 'https://bit.ly/broken-link',
     },
-]
+];
 
 const DevBattle = () => {
-    return (
-        <Grid templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }} gap={4}>
-            <GridItem bg='blue.100' borderRight='1px solid gray.300'>
-                <VStack spacing={2} p={2} h='100%' alignItems='center' justifyContent='center'>
-                    <Text fontSize='2xl' fontWeight='bold' textAlign='center'>
-                        스프링 부트 + React 팀
-                    </Text>
-                    <HStack spacing={2}>
-                        {teamMembers.map((member, index) => (
-                            <Avatar key={index} name={member.name} src={member.image} size='xs' />
-                        ))}
-                    </HStack>
-                </VStack>
-                <Box p={4} bg='blue.50'>
-                    <Text>Body section for 스프링 부트 + React 팀</Text>
-                </Box>
-            </GridItem>
-            <GridItem bg='purple.100' borderRight='1px solid gray.300'>
-                <VStack spacing={2} p={2} h='100%' alignItems='center' justifyContent='center'>
-                    <Text fontSize='2xl' fontWeight='bold' textAlign='center'>
-                        Nest js + Next js 팀
-                    </Text>
-                    <HStack spacing={2}>
-                        {teamMembers.map((member, index) => (
-                            <Avatar key={index} name={member.name} src={member.image} size='xs' />
-                        ))}
-                    </HStack>
-                </VStack>
-                <Box p={4} bg='purple.50'>
-                    <Text>Body section for Nest js + Next js 팀</Text>
-                </Box>
-            </GridItem>
-            <GridItem bg='green.100'>
-                <VStack spacing={2} p={2} h='100%' alignItems='center' justifyContent='center'>
-                    <Text fontSize='2xl' fontWeight='bold' textAlign='center'>
-                        Chatting
-                    </Text>
-                    <HStack spacing={2}>
-                        {teamMembers.map((member, index) => (
-                            <Avatar key={index} name={member.name} src={member.image} size='xs' />
-                        ))}
-                    </HStack>
-                </VStack>
-                <Box p={4} bg='green.50'>
-                    <Text>Body section for Chatting</Text>
-                </Box>
-            </GridItem>
-        </Grid>
-    )
-}
+    const { data } = useApiForFindAllDevBattleList();
 
-export default DevBattle
+    // Ensure data exists before processing
+    if (!data) return null; // Or display a loading indicator
+
+    const devBattles = data as DevBattleResponse[]; // Cast data to DevBattleResponse[]
+
+    return (
+        <Box display={"flex"}>
+            <VStack spacing={4} p={4}>
+                <Tabs variant="soft-rounded" colorScheme="green">
+                    <TabList>
+                        {devBattles.map((devBattle) => (
+                            <Tab key={devBattle.id}>{devBattle.subject}</Tab>
+                        ))}
+                    </TabList>
+                    <TabPanels w="100%" alignItems="center">
+                        {devBattles.map((devBattle, index) => (
+                            <TabPanel w="100%" alignItems="center" key={index}>
+                                <DevBattleDetail
+                                    title={devBattle.subject}
+                                    tags={devBattle.tags?.map((tag) => tag.name) || []} // Extract tag names
+                                    teamMembers={teamMembers}
+                                />
+                            </TabPanel>
+                        ))}
+                    </TabPanels>
+                </Tabs>
+            </VStack>
+        </Box>
+    );
+};
+
+export default DevBattle;
