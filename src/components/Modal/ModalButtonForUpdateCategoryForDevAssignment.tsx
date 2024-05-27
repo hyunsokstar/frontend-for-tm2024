@@ -39,6 +39,7 @@ const ModalButtonForUpdateCategoryForDevAssignment = ({ categoryId, categoryText
                 icon={<EditIcon />}
                 size="xs"
                 variant="outline"
+                colorScheme='blue'
                 mr={1}
                 onClick={onOpen}
             />

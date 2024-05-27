@@ -85,7 +85,7 @@ const HeaderMenus = () => {
                     </Link>
                     {/* StarterKits\StarterKitList.tsx */}
 
-                    <Link
+                    {/* <Link
                         href="/StarterKits/StarterKitList"
                         color={router.pathname.includes("/StarterKits/StarterKitList") ? "#4267B2" : "inherit"}
                         fontWeight={router.pathname.includes("/StarterKits/StarterKitList") ? "bold" : "normal"}
@@ -99,7 +99,7 @@ const HeaderMenus = () => {
                         fontWeight={router.pathname.includes("/Challenge/FrontChallenges") ? "bold" : "normal"}
                     >
                         Challenges
-                    </Link>
+                    </Link> */}
 
                     <Link
                         href="/buyPoints"
@@ -123,6 +123,14 @@ const HeaderMenus = () => {
                         fontWeight={router.pathname.includes("/DevRelay") ? "bold" : "normal"}
                     >
                         Dev Relay
+                    </Link>
+
+                    <Link
+                        href="/DevBattle"
+                        color={router.pathname.includes("/DevBattle") ? "#4267B2" : "inherit"}
+                        fontWeight={router.pathname.includes("/DevBattle") ? "bold" : "normal"}
+                    >
+                        Dev Battle
                     </Link>
 
                 </Box>

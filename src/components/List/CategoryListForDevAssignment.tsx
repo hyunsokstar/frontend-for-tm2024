@@ -86,7 +86,7 @@ const CategoryListForDevAssignment: React.FC<Props> = ({
                             </Text>
                             <Spacer />
 
-                            <ModalButtonForUpdateCategoryForDevAssignment categoryId={0} categoryText={category.name} />
+                            <ModalButtonForUpdateCategoryForDevAssignment categoryId={category.id} categoryText={category.name} />
                             <IconButton
                                 aria-label="Delete"
                                 icon={<FiTrash />}
