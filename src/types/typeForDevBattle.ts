@@ -1,15 +1,33 @@
-// src/types/typeForDevBattle.ts
+
 export interface TagForDevBattleResponse {
     id: number;
     name: string;
+}
+
+export interface DevStatus {
+    READY: 'ready';
+    IN_PROGRESS: 'in_progress';
+    TEST: 'test';
+    COMPLETE: 'complete';
+}
+
+
+export interface DevProgressForTeamResponse {
+    id: string;
+    task: string;
+    figmaUrl: string;
+    youtubeUrl: string;
+    noteUrl: string;
+    status: DevStatus;
+    createdAt: Date;
 }
 
 export interface TeamForDevBattleResponse {
     id: number;
     name: string;
     description: string;
-    createdAt: string;
-    // 다른 필드가 있다면 여기에 추가하세요.
+    createdAt: Date;
+    devProgressForTeams: DevProgressForTeamResponse[]; // 추가된 필드
 }
 
 export interface DevBattleResponse {

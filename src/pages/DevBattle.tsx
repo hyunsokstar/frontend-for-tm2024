@@ -2,7 +2,6 @@ import React from 'react';
 import { VStack, Tabs, TabList, TabPanels, Tab, TabPanel, Box } from '@chakra-ui/react';
 import DevBattleDetail from '@/components/Detail/DevBattleDetail';
 import { DevBattleResponse } from '@/types/typeForDevBattle';
-import { apiForFindAllDevBattleList } from '@/api/apiForDevBattle';
 import useApiForFindAllDevBattleList from '@/hooks/useApiForFindAllDevBattleList';
 
 const teamMembers = [
@@ -44,7 +43,6 @@ const DevBattle = () => {
                     {devBattles.map((devBattle, index) => (
                         <TabPanel w="100%" alignItems="center" key={index}>
                             <DevBattleDetail
-                                // title={devBattle.subject}
                                 tags={devBattle.tags?.map((tag) => tag.name) || []} // Extract tag names
                                 teamMembers={teamMembers}
                                 teams={devBattle.teams} // Add teams prop
