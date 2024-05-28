@@ -44,10 +44,12 @@ const DevBattle = () => {
                     {devBattles.map((devBattle, index) => (
                         <TabPanel w="100%" alignItems="center" key={index}>
                             <DevBattleDetail
-                                title={devBattle.subject}
+                                // title={devBattle.subject}
                                 tags={devBattle.tags?.map((tag) => tag.name) || []} // Extract tag names
                                 teamMembers={teamMembers}
+                                teams={devBattle.teams} // Add teams prop
                             />
+
                         </TabPanel>
                     ))}
                 </TabPanels>
