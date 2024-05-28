@@ -4,24 +4,24 @@ import DevBattleDetail from '@/components/Detail/DevBattleDetail';
 import { DevBattleResponse } from '@/types/typeForDevBattle';
 import useApiForFindAllDevBattleList from '@/hooks/useApiForFindAllDevBattleList';
 
-const teamMembers = [
-    {
-        name: 'Alice',
-        image: 'https://bit.ly/broken-link',
-    },
-    {
-        name: 'Bob',
-        image: 'https://bit.ly/broken-link',
-    },
-    {
-        name: 'Charlie',
-        image: 'https://bit.ly/broken-link',
-    },
-    {
-        name: 'Dave',
-        image: 'https://bit.ly/broken-link',
-    },
-];
+// const teamMembers = [
+//     {
+//         name: 'Alice',
+//         image: 'https://bit.ly/broken-link',
+//     },
+//     {
+//         name: 'Bob',
+//         image: 'https://bit.ly/broken-link',
+//     },
+//     {
+//         name: 'Charlie',
+//         image: 'https://bit.ly/broken-link',
+//     },
+//     {
+//         name: 'Dave',
+//         image: 'https://bit.ly/broken-link',
+//     },
+// ];
 
 const DevBattle = () => {
     const { data } = useApiForFindAllDevBattleList();
@@ -44,7 +44,6 @@ const DevBattle = () => {
                         <TabPanel w="100%" alignItems="center" key={index}>
                             <DevBattleDetail
                                 tags={devBattle.tags?.map((tag) => tag.name) || []} // Extract tag names
-                                teamMembers={teamMembers}
                                 teams={devBattle.teams} // Add teams prop
                             />
                         </TabPanel>
