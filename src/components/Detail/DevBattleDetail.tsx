@@ -92,7 +92,7 @@ const DevBattleDetail = ({ teams, teamMembers, tags }: Props) => {
                                 <HStack spacing={2} align="start">
                                     <Avatar name="개발자 1" size="sm" />
                                     <Box bg="gray.100" p={2} borderRadius="md">
-                                        <Text>여러분, 이번 프로젝트를 위해 다양한 기술 스택을 사용하는 4개의 팀을 구성하면 어떨까요?</Text>
+                                        <Text>여러분, 이번 프로젝트를 위해 다양한 기술 스택을 사용하는 3개의 팀을 구성하면 어떨까요?</Text>
                                     </Box>
                                 </HStack>
                             </Box>
