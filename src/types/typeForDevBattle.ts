@@ -1,4 +1,3 @@
-
 export interface TagForDevBattleResponse {
     id: number;
     name: string;
@@ -11,7 +10,6 @@ export interface DevStatus {
     COMPLETE: 'complete';
 }
 
-
 export interface DevProgressForTeamResponse {
     id: string;
     task: string;
@@ -22,17 +20,39 @@ export interface DevProgressForTeamResponse {
     createdAt: Date;
 }
 
+export interface UserResponse {
+    id: number;
+    email: string;
+    password: string;
+    nickname: string;
+    cashPoints: number;
+    role: string;
+    gender: string;
+    phoneNumber: string | null;
+    backEndLevel: number;
+    frontEndLevel: number;
+    profileImage: string;
+}
+
+export interface MemberForDevTeamResponse {
+    id: number;
+    position: string;
+    createdAt: Date;
+    user: UserResponse;
+}
+
 export interface TeamForDevBattleResponse {
     id: number;
     name: string;
     description: string;
     createdAt: Date;
-    devProgressForTeams: DevProgressForTeamResponse[]; // 추가된 필드
+    devProgressForTeams: DevProgressForTeamResponse[];
+    members: MemberForDevTeamResponse[];
 }
 
 export interface DevBattleResponse {
     id: number;
     subject: string;
-    tags: TagForDevBattleResponse[]; // Optional tags array
-    teams: TeamForDevBattleResponse[]; // 새로 추가된 teams 필드
+    tags: TagForDevBattleResponse[];
+    teams: TeamForDevBattleResponse[];
 }

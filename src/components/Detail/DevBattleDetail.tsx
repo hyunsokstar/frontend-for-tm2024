@@ -7,21 +7,24 @@ import {
     Text,
     VStack,
     HStack,
-    Input,
     useBreakpointValue,
     IconButton,
     Link,
-    Flex,
 } from '@chakra-ui/react';
-import { MdLink } from 'react-icons/md';
 import { FaCircle, FaFigma, FaYoutube, FaFileAlt } from 'react-icons/fa';
-
+import ChattingForDevBattle from '../ChatBoard/ChattingForDevBattle';
+import { MemberForDevTeamResponse } from '@/types/typeForDevBattle';
 
 interface Team {
     devProgressForTeams: any;
     id: number;
     name: string;
     description: string;
+    members: Array<{
+        id: number;
+        name: string;
+        image: string;
+    }>;
 }
 
 interface TeamMember {
@@ -45,10 +48,7 @@ interface Props {
     tags: string[];
 }
 
-const DevBattleDetail = ({
-    teams,
-    teamMembers,
-}: Props) => {
+const DevBattleDetail = ({ teams, teamMembers }: Props) => {
     const gridTemplateColumns = useBreakpointValue({
         base: '1fr',
         md: 'repeat(3, 1fr)',
@@ -70,6 +70,16 @@ const DevBattleDetail = ({
         }
     };
 
+    const getMemberAvatar = (member: MemberForDevTeamResponse) => {
+        if (member.user.profileImage) {
+            return <Avatar key={member.user.email} name={member.user.email} src={member.user.profileImage} size={'xs'} />;
+        }
+
+        // member.name이 undefined인 경우, 빈 문자열을 사용합니다.
+        const name = member.user.email || '';
+        return <Avatar key={member.user.email} name={name.charAt(0)} size={'xs'} />;
+    };
+
     return (
         <Box p={0} border={'0px solid green'} width={'100%'}>
             <Grid templateColumns={gridTemplateColumns} gap={4}>
@@ -81,11 +91,13 @@ const DevBattleDetail = ({
                                     <Text fontSize={'xl'} fontWeight={'bold'} textAlign={'center'}>
                                         {team.name}
                                     </Text>
-                                    <HStack spacing={2}>
-                                        {teamMembers.slice(0, 3).map((member, index) => (
-                                            <Avatar key={index} name={member.name} src={member.image} size={'xs'} />
-                                        ))}
-                                    </HStack>
+                                    {team.members.length > 0 ? (
+                                        <HStack spacing={2}>
+                                            {team.members.slice(0, 3).map((member) => getMemberAvatar(member))}
+                                        </HStack>
+                                    ) : (
+                                        <Text>no members</Text>
+                                    )}
                                 </VStack>
                                 <Box p={2} bg={"lightyellow"}>
                                     <Text>{team.description}</Text>
@@ -147,44 +159,7 @@ const DevBattleDetail = ({
                     </>
                 )}
                 {/* 채팅 영역 */}
-                <GridItem
-                    gridColumn={{ base: '1/-1', md: '4/5', lg: '4/5' }}
-                    bg={'gray.200'}
-                    p={4}
-                >
-                    <Box bg="white" borderRadius="md" boxShadow="md" p={4}>
-                        <Box borderBottom="1px solid" borderColor="gray.200" pb={2} mb={2}>
-                            <Text fontSize="lg" fontWeight="bold">
-                                Chat
-                            </Text>
-                        </Box>
-                        <Box overflowY="auto" maxH="300px">
-                            {/* 채팅 메시지들을 여기에 렌더링 */}
-                            <Box mb={2}>
-                                <HStack spacing={2} align="start">
-                                    <Avatar name="개발자 1" size="sm" />
-                                    <Box bg="gray.100" p={2} borderRadius="md">
-                                        <Text>
-                                            여러분, 이번 프로젝트를 위해 다양한 기술 스택을 사용하는 3개의 팀을 구성하면
-                                            어떨까요?
-                                        </Text>
-                                    </Box>
-                                </HStack>
-                            </Box>
-                            <Box mb={2}>
-                                <HStack spacing={2} align="start" justify="end">
-                                    <Box bg="blue.100" p={2} borderRadius="md">
-                                        <Text>좋은 생각이에요! 각자 관심 있는 팀에 합류해서 프로젝트를 시작해봐요.</Text>
-                                    </Box>
-                                    <Avatar name="개발자 3" size="sm" />
-                                </HStack>
-                            </Box>
-                        </Box>
-                        <Box mt={4}>
-                            <Input placeholder="Type a message..." />
-                        </Box>
-                    </Box>
-                </GridItem>
+                <ChattingForDevBattle />
             </Grid>
         </Box>
     );
