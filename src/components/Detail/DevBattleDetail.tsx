@@ -20,17 +20,9 @@ interface Team {
     id: number;
     name: string;
     description: string;
-    members: Array<{
-        id: number;
-        name: string;
-        image: string;
-    }>;
+    members: MemberForDevTeamResponse[]
 }
 
-interface TeamMember {
-    name: string;
-    image: string;
-}
 
 interface DevProgressForTeamResponse {
     id: string;
@@ -44,11 +36,10 @@ interface DevProgressForTeamResponse {
 
 interface Props {
     teams: Team[];
-    teamMembers: TeamMember[];
     tags: string[];
 }
 
-const DevBattleDetail = ({ teams, teamMembers }: Props) => {
+const DevBattleDetail = ({ teams }: Props) => {
     const gridTemplateColumns = useBreakpointValue({
         base: '1fr',
         md: 'repeat(3, 1fr)',
@@ -93,7 +84,7 @@ const DevBattleDetail = ({ teams, teamMembers }: Props) => {
                                     </Text>
                                     {team.members.length > 0 ? (
                                         <HStack spacing={2}>
-                                            {team.members.slice(0, 3).map((member) => getMemberAvatar(member))}
+                                            {team.members.slice(0, 3).map((member: MemberForDevTeamResponse) => getMemberAvatar(member))}
                                         </HStack>
                                     ) : (
                                         <Text>no members</Text>
