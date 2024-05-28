@@ -43,7 +43,6 @@ interface Props {
     teams: Team[];
     teamMembers: TeamMember[];
     tags: string[];
-    devProgressForTeams: DevProgressForTeamResponse[];
 }
 
 const DevBattleDetail = ({

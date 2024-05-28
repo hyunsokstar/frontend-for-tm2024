@@ -47,7 +47,6 @@ const DevBattle = () => {
                                 teamMembers={teamMembers}
                                 teams={devBattle.teams} // Add teams prop
                             />
-
                         </TabPanel>
                     ))}
                 </TabPanels>
