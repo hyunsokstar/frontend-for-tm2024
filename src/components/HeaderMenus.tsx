@@ -118,11 +118,11 @@ const HeaderMenus = () => {
                     </Link>
 
                     <Link
-                        href="/DevRelay"
-                        color={router.pathname.includes("/DevRelay") ? "#4267B2" : "inherit"}
-                        fontWeight={router.pathname.includes("/DevRelay") ? "bold" : "normal"}
+                        href="/WebSkil"
+                        color={router.pathname.includes("/WebSkil") ? "#4267B2" : "inherit"}
+                        fontWeight={router.pathname.includes("/WebSkil") ? "bold" : "normal"}
                     >
-                        Dev Relay
+                        Web Skil
                     </Link>
 
                     <Link
