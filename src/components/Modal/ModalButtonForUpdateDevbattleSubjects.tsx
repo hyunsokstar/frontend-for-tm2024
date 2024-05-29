@@ -68,6 +68,7 @@ const ModalButtonForUpdateDevbattleSubjects: React.FC<ModalButtonForUpdateDevbat
                 colorScheme="green"
                 size="xs"
                 mr={2}
+                mb={1}
             />
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />

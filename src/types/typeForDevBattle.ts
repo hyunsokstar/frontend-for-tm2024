@@ -64,3 +64,12 @@ export interface CreateDevBattleDto {
 export interface ParameterForCreateDevBattleDto {
     createDevBattleDto: CreateDevBattleDto;
 }
+
+export interface AddTeamToDevBattleDto {
+    name: string,
+    description: string
+}
+export interface IParameterForAddTeamToDevBattle {
+    devBattleId: number,
+    addTeamToDevBattleDto: AddTeamToDevBattleDto
+}

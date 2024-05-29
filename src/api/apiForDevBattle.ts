@@ -1,7 +1,7 @@
 // src\api\apiForDevRelay.ts
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
-import { CreateDevBattleDto, DevBattleResponse, ParameterForCreateDevBattleDto } from "@/types/typeForDevBattle";
+import { CreateDevBattleDto, DevBattleResponse, IParameterForAddTeamToDevBattle, ParameterForCreateDevBattleDto } from "@/types/typeForDevBattle";
 
 
 const instance = axios.create({
@@ -24,6 +24,17 @@ instance.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+// AddTeamToDevBattleDto
+export const apiForAddTeamToDevBattle = async ({ devBattleId, addTeamToDevBattleDto }: IParameterForAddTeamToDevBattle): Promise<DevBattleResponse> => {
+    try {
+        const response: AxiosResponse<DevBattleResponse> = await instance.post(`/${devBattleId}/add-team`, addTeamToDevBattleDto);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
 
 export const apiForCreateDevBattle = ({ createDevBattleDto }: ParameterForCreateDevBattleDto) => {
     return instance.post<DevBattleResponse>("/", createDevBattleDto);

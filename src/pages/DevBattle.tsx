@@ -1,5 +1,5 @@
 import React from 'react';
-import { VStack, Tabs, TabList, TabPanels, Tab, TabPanel, Box } from '@chakra-ui/react';
+import { VStack, Tabs, TabList, TabPanels, Tab, TabPanel, Box, Button } from '@chakra-ui/react';
 import DevBattleDetail from '@/components/Detail/DevBattleDetail';
 import { DevBattleResponse } from '@/types/typeForDevBattle';
 import useApiForFindAllDevBattleList from '@/hooks/useApiForFindAllDevBattleList';
@@ -18,13 +18,13 @@ const DevBattle = () => {
     return (
         <Box display={"flex"} width={"100%"} border={"0px solid blue"}>
             <Tabs variant="soft-rounded" colorScheme="green" width={"100%"}>
-
                 <DevBattleTabMenus devBattles={devBattles} onTabClick={handleTabClick} />
 
                 <TabPanels alignItems="center" p={2}>
                     {devBattles.map((devBattle, index) => (
                         <TabPanel w="100%" alignItems="center" key={index}>
                             <DevBattleDetail
+                                devBattleId={devBattle.id}
                                 tags={devBattle.tags?.map((tag) => tag.name) || []} // Extract tag names
                                 teams={devBattle.teams} // Add teams prop
                             />

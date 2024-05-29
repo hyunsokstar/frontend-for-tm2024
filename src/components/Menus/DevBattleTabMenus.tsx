@@ -13,7 +13,7 @@ const DevBattleTabMenus: React.FC<DevBattleTabMenuProps> = ({
     onTabClick,
 }) => {
     return (
-        <Flex>
+        <Flex alignItems={"center"}>
             <TabList p={2}>
                 {devBattles.map((devBattle, index) => (
                     <Tab key={devBattle.id} onClick={() => onTabClick(index)}>
