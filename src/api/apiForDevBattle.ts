@@ -2,17 +2,7 @@
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
 import { DevBattleResponse } from "@/types/typeForDevBattle";
-// import {
-//     AssignmentCategory,
-//     CategoryForDevAssignmentDto,
-//     CategoryResponse,
-//     CreateDevAssignmentDto,
-//     CreateDevAssignmentSubmission,
-//     DevAssignmentRow,
-//     IParameterForCreateDevAssignmentSubmission,
-//     IParameterForUpdateCategoryForDevAssignment,
-//     SubjectForCategoryRow
-// } from "@/types/typeForDevRelay";
+
 
 const instance = axios.create({
     baseURL: `${backendApi}/dev-battle`,
@@ -34,6 +24,10 @@ instance.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+export const apiForRemoveDevBattleById = (id: number) => {
+    return instance.delete(`/${id}`);
+};
 
 // 여기에 추가 해줘
 export async function apiForFindAllDevBattleList(): Promise<DevBattleResponse[]> {

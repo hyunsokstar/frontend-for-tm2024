@@ -16,15 +16,19 @@ import {
 } from '@chakra-ui/react';
 import { EditIcon, DeleteIcon, CheckIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
 import { DevBattleResponse } from '@/types/typeForDevBattle';
+import useApiForRemoveDevBattleById from '@/hooks/useApiForRemoveDevBattleById';
 
 interface ModalButtonForUpdateDevbattleSubjectsProps {
     devBattles: DevBattleResponse[];
 }
 
-const ModalButtonForUpdateDevbattleSubjects: React.FC<ModalButtonForUpdateDevbattleSubjectsProps> = ({ devBattles }) => {
+const ModalButtonForUpdateDevbattleSubjects: React.FC<ModalButtonForUpdateDevbattleSubjectsProps> = ({
+    devBattles,
+}) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [subjects, setSubjects] = useState<{ [id: number]: string }>({});
     const [isEditMode, setIsEditMode] = useState<{ [id: number]: boolean }>({});
+    const removeDevBattle = useApiForRemoveDevBattleById();
 
     const handleSubjectChange = (id: number, newSubject: string) => {
         setSubjects((prevSubjects) => ({
@@ -44,7 +48,7 @@ const ModalButtonForUpdateDevbattleSubjects: React.FC<ModalButtonForUpdateDevbat
 
     const handleDeleteSubject = (id: number) => {
         // 여기에 서버로 삭제 요청을 보내는 로직을 추가하세요.
-        console.log(`Delete subject for id ${id}`);
+        removeDevBattle.mutate(id);
     };
 
     const toggleEditMode = (id: number) => {
@@ -125,9 +129,9 @@ const ModalButtonForUpdateDevbattleSubjects: React.FC<ModalButtonForUpdateDevbat
                         ))}
                     </ModalBody>
                     <ModalFooter>
-                        <Button colorScheme="blue" mr={3} onClick={onClose}>
+                        {/* <Button colorScheme="blue" mr={3} onClick={onClose}>
                             Close
-                        </Button>
+                        </Button> */}
                     </ModalFooter>
                 </ModalContent>
             </Modal>
@@ -135,4 +139,4 @@ const ModalButtonForUpdateDevbattleSubjects: React.FC<ModalButtonForUpdateDevbat
     );
 };
 
-export default ModalButtonForUpdateDevbattleSubjects;
+export default ModalButtonForUpdateDevbattleSubjects

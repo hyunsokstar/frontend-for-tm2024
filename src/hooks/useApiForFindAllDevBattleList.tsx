@@ -5,7 +5,7 @@ import { apiForFindAllDevBattleList } from '@/api/apiForDevBattle';
 
 const useApiForFindAllDevBattleList = (): UseQueryResult<DevBattleResponse[]> => {
     return useQuery<DevBattleResponse[]>({
-        queryKey: ['devBattles'],
+        queryKey: ['apiForFindAllDevBattleList'],
         queryFn: apiForFindAllDevBattleList,
     });
 };
