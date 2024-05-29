@@ -1,7 +1,7 @@
 // src\api\apiForDevRelay.ts
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
-import { DevBattleResponse } from "@/types/typeForDevBattle";
+import { CreateDevBattleDto, DevBattleResponse, ParameterForCreateDevBattleDto } from "@/types/typeForDevBattle";
 
 
 const instance = axios.create({
@@ -24,6 +24,10 @@ instance.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+export const apiForCreateDevBattle = ({ createDevBattleDto }: ParameterForCreateDevBattleDto) => {
+    return instance.post<DevBattleResponse>("/", createDevBattleDto);
+};
 
 export const apiForRemoveDevBattleById = (id: number) => {
     return instance.delete(`/${id}`);

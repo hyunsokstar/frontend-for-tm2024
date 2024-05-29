@@ -56,3 +56,11 @@ export interface DevBattleResponse {
     tags: TagForDevBattleResponse[];
     teams: TeamForDevBattleResponse[];
 }
+
+export interface CreateDevBattleDto {
+    subject: string;
+}
+
+export interface ParameterForCreateDevBattleDto {
+    createDevBattleDto: CreateDevBattleDto;
+}

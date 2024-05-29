@@ -17,6 +17,7 @@ import {
 import { EditIcon, DeleteIcon, CheckIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
 import { DevBattleResponse } from '@/types/typeForDevBattle';
 import useApiForRemoveDevBattleById from '@/hooks/useApiForRemoveDevBattleById';
+import ModalButtonForCreateDevBattle from './ModalButtonForCreateDevBattle';
 
 interface ModalButtonForUpdateDevbattleSubjectsProps {
     devBattles: DevBattleResponse[];
@@ -74,6 +75,11 @@ const ModalButtonForUpdateDevbattleSubjects: React.FC<ModalButtonForUpdateDevbat
                     <ModalHeader>Update DevBattle Subjects</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
+
+                        <Box display={"flex"} justifyContent={"flex-end"} mb={2}>
+                            <ModalButtonForCreateDevBattle />
+                        </Box>
+
                         {devBattles.map((devBattle) => (
                             <Flex key={devBattle.id} alignItems="center" mb={2} justifyContent="space-between">
                                 {isEditMode[devBattle.id] ? (
