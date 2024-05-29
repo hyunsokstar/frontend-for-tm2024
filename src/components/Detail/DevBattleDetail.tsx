@@ -23,7 +23,6 @@ interface Team {
     members: MemberForDevTeamResponse[]
 }
 
-
 interface DevProgressForTeamResponse {
     id: string;
     task: string;
@@ -44,7 +43,7 @@ const DevBattleDetail = ({ teams }: Props) => {
         base: '1fr',
         md: 'repeat(3, 1fr)',
         lg: 'repeat(4, 1fr)',
-    });
+    }, '1fr');
 
     const getStatusColor = (status: string) => {
         switch (status) {
@@ -74,7 +73,8 @@ const DevBattleDetail = ({ teams }: Props) => {
     return (
         <Box p={0} border={'0px solid green'} width={'100%'}>
             <Grid templateColumns={gridTemplateColumns} gap={4}>
-                {teams.length > 0 && (
+                {teams.length > 0 ? (
+                    // 팀 데이터가 있는 경우
                     <>
                         {teams.map((team) => (
                             <GridItem key={team.id} border={"1px solid pink"}>
@@ -148,6 +148,15 @@ const DevBattleDetail = ({ teams }: Props) => {
                             </GridItem>
                         ))}
                     </>
+                ) : (
+                    // 팀 데이터가 없는 경우
+                    <GridItem colSpan={gridTemplateColumns ? gridTemplateColumns.split(' ').length : 1}>
+                        <VStack spacing={4} alignItems="center" justifyContent="center" minHeight="300px">
+                            <Text fontSize="2xl" fontWeight="bold" color="gray.500">
+                                There is No Dev Teams For Dev Battles
+                            </Text>
+                        </VStack>
+                    </GridItem>
                 )}
                 {/* 채팅 영역 */}
                 <ChattingForDevBattle />

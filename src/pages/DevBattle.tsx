@@ -3,42 +3,24 @@ import { VStack, Tabs, TabList, TabPanels, Tab, TabPanel, Box } from '@chakra-ui
 import DevBattleDetail from '@/components/Detail/DevBattleDetail';
 import { DevBattleResponse } from '@/types/typeForDevBattle';
 import useApiForFindAllDevBattleList from '@/hooks/useApiForFindAllDevBattleList';
+import DevBattleTabMenus from '@/components/Menus/DevBattleTabMenus';
 
-// const teamMembers = [
-//     {
-//         name: 'Alice',
-//         image: 'https://bit.ly/broken-link',
-//     },
-//     {
-//         name: 'Bob',
-//         image: 'https://bit.ly/broken-link',
-//     },
-//     {
-//         name: 'Charlie',
-//         image: 'https://bit.ly/broken-link',
-//     },
-//     {
-//         name: 'Dave',
-//         image: 'https://bit.ly/broken-link',
-//     },
-// ];
 
 const DevBattle = () => {
     const { data } = useApiForFindAllDevBattleList();
 
-    // Ensure data exists before processing
-    if (!data) return null; // Or display a loading indicator
+    if (!data) return null;
 
-    const devBattles = data as DevBattleResponse[]; // Cast data to DevBattleResponse[]
+    const devBattles = data as DevBattleResponse[];
+    const handleTabClick = (index: number) => {
+    };
 
     return (
         <Box display={"flex"} width={"100%"} border={"0px solid blue"}>
             <Tabs variant="soft-rounded" colorScheme="green" width={"100%"}>
-                <TabList p={2}>
-                    {devBattles.map((devBattle) => (
-                        <Tab key={devBattle.id}>{devBattle.subject}</Tab>
-                    ))}
-                </TabList>
+
+                <DevBattleTabMenus devBattles={devBattles} onTabClick={handleTabClick} />
+
                 <TabPanels alignItems="center" p={2}>
                     {devBattles.map((devBattle, index) => (
                         <TabPanel w="100%" alignItems="center" key={index}>
