@@ -16,6 +16,7 @@ import { FaCircle, FaFigma, FaYoutube, FaFileAlt, FaMinus } from 'react-icons/fa
 import ChattingForDevBattle from '../ChatBoard/ChattingForDevBattle';
 import { MemberForDevTeamResponse } from '@/types/typeForDevBattle';
 import ModalButtonForAddTeamForDevBattle from '../Modal/ModalButtonForAddTeamForDevBattle';
+import DeleteButtonForTeamForDevBattle from '../Button/DeleteButtonForTeamForDevBattle';
 
 interface Team {
     devProgressForTeams: any;
@@ -101,13 +102,7 @@ const DevBattleDetail = ({ devBattleId, teams }: Props) => {
                                     </VStack>
 
                                     <Box display={"flex"} flex={1} justifyContent={'flex-end'} border={"0px solid red"}>
-                                        <IconButton
-                                            aria-label="Remove Member"
-                                            icon={<FaMinus />}
-                                            variant="outline"
-                                            colorScheme="red"
-                                            size="xs"
-                                        />
+                                        <DeleteButtonForTeamForDevBattle teamId={team.id} />
                                     </Box>
                                 </HStack>
 

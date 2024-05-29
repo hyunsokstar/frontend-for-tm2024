@@ -25,6 +25,15 @@ instance.interceptors.request.use(
     }
 );
 
+export const apiForDeleteTeamForDevBattle = async (teamId: number): Promise<void> => {
+    try {
+        await instance.delete(`/teams/${teamId}`);
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
 // AddTeamToDevBattleDto
 export const apiForAddTeamToDevBattle = async ({ devBattleId, addTeamToDevBattleDto }: IParameterForAddTeamToDevBattle): Promise<DevBattleResponse> => {
     try {
