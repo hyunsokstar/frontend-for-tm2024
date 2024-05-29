@@ -25,7 +25,6 @@ const DevBattle = () => {
                         <TabPanel w="100%" alignItems="center" key={index}>
                             <DevBattleDetail
                                 devBattleId={devBattle.id}
-                                tags={devBattle.tags?.map((tag) => tag.name) || []} // Extract tag names
                                 teams={devBattle.teams} // Add teams prop
                             />
                         </TabPanel>
