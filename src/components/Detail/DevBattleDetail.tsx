@@ -7,14 +7,15 @@ import {
     VStack,
     useBreakpointValue,
     Spacer,
+    Button,
 } from '@chakra-ui/react';
-import { FaCircle, FaFigma, FaYoutube, FaFileAlt, FaMinus } from 'react-icons/fa';
 import ChattingForDevBattle from '../ChatBoard/ChattingForDevBattle';
 import { MemberForDevTeamResponse } from '@/types/typeForDevBattle';
 import ModalButtonForAddTeamForDevBattle from '../Modal/ModalButtonForAddTeamForDevBattle';
 import DeleteButtonForTeamForDevBattle from '../Button/DeleteButtonForTeamForDevBattle';
 import MemberAvatarsWithRegisterButton from '../Info/MembersInfoWithRegisterButton';
 import DevProgressListWithCreateButton from '../List/DevProgressListWithCreateButton';
+import ModalButtonForDevSpecForTeam from '../Modal/ModalButtonForDevSpecForTeam';
 
 interface Team {
     devProgressForTeams: any;
@@ -22,16 +23,6 @@ interface Team {
     name: string;
     description: string;
     members: MemberForDevTeamResponse[]
-}
-
-interface DevProgressForTeamResponse {
-    id: string;
-    task: string;
-    figmaUrl: string;
-    youtubeUrl: string;
-    noteUrl: string;
-    status: string;
-    createdAt: Date;
 }
 
 interface Props {
@@ -46,20 +37,6 @@ const DevBattleDetail = ({ devBattleId, teams }: Props) => {
         lg: 'repeat(4, 1fr)',
     }, '1fr');
 
-    const getStatusColor = (status: string) => {
-        switch (status) {
-            case 'ready':
-                return 'green';
-            case 'in_progress':
-                return 'blue';
-            case 'test':
-                return 'orange';
-            case 'complete':
-                return 'gray';
-            default:
-                return 'gray';
-        }
-    };
 
     return (
         <Box p={0} border={'0px solid green'} width={'100%'}>
@@ -89,7 +66,16 @@ const DevBattleDetail = ({ devBattleId, teams }: Props) => {
                                         <MemberAvatarsWithRegisterButton teamId={team.id} members={team.members} />
                                     </Box>
                                     <Box p={2} bg={"lightyellow"}>
-                                        <Text>{team.description}</Text>
+                                        <Grid templateColumns={{ base: "repeat(2, 1fr)", md: "5fr 1fr" }}>
+                                            <GridItem>
+                                                <Text fontSize={12}>
+                                                    {team.description}
+                                                </Text>
+                                            </GridItem>
+                                            <GridItem>
+                                                <ModalButtonForDevSpecForTeam />
+                                            </GridItem>
+                                        </Grid>
                                     </Box>
                                 </Box>
                                 <Box mt={0}>
