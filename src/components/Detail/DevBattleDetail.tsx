@@ -3,14 +3,9 @@ import {
     Grid,
     GridItem,
     Box,
-    Avatar,
     Text,
-    HStack,
     VStack,
     useBreakpointValue,
-    IconButton,
-    Link,
-    Button,
     Spacer,
 } from '@chakra-ui/react';
 import { FaCircle, FaFigma, FaYoutube, FaFileAlt, FaMinus } from 'react-icons/fa';
@@ -19,6 +14,7 @@ import { MemberForDevTeamResponse } from '@/types/typeForDevBattle';
 import ModalButtonForAddTeamForDevBattle from '../Modal/ModalButtonForAddTeamForDevBattle';
 import DeleteButtonForTeamForDevBattle from '../Button/DeleteButtonForTeamForDevBattle';
 import MemberAvatarsWithRegisterButton from '../Info/MembersInfoWithRegisterButton';
+import DevProgressListWithCreateButton from '../List/DevProgressListWithCreateButton';
 
 interface Team {
     devProgressForTeams: any;
@@ -96,56 +92,9 @@ const DevBattleDetail = ({ devBattleId, teams }: Props) => {
                                         <Text>{team.description}</Text>
                                     </Box>
                                 </Box>
-                                <Box mt={2}>
+                                <Box mt={0}>
                                     <Box p={1} rounded="md">
-                                        {team.devProgressForTeams.map((progress: DevProgressForTeamResponse) => (
-                                            <Box display={"flex"} justifyContent={"space-between"} key={progress.id} mb={2}>
-                                                <Text>{progress.task}</Text>
-
-                                                <Box display={"flex"} gap={1} mb={1}>
-                                                    <IconButton
-                                                        size="xs"
-                                                        variant="outline"
-                                                        colorScheme={getStatusColor(progress.status)}
-                                                        aria-label={`Status ${progress.status}`}
-                                                        icon={<FaCircle />}
-                                                    />
-                                                    {progress.figmaUrl && (
-                                                        <IconButton
-                                                            as={Link}
-                                                            href={progress.figmaUrl}
-                                                            isExternal
-                                                            size="xs"
-                                                            variant="outline"
-                                                            aria-label="Figma Link"
-                                                            icon={<FaFigma />}
-                                                        />
-                                                    )}
-                                                    {progress.noteUrl && (
-                                                        <IconButton
-                                                            as={Link}
-                                                            href={progress.noteUrl}
-                                                            isExternal
-                                                            size="xs"
-                                                            variant="outline"
-                                                            aria-label="Note Link"
-                                                            icon={<FaFileAlt />}
-                                                        />
-                                                    )}
-                                                    {progress.youtubeUrl && (
-                                                        <IconButton
-                                                            as={Link}
-                                                            href={progress.youtubeUrl}
-                                                            isExternal
-                                                            size="xs"
-                                                            variant="outline"
-                                                            aria-label="Youtube Link"
-                                                            icon={<FaYoutube />}
-                                                        />
-                                                    )}
-                                                </Box>
-                                            </Box>
-                                        ))}
+                                        <DevProgressListWithCreateButton teamId={team.id} devProgressForTeams={team.devProgressForTeams} />
                                     </Box>
                                 </Box>
                             </Box>

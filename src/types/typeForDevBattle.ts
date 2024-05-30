@@ -34,6 +34,20 @@ export interface UserResponse {
     profileImage: string;
 }
 
+export interface IAddDevProgressForTeamDto {
+    task: string;
+    figmaUrl?: string;
+    youtubeUrl?: string;
+    noteUrl?: string;
+    status?: DevStatus;
+}
+
+export interface IParameterForAddDevProgressForTeam {
+    teamId: number;
+    addDevProgressForTeamDto: IAddDevProgressForTeamDto;
+}
+
+
 export interface MemberForDevTeamResponse {
     id: number;
     position: string;

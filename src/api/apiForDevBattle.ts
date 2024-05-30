@@ -1,7 +1,7 @@
 // src\api\apiForDevRelay.ts
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
-import { CreateDevBattleDto, DevBattleResponse, IParameterForAddMemberToDevBattle, IParameterForAddTeamToDevBattle, ParameterForCreateDevBattleDto } from "@/types/typeForDevBattle";
+import { CreateDevBattleDto, DevBattleResponse, IParameterForAddDevProgressForTeam, IParameterForAddMemberToDevBattle, IParameterForAddTeamToDevBattle, ParameterForCreateDevBattleDto } from "@/types/typeForDevBattle";
 
 
 const instance = axios.create({
@@ -24,6 +24,10 @@ instance.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+export const apiForDevProgressForTeam = ({ teamId, addDevProgressForTeamDto }: IParameterForAddDevProgressForTeam): Promise<AxiosResponse<DevBattleResponse>> => {
+    return instance.post(`/teams/${teamId}/progress`, addDevProgressForTeamDto);
+};
 
 export async function apiForAddMemberToTeam({ teamId, memberId }: IParameterForAddMemberToDevBattle) {
     try {
