@@ -32,7 +32,7 @@ const getStatusColor = (status: string) => {
     }
 }
 
-const DevProgressListWithCreateButton = ({ teamId, devProgressForTeams, onCreate }: Props) => {
+const DevProgressListWithCreateButton = ({ teamId, devProgressForTeams }: Props) => {
     return (
         <Box p={0} rounded="md" display="flex" flexDirection="column">
             <Box display="flex" justifyContent="flex-end" mb={1}>
