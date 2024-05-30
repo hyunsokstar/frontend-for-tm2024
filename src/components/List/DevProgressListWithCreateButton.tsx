@@ -16,7 +16,6 @@ type DevProgressForTeamResponse = {
 type Props = {
     teamId: number
     devProgressForTeams: DevProgressForTeamResponse[]
-    onDelete: (id: number) => void
 }
 
 const getStatusColor = (status: string) => {
@@ -34,7 +33,7 @@ const getStatusColor = (status: string) => {
     }
 }
 
-const DevProgressListWithCreateButton = ({ teamId, devProgressForTeams, onDelete }: Props) => {
+const DevProgressListWithCreateButton = ({ teamId, devProgressForTeams }: Props) => {
 
     return (
         <Box p={0} rounded="md" display="flex" flexDirection="column">
