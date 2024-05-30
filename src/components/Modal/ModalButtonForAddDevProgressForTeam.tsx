@@ -15,7 +15,7 @@ import {
     useDisclosure,
     FormErrorMessage,
 } from '@chakra-ui/react';
-import { useForm } from 'react-hook-form';
+import { useForm, SubmitHandler, FieldValues } from 'react-hook-form';
 import { IAddDevProgressForTeamDto } from '@/types/typeForDevBattle';
 import { FaPlus } from 'react-icons/fa';
 import useApiForAddProgressToDevTeam from '@/hooks/useApiForAddProgressToDevTeam';
@@ -33,13 +33,14 @@ const ModalButtonForAddDevProgressForTeam: React.FC<IModalButtonForAddDevProgres
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm();
+    } = useForm<IAddDevProgressForTeamDto>();
     const mutationForAddProgressToDevTeam = useApiForAddProgressToDevTeam();
 
-    const onSubmit = (data: IAddDevProgressForTeamDto) => {
+    const onSubmit: SubmitHandler<FieldValues> = (data) => {
         setIsLoading(true);
+        const formData = data as IAddDevProgressForTeamDto;
         mutationForAddProgressToDevTeam.mutate(
-            { teamId, addDevProgressForTeamDto: data },
+            { teamId, addDevProgressForTeamDto: formData },
             {
                 onSuccess: () => {
                     setIsLoading(false);
@@ -68,6 +69,7 @@ const ModalButtonForAddDevProgressForTeam: React.FC<IModalButtonForAddDevProgres
                             <FormControl isInvalid={Boolean(errors.task)}>
                                 <FormLabel>Task</FormLabel>
                                 <Input type="text" placeholder="Task" {...register('task', { required: 'Task is required' })} />
+                                <FormErrorMessage>{errors.task?.message}</FormErrorMessage>
                             </FormControl>
 
                             <FormControl>
