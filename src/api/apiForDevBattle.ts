@@ -1,7 +1,7 @@
 // src\api\apiForDevRelay.ts
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
-import { CreateDevBattleDto, DevBattleResponse, IParameterForAddTeamToDevBattle, ParameterForCreateDevBattleDto } from "@/types/typeForDevBattle";
+import { AddMemberForDevTeamDto, CreateDevBattleDto, DevBattleResponse, IParameterForAddMemberToDevBattle, IParameterForAddTeamToDevBattle, ParameterForCreateDevBattleDto } from "@/types/typeForDevBattle";
 
 
 const instance = axios.create({
@@ -24,6 +24,24 @@ instance.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+export async function apiForAddMemberToTeam({ teamId, memberId }: IParameterForAddMemberToDevBattle) {
+    try {
+        const response: AxiosResponse<any> = await instance.post(`/teams/${teamId}/member/${memberId}`);
+        if (response.status === 201) {
+            console.log("Member has been added to the team");
+            return response.data;
+        } else if (response.status === 200) {
+            console.log("Member has been removed from the team");
+            return response.data;
+        } else {
+            throw new Error("Unexpected status code");
+        }
+    } catch (error) {
+        console.error("Error occurred while adding member to the team", error);
+        throw error;
+    }
+}
 
 export const apiForDeleteTeamForDevBattle = async (teamId: number): Promise<void> => {
     try {

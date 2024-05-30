@@ -73,3 +73,8 @@ export interface IParameterForAddTeamToDevBattle {
     devBattleId: number,
     addTeamToDevBattleDto: AddTeamToDevBattleDto
 }
+
+export interface IParameterForAddMemberToDevBattle {
+    teamId: number,
+    memberId: number
+}

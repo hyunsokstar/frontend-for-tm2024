@@ -11,12 +11,14 @@ import {
     IconButton,
     Link,
     Button,
+    Spacer,
 } from '@chakra-ui/react';
 import { FaCircle, FaFigma, FaYoutube, FaFileAlt, FaMinus } from 'react-icons/fa';
 import ChattingForDevBattle from '../ChatBoard/ChattingForDevBattle';
 import { MemberForDevTeamResponse } from '@/types/typeForDevBattle';
 import ModalButtonForAddTeamForDevBattle from '../Modal/ModalButtonForAddTeamForDevBattle';
 import DeleteButtonForTeamForDevBattle from '../Button/DeleteButtonForTeamForDevBattle';
+import MemberAvatarsWithRegisterButton from '../Info/MembersInfoWithRegisterButton';
 
 interface Team {
     devProgressForTeams: any;
@@ -63,16 +65,6 @@ const DevBattleDetail = ({ devBattleId, teams }: Props) => {
         }
     };
 
-    const getMemberAvatar = (member: MemberForDevTeamResponse) => {
-        if (member.user.profileImage) {
-            return <Avatar key={member.user.email} name={member.user.email} src={member.user.profileImage} size={'xs'} />;
-        }
-
-        // member.name이 undefined인 경우, 빈 문자열을 사용합니다.
-        const name = member.user.email || '';
-        return <Avatar key={member.user.email} name={name.charAt(0)} size={'xs'} />;
-    };
-
     return (
         <Box p={0} border={'0px solid green'} width={'100%'}>
             <Grid templateColumns={gridTemplateColumns} mb={1} mr={1}>
@@ -86,29 +78,23 @@ const DevBattleDetail = ({ devBattleId, teams }: Props) => {
                     // 팀 데이터가 있는 경우
                     <>
                         {teams.map((team) => (
-                            <GridItem key={team.id} border={"1px solid pink"}>
-                                <HStack spacing={2} p={2} alignItems={'center'} bgColor={"lightblue"}>
-                                    <VStack alignItems={'flex-start'} flex={7} border={"0px solid red"}>
-                                        <Text fontSize={'xl'} fontWeight={'bold'} textAlign={'left'}>
-                                            {team.name}
-                                        </Text>
-                                        {team.members.length > 0 ? (
-                                            <HStack spacing={2}>
-                                                {team.members.slice(0, 3).map((member: MemberForDevTeamResponse) => getMemberAvatar(member))}
-                                            </HStack>
-                                        ) : (
-                                            <Text>no members</Text>
-                                        )}
-                                    </VStack>
-
-                                    <Box display={"flex"} flex={1} justifyContent={'flex-end'} border={"0px solid red"}>
+                            <Box key={team.id} border={"1px solid pink"}>
+                                <Box bg={"blue.50"}>
+                                    <Box display={"flex"} justifyContent={"space-between"} p={1}>
+                                        <Box>
+                                            <Text fontSize={'xl'} fontWeight={'bold'}>
+                                                {team.name}
+                                            </Text>
+                                        </Box>
+                                        <Spacer />
                                         <DeleteButtonForTeamForDevBattle teamId={team.id} />
                                     </Box>
-                                </HStack>
-
-
-                                <Box p={2} bg={"lightyellow"}>
-                                    <Text>{team.description}</Text>
+                                    <Box mb={1} p={1}>
+                                        <MemberAvatarsWithRegisterButton teamId={team.id} members={team.members} />
+                                    </Box>
+                                    <Box p={2} bg={"lightyellow"}>
+                                        <Text>{team.description}</Text>
+                                    </Box>
                                 </Box>
                                 <Box mt={2}>
                                     <Box p={1} rounded="md">
@@ -162,7 +148,7 @@ const DevBattleDetail = ({ devBattleId, teams }: Props) => {
                                         ))}
                                     </Box>
                                 </Box>
-                            </GridItem>
+                            </Box>
                         ))}
                     </>
                 ) : (
