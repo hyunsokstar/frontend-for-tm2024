@@ -1,7 +1,8 @@
 import React from 'react'
-import { Box, Text, IconButton, Link, Button } from '@chakra-ui/react'
-import { FaCircle, FaFigma, FaFileAlt, FaYoutube, FaPlus } from 'react-icons/fa'
+import { Box, Text, IconButton, Link, Button, useDisclosure } from '@chakra-ui/react'
+import { FaCircle, FaFigma, FaFileAlt, FaYoutube, FaPlus, FaMinus } from 'react-icons/fa'
 import ModalButtonForAddDevProgressForTeam from '../Modal/ModalButtonForAddDevProgressForTeam'
+import DeleteDevProgressButton from '../Button/DeleteDevProgressButton'
 
 type DevProgressForTeamResponse = {
     id: number
@@ -15,6 +16,7 @@ type DevProgressForTeamResponse = {
 type Props = {
     teamId: number
     devProgressForTeams: DevProgressForTeamResponse[]
+    onDelete: (id: number) => void
 }
 
 const getStatusColor = (status: string) => {
@@ -32,24 +34,16 @@ const getStatusColor = (status: string) => {
     }
 }
 
-const DevProgressListWithCreateButton = ({ teamId, devProgressForTeams }: Props) => {
+const DevProgressListWithCreateButton = ({ teamId, devProgressForTeams, onDelete }: Props) => {
+
     return (
         <Box p={0} rounded="md" display="flex" flexDirection="column">
             <Box display="flex" justifyContent="flex-end" mb={1}>
-                {/* <Button
-                    size="xs"
-                    variant="outline"
-                    colorScheme="gray"
-                >
-                    <FaPlus />
-                </Button> */}
                 <ModalButtonForAddDevProgressForTeam teamId={teamId} />
             </Box>
             {devProgressForTeams.map((progress) => (
-                <Box display={"flex"} justifyContent={"space-between"} key={progress.id} mb={2}>
-                    <Text>{progress.task}</Text>
-
-                    <Box display={"flex"} gap={1} mb={1}>
+                <Box key={progress.id} display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+                    <Box display="flex" alignItems="center">
                         <IconButton
                             size="xs"
                             variant="outline"
@@ -57,6 +51,9 @@ const DevProgressListWithCreateButton = ({ teamId, devProgressForTeams }: Props)
                             aria-label={`Status ${progress.status}`}
                             icon={<FaCircle />}
                         />
+                        <Text ml={2}>{progress.task}</Text>
+                    </Box>
+                    <Box display="flex" alignItems="center" gap={1}>
                         {progress.figmaUrl && (
                             <IconButton
                                 as={Link}
@@ -90,6 +87,7 @@ const DevProgressListWithCreateButton = ({ teamId, devProgressForTeams }: Props)
                                 icon={<FaYoutube />}
                             />
                         )}
+                        <DeleteDevProgressButton progressId={progress.id} />
                     </Box>
                 </Box>
             ))}

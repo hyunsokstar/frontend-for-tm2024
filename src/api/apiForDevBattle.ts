@@ -25,6 +25,17 @@ instance.interceptors.request.use(
     }
 );
 
+export const apiForDeleteDevProgressForTeam = (idForProgressForDevBattle: number): Promise<void> => {
+    return instance.delete(`/progressForDevBattle/${idForProgressForDevBattle}`)
+        .then(() => {
+            console.log("Task deleted successfully");
+        })
+        .catch((error) => {
+            console.error("Error deleting task: ", error);
+            throw error;
+        });
+};
+
 export const apiForDevProgressForTeam = ({ teamId, addDevProgressForTeamDto }: IParameterForAddDevProgressForTeam): Promise<AxiosResponse<DevBattleResponse>> => {
     return instance.post(`/teams/${teamId}/progress`, addDevProgressForTeamDto);
 };
