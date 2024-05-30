@@ -1,7 +1,7 @@
 // src\api\apiForDevRelay.ts
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
-import { AddMemberForDevTeamDto, CreateDevBattleDto, DevBattleResponse, IParameterForAddMemberToDevBattle, IParameterForAddTeamToDevBattle, ParameterForCreateDevBattleDto } from "@/types/typeForDevBattle";
+import { CreateDevBattleDto, DevBattleResponse, IParameterForAddMemberToDevBattle, IParameterForAddTeamToDevBattle, ParameterForCreateDevBattleDto } from "@/types/typeForDevBattle";
 
 
 const instance = axios.create({
