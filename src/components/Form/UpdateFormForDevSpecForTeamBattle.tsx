@@ -2,12 +2,16 @@ import React, { useState, useEffect } from "react";
 import {
     FormControl,
     FormLabel,
-    Input,
     HStack,
     Text,
     Button,
+    IconButton,
+    Spacer,
 } from "@chakra-ui/react";
 import { DevSpecRowForTeamBattle } from "@/types/typeForDevBattle";
+import { CheckIcon, EditIcon } from "@chakra-ui/icons";
+import EditableInputForDevSpecForTeam from "../Input/EditableInputForDevSpecForTeam";
+
 
 type Props = {
     teamId: number;
@@ -21,9 +25,6 @@ const UpdateFormForDevSpecForTeamBattle = ({ teamId, devSpec }: Props) => {
     const [css, setCss] = useState("");
     const [app, setApp] = useState("");
 
-    console.log("devSpec for updateform: ", devSpec);
-
-
     useEffect(() => {
         if (devSpec) {
             setBackendLanguage(devSpec.backendLanguage || "");
@@ -36,50 +37,40 @@ const UpdateFormForDevSpecForTeamBattle = ({ teamId, devSpec }: Props) => {
 
     return (
         <>
-            <FormControl mb={4}>
-                <FormLabel>Back-end Language</FormLabel>
-                <Input
-                    size="xs"
-                    value={backendLanguage}
-                    onChange={(e) => setBackendLanguage(e.target.value)}
-                />
-            </FormControl>
+            <EditableInputForDevSpecForTeam
+                label="backendLanguage"
+                value={backendLanguage}
+                onChange={setBackendLanguage}
+                teamId={teamId}
+            />
 
-            <FormControl mb={4}>
-                <FormLabel>Front-end Language</FormLabel>
-                <Input
-                    size="xs"
-                    value={frontendLanguage}
-                    onChange={(e) => setFrontendLanguage(e.target.value)}
-                />
-            </FormControl>
+            <EditableInputForDevSpecForTeam
+                label="frontendLanguage"
+                value={frontendLanguage}
+                onChange={setFrontendLanguage}
+                teamId={teamId}
+            />
 
-            <FormControl mb={4}>
-                <FormLabel>ORM</FormLabel>
-                <Input
-                    size="xs"
-                    value={orm}
-                    onChange={(e) => setOrm(e.target.value)}
-                />
-            </FormControl>
+            <EditableInputForDevSpecForTeam
+                label="orm"
+                value={orm}
+                onChange={setOrm}
+                teamId={teamId}
+            />
 
-            <FormControl mb={4}>
-                <FormLabel>CSS</FormLabel>
-                <Input
-                    size="xs"
-                    value={css}
-                    onChange={(e) => setCss(e.target.value)}
-                />
-            </FormControl>
+            <EditableInputForDevSpecForTeam
+                label="css"
+                value={css}
+                onChange={setCss}
+                teamId={teamId}
+            />
 
-            <FormControl mb={4}>
-                <FormLabel>App</FormLabel>
-                <Input
-                    size="xs"
-                    value={app}
-                    onChange={(e) => setApp(e.target.value)}
-                />
-            </FormControl>
+            <EditableInputForDevSpecForTeam
+                label="app"
+                value={app}
+                onChange={setApp}
+                teamId={teamId}
+            />
         </>
     );
 };

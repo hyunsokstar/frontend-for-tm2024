@@ -1,7 +1,7 @@
 // src\api\apiForDevRelay.ts
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
-import { CreateDevBattleDto, DevBattleResponse, IDevSpecForTeamBattleUpdateDto, IParameterForAddDevProgressForTeam, IParameterForAddMemberToDevBattle, IParameterForAddTeamToDevBattle, IParameterForTeamBattleUpdateDto, ParameterForCreateDevBattleDto } from "@/types/typeForDevBattle";
+import { CreateDevBattleDto, DevBattleResponse, IDevSpecForTeamBattleUpdateDto, IParameterForAddDevProgressForTeam, IParameterForAddMemberToDevBattle, IParameterForAddTeamToDevBattle, IParameterForTeamBattleUpdateDto, IParameterForUpdateForSpecificDevSpecForNotArryTypeForTeamBattle, ParameterForCreateDevBattleDto } from "@/types/typeForDevBattle";
 
 
 const instance = axios.create({
@@ -24,6 +24,17 @@ instance.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+export const apiForUpdateForSpecificDevSpecForNotArryTypeForTeamBattle = async (
+    parameters: IParameterForUpdateForSpecificDevSpecForNotArryTypeForTeamBattle
+): Promise<AxiosResponse<{ message: string }>> => {
+    const { teamId, fieldName, itemText } = parameters;
+    const response = await instance.patch<{ message: string }>(
+        `/team/${teamId}/update-dev-spec/${fieldName}`,
+        { itemText }
+    );
+    return response;
+};
 
 export const apiForAddItemToSpecificFieldForDevSpec = (
     { teamId,

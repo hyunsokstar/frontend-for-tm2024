@@ -1,42 +1,41 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useToast } from '@chakra-ui/react';
-import { apiForAddItemToSpecificFieldForDevSpec } from '@/api/apiForDevBattle';
-import { IDevSpecForTeamBattleUpdateDto } from '@/types/typeForDevBattle';
+import { apiForUpdateForSpecificDevSpecForNotArryTypeForTeamBattle } from '@/api/apiForDevBattle';
 
 interface IProps {
     teamId: number; // Assuming the type
-    devSpecForTeamBattleUpdateDto: IDevSpecForTeamBattleUpdateDto
+    fieldName: string;
+    itemText: string;
 }
 
-const useApiForAddItemToSpecificFieldForTeamDevSpec = () => {
+const useApiForUpdateForSpecificDevSpecForNotArryTypeForTeamBattle = () => {
     const queryClient = useQueryClient();
     const toast = useToast();
 
     return useMutation({
-        mutationFn: ({
-            teamId,
-            devSpecForTeamBattleUpdateDto
-        }: IProps) => apiForAddItemToSpecificFieldForDevSpec({
-            teamId: teamId,
-            devSpecForTeamBattleUpdateDto: devSpecForTeamBattleUpdateDto
-        }),
+        mutationFn: ({ teamId, fieldName, itemText }: IProps) =>
+            apiForUpdateForSpecificDevSpecForNotArryTypeForTeamBattle({
+                teamId: teamId,
+                fieldName: fieldName,
+                itemText: itemText,
+            }),
         onSuccess: (data: any) => {
             queryClient.refetchQueries({
                 queryKey: ['apiForFindAllDevBattleList'],
             });
 
             toast({
-                title: "Library added successfully",
+                title: "Dev spec updated successfully",
                 status: "success",
                 duration: 2000,
                 isClosable: true,
             });
         },
         onError: (error: any) => {
-            console.error("Error adding library: ", error);
+            console.error("Error updating dev spec: ", error);
 
             toast({
-                title: "Error adding library",
+                title: "Error updating dev spec",
                 description: error.response.data.message,
                 status: "error",
                 duration: 2000,
@@ -46,4 +45,4 @@ const useApiForAddItemToSpecificFieldForTeamDevSpec = () => {
     });
 };
 
-export default useApiForAddItemToSpecificFieldForTeamDevSpec;
+export default useApiForUpdateForSpecificDevSpecForNotArryTypeForTeamBattle;

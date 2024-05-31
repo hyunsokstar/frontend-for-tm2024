@@ -117,3 +117,9 @@ export interface IParameterForTeamBattleUpdateDto {
     teamId: number,
     devSpecForTeamBattleUpdateDto: IDevSpecForTeamBattleUpdateDto
 }
+
+export interface IParameterForUpdateForSpecificDevSpecForNotArryTypeForTeamBattle {
+    teamId: number;
+    fieldName: string;
+    itemText: string;
+}
