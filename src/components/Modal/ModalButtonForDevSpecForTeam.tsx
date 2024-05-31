@@ -42,7 +42,7 @@ const ModalButtonForAddItemToSpecificFieldForTeamDevSpec = ({ teamId, devSpec }:
                 Dev Spec
             </Button>
 
-            <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} size={"3xl"}>
+            <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} size={"4xl"}>
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>Dev Spec</ModalHeader>
@@ -51,12 +51,6 @@ const ModalButtonForAddItemToSpecificFieldForTeamDevSpec = ({ teamId, devSpec }:
                         <DevSpecForm teamId={teamId} devSpec={devSpec} onUpdate={handleUpdate} />
                     </ModalBody>
 
-                    <ModalFooter>
-                        <Button colorScheme="blue" mr={3}>
-                            Update
-                        </Button>
-                        <Button onClick={() => setIsOpen(false)}>Cancel</Button>
-                    </ModalFooter>
                 </ModalContent>
             </Modal>
         </>

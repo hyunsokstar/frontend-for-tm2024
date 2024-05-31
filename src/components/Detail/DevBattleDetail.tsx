@@ -10,7 +10,7 @@ import {
     Button,
 } from '@chakra-ui/react';
 import ChattingForDevBattle from '../ChatBoard/ChattingForDevBattle';
-import { MemberForDevTeamResponse, TeamForDevBattleResponse } from '@/types/typeForDevBattle';
+import { TeamForDevBattleResponse } from '@/types/typeForDevBattle';
 import ModalButtonForAddTeamForDevBattle from '../Modal/ModalButtonForAddTeamForDevBattle';
 import DeleteButtonForTeamForDevBattle from '../Button/DeleteButtonForTeamForDevBattle';
 import MemberAvatarsWithRegisterButton from '../Info/MembersInfoWithRegisterButton';

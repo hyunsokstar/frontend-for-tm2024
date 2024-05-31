@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import ModalButtonForAddItemToSpecificFieldForTeamDecSpec from "../Modal/ModalButtonForAddItemToSpecificFieldForTeamDecSpec";
 import { DevSpecRowForTeamBattle } from "@/types/typeForDevBattle";
+import UpdateFormForDevSpecForTeamBattle from "./UpdateFormForDevSpecForTeamBattle";
 
 type Props = {
     teamId: number;
@@ -36,14 +37,9 @@ const DevSpecForm = ({ teamId, onUpdate, devSpec }: Props) => {
     const [orm, setOrm] = useState("");
     const [css, setCss] = useState("");
     const [app, setApp] = useState("");
-
-    // Initialize backendLibrary state with the backendLibrary array from the devSpec prop,
-    // or an empty array if devSpec is undefined or the backendLibrary property is null
     const [backendLibrary, setBackendLibrary] = useState<string[]>([]);
 
     useEffect(() => {
-        // Update backendLibrary state with the backendLibrary array from the devSpec prop,
-        // or an empty array if devSpec is undefined or the backendLibrary property is null
         if (devSpec?.backendLibrary) {
             setBackendLibrary(devSpec.backendLibrary);
         }
@@ -63,57 +59,14 @@ const DevSpecForm = ({ teamId, onUpdate, devSpec }: Props) => {
         setBackendLibrary(backendLibrary.filter((_, i) => i !== index));
     };
 
-    // Generate an array of random colors
-    const tagColors = Array.from({ length: backendLibrary.length }, () => useColorModeValue("pink.500", "pink.200"));
-
     return (
         <Box>
-            <Grid templateColumns="1fr 1fr" gap={6}> {/* Modify templateColumns prop here */}
+            <Grid templateColumns="1fr 2fr" gap={6}>
                 <GridItem>
-                    <FormControl mb={4}>
-                        <FormLabel>Back-end Language</FormLabel>
-                        <Input
-                            size="xs"
-                            value={backendLanguage}
-                            onChange={(e) => setBackendLanguage(e.target.value)}
-                        />
-                    </FormControl>
-
-                    <FormControl mb={4}>
-                        <FormLabel>Front-end Language</FormLabel>
-                        <Input
-                            size="xs"
-                            value={frontendLanguage}
-                            onChange={(e) => setFrontendLanguage(e.target.value)}
-                        />
-                    </FormControl>
-
-                    <FormControl mb={4}>
-                        <FormLabel>ORM</FormLabel>
-                        <Input
-                            size="xs"
-                            value={orm}
-                            onChange={(e) => setOrm(e.target.value)}
-                        />
-                    </FormControl>
-
-                    <FormControl mb={4}>
-                        <FormLabel>CSS</FormLabel>
-                        <Input
-                            size="xs"
-                            value={css}
-                            onChange={(e) => setCss(e.target.value)}
-                        />
-                    </FormControl>
-
-                    <FormControl mb={4}>
-                        <FormLabel>App</FormLabel>
-                        <Input
-                            size="xs"
-                            value={app}
-                            onChange={(e) => setApp(e.target.value)}
-                        />
-                    </FormControl>
+                    <UpdateFormForDevSpecForTeamBattle
+                        devSpec={devSpec}
+                        teamId={teamId}
+                    />
                 </GridItem>
 
                 <GridItem>
@@ -142,11 +95,7 @@ const DevSpecForm = ({ teamId, onUpdate, devSpec }: Props) => {
                     </FormControl>
                 </GridItem>
             </Grid>
-            <Box mt={4}>
-                <Button colorScheme="blue" mr={3} onClick={handleUpdate}>
-                    Update
-                </Button>
-            </Box>
+
         </Box>
     );
 };
