@@ -10,23 +10,16 @@ import {
     Button,
 } from '@chakra-ui/react';
 import ChattingForDevBattle from '../ChatBoard/ChattingForDevBattle';
-import { MemberForDevTeamResponse } from '@/types/typeForDevBattle';
+import { MemberForDevTeamResponse, TeamForDevBattleResponse } from '@/types/typeForDevBattle';
 import ModalButtonForAddTeamForDevBattle from '../Modal/ModalButtonForAddTeamForDevBattle';
 import DeleteButtonForTeamForDevBattle from '../Button/DeleteButtonForTeamForDevBattle';
 import MemberAvatarsWithRegisterButton from '../Info/MembersInfoWithRegisterButton';
 import DevProgressListWithCreateButton from '../List/DevProgressListWithCreateButton';
 import ModalButtonForDevSpecForTeam from '../Modal/ModalButtonForDevSpecForTeam';
 
-interface Team {
-    devProgressForTeams: any;
-    id: number;
-    name: string;
-    description: string;
-    members: MemberForDevTeamResponse[]
-}
 
 interface Props {
-    teams: Team[];
+    teams: TeamForDevBattleResponse[];
     devBattleId: number;
 }
 
@@ -73,7 +66,7 @@ const DevBattleDetail = ({ devBattleId, teams }: Props) => {
                                                 </Text>
                                             </GridItem>
                                             <GridItem>
-                                                <ModalButtonForDevSpecForTeam />
+                                                <ModalButtonForDevSpecForTeam teamId={team.id} devSpec={team.devSpecs[0]} />
                                             </GridItem>
                                         </Grid>
                                     </Box>

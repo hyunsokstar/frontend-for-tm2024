@@ -55,6 +55,20 @@ export interface MemberForDevTeamResponse {
     user: UserResponse;
 }
 
+export interface DevSpecRowForTeamBattle {
+    id?: number;
+    backendLanguage: string | null;
+    frontendLanguage: string | null;
+    backendLibrary: string[] | null;
+    frontendLibrary: string[] | null;
+    orm: string | null;
+    css: string | null;
+    app: string | null;
+    collaborationTool: string[] | null;
+    devops: string[] | null;
+    createdAt?: Date;
+}
+
 export interface TeamForDevBattleResponse {
     id: number;
     name: string;
@@ -62,6 +76,7 @@ export interface TeamForDevBattleResponse {
     createdAt: Date;
     devProgressForTeams: DevProgressForTeamResponse[];
     members: MemberForDevTeamResponse[];
+    devSpecs: DevSpecRowForTeamBattle[]
 }
 
 export interface DevBattleResponse {
