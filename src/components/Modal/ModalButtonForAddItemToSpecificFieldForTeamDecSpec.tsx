@@ -15,19 +15,34 @@ import {
     Button,
 } from "@chakra-ui/react";
 import { AddIcon } from '@chakra-ui/icons';
+import useApiForAddItemToSpecificFieldForTeamDevSpec from '@/hooks/useApiForAddItemToSpecificFieldForTeamDevSpec';
 
 type Props = {
     teamId: number;
     fieldName: string;
 };
 
-const ModalButtonForAddLibrary = (props: Props) => {
+const ModalButtonForAddItemToSpecificFieldForTeamDecSpec = ({ teamId, fieldName }: Props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [library, setLibrary] = useState("");
+    const [itemText, setItemText] = useState('');
+
+    // Initialize the custom hook
+    const { mutate: addItem } = useApiForAddItemToSpecificFieldForTeamDevSpec();
 
     const handleSubmit = () => {
-        console.log(`Team ID: ${props.teamId}, Field Name: ${props.fieldName}, Library: ${library}`);
+        // Update the devSpecForTeamBattleUpdateDto with the current itemText
+        addItem({
+            teamId: teamId,
+            devSpecForTeamBattleUpdateDto: {
+                fieldName: fieldName,
+                itemText: itemText,
+            }
+        });
         onClose();
+    };
+
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setItemText(event.target.value);
     };
 
     return (
@@ -43,16 +58,12 @@ const ModalButtonForAddLibrary = (props: Props) => {
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>{props.fieldName}</ModalHeader>
+                    <ModalHeader>{fieldName}</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
                         <FormControl>
-                            <FormLabel>{props.fieldName}</FormLabel>
-                            <Input
-                                type="text"
-                                value={library}
-                                onChange={(e) => setLibrary(e.target.value)}
-                            />
+                            <FormLabel>{fieldName}</FormLabel>
+                            <Input type="text" value={itemText} onChange={handleInputChange} />
                         </FormControl>
                     </ModalBody>
 
@@ -67,4 +78,4 @@ const ModalButtonForAddLibrary = (props: Props) => {
     );
 };
 
-export default ModalButtonForAddLibrary;
+export default ModalButtonForAddItemToSpecificFieldForTeamDecSpec;

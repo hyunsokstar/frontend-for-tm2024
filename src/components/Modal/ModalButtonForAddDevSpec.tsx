@@ -15,7 +15,6 @@ import {
     Text,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
-import useApiForCreateDevSpec from '@/hooks/useApiForCreateDevSpec';
 
 interface FormValues {
     spec: string;
@@ -28,10 +27,9 @@ interface Props {
 const ModalButtonForAddDevSpec = (props: Props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
-    const createDevSpecMutation = useApiForCreateDevSpec();
 
     const onSubmitForm = (values: FormValues) => {
-        createDevSpecMutation.mutate({ ...values, category: props.category });
+        console.log("values : ", values);
         onClose();
     };
 

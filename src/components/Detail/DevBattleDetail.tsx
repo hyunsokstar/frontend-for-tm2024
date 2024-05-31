@@ -66,6 +66,7 @@ const DevBattleDetail = ({ devBattleId, teams }: Props) => {
                                                 </Text>
                                             </GridItem>
                                             <GridItem>
+                                                {/* {team.id} */}
                                                 <ModalButtonForDevSpecForTeam teamId={team.id} devSpec={team.devSpecs[0]} />
                                             </GridItem>
                                         </Grid>

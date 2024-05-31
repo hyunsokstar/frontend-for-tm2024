@@ -1,7 +1,7 @@
 // src\api\apiForDevRelay.ts
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
-import { CreateDevBattleDto, DevBattleResponse, IParameterForAddDevProgressForTeam, IParameterForAddMemberToDevBattle, IParameterForAddTeamToDevBattle, ParameterForCreateDevBattleDto } from "@/types/typeForDevBattle";
+import { CreateDevBattleDto, DevBattleResponse, IDevSpecForTeamBattleUpdateDto, IParameterForAddDevProgressForTeam, IParameterForAddMemberToDevBattle, IParameterForAddTeamToDevBattle, IParameterForTeamBattleUpdateDto, ParameterForCreateDevBattleDto } from "@/types/typeForDevBattle";
 
 
 const instance = axios.create({
@@ -24,6 +24,15 @@ instance.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+export const apiForAddItemToSpecificFieldForDevSpec = (
+    { teamId,
+        devSpecForTeamBattleUpdateDto
+    }: IParameterForTeamBattleUpdateDto
+): Promise<AxiosResponse<void>> => {
+    const url = `/team/${teamId}/update-dev-spec-specific-field`;
+    return instance.patch(url, devSpecForTeamBattleUpdateDto);
+};
 
 export const apiForDeleteDevProgressForTeam = (idForProgressForDevBattle: number): Promise<void> => {
     return instance.delete(`/progressForDevBattle/${idForProgressForDevBattle}`)

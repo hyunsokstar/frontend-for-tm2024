@@ -1,19 +1,30 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useToast } from '@chakra-ui/react';
 import { addLibraryToFavoriteDevSpec } from '@/api/apiForFavoriteDevSpec';
+import { apiForAddItemToSpecificFieldForDevSpec } from '@/api/apiForDevBattle';
+import { IDevSpecForTeamBattleUpdateDto } from '@/types/typeForDevBattle';
 
 interface IProps {
-    favoriteDevSpecId: number; // Assuming the type
+    teamId: number; // Assuming the type
+    devSpecForTeamBattleUpdateDto: IDevSpecForTeamBattleUpdateDto
 }
 
-const useApiForAddLibraryToFavoriteDevSpec = ({ favoriteDevSpecId }: IProps) => {
+const useApiForAddItemToSpecificFieldForTeamDevSpec = () => {
     const queryClient = useQueryClient();
     const toast = useToast();
 
     return useMutation({
-        mutationFn: addLibraryToFavoriteDevSpec,
+        mutationFn: ({
+            teamId,
+            devSpecForTeamBattleUpdateDto
+        }: IProps) => apiForAddItemToSpecificFieldForDevSpec({
+            teamId: teamId,
+            devSpecForTeamBattleUpdateDto: devSpecForTeamBattleUpdateDto
+        }),
         onSuccess: (data: any) => {
-            queryClient.invalidateQueries({ queryKey: ['favoriteDevSpecs'] }); // Assuming the query key
+            queryClient.refetchQueries({
+                queryKey: ['apiForFindAllDevBattleList'],
+            });
 
             toast({
                 title: "Library added successfully",
@@ -36,4 +47,4 @@ const useApiForAddLibraryToFavoriteDevSpec = ({ favoriteDevSpecId }: IProps) => 
     });
 };
 
-export default useApiForAddLibraryToFavoriteDevSpec;
+export default useApiForAddItemToSpecificFieldForTeamDevSpec;

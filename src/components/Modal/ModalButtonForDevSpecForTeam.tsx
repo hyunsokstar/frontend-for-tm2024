@@ -8,17 +8,7 @@ import {
     ModalBody,
     ModalCloseButton,
     Button,
-    Box,
-    FormControl,
-    FormLabel,
-    Input,
-    Flex,
-    IconButton,
-    Wrap,
-    WrapItem,
-    Tag,
-    TagLabel,
-    TagCloseButton,
+
 } from "@chakra-ui/react";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
 import { DevSpecRowForTeamBattle } from "@/types/typeForDevBattle";
@@ -29,49 +19,16 @@ type Props = {
     devSpec: DevSpecRowForTeamBattle | undefined;
 };
 
-const ModalButtonForDevSpecForTeam = ({ teamId, devSpec }: Props) => {
+
+const ModalButtonForAddItemToSpecificFieldForTeamDevSpec = ({ teamId, devSpec }: Props) => {
     const [isOpen, setIsOpen] = useState(false);
 
-    const [backendLanguage, setBackendLanguage] = useState(
-        devSpec?.backendLanguage || ""
-    );
-    const [frontendLanguage, setFrontendLanguage] = useState(
-        devSpec?.frontendLanguage || ""
-    );
-    const [backendLibrary, setBackendLibrary] = useState<string[]>(
-        devSpec?.backendLibrary || []
-    );
-    const [frontendLibrary, setFrontendLibrary] = useState<string[]>(
-        devSpec?.frontendLibrary || []
-    );
-    const [orm, setOrm] = useState(devSpec?.orm || "");
-    const [css, setCss] = useState(devSpec?.css || "");
-    const [app, setApp] = useState(devSpec?.app || "");
-    const [collaborationTool, setCollaborationTool] = useState<string[]>(
-        devSpec?.collaborationTool || []
-    );
+    console.log("teamId ::::::::", teamId);
 
-    const [newBackendLibraryItem, setNewBackendLibraryItem] = useState("");
-    const [newFrontendLibraryItem, setNewFrontendLibraryItem] = useState("");
-    const [newCollaborationToolItem, setNewCollaborationToolItem] = useState("");
-    const [newDevopsItem, setNewDevopsItem] = useState("");
 
-    const [isNewBackendLibraryItemConfirmed, setIsNewBackendLibraryItemConfirmed] =
-        useState(false);
-    const [isNewFrontendLibraryItemConfirmed, setIsNewFrontendLibraryItemConfirmed] =
-        useState(false);
-    const [isNewCollaborationToolItemConfirmed, setIsNewCollaborationToolItemConfirmed] =
-        useState(false);
+    const handleUpdate = () => {
+        console.log("handle update!");
 
-    const handleUpdate = (
-        backendLanguage: string,
-        frontendLanguage: string,
-        orm: string,
-        css: string,
-        app: string,
-        backendLibrary: string[]
-    ) => {
-        console.log("hi");
     }
 
     return (
@@ -91,7 +48,7 @@ const ModalButtonForDevSpecForTeam = ({ teamId, devSpec }: Props) => {
                     <ModalHeader>Dev Spec</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        <DevSpecForm teamId={teamId} onUpdate={handleUpdate} />
+                        <DevSpecForm teamId={teamId} devSpec={devSpec} onUpdate={handleUpdate} />
                     </ModalBody>
 
                     <ModalFooter>
@@ -106,4 +63,4 @@ const ModalButtonForDevSpecForTeam = ({ teamId, devSpec }: Props) => {
     );
 };
 
-export default ModalButtonForDevSpecForTeam;
+export default ModalButtonForAddItemToSpecificFieldForTeamDevSpec;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
     Box,
     FormControl,
@@ -15,8 +15,8 @@ import {
     HStack,
     Text,
 } from "@chakra-ui/react";
-import { AddIcon, MinusIcon } from "@chakra-ui/icons";
-import ModalButtonForAddLibrary from "../Modal/ModalButtonForAddLibrary";
+import ModalButtonForAddItemToSpecificFieldForTeamDecSpec from "../Modal/ModalButtonForAddItemToSpecificFieldForTeamDecSpec";
+import { DevSpecRowForTeamBattle } from "@/types/typeForDevBattle";
 
 type Props = {
     teamId: number;
@@ -26,17 +26,28 @@ type Props = {
         orm: string,
         css: string,
         app: string,
-        backendLibrary: string[]
     ) => void;
+    devSpec: DevSpecRowForTeamBattle | undefined;
 };
 
-const DevSpecForm = ({ teamId, onUpdate }: Props) => {
+const DevSpecForm = ({ teamId, onUpdate, devSpec }: Props) => {
     const [backendLanguage, setBackendLanguage] = useState("");
     const [frontendLanguage, setFrontendLanguage] = useState("");
     const [orm, setOrm] = useState("");
     const [css, setCss] = useState("");
     const [app, setApp] = useState("");
-    const [backendLibrary, setBackendLibrary] = useState<string[]>(["docker", "Kubernetes"]);
+
+    // Initialize backendLibrary state with the backendLibrary array from the devSpec prop,
+    // or an empty array if devSpec is undefined or the backendLibrary property is null
+    const [backendLibrary, setBackendLibrary] = useState<string[]>([]);
+
+    useEffect(() => {
+        // Update backendLibrary state with the backendLibrary array from the devSpec prop,
+        // or an empty array if devSpec is undefined or the backendLibrary property is null
+        if (devSpec?.backendLibrary) {
+            setBackendLibrary(devSpec.backendLibrary);
+        }
+    }, [devSpec]);
 
     const handleUpdate = () => {
         onUpdate(
@@ -45,7 +56,6 @@ const DevSpecForm = ({ teamId, onUpdate }: Props) => {
             orm,
             css,
             app,
-            backendLibrary
         );
     };
 
@@ -112,8 +122,7 @@ const DevSpecForm = ({ teamId, onUpdate }: Props) => {
                             <Text>
                                 Back-end Library
                             </Text>
-
-                            <ModalButtonForAddLibrary teamId={teamId} fieldName={"backendLibrary"} />
+                            <ModalButtonForAddItemToSpecificFieldForTeamDecSpec teamId={teamId} fieldName={"backendLibrary"} />
 
                         </FormLabel>
                         <HStack spacing={1}>

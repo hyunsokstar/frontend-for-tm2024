@@ -11,7 +11,7 @@ export interface DevStatus {
 }
 
 export interface DevProgressForTeamResponse {
-    id: string;
+    id: number;
     task: string;
     figmaUrl: string;
     youtubeUrl: string;
@@ -106,4 +106,14 @@ export interface IParameterForAddTeamToDevBattle {
 export interface IParameterForAddMemberToDevBattle {
     teamId: number,
     memberId: number
+}
+
+export interface IDevSpecForTeamBattleUpdateDto {
+    fieldName: string;
+    itemText: string;
+}
+
+export interface IParameterForTeamBattleUpdateDto {
+    teamId: number,
+    devSpecForTeamBattleUpdateDto: IDevSpecForTeamBattleUpdateDto
 }

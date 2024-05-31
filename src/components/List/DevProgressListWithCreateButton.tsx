@@ -3,15 +3,7 @@ import { Box, Text, IconButton, Link, Button, useDisclosure } from '@chakra-ui/r
 import { FaCircle, FaFigma, FaFileAlt, FaYoutube, FaPlus, FaMinus } from 'react-icons/fa'
 import ModalButtonForAddDevProgressForTeam from '../Modal/ModalButtonForAddDevProgressForTeam'
 import DeleteDevProgressButton from '../Button/DeleteDevProgressButton'
-
-type DevProgressForTeamResponse = {
-    id: number
-    task: string
-    figmaUrl?: string
-    youtubeUrl?: string
-    noteUrl?: string
-    status: string
-}
+import { DevProgressForTeamResponse } from '@/types/typeForDevBattle'
 
 type Props = {
     teamId: number

@@ -1,4 +1,3 @@
-import { apiForAddItemToSpecificFieldForDevSpec } from '@/api/apiForDevBattle';
 import { apiForSimpleCreateSupplementaryTodo, apiForSimpleCreateTodo } from '@/api/apiForTodos';
 import { RootState } from '@/store';
 import { useToast } from '@chakra-ui/react';
@@ -15,15 +14,15 @@ const useApiForSimpleCreateXXXXXXXXXX = ({ }: IProps) => {
 
 
     const useApiForSimpleCreateXXXXXX = useMutation({
-        mutationFn: apiForAddItemToSpecificFieldForDevSpec,
+        mutationFn: apiForSimpleCreateSupplementaryTodo,
         onSuccess: (data: any) => {
 
             queryClient.refetchQueries({
-                queryKey: ['apiForFindAllDevBattleList'],
+                queryKey: ['xxxxxxxxxxxxxxxx'],
             });
 
             toast({
-                title: "Item Added to  SpecificField For DevSpec",
+                title: "Todo created successfully",
                 status: "success",
                 duration: 2000,
                 isClosable: true,
