@@ -3,11 +3,11 @@ export interface TagForDevBattleResponse {
     name: string;
 }
 
-export interface DevStatus {
-    READY: 'ready';
-    IN_PROGRESS: 'in_progress';
-    TEST: 'test';
-    COMPLETE: 'complete';
+export enum DevStatus {
+    READY = 'ready',
+    IN_PROGRESS = 'in_progress',
+    TEST = 'test',
+    COMPLETE = 'complete'
 }
 
 export interface DevProgressForTeamResponse {

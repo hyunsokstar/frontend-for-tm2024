@@ -66,4 +66,5 @@ const ModalButtonForAddLibraryInfoForFavoriteDevSpec = ({ idForFavoriteDevSpec }
     )
 }
 
-export default ModalButtonForAddLibraryInfoForFavoriteDevSpec
+
+export default ModalButtonForAddLibraryInfoForFavoriteDevSpec;

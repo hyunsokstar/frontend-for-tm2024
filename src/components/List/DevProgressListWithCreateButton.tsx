@@ -3,14 +3,14 @@ import { Box, Text, IconButton, Link, Button, useDisclosure } from '@chakra-ui/r
 import { FaCircle, FaFigma, FaFileAlt, FaYoutube, FaPlus, FaMinus } from 'react-icons/fa'
 import ModalButtonForAddDevProgressForTeam from '../Modal/ModalButtonForAddDevProgressForTeam'
 import DeleteDevProgressButton from '../Button/DeleteDevProgressButton'
-import { DevProgressForTeamResponse } from '@/types/typeForDevBattle'
+import { DevProgressForTeamResponse, DevStatus } from '@/types/typeForDevBattle'
 
 type Props = {
     teamId: number
     devProgressForTeams: DevProgressForTeamResponse[]
 }
 
-const getStatusColor = (status: string) => {
+const getStatusColor = (status: DevStatus) => {
     switch (status) {
         case 'ready':
             return 'green'
