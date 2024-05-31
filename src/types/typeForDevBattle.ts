@@ -60,13 +60,13 @@ export interface DevSpecRowForTeamBattle {
     backendLanguage: string | null;
     frontendLanguage: string | null;
     orm: string | null;
-    css: string | null;
-    app: string | null;
-    createdAt?: Date;
     backendLibrary: string[] | null;
     frontendLibrary: string[] | null;
     collaborationTool: string[] | null;
     devops: string[] | null;
+    css: string | null;
+    app: string | null;
+    createdAt?: Date;
 }
 
 export interface TeamForDevBattleResponse {

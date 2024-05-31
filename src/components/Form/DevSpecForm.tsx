@@ -14,8 +14,9 @@ import {
     Divider,
 } from "@chakra-ui/react";
 import ModalButtonForAddItemToSpecificFieldForTeamDecSpec from "../Modal/ModalButtonForAddItemToSpecificFieldForTeamDecSpec";
-import { DevSpecRowForTeamBattle } from "@/types/typeForDevBattle";
 import UpdateFormForDevSpecForTeamBattle from "./UpdateFormForDevSpecForTeamBattle";
+import UpdateFieldFormForDevSpecForArrayFieldForDevTeam from "./UpdateFieldFormForDevSpecForArrayFieldForDevTeam";
+import { DevSpecRowForTeamBattle } from "@/types/typeForDevBattle";
 
 type Props = {
     teamId: number;
@@ -25,6 +26,10 @@ type Props = {
         orm: string,
         css: string,
         app: string,
+        backendLibrary: string[] | null,
+        frontendLibrary: string[] | null,
+        collaborationTool: string[] | null,
+        devops: string[] | null,
     ) => void;
     devSpec: DevSpecRowForTeamBattle | undefined;
 };
@@ -36,69 +41,82 @@ const DevSpecForm = ({ teamId, onUpdate, devSpec }: Props) => {
     const [css, setCss] = useState("");
     const [app, setApp] = useState("");
     const [backendLibrary, setBackendLibrary] = useState<string[]>([]);
+    const [frontendLibrary, setFrontendLibrary] = useState<string[]>([]);
+    const [collaborationTool, setCollaborationTool] = useState<string[]>([]);
+    const [devops, setDevops] = useState<string[]>([]);
 
     useEffect(() => {
-        if (devSpec?.backendLibrary) {
-            setBackendLibrary(devSpec.backendLibrary);
+        if (devSpec) {
+            setBackendLanguage(devSpec.backendLanguage || "");
+            setFrontendLanguage(devSpec.frontendLanguage || "");
+            setOrm(devSpec.orm || "");
+            setCss(devSpec.css || "");
+            setApp(devSpec.app || "");
+            setBackendLibrary(devSpec.backendLibrary || []);
+            setFrontendLibrary(devSpec.frontendLibrary || []);
+            setCollaborationTool(devSpec.collaborationTool || []);
+            setDevops(devSpec.devops || []);
         }
     }, [devSpec]);
-
-    const handleUpdate = () => {
-        onUpdate(
-            backendLanguage,
-            frontendLanguage,
-            orm,
-            css,
-            app,
-        );
-    };
 
     const removeFromBackendLibrary = (index: number) => {
         setBackendLibrary(backendLibrary.filter((_, i) => i !== index));
     };
 
+    const removeFromFrontendLibrary = (index: number) => {
+        setFrontendLibrary(frontendLibrary.filter((_, i) => i !== index));
+    };
+
+    const removeFromCollaborationTool = (index: number) => {
+        setCollaborationTool(collaborationTool.filter((_, i) => i !== index));
+    };
+
+    const removeFromDevops = (index: number) => {
+        setDevops(devops.filter((_, i) => i !== index));
+    };
+
     return (
         <Box>
-            <Grid templateColumns="1fr 1px 2fr" gap={6}> {/* Updated templateColumns prop here */}
-                <GridItem>
+            <Grid templateColumns="1fr 0fr 2fr" gap={3}>
+                <GridItem padding="0 2px">
                     <UpdateFormForDevSpecForTeamBattle
                         devSpec={devSpec}
                         teamId={teamId}
                     />
                 </GridItem>
-
-                <GridItem mx={2}> {/* Added GridItem for the divider */}
-                    <Divider orientation="vertical" /> {/* Added Divider component and rotated it */}
+                <GridItem mx={2}>
+                    <Divider orientation="vertical" />
                 </GridItem>
-
-                <GridItem>
-                    <FormControl>
-                        <FormLabel display={"flex"} justifyContent={"space-between"}>
-                            <Text>
-                                Back-end Library
-                            </Text>
-                            <ModalButtonForAddItemToSpecificFieldForTeamDecSpec teamId={teamId} fieldName={"backendLibrary"} />
-                        </FormLabel>
-                        <HStack spacing={1}>
-                            {backendLibrary.map((item, index) => (
-                                <Tag
-                                    size={"sm"}
-                                    key={index}
-                                    borderRadius='full'
-                                    variant='solid'
-                                    colorScheme='green'
-                                >
-                                    <TagLabel>{item}</TagLabel>
-                                    <TagCloseButton onClick={() => removeFromBackendLibrary(index)} />
-                                </Tag>
-                            ))}
-                        </HStack>
-                    </FormControl>
+                <GridItem display={"flex"} flexDirection={"column"} gap={3}>
+                    <UpdateFieldFormForDevSpecForArrayFieldForDevTeam
+                        teamId={teamId}
+                        fieldName="backendLibrary"
+                        items={backendLibrary}
+                        onRemove={removeFromBackendLibrary}
+                    />
+                    <UpdateFieldFormForDevSpecForArrayFieldForDevTeam
+                        teamId={teamId}
+                        fieldName="frontendLibrary"
+                        items={frontendLibrary}
+                        onRemove={removeFromFrontendLibrary}
+                    />
+                    <UpdateFieldFormForDevSpecForArrayFieldForDevTeam
+                        teamId={teamId}
+                        fieldName="collaborationTool"
+                        items={collaborationTool}
+                        onRemove={removeFromCollaborationTool}
+                    />
+                    <UpdateFieldFormForDevSpecForArrayFieldForDevTeam
+                        teamId={teamId}
+                        fieldName="devops"
+                        items={devops}
+                        onRemove={removeFromDevops}
+                    />
                 </GridItem>
             </Grid>
-
         </Box>
     );
 };
 
 export default DevSpecForm;
+
