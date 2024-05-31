@@ -9,8 +9,8 @@ import {
     FormControl,
     FormLabel,
 } from "@chakra-ui/react";
-import { CheckIcon, EditIcon } from "@chakra-ui/icons";
 import useApiForUpdateForSpecificDevSpecForNotArryTypeForTeamBattle from "@/hooks/useApiForUpdateForSpecificDevSpecForNotArryTypeForTeamBattle";
+import { CheckIcon, EditIcon, CloseIcon } from "@chakra-ui/icons";
 
 type Props = {
     value: string;
@@ -37,11 +37,16 @@ const EditableInputForDevSpecForTeam = ({
         mutationForUpdateForSpecificDevSpecForNotArryTypeForTeamBattle.mutate({ teamId, fieldName: label, itemText: value });
     };
 
+    const handleCancelClick = () => {
+        setEditMode(false);
+    };
+
     const iconColor = useColorModeValue("gray.500", "gray.200");
+    const labelBgColor = useColorModeValue("blue.100", "blue.700");
 
     return (
-        <FormControl mb={2}>
-            <FormLabel>{label}</FormLabel>
+        <FormControl mb={4}>
+            <FormLabel color="blue.500">{label}</FormLabel>
             <HStack>
                 {editMode ? (
                     <Input
@@ -54,14 +59,24 @@ const EditableInputForDevSpecForTeam = ({
                 )}
                 <Spacer />
                 {editMode ? (
-                    <IconButton
-                        icon={<CheckIcon />}
-                        onClick={handleConfirmClick}
-                        aria-label=""
-                        colorScheme={iconColor}
-                        size="xs"
-                        variant="outline"
-                    />
+                    <>
+                        <IconButton
+                            icon={<CheckIcon />}
+                            onClick={handleConfirmClick}
+                            aria-label=""
+                            colorScheme={iconColor}
+                            size="xs"
+                            variant="outline"
+                        />
+                        <IconButton
+                            icon={<CloseIcon />}
+                            onClick={handleCancelClick}
+                            aria-label=""
+                            colorScheme={iconColor}
+                            size="xs"
+                            variant="outline"
+                        />
+                    </>
                 ) : (
                     <IconButton
                         icon={<EditIcon />}

@@ -55,7 +55,7 @@ const ModalButtonForAddDevProgressForTeam: React.FC<IModalButtonForAddDevProgres
 
     return (
         <>
-            <Button onClick={onOpen} size="xs" variant="outline">
+            <Button onClick={onOpen} size="xs" variant="outline" border={"1px solid black"}>
                 <FaPlus />
             </Button>
 

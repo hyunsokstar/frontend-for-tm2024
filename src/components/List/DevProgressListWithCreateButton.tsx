@@ -28,12 +28,9 @@ const getStatusColor = (status: DevStatus) => {
 const DevProgressListWithCreateButton = ({ teamId, devProgressForTeams }: Props) => {
 
     return (
-        <Box p={0} rounded="md" display="flex" flexDirection="column">
-            <Box display="flex" justifyContent="flex-end" mb={1}>
-                <ModalButtonForAddDevProgressForTeam teamId={teamId} />
-            </Box>
+        <Box p={0}>
             {devProgressForTeams.map((progress) => (
-                <Box key={progress.id} display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+                <Box key={progress.id} display="flex" justifyContent="space-between" alignItems="center" mb={1}>
                     <Box display="flex" alignItems="center">
                         <IconButton
                             size="xs"

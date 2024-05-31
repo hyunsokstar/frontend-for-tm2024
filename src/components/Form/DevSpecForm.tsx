@@ -8,8 +8,10 @@ import {
     Tag,
     TagLabel,
     TagCloseButton,
+    useColorModeValue,
     HStack,
     Text,
+    Divider,
 } from "@chakra-ui/react";
 import ModalButtonForAddItemToSpecificFieldForTeamDecSpec from "../Modal/ModalButtonForAddItemToSpecificFieldForTeamDecSpec";
 import { DevSpecRowForTeamBattle } from "@/types/typeForDevBattle";
@@ -57,12 +59,16 @@ const DevSpecForm = ({ teamId, onUpdate, devSpec }: Props) => {
 
     return (
         <Box>
-            <Grid templateColumns="1fr 2fr" gap={6}>
+            <Grid templateColumns="1fr 1px 2fr" gap={6}> {/* Updated templateColumns prop here */}
                 <GridItem>
                     <UpdateFormForDevSpecForTeamBattle
                         devSpec={devSpec}
                         teamId={teamId}
                     />
+                </GridItem>
+
+                <GridItem mx={2}> {/* Added GridItem for the divider */}
+                    <Divider orientation="vertical" /> {/* Added Divider component and rotated it */}
                 </GridItem>
 
                 <GridItem>
@@ -72,7 +78,6 @@ const DevSpecForm = ({ teamId, onUpdate, devSpec }: Props) => {
                                 Back-end Library
                             </Text>
                             <ModalButtonForAddItemToSpecificFieldForTeamDecSpec teamId={teamId} fieldName={"backendLibrary"} />
-
                         </FormLabel>
                         <HStack spacing={1}>
                             {backendLibrary.map((item, index) => (

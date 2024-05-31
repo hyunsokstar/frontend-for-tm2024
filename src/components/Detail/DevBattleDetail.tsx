@@ -16,6 +16,7 @@ import DeleteButtonForTeamForDevBattle from '../Button/DeleteButtonForTeamForDev
 import MemberAvatarsWithRegisterButton from '../Info/MembersInfoWithRegisterButton';
 import DevProgressListWithCreateButton from '../List/DevProgressListWithCreateButton';
 import ModalButtonForDevSpecForTeam from '../Modal/ModalButtonForDevSpecForTeam';
+import ModalButtonForAddDevProgressForTeam from '../Modal/ModalButtonForAddDevProgressForTeam';
 
 
 interface Props {
@@ -72,10 +73,12 @@ const DevBattleDetail = ({ devBattleId, teams }: Props) => {
                                         </Grid>
                                     </Box>
                                 </Box>
-                                <Box mt={0}>
-                                    <Box p={1} rounded="md">
-                                        <DevProgressListWithCreateButton teamId={team.id} devProgressForTeams={team.devProgressForTeams} />
-                                    </Box>
+                                <Box bgColor={"green.100"} p={1} display={"flex"} justifyContent={"space-between"} alignItems={"center"} mb={1}>
+                                    <Text>Task Status</Text>
+                                    <ModalButtonForAddDevProgressForTeam teamId={team.id} />
+                                </Box>
+                                <Box px={1}>
+                                    <DevProgressListWithCreateButton teamId={team.id} devProgressForTeams={team.devProgressForTeams} />
                                 </Box>
                             </Box>
                         ))}
