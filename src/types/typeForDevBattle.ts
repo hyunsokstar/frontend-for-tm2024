@@ -73,6 +73,8 @@ export interface TeamForDevBattleResponse {
     id: number;
     name: string;
     description: string;
+    techNoteId: number;
+    techNoteListUrl: string;
     createdAt: Date;
     devProgressForTeams: DevProgressForTeamResponse[];
     members: MemberForDevTeamResponse[];

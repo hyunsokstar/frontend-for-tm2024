@@ -8,6 +8,8 @@ import {
     useBreakpointValue,
     Spacer,
     Button,
+    IconButton,
+    Link,
 } from '@chakra-ui/react';
 import ChattingForDevBattle from '../ChatBoard/ChattingForDevBattle';
 import { TeamForDevBattleResponse } from '@/types/typeForDevBattle';
@@ -17,6 +19,7 @@ import MemberAvatarsWithRegisterButton from '../Info/MembersInfoWithRegisterButt
 import DevProgressListWithCreateButton from '../List/DevProgressListWithCreateButton';
 import ModalButtonForDevSpecForTeam from '../Modal/ModalButtonForDevSpecForTeam';
 import ModalButtonForAddDevProgressForTeam from '../Modal/ModalButtonForAddDevProgressForTeam';
+import { SiMicrosoftonenote } from "react-icons/si";
 
 
 interface Props {
@@ -54,6 +57,22 @@ const DevBattleDetail = ({ devBattleId, teams }: Props) => {
                                             </Text>
                                         </Box>
                                         <Spacer />
+                                        {/* {team.techNoteListUrl} */}
+
+                                        {team.techNoteListUrl && (
+                                            <IconButton
+                                                as={Link}
+                                                border={"1px solid gray"}
+                                                href={team.techNoteListUrl}
+                                                isExternal
+                                                size="xs"
+                                                variant="outline"
+                                                aria-label="Note Link"
+                                                icon={<SiMicrosoftonenote />}
+                                                mr={1}
+                                            />
+                                        )}
+
                                         <DeleteButtonForTeamForDevBattle teamId={team.id} />
                                     </Box>
                                     <Box mb={1} p={1}>
