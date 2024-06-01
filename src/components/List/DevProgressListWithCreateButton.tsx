@@ -1,6 +1,6 @@
 import React from 'react'
-import { Box, Text, IconButton, Link, Button, useDisclosure } from '@chakra-ui/react'
-import { FaCircle, FaFigma, FaFileAlt, FaYoutube, FaPlus, FaMinus } from 'react-icons/fa'
+import { Box, Text, IconButton, Link } from '@chakra-ui/react'
+import { FaCircle, FaFigma, FaYoutube } from 'react-icons/fa'
 import DeleteDevProgressButton from '../Button/DeleteDevProgressButton'
 import { DevProgressForTeamResponse, DevStatus } from '@/types/typeForDevBattle'
 import { MdNoteAlt } from "react-icons/md";
