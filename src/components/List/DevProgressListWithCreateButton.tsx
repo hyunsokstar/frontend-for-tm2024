@@ -1,9 +1,10 @@
 import React from 'react'
 import { Box, Text, IconButton, Link, Button, useDisclosure } from '@chakra-ui/react'
 import { FaCircle, FaFigma, FaFileAlt, FaYoutube, FaPlus, FaMinus } from 'react-icons/fa'
-import ModalButtonForAddDevProgressForTeam from '../Modal/ModalButtonForAddDevProgressForTeam'
 import DeleteDevProgressButton from '../Button/DeleteDevProgressButton'
 import { DevProgressForTeamResponse, DevStatus } from '@/types/typeForDevBattle'
+import { MdNoteAlt } from "react-icons/md";
+
 
 type Props = {
     teamId: number
@@ -53,17 +54,6 @@ const DevProgressListWithCreateButton = ({ teamId, devProgressForTeams }: Props)
                                 icon={<FaFigma />}
                             />
                         )}
-                        {progress.noteUrl && (
-                            <IconButton
-                                as={Link}
-                                href={progress.noteUrl}
-                                isExternal
-                                size="xs"
-                                variant="outline"
-                                aria-label="Note Link"
-                                icon={<FaFileAlt />}
-                            />
-                        )}
                         {progress.youtubeUrl && (
                             <IconButton
                                 as={Link}
@@ -73,6 +63,17 @@ const DevProgressListWithCreateButton = ({ teamId, devProgressForTeams }: Props)
                                 variant="outline"
                                 aria-label="Youtube Link"
                                 icon={<FaYoutube />}
+                            />
+                        )}
+                        {progress.noteUrl && (
+                            <IconButton
+                                as={Link}
+                                href={progress.noteUrl}
+                                isExternal
+                                size="xs"
+                                variant="outline"
+                                aria-label="Note Link"
+                                icon={<MdNoteAlt />}
                             />
                         )}
                         <DeleteDevProgressButton progressId={progress.id} />

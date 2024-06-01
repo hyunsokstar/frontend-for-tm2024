@@ -74,7 +74,7 @@ const DevBattleDetail = ({ devBattleId, teams }: Props) => {
                                     </Box>
                                 </Box>
                                 <Box bgColor={"green.100"} p={1} display={"flex"} justifyContent={"space-between"} alignItems={"center"} mb={1}>
-                                    <Text>Task Status</Text>
+                                    <Text>Task Progress</Text>
                                     <ModalButtonForAddDevProgressForTeam teamId={team.id} />
                                 </Box>
                                 <Box px={1}>

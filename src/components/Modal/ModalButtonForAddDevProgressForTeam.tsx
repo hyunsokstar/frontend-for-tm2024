@@ -82,10 +82,10 @@ const ModalButtonForAddDevProgressForTeam: React.FC<IModalButtonForAddDevProgres
                                 <Input type="text" placeholder="Youtube URL" {...register('youtubeUrl')} />
                             </FormControl>
 
-                            <FormControl>
+                            {/* <FormControl>
                                 <FormLabel>Note URL</FormLabel>
                                 <Input type="text" placeholder="Note URL" {...register('noteUrl')} />
-                            </FormControl>
+                            </FormControl> */}
 
                             <FormControl>
                                 <FormLabel>Status</FormLabel>
