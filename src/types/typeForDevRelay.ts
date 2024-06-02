@@ -1,5 +1,4 @@
 import { TechNote } from '@/types/typeForTechNote';
-import { TechNote } from '@/types/typeForTechNote';
 
 export interface AssignmentCategory {
     id: number;
