@@ -11,6 +11,7 @@ import useApiForGetAllSubjects from '@/hooks/useApiForGetAllSubjects';
 import ModalButtonForCreateSubject from '@/components/Modal/ModalButtonForAddSubject';
 import useApiForDeleteSubject from '@/hooks/useApiForDeleteSubject';
 import ModalButtonForCreateCategoryForSubject from '@/components/Modal/ModalButtonForCreateCateogryForDevAssignment';
+import ModalButtonForUpdateSubjectsForDevRelay from '@/components/Modal/ModalButtonForUpdateSubjectsForDevRelay';
 
 
 const DevRelay: React.FC = () => {
@@ -53,12 +54,12 @@ const DevRelay: React.FC = () => {
 
     return (
         <>
-            <Flex align="center" justify="center" bg="gray.100" py={4}>
+            <Flex align="center" justify="center" bg="gray.100" py={4} gap={2}>
                 {subjects?.map((subject) => (
                     <Box
                         key={subject.id}
                         p={1}
-                        mx={2}
+                        // mx={2}
                         bg={selectedSubject === subject.id ? 'blue.500' : 'white'}
                         color={selectedSubject === subject.id ? 'white' : 'gray.700'}
                         borderRadius="md"
@@ -83,6 +84,7 @@ const DevRelay: React.FC = () => {
                     </Box>
                 ))}
                 <ModalButtonForCreateSubject />
+                <ModalButtonForUpdateSubjectsForDevRelay subjects={subjects ? subjects : []} />
             </Flex>
             <Flex h="100vh">
                 <Box
