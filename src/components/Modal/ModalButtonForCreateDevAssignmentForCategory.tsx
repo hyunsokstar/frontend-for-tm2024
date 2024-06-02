@@ -10,8 +10,8 @@ interface IProps {
 
 const ModalButtonForCreateDevAssignmentForCategory = ({ categoryId }: IProps) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [day, setDay] = useState<string>('');
     const [title, setTitle] = useState<string>('');
+    const [subtitle, setSubTitle] = useState<string>('');
     const toast = useToast();
 
     // call the useApiForCreateDevAssignment hook and pass in the categoryId prop
@@ -20,8 +20,8 @@ const ModalButtonForCreateDevAssignmentForCategory = ({ categoryId }: IProps) =>
     const handleSubmit = () => {
         // create a CreateDevAssignmentDto object with the form data
         const createDevAssignmentDto: CreateDevAssignmentDto = {
-            day,
             title,
+            subtitle,
         };
         createDevAssignment(createDevAssignmentDto);
         onClose();
@@ -56,9 +56,8 @@ const ModalButtonForCreateDevAssignmentForCategory = ({ categoryId }: IProps) =>
                     <ModalHeader>Dev Assignment 입력</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        {/* 입력 폼 */}
-                        <Input placeholder="" value={day} onChange={(e) => setDay(e.target.value)} />
-                        <Input mt={2} placeholder="" value={title} onChange={(e) => setTitle(e.target.value)} />
+                        <Input placeholder="title" value={title} onChange={(e) => setTitle(e.target.value)} />
+                        <Input mt={2} placeholder="subtitle" value={subtitle} onChange={(e) => setSubTitle(e.target.value)} />
                     </ModalBody>
                     <ModalFooter>
                         <Button colorScheme="blue" mr={3} onClick={handleSubmit}>확인</Button>

@@ -1,4 +1,4 @@
-import { apiForCreateCategory } from '@/api/apiForDevRelay';
+import { apiForCreateCategoryForSubject } from '@/api/apiForDevRelay';
 import { useToast } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -7,7 +7,7 @@ const useApiForCreateCategoryForDevAssignment = () => {
     const toast = useToast();
 
     const useApiForCreateCategoryForDevAssignment = useMutation({
-        mutationFn: apiForCreateCategory,
+        mutationFn: apiForCreateCategoryForSubject,
         onSuccess: (data: any) => {
             queryClient.refetchQueries({
                 queryKey: ['apiForGetAllCategoriesForDevAssignments'],

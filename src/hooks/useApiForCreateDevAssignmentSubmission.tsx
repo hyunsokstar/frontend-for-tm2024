@@ -9,7 +9,6 @@ const useApiForCreateDevAssignmentSubmission = () => {
     const useApiForCreateDevAssignmentSubmission = useMutation({
         mutationFn: createDevAssignmentSubmission,
         onSuccess: (data: any) => {
-            // Refetch the data for apiForGetFindAllDevRelays
             queryClient.refetchQueries({
                 queryKey: ['devAssignments'],
             });

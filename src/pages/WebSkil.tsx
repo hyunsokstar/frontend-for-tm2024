@@ -5,12 +5,13 @@ import { AddIcon, MinusIcon } from '@chakra-ui/icons';
 import useApiForGetAllCategoriesForDevAssignments from '@/hooks/useApiForGetAllCategoriesForDevAssignments';
 import CategoryListForDevAssignment from '@/components/List/CategoryListForDevAssignment';
 import DevAssignmentListForCategory from '@/components/List/DevAssignmentListForCategory';
-import ModalButtonForCreateCategoryForDevAssignment from '@/components/Modal/ModalButtonForCreateCateogryForDevAssignment';
 import ModalButtonForCreateDevAssignmentForCategory from '@/components/Modal/ModalButtonForCreateDevAssignmentForCategory';
 import { useRouter } from 'next/router';
 import useApiForGetAllSubjects from '@/hooks/useApiForGetAllSubjects';
 import ModalButtonForCreateSubject from '@/components/Modal/ModalButtonForAddSubject';
 import useApiForDeleteSubject from '@/hooks/useApiForDeleteSubject';
+import ModalButtonForCreateCategoryForSubject from '@/components/Modal/ModalButtonForCreateCateogryForDevAssignment';
+
 
 const DevRelay: React.FC = () => {
     const router = useRouter();
@@ -95,7 +96,11 @@ const DevRelay: React.FC = () => {
                     p={2}
                 >
                     <Box display="flex" justifyContent="flex-end" pr={0} mb={2}>
-                        <ModalButtonForCreateCategoryForDevAssignment />
+                        {
+                            selectedSubject !== undefined ?
+                                <ModalButtonForCreateCategoryForSubject subjectId={selectedSubject as number} />
+                                : ""
+                        }
                     </Box>
                     <CategoryListForDevAssignment
                         categories={data || []}

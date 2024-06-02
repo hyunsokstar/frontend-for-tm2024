@@ -13,8 +13,8 @@ const DevAssignmentListForCategory: React.FC<Props> = ({ categoryId }) => {
     console.log("devAssignments : ", devAssignments);
 
     return (
-        <Box>
-            <TablesForDevAssignment devAssignments={devAssignments ? devAssignments : []} />
+        <Box p={2}>
+            <TablesForDevAssignment categoryId={categoryId} devAssignments={devAssignments ? devAssignments : []} />
         </Box>
     );
 };

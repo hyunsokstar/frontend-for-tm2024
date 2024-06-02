@@ -6,8 +6,8 @@ import {
     CategoryForDevAssignmentDto,
     CategoryResponse,
     CreateDevAssignmentDto,
-    CreateDevAssignmentSubmission,
     DevAssignmentRow,
+    IParameterForCreateCategoryForSubject,
     IParameterForCreateDevAssignmentSubmission,
     IParameterForUpdateCategoryForDevAssignment,
     SubjectForCategoryRow
@@ -33,6 +33,50 @@ instance.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+export const createDevAssignmentSubmission = async ({
+    devAssignmentId,
+    createDevAssignmentSubmissionDto
+}: IParameterForCreateDevAssignmentSubmission
+) => {
+    console.log("devAssignmentId for create submission :::::::::::", devAssignmentId);
+    console.log("createDevAssignmentSubmissionDto for create submission :::::::::::", createDevAssignmentSubmissionDto);
+
+    try {
+        const response: any = await instance.post(
+            `dev-assignment/${devAssignmentId}/dev-assignment-submission`,
+            createDevAssignmentSubmissionDto
+        );
+        return response.data;
+    } catch (error) {
+        throw error
+    }
+};
+
+export const apiForDeleteDevAssignmentSubmission = async (
+    id: number
+): Promise<AxiosResponse<{ message: string }>> => {
+    return instance.delete(`/dev-assignment-submission/${id}`);
+};
+
+export const apiForDeleteDevAssignmentById = (
+    id: number
+): Promise<AxiosResponse<{ message: string }>> => {
+    return instance.delete(`/dev-assignment/${id}`);
+};
+
+export const apiForCreateCategoryForSubject = async ({ subjectId, name }: IParameterForCreateCategoryForSubject): Promise<AxiosResponse> => {
+
+    console.log("name at api function : ", name);
+
+
+    try {
+        const response = await instance.post(`subject/${subjectId}/category`, { name });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
 
 export const apiForDeleteCategory = (id: number): Promise<AxiosResponse<CategoryResponse>> => {
     return instance.delete(`/categories/${id}`);
@@ -109,14 +153,6 @@ export async function apiForCreateDevAssignment(categoryId: number, createDevAss
     }
 }
 
-export const apiForCreateCategory = async (categoryDto: CategoryForDevAssignmentDto): Promise<AxiosResponse> => {
-    try {
-        const response = await instance.post('category', categoryDto);
-        return response;
-    } catch (error) {
-        throw new Error(`Error creating category: ${error}`);
-    }
-}
 
 export const findDevAssignmentsByCategory = async (categoryId: number): Promise<DevAssignmentRow[]> => {
     try {
@@ -150,21 +186,5 @@ export const findAllDevAssingments = async (selectedCategory: AssignmentCategory
         return response.data;
     } catch (error) {
         throw error;
-    }
-};
-
-export const createDevAssignmentSubmission = async ({
-    devAssignmentId,
-    createDevAssignmentSubmissionDto
-}: IParameterForCreateDevAssignmentSubmission
-) => {
-    try {
-        const response: AxiosResponse = await instance.post(
-            `${devAssignmentId}/dev-assignment-submission`,
-            createDevAssignmentSubmissionDto
-        );
-        return response.data;
-    } catch (error) {
-        throw new Error(`Failed to create dev assignment submission: ${error}`);
     }
 };

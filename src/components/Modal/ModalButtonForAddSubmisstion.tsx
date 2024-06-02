@@ -55,7 +55,7 @@ const ModalButtonForAddSubmisstion: React.FC<Props> = ({ devAssignmentId }) => {
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <Stack spacing={4}>
                                 <Input {...register('title')} placeholder="Title" />
-                                <Input {...register('noteUrl')} placeholder="Note URL" />
+                                {/* <Input {...register('noteUrl')} placeholder="Note URL" /> */}
                                 <Input {...register('figmaUrl')} placeholder="Figma URL" />
                                 <Input {...register('youtubeUrl')} placeholder="YouTube URL" />
                             </Stack>

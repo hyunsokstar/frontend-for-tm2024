@@ -8,38 +8,62 @@ import {
     Tr,
     Th,
     Td,
+    Text,
     IconButton,
     Tooltip,
     Flex,
     Box,
     Heading,
     Spacer,
+    Link,
 } from "@chakra-ui/react";
-import { FaFigma, FaYoutube } from "react-icons/fa";
-import { MdNoteAlt } from "react-icons/md";
-import { AddIcon } from "@chakra-ui/icons";
+import { FaFigma, FaMinus, FaYoutube } from "react-icons/fa";
 import { DevAssignmentRow } from "@/types/typeForDevRelay";
 import ModalButtonForAddSubmisstion from "../Modal/ModalButtonForAddSubmisstion";
+import { SiMicrosoftonenote } from "react-icons/si";
+import DeleteButtonForDevAssginmentForCategory from "../Button/DeleteButtonForDevAssginmentForCategory";
+import { MdNoteAlt } from "react-icons/md";
+import DeleteButtonForDevAssignmentSubmissionById from "../Button/DeleteButtonForDevAssignmentSubmissionById";
 
 type Props = {
+    categoryId: number;
     devAssignments: DevAssignmentRow[];
 };
 
-const TablesForDevAssignment = ({ devAssignments }: Props) => {
+const TablesForDevAssignment = ({ categoryId, devAssignments }: Props) => {
     return (
         <Grid templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(3, 1fr)" }} gap={6}>
             {devAssignments.length ? (
                 devAssignments.map((assignment) => (
                     <GridItem key={assignment.id} w="100%">
-                        <Heading as="h2" size="md" mb={4}>
-                            {assignment.day}
+                        <Heading as="h3" size="sm" mb={2} display={"flex"} justifyContent={"space-between"}>
+                            <Text>
+                                {assignment.title}
+                            </Text>
+                            <Box>
+                                {assignment.techNoteListUrl && (
+                                    <IconButton
+                                        as={Link}
+                                        border={"1px solid gray"}
+                                        href={assignment.techNoteListUrl}
+                                        isExternal
+                                        size="xs"
+                                        variant="outline"
+                                        aria-label="Note Link"
+                                        icon={<SiMicrosoftonenote />}
+                                        mr={1}
+                                    />
+                                )}
+                                <DeleteButtonForDevAssginmentForCategory categoryId={categoryId} devAssignmentId={assignment.id} />
+                            </Box>
                         </Heading>
+
                         <Table border="1px" borderColor="gray.200" borderRadius="sm" width="100%" mb={6}>
                             <Thead>
                                 <Tr>
                                     <Th colSpan={5}>
                                         <Flex justifyContent="space-between">
-                                            <Box>{assignment.title}</Box>
+                                            <Box>{assignment.subtitle}</Box>
                                             <Spacer />
                                             <ModalButtonForAddSubmisstion devAssignmentId={assignment.id} />
                                         </Flex>
@@ -51,7 +75,12 @@ const TablesForDevAssignment = ({ devAssignments }: Props) => {
                                     <Tr key={submission.id}>
                                         <Td colSpan={3} padding={0} p={1}>
                                             <Flex width="100%" justifyContent="flex-end" border="0px solid red">
-                                                <Box>{submission.title}</Box>
+                                                <Box display={"flex"} justifyContent={"space-between"} >
+                                                    <Box>{submission.title}</Box>
+                                                    <Box>
+
+                                                    </Box>
+                                                </Box>
                                                 <Spacer />
                                                 <Box display="flex" gap={1} justifyContent={"flex-end"}>
                                                     <Tooltip label="Figma" hasArrow>
@@ -93,6 +122,7 @@ const TablesForDevAssignment = ({ devAssignments }: Props) => {
                                                             _hover={{ bgColor: "red.200" }} // 호버 시 색상 변경
                                                         />
                                                     </Tooltip>
+                                                    <DeleteButtonForDevAssignmentSubmissionById categoryId={categoryId} submissionId={submission.id} />
                                                 </Box>
                                             </Flex>
 

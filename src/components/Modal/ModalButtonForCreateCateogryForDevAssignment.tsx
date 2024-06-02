@@ -16,13 +16,14 @@ import { useToast } from '@chakra-ui/react';
 import useApiForCreateCategoryForDevAssignment from '@/hooks/useApiForCreateCategoryForDevAssignment';
 import { FiEdit3 } from 'react-icons/fi';
 
-type Props = {};
+type Props = {
+    subjectId: number;
+};
 
-const ModalButtonForCreateCategoryForDevAssignment = (props: Props) => {
+const ModalButtonForCreateCategoryForSubject = ({ subjectId }: Props) => {
     const [isOpen, setIsOpen] = useState(false);
     const [categoryName, setCategoryName] = useState('');
     const toast = useToast();
-    // const createCategoryMutation = useApiForCreateCategoryForDevAssignment();
     const { mutate: createCategoryMutate } = useApiForCreateCategoryForDevAssignment();
 
     const handleOpenModal = () => {
@@ -44,7 +45,7 @@ const ModalButtonForCreateCategoryForDevAssignment = (props: Props) => {
             return;
         }
 
-        createCategoryMutate({ name: categoryName });
+        createCategoryMutate({ subjectId: subjectId, name: categoryName });
         setCategoryName('');
         handleCloseModal()
     };
@@ -94,4 +95,4 @@ const ModalButtonForCreateCategoryForDevAssignment = (props: Props) => {
     );
 };
 
-export default ModalButtonForCreateCategoryForDevAssignment;
+export default ModalButtonForCreateCategoryForSubject;

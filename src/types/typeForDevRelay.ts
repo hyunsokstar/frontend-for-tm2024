@@ -1,3 +1,5 @@
+import { TechNote } from '@/types/typeForTechNote';
+import { TechNote } from '@/types/typeForTechNote';
 
 export interface AssignmentCategory {
     id: number;
@@ -6,8 +8,8 @@ export interface AssignmentCategory {
 }
 
 export interface CreateDevAssignmentDto {
-    day: string;
     title: string;
+    subtitle: string;
 }
 
 export interface CategoryForDevAssignmentDto {
@@ -25,10 +27,12 @@ export interface DevAssignmentSubmissionRow {
 
 export interface DevAssignmentRow {
     id: number;
-    day: string;
     title: string;
+    subtitle: string;
     category: AssignmentCategory; // enum으로 변경
     submissions: DevAssignmentSubmissionRow[];
+    techNoteId: number;
+    techNoteListUrl: string;
 }
 
 
@@ -60,4 +64,7 @@ export interface CategoryResponse {
     name: string;
 }
 
-
+export interface IParameterForCreateCategoryForSubject {
+    subjectId: number;
+    name: string
+}
