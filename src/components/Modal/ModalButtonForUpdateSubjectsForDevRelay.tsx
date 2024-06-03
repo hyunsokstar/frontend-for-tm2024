@@ -16,7 +16,7 @@ import {
 import useApiForUpdateSubjectNameForDevRelay from "@/hooks/useApiForUpdateSubjectNameForDevRelay";
 import useApiForDeleteSubjectForDelay from "@/hooks/useApiForDeleteSubject";
 import { BsCheck, BsPencilSquare, BsX } from "react-icons/bs";
-import DeleteButtonForDevRelaySubjectBySubjectById from "../Button/DeleteButtonForDevAssignmentSubmissionById";
+import DeleteButtonForDevRelaySubjectBySubjectById from "../Button/DeleteButtonForDevRelaySubjectBySubjectById";
 
 type Props = {
     subjects: SubjectForCategoryRow[];
