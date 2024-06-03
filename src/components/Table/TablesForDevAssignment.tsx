@@ -128,8 +128,6 @@ const TablesForDevAssignment = ({ categoryId, devAssignments }: Props) => {
 
                                         </Td>
                                         {/* <Td width={"30%"} border={"2px solid pink"} textAlign={"end"}>
-
-
                                         </Td> */}
                                     </Tr>
                                 ))}
