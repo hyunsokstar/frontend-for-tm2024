@@ -4,6 +4,7 @@ import DevBattleDetail from '@/components/Detail/DevBattleDetail';
 import { DevBattleResponse } from '@/types/typeForDevBattle';
 import useApiForFindAllDevBattleList from '@/hooks/useApiForFindAllDevBattleList';
 import DevBattleTabMenus from '@/components/Menus/DevBattleTabMenus';
+import ChattingForDevBattle from '@/components/ChatBoard/ChattingForDevBattle';
 
 
 const DevBattle = () => {
@@ -25,12 +26,17 @@ const DevBattle = () => {
                         <TabPanel w="100%" alignItems="center" key={index}>
                             <DevBattleDetail
                                 devBattleId={devBattle.id}
-                                teams={devBattle.teams} // Add teams prop
+                                teams={devBattle.teams}
                             />
                         </TabPanel>
                     ))}
                 </TabPanels>
             </Tabs>
+
+            <Box>
+                <ChattingForDevBattle />
+            </Box>
+
         </Box>
     );
 };

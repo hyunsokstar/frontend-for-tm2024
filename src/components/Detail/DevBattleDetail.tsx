@@ -31,7 +31,7 @@ const DevBattleDetail = ({ devBattleId, teams }: Props) => {
     const gridTemplateColumns = useBreakpointValue({
         base: '1fr',
         md: 'repeat(3, 1fr)',
-        lg: 'repeat(4, 1fr)',
+        lg: 'repeat(2, 1fr)',
     }, '1fr');
 
 
@@ -93,7 +93,7 @@ const DevBattleDetail = ({ devBattleId, teams }: Props) => {
                                     </Box>
                                 </Box>
                                 <Box bgColor={"green.100"} p={1} display={"flex"} justifyContent={"space-between"} alignItems={"center"} mb={1}>
-                                    <Text>Task Progress</Text>
+                                    <Text>Task Progress {team.id}</Text>
                                     <ModalButtonForAddDevProgressForTeam teamId={team.id} />
                                 </Box>
                                 <Box px={1}>
@@ -113,7 +113,6 @@ const DevBattleDetail = ({ devBattleId, teams }: Props) => {
                     </GridItem>
                 )}
                 {/* 채팅 영역 */}
-                <ChattingForDevBattle />
             </Grid>
         </Box>
     );
