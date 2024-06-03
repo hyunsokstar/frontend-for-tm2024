@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useToast } from '@chakra-ui/react';
 import { apiForDeleteSubject } from '@/api/apiForDevRelay';
 
-const useApiForDeleteSubject = () => {
+const useApiForDeleteSubjectForDelay = () => {
     const queryClient = useQueryClient();
     const toast = useToast();
 
@@ -36,4 +36,4 @@ const useApiForDeleteSubject = () => {
     return mutation;
 };
 
-export default useApiForDeleteSubject;
+export default useApiForDeleteSubjectForDelay;

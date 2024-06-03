@@ -67,3 +67,8 @@ export interface IParameterForCreateCategoryForSubject {
     subjectId: number;
     name: string
 }
+
+export interface SubjectResponse {
+    id: number;
+    name: string
+}

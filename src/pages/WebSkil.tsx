@@ -7,23 +7,20 @@ import CategoryListForDevAssignment from '@/components/List/CategoryListForDevAs
 import DevAssignmentListForCategory from '@/components/List/DevAssignmentListForCategory';
 import ModalButtonForCreateDevAssignmentForCategory from '@/components/Modal/ModalButtonForCreateDevAssignmentForCategory';
 import { useRouter } from 'next/router';
-import useApiForGetAllSubjects from '@/hooks/useApiForGetAllSubjects';
+import useApiForGetAllSubjectsForDevRelay from '@/hooks/useApiForGetAllSubjectsForDevRelay';
 import ModalButtonForCreateSubject from '@/components/Modal/ModalButtonForAddSubject';
-import useApiForDeleteSubject from '@/hooks/useApiForDeleteSubject';
+import useApiForDeleteSubjectForDelay from '@/hooks/useApiForDeleteSubject';
 import ModalButtonForCreateCategoryForSubject from '@/components/Modal/ModalButtonForCreateCateogryForDevAssignment';
 import ModalButtonForUpdateSubjectsForDevRelay from '@/components/Modal/ModalButtonForUpdateSubjectsForDevRelay';
 
 
 const DevRelay: React.FC = () => {
     const router = useRouter();
-    const { isLoading: isSubjectsLoading, error: subjectsError, data: subjects } = useApiForGetAllSubjects();
+    const { isLoading: isSubjectsLoading, error: subjectsError, data: subjects } = useApiForGetAllSubjectsForDevRelay();
     const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
     const [selectedSubject, setSelectedSubject] = useState<number>();
     const { isLoading, error, data } = useApiForGetAllCategoriesForDevAssignments(selectedSubject);
-    const deleteSubjectMutation = useApiForDeleteSubject();
-
-    const bgColor = useColorModeValue('gray.200', 'gray.700');
-    const iconColor = useColorModeValue('gray.800', 'white');
+    const deleteSubjectMutation = useApiForDeleteSubjectForDelay();
 
     useEffect(() => {
         const categoryId = router.query.categoryId;

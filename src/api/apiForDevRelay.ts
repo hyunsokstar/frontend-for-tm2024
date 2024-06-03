@@ -10,7 +10,8 @@ import {
     IParameterForCreateCategoryForSubject,
     IParameterForCreateDevAssignmentSubmission,
     IParameterForUpdateCategoryForDevAssignment,
-    SubjectForCategoryRow
+    SubjectForCategoryRow,
+    SubjectResponse
 } from "@/types/typeForDevRelay";
 
 const instance = axios.create({
@@ -33,6 +34,18 @@ instance.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+// subjectId: number, name: string
+export async function apiForUpdateSubjectName({ subjectId, name }: { subjectId: number, name: string }): Promise<SubjectResponse> {
+    try {
+        const response: AxiosResponse<SubjectResponse> = await instance.put(`/subject/${subjectId}/update-name`, { name });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
 
 export const createDevAssignmentSubmission = async ({
     devAssignmentId,
@@ -66,9 +79,7 @@ export const apiForDeleteDevAssignmentById = (
 };
 
 export const apiForCreateCategoryForSubject = async ({ subjectId, name }: IParameterForCreateCategoryForSubject): Promise<AxiosResponse> => {
-
     console.log("name at api function : ", name);
-
 
     try {
         const response = await instance.post(`subject/${subjectId}/category`, { name });

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SubjectForCategoryRow } from "@/types/typeForDevRelay";
 import {
     Box,
@@ -13,7 +13,10 @@ import {
     useDisclosure,
     Input,
 } from "@chakra-ui/react";
-import { BsPencilSquare, BsCheck, BsX, BsDashCircleFill, BsDashSquare } from "react-icons/bs";
+import useApiForUpdateSubjectNameForDevRelay from "@/hooks/useApiForUpdateSubjectNameForDevRelay";
+import useApiForDeleteSubjectForDelay from "@/hooks/useApiForDeleteSubject";
+import { BsCheck, BsPencilSquare, BsX } from "react-icons/bs";
+import DeleteButtonForDevRelaySubjectBySubjectById from "../Button/DeleteButtonForDevAssignmentSubmissionById";
 
 type Props = {
     subjects: SubjectForCategoryRow[];
@@ -24,6 +27,13 @@ const ModalButtonForUpdateSubjectsForDevRelay = ({ subjects }: Props) => {
     const [editingSubjectId, setEditingSubjectId] = useState<number | null>(null);
 
     const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const { mutate: updateSubjectName } = useApiForUpdateSubjectNameForDevRelay();
+    const mutationForDeleteSubject = useApiForDeleteSubjectForDelay();
+
+    useEffect(() => {
+        setUpdatedSubjects(subjects);
+    }, [subjects]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, id: number) => {
         const updatedSubjectsList = updatedSubjects.map((subject: SubjectForCategoryRow) => {
@@ -39,10 +49,14 @@ const ModalButtonForUpdateSubjectsForDevRelay = ({ subjects }: Props) => {
         setEditingSubjectId(id);
     };
 
-    const handleSave = () => {
-        // Update the subjects based on updatedSubjects
-        // Reset editingSubjectId
-        setEditingSubjectId(null);
+    const handleSave = async () => {
+        if (editingSubjectId && updatedSubjects) {
+            const subjectToUpdate = updatedSubjects.find((subject) => subject.id === editingSubjectId);
+            if (subjectToUpdate) {
+                await updateSubjectName({ subjectId: editingSubjectId, name: subjectToUpdate.name });
+                setEditingSubjectId(null);
+            }
+        }
     };
 
     const handleCancel = () => {
@@ -51,9 +65,12 @@ const ModalButtonForUpdateSubjectsForDevRelay = ({ subjects }: Props) => {
         setEditingSubjectId(null);
     };
 
-    const handleDelete = (id: number) => {
-        // Delete the subject from updatedSubjects
-        setUpdatedSubjects(updatedSubjects.filter((subject) => subject.id !== id));
+    const handleDeleteSubject = (subjectId: number) => {
+        if (confirm("정말로 이 주제를 삭제하시겠습니까?")) {
+            mutationForDeleteSubject.mutate(subjectId);
+        }
+
+        setUpdatedSubjects(updatedSubjects.filter((subject) => subject.id !== subjectId));
     };
 
     return (
@@ -110,13 +127,7 @@ const ModalButtonForUpdateSubjectsForDevRelay = ({ subjects }: Props) => {
                                             onClick={() => handleEdit(subject.id)}
                                             size="xs"
                                         />
-                                        <IconButton
-                                            aria-label="Delete subject"
-                                            icon={<BsDashSquare />}
-                                            variant="outline"
-                                            onClick={() => handleDelete(subject.id)}
-                                            size="xs"
-                                        />
+                                        <DeleteButtonForDevRelaySubjectBySubjectById subjectId={subject.id} onDelete={handleDeleteSubject} />
                                     </Box>
                                 )}
                             </Box>
