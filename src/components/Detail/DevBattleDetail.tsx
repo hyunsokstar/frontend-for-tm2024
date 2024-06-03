@@ -21,7 +21,6 @@ import ModalButtonForDevSpecForTeam from '../Modal/ModalButtonForDevSpecForTeam'
 import ModalButtonForAddDevProgressForTeam from '../Modal/ModalButtonForAddDevProgressForTeam';
 import { SiMicrosoftonenote } from "react-icons/si";
 
-
 interface Props {
     teams: TeamForDevBattleResponse[];
     devBattleId: number;
@@ -34,6 +33,12 @@ const DevBattleDetail = ({ devBattleId, teams }: Props) => {
         lg: 'repeat(2, 1fr)',
     }, '1fr');
 
+    const boxColors = [
+        { bg: '#ffebee', highlight: '#ffcdd2', description: '#fbe9e7', progress: '#ef9a9a' },
+        { bg: '#e6f7ff', highlight: '#b3e0ff', description: '#d9f3ff', progress: '#b3d9ff' },
+        { bg: '#e6fff5', highlight: '#b2ffe0', description: '#d9fff3', progress: '#b3ffec' },
+        { bg: '#fff5e6', highlight: '#ffe0b2', description: '#fff3d9', progress: '#ffecb3' },
+    ];
 
     return (
         <Box p={0} border={'0px solid green'} width={'100%'}>
@@ -45,11 +50,10 @@ const DevBattleDetail = ({ devBattleId, teams }: Props) => {
 
             <Grid templateColumns={gridTemplateColumns} gap={4}>
                 {teams.length > 0 ? (
-                    // 팀 데이터가 있는 경우
                     <>
-                        {teams.map((team) => (
-                            <Box key={team.id} border={"1px solid pink"}>
-                                <Box bg={"blue.50"}>
+                        {teams.map((team, index) => (
+                            <Box key={team.id} border={"1px solid #ccc"}>
+                                <Box bg={boxColors[index % boxColors.length].bg}>
                                     <Box display={"flex"} justifyContent={"space-between"} p={1}>
                                         <Box>
                                             <Text fontSize={'xl'} fontWeight={'bold'}>
@@ -57,12 +61,10 @@ const DevBattleDetail = ({ devBattleId, teams }: Props) => {
                                             </Text>
                                         </Box>
                                         <Spacer />
-                                        {/* {team.techNoteListUrl} */}
-
                                         {team.techNoteListUrl && (
                                             <IconButton
                                                 as={Link}
-                                                border={"1px solid gray"}
+                                                border={"1px solid #ccc"}
                                                 href={team.techNoteListUrl}
                                                 isExternal
                                                 size="xs"
@@ -72,13 +74,12 @@ const DevBattleDetail = ({ devBattleId, teams }: Props) => {
                                                 mr={1}
                                             />
                                         )}
-
                                         <DeleteButtonForTeamForDevBattle teamId={team.id} />
                                     </Box>
-                                    <Box mb={1} p={1}>
+                                    <Box mb={0} p={1} bg={boxColors[index % boxColors.length].highlight}>
                                         <MemberAvatarsWithRegisterButton teamId={team.id} members={team.members} />
                                     </Box>
-                                    <Box p={2} bg={"lightyellow"}>
+                                    <Box p={2} bg={boxColors[index % boxColors.length].description}>
                                         <Grid templateColumns={{ base: "repeat(2, 1fr)", md: "5fr 1fr" }}>
                                             <GridItem>
                                                 <Text fontSize={12}>
@@ -86,13 +87,14 @@ const DevBattleDetail = ({ devBattleId, teams }: Props) => {
                                                 </Text>
                                             </GridItem>
                                             <GridItem>
-                                                {/* {team.id} */}
-                                                <ModalButtonForDevSpecForTeam teamId={team.id} devSpec={team.devSpecs[0]} />
+                                                <Box display={"flex"} justifyContent={"flex-end"}>
+                                                    <ModalButtonForDevSpecForTeam teamId={team.id} devSpec={team.devSpecs[0]} />
+                                                </Box>
                                             </GridItem>
                                         </Grid>
                                     </Box>
                                 </Box>
-                                <Box bgColor={"green.100"} p={1} display={"flex"} justifyContent={"space-between"} alignItems={"center"} mb={1}>
+                                <Box bgColor={boxColors[index % boxColors.length].progress} p={1} display={"flex"} justifyContent={"space-between"} alignItems={"center"} mb={1}>
                                     <Text>Task Progress {team.id}</Text>
                                     <ModalButtonForAddDevProgressForTeam teamId={team.id} />
                                 </Box>
@@ -103,7 +105,6 @@ const DevBattleDetail = ({ devBattleId, teams }: Props) => {
                         ))}
                     </>
                 ) : (
-                    // 팀 데이터가 없는 경우
                     <GridItem colSpan={gridTemplateColumns ? gridTemplateColumns.split(' ').length : 1}>
                         <VStack spacing={4} alignItems="center" justifyContent="center" minHeight="300px">
                             <Text fontSize="2xl" fontWeight="bold" color="gray.500">
@@ -112,7 +113,6 @@ const DevBattleDetail = ({ devBattleId, teams }: Props) => {
                         </VStack>
                     </GridItem>
                 )}
-                {/* 채팅 영역 */}
             </Grid>
         </Box>
     );
