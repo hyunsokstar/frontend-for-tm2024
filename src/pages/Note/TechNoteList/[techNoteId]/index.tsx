@@ -1,4 +1,5 @@
 // src/pages/Note/TechNoteList/[techNoteId]/SkilNoteList.js
+// src\pages\Note\TechNoteList\[techNoteId]\index.tsx
 
 import { useRouter } from 'next/router';
 

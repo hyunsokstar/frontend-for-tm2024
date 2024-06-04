@@ -17,7 +17,7 @@ import {
 import { FaPlus } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
 import { format } from 'date-fns';
-import ModalButtonForSelectDeadLine from '../Modal/ModalButtonForSelectDeadLine';
+import ModalButtonForSelectDeadLine from './ModalButtonForSelectDeadLine';
 import useApiForSimpleCreateChallenge from '@/hooks/useApiForSimpleCreateChallenge';
 
 

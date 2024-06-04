@@ -15,6 +15,7 @@ import DataGridForTechNotesForRoadMap from './DataGridForTechNotesForRoadMap';
 import { format } from 'date-fns';
 import ModalButtonForParticipantsListForRoadMap from '../Modal/ModalButtonForParticipantsListForRoadMap';
 import ModalButtonForTechNoteForRoadMap from '../Modal/ModalButtonForTechNoteForRoadMap';
+import { useRouter } from 'next/router';
 
 
 const formatDateTime = (dateTime: string | any) => {
@@ -33,119 +34,126 @@ interface ITypeForParameterForRenderCell {
     onRowChange: (updated: ITypeForRoadMapRow) => void;
 }
 
-const columns = [
-    SelectColumnForReactDataGrid,
-    {
-        key: 'expanded',
-        name: '',
-        minWidth: 30,
-        width: 30,
-        colSpan(args: any) {
-            return args.type === 'ROW' && args.row.type === 'DETAIL' ? 7 : undefined;
-        },
-        renderCell({ row, tabIndex, onRowChange }: ITypeForParameterForRenderCell) {
-            if (row.type === 'DETAIL') {
-                return (
-                    <Box width={"100%"} bgColor={"#DCEDF9"}>
-                        <DataGridForTechNotesForRoadMap
-                            techNotes={row.techNotes ? row.techNotes : []}
-                            roadMapId={row.parentId}
-                        />
-                    </Box>
-                )
-            }
+// const columns = [
+//     SelectColumnForReactDataGrid,
+//     {
+//         key: 'expanded',
+//         name: '',
+//         minWidth: 30,
+//         width: 30,
+//         colSpan(args: any) {
+//             return args.type === 'ROW' && args.row.type === 'DETAIL' ? 7 : undefined;
+//         },
+//         renderCell({ row, tabIndex, onRowChange }: ITypeForParameterForRenderCell) {
+//             if (row.type === 'DETAIL') {
+//                 return (
+//                     <Box width={"100%"} bgColor={"#DCEDF9"}>
+//                         <DataGridForTechNotesForRoadMap
+//                             techNotes={row.techNotes ? row.techNotes : []}
+//                             roadMapId={row.parentId}
+//                         />
+//                     </Box>
+//                 )
+//             }
 
-            return (
-                <CellExpanderFormatter
-                    expanded={row.expanded}
-                    tabIndex={tabIndex}
-                    onCellExpand={() => {
-                        onRowChange({ ...row, expanded: !row.expanded });
-                    }}
-                />
-            );
-        },
-    },
-    {
-        key: 'email',
-        name: 'email',
-        hidden: true,
-        width: 200,
-        renderCell({ row, tabIndex, onRowChange }: any): React.ReactNode {
-            return (
-                <Box>{row.email}</Box>
-            );
-        },
-        renderEditCell: SelectBoxForUserEmail
-    },
-    {
-        key: 'title',
-        name: 'Title',
-        width: 500,
-        renderEditCell: CommonTextEditor
-    },
+//             return (
+//                 <CellExpanderFormatter
+//                     expanded={row.expanded}
+//                     tabIndex={tabIndex}
+//                     onCellExpand={() => {
+//                         onRowChange({ ...row, expanded: !row.expanded });
+//                     }}
+//                 />
+//             );
+//         },
+//     },
+//     {
+//         key: 'email',
+//         name: 'email',
+//         hidden: true,
+//         width: 200,
+//         renderCell({ row, tabIndex, onRowChange }: any): React.ReactNode {
+//             return (
+//                 <Box>{row.email}</Box>
+//             );
+//         },
+//         renderEditCell: SelectBoxForUserEmail
+//     },
+//     {
+//         key: 'title',
+//         name: 'Title',
+//         width: 500,
+//         renderEditCell: CommonTextEditor
+//     },
 
-    {
-        key: 'category',
-        name: 'Category',
-        width: 200,
-        renderEditCell: CommonTextEditor
-    },
-    {
-        key: 'techNote',
-        name: 'techNote',
-        width: 200,
-        // ModalButtonForTechNoteForRoadMap
-        renderCell(props: any) {
-            return (
-                <Box>
-                    <ModalButtonForTechNoteForRoadMap
-                        techNotes={props.row.techNotes}
-                        roadMapId={props.row.id}
-                    />
-                </Box>
-            )
-        },
-    },
-    {
-        key: 'participants',
-        name: 'particiPants',
-        renderCell(props: any) {
-            return (
-                <Box>
-                    <ModalButtonForParticipantsListForRoadMap
-                        participants={props.row.participants ? props.row.participants : []}
-                        button_text={'participant'}
-                    />
-                </Box>
-            )
-        },
-    },
-    {
-        key: 'createdAt',
-        name: 'Created At',
-        renderCell(props: any) {
-            // console.log("props.row.startTime : ", props.row);
-            // console.log("props.row.startTime : ", props.row.startTime);
-            if (props.row.startTime !== null && props.row.startTime !== "") {
-                // console.log("이게 실행 되면 에러 발생 인데 !");
-                console.log("props.row.createdAt : ", props.row.createdAt);
+//     {
+//         key: 'category',
+//         name: 'Category',
+//         width: 200,
+//         renderEditCell: CommonTextEditor
+//     },
+//     {
+//         key: 'techNote',
+//         name: 'techNote',
+//         width: 200,
+//         renderCell(props: any) {
+//             return (
+//                 <Box>
+//                     <ModalButtonForTechNoteForRoadMap
+//                         techNotes={props.row.techNotes}
+//                         roadMapId={props.row.id}
+//                     />
+//                     <Button
+//                         size={"sm"}
+//                         variant={"outline"}
+//                         ml={1}
+//                         border={"1px solid black"}
+//                     >
+//                         go
+//                     </Button>
+//                 </Box>
+//             )
+//         },
+//     },
+//     {
+//         key: 'participants',
+//         name: 'particiPants',
+//         renderCell(props: any) {
+//             return (
+//                 <Box>
+//                     <ModalButtonForParticipantsListForRoadMap
+//                         participants={props.row.participants ? props.row.participants : []}
+//                         button_text={'participant'}
+//                     />
+//                 </Box>
+//             )
+//         },
+//     },
+//     {
+//         key: 'createdAt',
+//         name: 'Created At',
+//         renderCell(props: any) {
+//             // console.log("props.row.startTime : ", props.row);
+//             // console.log("props.row.startTime : ", props.row.startTime);
+//             if (props.row.startTime !== null && props.row.startTime !== "") {
+//                 // console.log("이게 실행 되면 에러 발생 인데 !");
+//                 console.log("props.row.createdAt : ", props.row.createdAt);
 
-                const value = formatDateTime(props.row.createdAt);
-                return (
-                    <>
-                        {value}
-                    </>
-                );
-            } else {
-                return ""
-            }
-        },
-    },
+//                 const value = formatDateTime(props.row.createdAt);
+//                 return (
+//                     <>
+//                         {value}
+//                     </>
+//                 );
+//             } else {
+//                 return ""
+//             }
+//         },
+//     },
 
 
 
-];
+// ];
 
 type Props = {}
 
@@ -155,12 +163,18 @@ const DataGridForRoadMapList = (props: Props) => {
     const { isLoading, error, data: dataForRoadMapList } = useApiForGetAllRoadMapList({ pageNum: 1 });
     const [roadMapList, setRoadMapList] = useState<ITypeForRoadMapRow[]>([])
     const [selectedRows, setSelectedRows] = useState((): ReadonlySet<number> => new Set());
-
     const { isLoggedIn, loginUser, logout } = useUser();
 
     const pageNum = 1
     const mutationForSaveRoadMaps = useApiForSaveRoadMaps(pageNum); // custom hook 사용
     const mutationForDeleteCheckedRows = useApiForDeleteRoadMapsForCheckedIds(pageNum);
+    const router = useRouter();
+
+    const goButtonClick = (roadMapId: number) => {
+        window.open(`/Note/RoadMap/${roadMapId}/RoadMapList`, '_blank');
+    };
+
+
 
     // 사용자가 저장 버튼을 클릭할 때 실행될 함수
     const handleSave = () => {
@@ -182,21 +196,12 @@ const DataGridForRoadMapList = (props: Props) => {
         setSelectedRows(new Set())
     };
 
-
     console.log("dataForRoadMapList : ", dataForRoadMapList);
-
-    // function onRowsChange(rows: ITypeForRoadMapRow[], { indexes, column }: any) {
-    //     console.log("click ?? : ", rows);
-    //     setRoadMapList(rows);
-    // }
 
     function onRowsChange(rows: ITypeForRoadMapRow[], { indexes, column }: RowsChangeData<ITypeForRoadMapRow>) {
         console.log("onRowsChange excute check ??? roadmaps ??", rows);
-
         const updatedRows = [...rows]; // 기존 배열을 복사하여 새로운 배열 생성
-
         const row = updatedRows[indexes[0]];
-
 
 
         if (row.type === 'MASTER') {
@@ -222,7 +227,6 @@ const DataGridForRoadMapList = (props: Props) => {
         setRoadMapList(updatedRows); // 새로운 배열을 상태로 설정
 
     }
-
 
     const handleDelete = () => {
         console.log('Delete button clicked');
@@ -272,6 +276,124 @@ const DataGridForRoadMapList = (props: Props) => {
 
         setRoadMapList((prev: ITypeForRoadMapRow[]) => [newRow, ...prev])
     };
+
+    const getRoadMapColumns = (goButtonClick: (roadMapId: number) => void) => {
+        return [
+            SelectColumnForReactDataGrid,
+            {
+                key: 'expanded',
+                name: '',
+                minWidth: 30,
+                width: 30,
+                colSpan(args: any) {
+                    return args.type === 'ROW' && args.row.type === 'DETAIL' ? 7 : undefined;
+                },
+                renderCell({ row, tabIndex, onRowChange }: ITypeForParameterForRenderCell) {
+                    if (row.type === 'DETAIL') {
+                        return (
+                            <Box width={"100%"} bgColor={"#DCEDF9"}>
+                                <DataGridForTechNotesForRoadMap
+                                    techNotes={row.techNotes ? row.techNotes : []}
+                                    roadMapId={row.parentId}
+                                />
+                            </Box>
+                        )
+                    }
+
+                    return (
+                        <CellExpanderFormatter
+                            expanded={row.expanded}
+                            tabIndex={tabIndex}
+                            onCellExpand={() => {
+                                onRowChange({ ...row, expanded: !row.expanded });
+                            }}
+                        />
+                    );
+                },
+            },
+            {
+                key: 'email',
+                name: 'email',
+                hidden: true,
+                width: 200,
+                renderCell({ row, tabIndex, onRowChange }: any): React.ReactNode {
+                    return (
+                        <Box>{row.email}</Box>
+                    );
+                },
+                renderEditCell: SelectBoxForUserEmail
+            },
+            {
+                key: 'title',
+                name: 'Title',
+                width: 500,
+                renderEditCell: CommonTextEditor
+            },
+            {
+                key: 'category',
+                name: 'Category',
+                width: 200,
+                renderEditCell: CommonTextEditor
+            },
+            {
+                key: 'techNote',
+                name: 'techNote',
+                width: 200,
+                renderCell(props: any) {
+                    const { row } = props;
+                    return (
+                        <Box>
+                            <ModalButtonForTechNoteForRoadMap
+                                techNotes={row.techNotes}
+                                roadMapId={row.id}
+                            />
+                            <Button
+                                size={"sm"}
+                                variant={"outline"}
+                                ml={1}
+                                border={"1px solid black"}
+                                onClick={() => goButtonClick(row.id)}
+                            >
+                                go
+                            </Button>
+                        </Box>
+                    )
+                },
+            },
+            {
+                key: 'participants',
+                name: 'particiPants',
+                renderCell(props: any) {
+                    return (
+                        <Box>
+                            <ModalButtonForParticipantsListForRoadMap
+                                participants={props.row.participants ? props.row.participants : []}
+                                button_text={'participant'}
+                            />
+                        </Box>
+                    )
+                },
+            },
+            {
+                key: 'createdAt',
+                name: 'Created At',
+                renderCell(props: any) {
+                    if (props.row.startTime !== null && props.row.startTime !== "") {
+                        console.log("props.row.createdAt : ", props.row.createdAt);
+
+                        const value = formatDateTime(props.row.createdAt);
+                        return (
+                            <>
+                                {value}
+                            </>
+                        );
+                    } else {
+                        return ""
+                    }
+                },
+            },
+        ];
+    }
 
     // 2244
     useEffect(() => {
@@ -323,7 +445,8 @@ const DataGridForRoadMapList = (props: Props) => {
             <Box>
                 {dataForRoadMapList ?
                     <DataGrid
-                        columns={columns}
+                        // columns={columns}
+                        columns={getRoadMapColumns(goButtonClick)}
                         rows={roadMapList}
 
                         rowKeyGetter={(row) => row.id}
