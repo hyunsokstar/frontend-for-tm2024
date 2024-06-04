@@ -214,11 +214,11 @@ const DataGridForRoadMapList = (props: Props) => {
             {
                 key: 'techNote',
                 name: 'techNote',
-                width: 200,
+                width: 162,
                 renderCell(props: any) {
                     const { row } = props;
                     return (
-                        <Box>
+                        <Box display={"flex"} justifyContent={"space-between"} alignItems={"center"} py={"9.4px"}>
                             <ModalButtonForTechNoteForRoadMap
                                 techNotes={row.techNotes}
                                 roadMapId={row.id}
@@ -226,7 +226,6 @@ const DataGridForRoadMapList = (props: Props) => {
                             <Button
                                 size={"sm"}
                                 variant={"outline"}
-                                ml={1}
                                 border={"1px solid black"}
                                 onClick={() => goButtonClick(row.id)}
                             >

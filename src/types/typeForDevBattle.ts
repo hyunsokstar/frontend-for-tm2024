@@ -125,3 +125,27 @@ export interface IParameterForUpdateForSpecificDevSpecForNotArryTypeForTeamBattl
     fieldName: string;
     itemText: string;
 }
+
+export interface IUpdateDevProgressForTeamDto {
+    task?: string;
+    figmaUrl?: string;
+    youtubeUrl?: string;
+    noteUrl?: string;
+    status?: DevStatus;
+}
+
+export interface ResponseForUpdateDevProgressForTeam {
+    id: number;
+    task: string;
+    figmaUrl: string;
+    youtubeUrl: string;
+    skilNoteId: number;
+    noteUrl: string;
+    status: DevStatus;
+    createdAt: Date;
+}
+
+export interface IParameterForUpdateDevProgress {
+    progressId: number;
+    updateDevProgressForTeamDto: IUpdateDevProgressForTeamDto;
+}
