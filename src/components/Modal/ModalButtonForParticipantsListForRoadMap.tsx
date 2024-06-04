@@ -32,12 +32,10 @@ const ModalButtonForParticipantsListForRoadMap: React.FC<Props> = ({ participant
                     <ModalHeader>Participants For TechNote</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-
                         <DataGridForParticipantsForRoadMap participants={participants} />
 
                     </ModalBody>
                     <ModalFooter>
-                        {/* 모달 하단에 필요한 내용이 있다면 여기에 추가할 수 있습니다. */}
                         <Button colorScheme="blue" mr={3} onClick={handleCloseModal}>
                             Close
                         </Button>

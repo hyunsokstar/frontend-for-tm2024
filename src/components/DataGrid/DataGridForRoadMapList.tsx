@@ -47,7 +47,7 @@ const DataGridForRoadMapList = (props: Props) => {
     const router = useRouter();
 
     const goButtonClick = (roadMapId: number) => {
-        window.open(`/Note/RoadMap/${roadMapId}/RoadMapList`, '_blank');
+        window.open(`/Note/RoadMap/${roadMapId}/TechNoteListForRoadMap`, '_blank');
     };
 
 

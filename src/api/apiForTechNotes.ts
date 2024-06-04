@@ -25,14 +25,32 @@ instance.interceptors.request.use(
     }
 );
 
-export const apiForSaveTechNotes = ({ techNotesToSave, roadMapId }: DtoForSaveTechNote) => {
-    console.log("techNotesToSave at api : ", techNotesToSave, roadMapId);
-    return instance.post(
-        'saveTechNotes', { techNotesToSave, roadMapId }
-    ).then((response: any) => response.data)
-}
+export const apiForGetTechNotesByRoadMapId = async (
+    roadMapId: number,
+    pageNum: number = 1,
+    searchOption: string = "",
+    searchText: string = "",
+    isBestByLikes: boolean = false,
+    isBestByBookMarks: boolean = false
+): Promise<AxiosResponse<{
+    techNoteList: TechNote[];
+    totalCount: number;
+    perPage: number;
+}>> => {
+    return instance.get(`/for-road-map/${roadMapId}/techNoteList`, {
+        params: {
+            pageNum,
+            searchOption,
+            searchText,
+            isBestByLikes,
+            isBestByBookMarks
+        }
+    });
+};
 
 
+
+// technotes
 export const apiForGetAllTechNoteList = ({ queryKey }: QueryFunctionContext) => {
     const [_, pageNum, searchOption, searchText, isBestByLikes, isBestByBookMarks] = queryKey;
 
@@ -52,6 +70,13 @@ export const apiForGetAllTechNoteList = ({ queryKey }: QueryFunctionContext) => 
         });
 
 };
+
+export const apiForSaveTechNotes = ({ techNotesToSave, roadMapId }: DtoForSaveTechNote) => {
+    console.log("techNotesToSave at api : ", techNotesToSave, roadMapId);
+    return instance.post(
+        'saveTechNotes', { techNotesToSave, roadMapId }
+    ).then((response: any) => response.data)
+}
 
 export const apiForDeleteTechNotesForCheckedIds = (checkedIds: any[]): Promise<any> => {
     console.log('apiForDeleteTechNotesForCheckedIds check data:', checkedIds);

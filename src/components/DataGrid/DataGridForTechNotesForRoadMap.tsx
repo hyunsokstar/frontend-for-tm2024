@@ -11,9 +11,7 @@ import CommonTextEditor from '../GridEditor/TextEditor/CommonTextEditor';
 import SelectBoxForUserEmail from '../GridEditor/SelectBox/SelectBoxForUserEmail';
 import { TechNote } from '@/types/typeForTechNote';
 import ModalButtonForParticipantsListForTechNote from '../Modal/ModalButtonForParticipantsListForTechNote';
-
 import { format } from 'date-fns';
-
 
 type Props = {
     techNotes: ITypeForTechNotesRowForRoadMapsMasterDetail[]; // techNotes 배열을 Props로 받음
@@ -185,15 +183,6 @@ const DataGridForTechNotesForRoadMap: React.FC<Props> = ({ techNotes, roadMapId 
     }
 
     // techNotes 배열을 rows로 설정
-    // const rows = techNotes.map(note => ({
-    //     id: note.id,
-    //     title: note.title,
-    //     skilnotes: note.skilnotes,
-    //     description: note.description,
-    //     category: note.category,
-    //     createdAt: note.createdAt,
-    //     updatedAt: note.updatedAt
-    // }));
 
     const addRowHandler = () => {
         console.log("addRowHandler");

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import 'react-data-grid/lib/styles.css';
 import { Box, Button, Icon, Radio, RadioGroup, Stack, Text, useToast } from '@chakra-ui/react';
-import DataGrid, { RenderCheckboxProps, RowsChangeData, SelectColumn, TreeDataGrid, textEditor } from 'react-data-grid';
+import { RenderCheckboxProps, TreeDataGrid } from 'react-data-grid';
 import useGetAllTechNoteList from '@/hooks/useGetAllTechNoteList';
 import { SelectColumnForReactDataGrid } from '@/components/Formatter/CheckBox/SelectColumnForRdg';
 import CommonTextEditor from '@/components/GridEditor/TextEditor/CommonTextEditor';
@@ -18,14 +18,19 @@ import useApiForLikeTechNote from '@/hooks/useApiForLikeTechNote';
 import useApiForBookMarkTechNote from '@/hooks/useApiForBookMarkTechNote';
 import { TechNote } from '@/types/typeForTechNote';
 import ModalButtonForParticipantsListForTechNote from '../Modal/ModalButtonForParticipantsListForTechNote';
+import useApiForGetTechNotesByRoadMapId from '@/hooks/useApiForGetTechNotesByRoadMapId';
 
 const options = [
     'email',
     'category',
 ] as const;
 
+interface IProps {
+    roadMapId?: number
+}
+
 // 1122
-const DataGridForTechNoteList2 = () => {
+const DataGridForTechNoteList2 = ({ roadMapId }: IProps) => {
     const queryClient = useQueryClient();
     const [searchText, setSearchText] = useState('');
     const [searchOption, setSearchOption] = useState('title');
@@ -43,8 +48,7 @@ const DataGridForTechNoteList2 = () => {
     );
 
     const [selectedOptions, setSelectedOptions] = useState<readonly string[]>([
-        // options[0],
-        // options[1]
+
     ]);
 
     const [isBestByLikes, setIsBestByLikes] = useState<boolean>(false)
@@ -52,15 +56,23 @@ const DataGridForTechNoteList2 = () => {
 
     const [pageNum, setPageNum] = useState(1);
 
-    // useQuery
-    const { isLoading, error, data: dataForTechNoteList }
-        = useGetAllTechNoteList(
+    const { isLoading, error, data: dataForTechNoteList } = roadMapId
+        ? useApiForGetTechNotesByRoadMapId(
+            roadMapId,
+            pageNum,
+            searchOption,
+            searchText,
+            isBestByLikes,
+            isBestByBookMarks
+        )
+        : useGetAllTechNoteList(
             pageNum,
             searchOption,
             searchText,
             isBestByLikes,
             isBestByBookMarks
         );
+
     const mutationForLikeTechNote = useApiForLikeTechNote(pageNum);
     const mutationForBookMarkTechNote = useApiForBookMarkTechNote(pageNum);
 
@@ -83,11 +95,6 @@ const DataGridForTechNoteList2 = () => {
         mutationForBookMarkTechNote.mutate({ userId, techNoteId })
     }
 
-    // const skilNotePageButtonClick = (techNoteId: any) => {
-    //     console.log("skil note page button click", techNoteId);
-    //     // 현재 주소가 http://127.0.0.1:3000/Note/TechNoteList 인데 뒤에
-    //     // /techNoteId/SkilNoteList 붙여서 새탭으로 요청 날리게 하려면?
-    // }
     const skilNotePageButtonClick = (techNoteId: any) => {
         console.log("skil note page button click", techNoteId);
 
@@ -100,31 +107,6 @@ const DataGridForTechNoteList2 = () => {
         // 새 탭으로 열기
         window.open(newURL, '_blank');
     }
-
-    // {
-    //     key: 'expanded',
-    //     name: '',
-    //     minWidth: 30,
-    //     width: 30,
-    //     colSpan(args: any) {
-    //         return args.type === 'ROW' && args.row.type === 'DETAIL' ? 6 : undefined;
-    //     },
-    //     renderCell({ row, tabIndex, onRowChange }: any): React.ReactNode {
-    //         if (row.type === 'DETAIL') {
-    //             return <DataGridForSkilNoteListForTechNoteId techNoteId={row.parentId} />;
-    //         }
-
-    //         return (
-    //             <CellExpanderFormatter
-    //                 expanded={row.expanded}
-    //                 tabIndex={tabIndex}
-    //                 onCellExpand={() => {
-    //                     onRowChange({ ...row, expanded: !row.expanded });
-    //                 }}
-    //             />
-    //         );
-    //     }
-    // },
 
     const columns = [
         SelectColumnForReactDataGrid,
@@ -471,7 +453,6 @@ const DataGridForTechNoteList2 = () => {
                     selectedRows={selectedRows}
                     onSelectedRowsChange={setSelectedRows}
                     onRowsChange={onRowsChange}
-                    // rowHeight={(row) => (row.type === 'DETAIL' ? 300 : 45)}
                     expandedGroupIds={expandedGroupIds}
                     onExpandedGroupIdsChange={setExpandedGroupIds}
                     defaultColumnOptions={{ resizable: true }}
