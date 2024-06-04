@@ -75,7 +75,7 @@ const TabMenuForSkilNoteContents = ({
                 <TabPanel p={0}>
                     {
                         dataForskilNoteContent && dataForskilNoteContent.skilnoteContentsPagesInfo.length ? (
-                            <Box display="flex" flexWrap="wrap">
+                            <Box display="flex" flexWrap="wrap" py={0}>
                                 {dataForskilNoteContent.skilnoteContentsPagesInfo.map((item, index) => (
                                     <Button
                                         key={index}
@@ -83,9 +83,10 @@ const TabMenuForSkilNoteContents = ({
                                         variant="outline"
                                         onClick={() => handlePageButtonClick(item.page)}
                                         border="1px solid black"
-                                        ml={2}
-                                        mb={2}
+                                        ml={1}
+                                        mb={1}
                                         size="sm"
+                                        py={0}
                                     >
                                         {item.page}
                                     </Button>
@@ -95,7 +96,6 @@ const TabMenuForSkilNoteContents = ({
                             "no data"
                         )
                     }
-
 
                     <NavigatorForScrollContents
                         skilNoteId={skilNoteId}

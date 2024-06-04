@@ -151,7 +151,7 @@ const NavigatorForScrollContents =
                 case "ts":
                     return "#FF9800"; // Orange (Material Design's primary orange)
                 case "css":
-                    return "#9C27B0"; // Purple (Material Design's primary purple)
+                    return "#dbb0e2"; // Purple (Material Design's primary purple)
                 case "test":
                     return "#7abdf3"; // Light Blue (Material Design's primary light blue)
                 case "cmd":
@@ -192,13 +192,11 @@ const NavigatorForScrollContents =
                                 ref={provided.innerRef}
                                 style={getListStyle(snapshot.isDraggingOver)}
                                 border={"0px solid red"}
-                                m={1}
                             >
                                 {items && items.map((item, index) => (
                                     <Draggable key={item.id} draggableId={item.id} index={index}>
                                         {(provided, snapshot) => (
                                             <Box display={"flex"}>
-
                                                 <Box
                                                     ref={provided.innerRef}
                                                     {...provided.draggableProps}
@@ -209,18 +207,19 @@ const NavigatorForScrollContents =
                                                     )}
                                                     // onClick={() => scrollToCard(parseInt(item.order))}
                                                     onClick={(e) => contentOrderButtonHandler(e, item.order, item.id)}
-                                                    fontSize={14}
+                                                    fontSize={10}
                                                     border={checkedRows.includes(parseInt(item.id)) ? "1px solid red" : "1px solid black"}
                                                     width={"100%"}
                                                     display={"flex"}
                                                     flexWrap={"wrap"}
-                                                    gap={2}
                                                     justifyContent={"center"}
                                                     alignItems={"center"}
+                                                    gap={1}
+                                                    py={0}
                                                 >
                                                     <Box>
                                                         <Button
-                                                            size={"sm"} variant={"outline"} border={"1px solid black"} m={0} onClick={(i) => contentIndexButtonClick(index)}
+                                                            size={"xs"} variant={"outline"} border={"1px solid black"} mr={1} onClick={(i) => contentIndexButtonClick(index)}
                                                             backgroundColor={index + 1 === currentIndex ? "paleturquoise" : ""}
                                                         >
                                                             {index + 1}
@@ -243,7 +242,7 @@ const NavigatorForScrollContents =
                                 ))}
                                 {provided.placeholder}
                                 <Box display={"flex"}>
-                                    <Button background={"white"} color={"black"} flex={1} variant={"outline"} onClick={scrollCardToEditor}>create</Button>
+                                    <Button background={"white"} color={"black"} flex={1} variant={"outline"} onClick={scrollCardToEditor} size={"sm"}>create</Button>
                                 </Box>
                             </Box>
                         )}
