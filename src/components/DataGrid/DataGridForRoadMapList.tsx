@@ -19,15 +19,12 @@ import { useRouter } from 'next/router';
 
 
 const formatDateTime = (dateTime: string | any) => {
-    // console.log("dateTime : ", typeof dateTime);
-
     if (dateTime !== undefined) {
         const time = new Date(dateTime);
         return format(time, "MM-dd HH:mm");
     }
 
 };
-
 interface ITypeForParameterForRenderCell {
     row: ITypeForRoadMapRow;
     tabIndex: number;
