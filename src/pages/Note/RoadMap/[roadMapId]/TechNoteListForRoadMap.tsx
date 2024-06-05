@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import DataGridForTechNoteList2 from '@/components/DataGrid/DataGridForTechNoteList2';
 
-type Props = {};
-
-const TechNoteListForRoadMap = (props: Props) => {
+const TechNoteListForRoadMap = () => {
     const router = useRouter();
     const [roadMapId, setRoadMapId] = useState<number | undefined>();
 
@@ -13,6 +11,12 @@ const TechNoteListForRoadMap = (props: Props) => {
         // Type assertion (assuming roadMapId is always a number)
         setRoadMapId(Number(idFromQuery));
     }, [router.query]);
+
+    useEffect(() => {
+        if (roadMapId !== undefined) {
+            document.title = `TechNoteList For ${roadMapId}`;
+        }
+    }, [roadMapId]);
 
     return (
         <div>

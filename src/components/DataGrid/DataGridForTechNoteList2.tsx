@@ -392,7 +392,7 @@ const DataGridForTechNoteList2 = ({ roadMapId }: IProps) => {
 
     // 2244
     return (
-        <Box width={"98%"} m={"auto"} border={"2px solid blue"}>
+        <Box width={"98%"} m={"auto"} border={"0px solid blue"} height={"70vh"}>
             메인 테크 노트 리스트
             <Box display={"flex"} gap="2" ml={2} my={1} mt={2} >
                 <b>Group by:</b>
@@ -443,7 +443,7 @@ const DataGridForTechNoteList2 = ({ roadMapId }: IProps) => {
                 </Box>
             </Box>
 
-            <Box width={"100%"} border={"2px solid red"} py={1}>
+            <Box width={"100%"} border={"0px solid red"} py={1}>
                 <TreeDataGrid
                     rowKeyGetter={(row) => row.id}
                     columns={columns}
@@ -457,9 +457,10 @@ const DataGridForTechNoteList2 = ({ roadMapId }: IProps) => {
                     defaultColumnOptions={{ resizable: true }}
                     rowGrouper={rowGrouper}
                     groupBy={selectedOptions}
+                    style={{ height: "70vh", border: "0px solid red" }}
                 />
             </Box>
-        </Box>
+        </Box >
     );
 };
 
