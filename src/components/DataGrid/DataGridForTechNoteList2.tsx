@@ -102,10 +102,9 @@ const DataGridForTechNoteList2 = ({ roadMapId }: IProps) => {
         const currentURL = window.location.href;
 
         // 새로운 URL 생성
-        const newURL = `${currentURL}/${techNoteId}/SkilNoteListPage`;
+        const urlToMove = `http://13.209.211.181:3000/Note/TechNoteList/${techNoteId}/SkilNoteListPage`;
 
-        // 새 탭으로 열기
-        window.open(newURL, '_blank');
+        window.open(urlToMove, '_blank');
     }
 
     const columns = [
