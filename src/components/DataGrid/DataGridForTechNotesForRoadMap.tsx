@@ -269,7 +269,7 @@ const DataGridForTechNotesForRoadMap: React.FC<Props> = ({ techNotes, roadMapId 
                         selectedRows={selectedRows}
                         onSelectedRowsChange={setSelectedRows}
                         onRowsChange={onRowsChange}
-
+                        style={{ height: "60vh" }}
                     />
                 ) : (
                     <Center h="200px">

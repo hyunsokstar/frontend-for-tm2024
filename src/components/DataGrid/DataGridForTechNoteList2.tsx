@@ -127,12 +127,13 @@ const DataGridForTechNoteList2 = ({ roadMapId }: IProps) => {
             renderEditCell: CommonTextEditor
         },
 
-        {
-            key: 'category',
-            name: 'Category',
-            width: 200,
-            renderEditCell: CommonTextEditor
-        },
+        // {
+        //     key: 'category',
+        //     name: 'Category',
+        //     width: 200,
+        //     renderEditCell: CommonTextEditor
+        // },
+
         {
             key: 'skilnotes',
             name: 'Skil Notes',
@@ -141,7 +142,7 @@ const DataGridForTechNoteList2 = ({ roadMapId }: IProps) => {
                 return (
                     <Box border={"0px solid red"}>
                         <Button onClick={() => skilNotePageButtonClick(row.id)}
-                            size={"sm"}
+                            size={"xs"}
                             variant={"outline"}
                         >
                             {/* 스킬 노트 ({row.skilnotes.length}) */}
