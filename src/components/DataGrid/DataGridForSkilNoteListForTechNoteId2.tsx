@@ -181,7 +181,7 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
             renderCell({ row, tabIndex, onRowChange }: any): React.ReactNode {
                 return (
                     <Box>
-                        <Button size={"sm"} variant={"outline"} onClick={() => detailHandler(row.id)} width={"6vdh"}>
+                        <Button size={"xs"} variant={"outline"} onClick={() => detailHandler(row.id)} width={"6vdh"}>
                             contents
                             ({row.countForSkilNoteContentsPages}page , {row.countForSkilNoteContents} 개)
                         </Button>
