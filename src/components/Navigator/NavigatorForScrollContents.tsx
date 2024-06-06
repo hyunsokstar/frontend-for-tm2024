@@ -139,27 +139,27 @@ const NavigatorForScrollContents =
             return matches ? matches[1] : null;
         }
 
-        // 색깔 조절
-        function getBackgroundColor(fileType: any): string {
-            const yellowTone = "#FFFFE0";
-
+        // 파일 확장자 색깔
+        function getBackgroundColor(fileType: string | null): string {
             switch (fileType) {
                 case "todo":
-                    return "pink"; // Blue (Material Design's primary blue)
+                    return "#f0d1cd"; // 연한 노란색
                 case "tsx":
-                    return "#abe7ad"; // Green (Material Design's primary green)
+                    return "#FFD87F"; // 연한 주황색
                 case "ts":
-                    return "#FF9800"; // Orange (Material Design's primary orange)
+                    return "#AFC2FF"; // 연한 파란색
                 case "css":
-                    return "#dbb0e2"; // Purple (Material Design's primary purple)
+                    return "#CDA2FF"; // 연한 보라색
                 case "test":
-                    return "#7abdf3"; // Light Blue (Material Design's primary light blue)
+                    return "#BFFFB8"; // 연한 초록색
                 case "cmd":
-                    return "#a7eee7"; // Teal (Material Design's primary teal)
+                    return "#F5F5F5"; // 연한 회색
                 default:
-                    return yellowTone;
+                    return "#FDF5E6"; // 연한 베이지색 (기존 코드 유지)
             }
         }
+
+
 
 
 
@@ -230,7 +230,7 @@ const NavigatorForScrollContents =
                                                     </Box>
                                                     <Spacer />
                                                     {getExtension(item.file) !== "" ?
-                                                        <Button onClick={() => alert("열기")} size={"xs"} bgColor={getBackgroundColor(getExtension(item?.file))} m={0} width={"2rem"}>
+                                                        <Button onClick={() => alert("열기")} size={"xs"} bgColor={getBackgroundColor(getExtension(item?.file))} m={0} >
                                                             {getExtension(item?.file)}
                                                         </Button>
                                                         : ""}

@@ -60,7 +60,7 @@ const TabMenuForSkilNoteContents = ({
 
     return (
         <Tabs isFitted variant='enclosed' size={"sm"}>
-            <TabList mb='1em'>
+            <TabList mb={1}>
                 <Tab _selected={{ color: 'black.500', bg: 'blue.300' }}>Contents({countForSkilNoteContents})</Tab>
                 <Tab _selected={{ color: 'black.500', bg: 'red.300' }}>Pages ({countForSkilNotePages})</Tab>
                 <Tab _selected={{ color: 'yellow.300', bg: 'brown' }}>
