@@ -181,7 +181,12 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
             renderCell({ row, tabIndex, onRowChange }: any): React.ReactNode {
                 return (
                     <Box>
-                        <Button size={"xs"} variant={"outline"} onClick={() => detailHandler(row.id)} width={"6vdh"}>
+                        <Button size={"xs"} variant={"outline"} onClick={() => detailHandler(row.id)} width={"6vdh"}
+                            _hover={{
+                                border: "1px solid black", // change to your desired hover border color
+                                bg: "blue.100", // change to your desired hover background color
+                            }}
+                        >
                             contents
                             ({row.countForSkilNoteContentsPages}page , {row.countForSkilNoteContents} 개)
                         </Button>

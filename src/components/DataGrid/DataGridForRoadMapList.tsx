@@ -224,10 +224,14 @@ const DataGridForRoadMapList = (props: Props) => {
                                 roadMapId={row.id}
                             />
                             <Button
-                                size={"sm"}
-                                variant={"outline"}
-                                border={"1px solid black"}
+                                size="sm"
+                                variant="outline"
+                                border="1px solid black"
                                 onClick={() => goButtonClick(row.id)}
+                                _hover={{
+                                    border: "1px solid red", // change to your desired hover border color
+                                    bg: "orange.100", // change to your desired hover background color
+                                }}
                             >
                                 go
                             </Button>

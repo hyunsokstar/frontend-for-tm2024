@@ -16,7 +16,12 @@ const ModalButtonForTechNoteForRoadMap: React.FC<Props> = ({ techNotes, roadMapI
 
     return (
         <>
-            <Button width={"100px"} onClick={onOpen} border={"1px solid black"} variant={"outlined"} size={"sm"} >technotes ({techNotes?.length ? techNotes.length : 0})</Button>
+            <Button width={"100px"} onClick={onOpen} border={"1px solid black"} variant={"outlined"} size={"sm"}
+                _hover={{
+                    border: "1px solid red", // change to your desired hover border color
+                    bg: "blue.100", // change to your desired hover background color
+                }}
+            >technotes ({techNotes?.length ? techNotes.length : 0})</Button>
             <Modal isOpen={isOpen} onClose={onClose} size={"7xl"}>
                 <ModalOverlay />
                 <ModalContent>
