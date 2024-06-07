@@ -1,5 +1,4 @@
 // DevBattleTabMenus.tsx
-
 import React from 'react';
 import { Flex, Spacer, TabList, Tab, useColorModeValue } from '@chakra-ui/react';
 import { DevBattleResponse } from '@/types/typeForDevBattle';
