@@ -10,7 +10,7 @@ type Props = {
     isMainOrSub: "main" | "sub";
 };
 
-// 노트 선택용 모달
+// 노트 선택 모달
 const ModalButtonForSelectNoteForTodo = ({ toDoId, pageInfo, buttonText, isMainOrSub }: Props) => {
     const [isOpen, setIsOpen] = React.useState(false);
 
