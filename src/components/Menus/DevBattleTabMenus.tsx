@@ -8,7 +8,7 @@ import ModalButtonForUpdateDevbattleSubjects from '../Modal/ModalButtonForUpdate
 interface DevBattleTabMenuProps {
     devBattles: DevBattleResponse[];
     onTabClick: (index: number) => void;
-    selectedDevBattleId: number | null;
+    selectedDevBattleId: number;
 }
 
 const DevBattleTabMenus: React.FC<DevBattleTabMenuProps> = ({

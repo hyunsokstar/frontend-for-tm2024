@@ -1,7 +1,7 @@
 // src\api\apiForDevRelay.ts
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
-import { CreateDevBattleDto, DevBattleResponse, IDevSpecForTeamBattleUpdateDto, IParameterForAddDevProgressForTeam, IParameterForAddMemberToDevBattle, IParameterForAddTeamToDevBattle, IParameterForTeamBattleUpdateDto, IParameterForUpdateDevProgress, IParameterForUpdateForSpecificDevSpecForNotArryTypeForTeamBattle, IUpdateDevProgressForTeamDto, ParameterForCreateDevBattleDto, ResponseForUpdateDevProgressForTeam } from "@/types/typeForDevBattle";
+import { CreateDevBattleDto, DevBattleResponse, IAddTodoForDevBattleDto, IDevSpecForTeamBattleUpdateDto, IParameterForAddDevProgressForTeam, IParameterForAddMemberToDevBattle, IParameterForAddTeamToDevBattle, IParameterForTeamBattleUpdateDto, IParameterForUpdateDevProgress, IParameterForUpdateForSpecificDevSpecForNotArryTypeForTeamBattle, ITypeForParameterForAddTodoForDevBattle, IUpdateDevProgressForTeamDto, ParameterForCreateDevBattleDto, ResponseForUpdateDevProgressForTeam } from "@/types/typeForDevBattle";
 
 
 const instance = axios.create({
@@ -24,6 +24,15 @@ instance.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+export async function apiForAddTodoForDevBattle(
+    { devBattleId, addTodoForDevBattleDto }: ITypeForParameterForAddTodoForDevBattle,
+): Promise<AxiosResponse<any>> {
+    const response = await instance
+        .post(`/${devBattleId}/todo`, addTodoForDevBattleDto);
+
+    return response;
+}
 
 export const apiForUpdateDevProgressForTeam = ({
     progressId, updateDevProgressForTeamDto
@@ -112,7 +121,6 @@ export const apiForRemoveDevBattleById = (id: number) => {
     return instance.delete(`/${id}`);
 };
 
-// 여기에 추가 해줘
 export async function apiForFindAllDevBattleList(): Promise<DevBattleResponse[]> {
     try {
         const response: AxiosResponse<DevBattleResponse[]> = await instance.get('');

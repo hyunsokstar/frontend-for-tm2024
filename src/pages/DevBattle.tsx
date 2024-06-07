@@ -22,7 +22,7 @@ const DevBattle = () => {
     const { data } = useApiForFindAllDevBattleList();
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [isTodosDrawerOpen, setIsTodosDrawerOpen] = useState(false);
-    const [selectedDevBattleId, setSelectedDevBattleId] = useState<number | null>(null);
+    const [selectedDevBattleId, setSelectedDevBattleId] = useState<number>();
 
     useEffect(() => {
         if (data && data.length > 0) {
@@ -43,11 +43,13 @@ const DevBattle = () => {
     return (
         <Box display="flex" width="100%" border="0px solid blue">
             <Tabs variant="soft-rounded" colorScheme="green" width="100%">
-                <DevBattleTabMenus
-                    devBattles={devBattles}
-                    onTabClick={handleTabClick}
-                    selectedDevBattleId={selectedDevBattleId}
-                />
+                {selectedDevBattleId ?
+                    <DevBattleTabMenus
+                        devBattles={devBattles}
+                        onTabClick={handleTabClick}
+                        selectedDevBattleId={selectedDevBattleId}
+                    />
+                    : ""}
 
                 <TabPanels alignItems="center" p={2}>
                     {devBattles.map((devBattle, index) => (
@@ -63,7 +65,7 @@ const DevBattle = () => {
                     Chatting
                 </Button>
                 <Button onClick={() => setIsTodosDrawerOpen(true)} size="sm" variant="outline">
-                    Battle Todos
+                    Todos For {selectedDevBattle?.subject ? selectedDevBattle?.subject : ""}
                 </Button>
             </Box>
 
@@ -87,13 +89,15 @@ const DevBattle = () => {
                 <DrawerContent>
                     <DrawerCloseButton />
                     <DrawerBody w="1000px">
-                        <Box>Todos For Battle</Box>
+                        <Box>Todos For {selectedDevBattle?.subject ? selectedDevBattle?.subject : ""}</Box>
                         <Box>
-                            <TableForToDosForDevBattle
-                                todos={selectedDevBattle?.todos ?? []}
-                                selectedDevBattleId={selectedDevBattleId}
-                                devBattleSubject={selectedDevBattle?.subject ? selectedDevBattle?.subject : ""}
-                            />
+                            {selectedDevBattleId ?
+                                <TableForToDosForDevBattle
+                                    todos={selectedDevBattle?.todos ?? []}
+                                    selectedDevBattleId={selectedDevBattleId}
+                                    devBattleSubject={selectedDevBattle?.subject ? selectedDevBattle?.subject : ""}
+                                />
+                                : ""}
                         </Box>
                     </DrawerBody>
                 </DrawerContent>

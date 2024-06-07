@@ -1,7 +1,6 @@
 import React from 'react'
 import {
     Table,
-    Text,
     Thead,
     Tbody,
     Tr,
@@ -11,11 +10,12 @@ import {
     Box,
 } from '@chakra-ui/react'
 import { format } from 'date-fns';
+import ModalButtonForAddTodoForDevBattle from '../Modal/ModalButtonForAddTodoForDevBattle';
 
 const formatDateTime = (dateTime: string | any) => {
     if (dateTime !== undefined) {
         const time = new Date(dateTime);
-        return format(time, "MM-dd");
+        return format(time, "MM-dd HH:mm");
     }
 
 };
@@ -31,7 +31,7 @@ interface TodoRowForDevBattle {
 
 interface TableForToDosForDevBattleProps {
     todos: TodoRowForDevBattle[]
-    selectedDevBattleId: number | null;
+    selectedDevBattleId: number;
     devBattleSubject: string
 }
 
@@ -47,35 +47,27 @@ const TableForToDosForDevBattle = ({ selectedDevBattleId, devBattleSubject, todo
                 mb={4}
                 w="100%"
             >
-
-                <Text mb={2}>Subject: {devBattleSubject}</Text>
-
                 <Table size="sm">
                     <Thead>
                         <Tr>
-                            <Th>ID</Th>
-                            <Th>Title</Th>
-                            {/* <Th>Description</Th> */}
-                            <Th>Due Date</Th>
-                            <Th>Created At</Th>
-                            {/* <Th>Updated At</Th> */}
+                            <Th w="10%">ID</Th>
+                            <Th w="60%">Title</Th>
+                            <Th w="30%">Due Date</Th>
                         </Tr>
                     </Thead>
                     <Tbody>
                         {todos.map((todo) => (
                             <Tr key={todo.id}>
-                                <Td>{todo.id}</Td>
-                                <Td>{todo.title}</Td>
-                                {/* <Td>{todo.description}</Td> */}
-                                <Td>{todo.dueDate}</Td>
-                                <Td>{formatDateTime(todo.createdAt)}</Td>
-                                {/* <Td>{todo.updatedAt}</Td> */}
+                                <Td w="10%">{todo.id}</Td>
+                                <Td w="60%">{todo.title}</Td>
+                                <Td w="30%">{formatDateTime(todo.dueDate)}</Td>
                             </Tr>
                         ))}
                     </Tbody>
                 </Table>
             </Box>
         </TableContainer>
+
     )
 }
 

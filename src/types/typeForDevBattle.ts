@@ -160,3 +160,13 @@ export interface IParameterForUpdateDevProgress {
     progressId: number;
     updateDevProgressForTeamDto: IUpdateDevProgressForTeamDto;
 }
+export interface IAddTodoForDevBattleDto {
+    title: string;
+    dueDate?: string;
+    description?: string;
+}
+
+export interface ITypeForParameterForAddTodoForDevBattle {
+    devBattleId: number;
+    addTodoForDevBattleDto: IAddTodoForDevBattleDto;
+}

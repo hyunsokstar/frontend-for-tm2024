@@ -1,5 +1,5 @@
-import { apiForAddItemToSpecificFieldForDevSpec } from '@/api/apiForDevBattle';
-import { RootState } from '@/store';
+
+import { apiForAddTodoForDevBattle } from '@/api/apiForDevBattle';
 import { useToast } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -7,13 +7,13 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 interface IProps {
 }
 
-const useApiForSimpleCreateXXXXXXXXXX = ({ }: IProps) => {
+const useApiForAddTodoForDevBattle = ({ }: IProps) => {
     const queryClient = useQueryClient();
     const toast = useToast();
 
 
-    const useApiForSimpleCreateXXXXXX = useMutation({
-        mutationFn: apiForAddItemToSpecificFieldForDevSpec,
+    const mutationForAddTodoForDevBattle = useMutation({
+        mutationFn: apiForAddTodoForDevBattle,
         onSuccess: (data: any) => {
 
             queryClient.refetchQueries({
@@ -21,7 +21,7 @@ const useApiForSimpleCreateXXXXXXXXXX = ({ }: IProps) => {
             });
 
             toast({
-                title: "Item Added to  SpecificField For DevSpec",
+                title: "todo added sucessfuly",
                 status: "success",
                 duration: 2000,
                 isClosable: true,
@@ -40,7 +40,7 @@ const useApiForSimpleCreateXXXXXXXXXX = ({ }: IProps) => {
         },
     });
 
-    return useApiForSimpleCreateXXXXXX;
+    return mutationForAddTodoForDevBattle;
 };
 
-export default useApiForSimpleCreateXXXXXXXXXX;
+export default useApiForAddTodoForDevBattle;
