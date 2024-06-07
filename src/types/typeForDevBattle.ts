@@ -81,11 +81,22 @@ export interface TeamForDevBattleResponse {
     devSpecs: DevSpecRowForTeamBattle[]
 }
 
+interface TodoRowForDevBattle {
+    id: number;
+    title: string;
+    description: string;
+    dueDate: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+
 export interface DevBattleResponse {
     id: number;
     subject: string;
     tags: TagForDevBattleResponse[];
     teams: TeamForDevBattleResponse[];
+    todos: TodoRowForDevBattle[];
 }
 
 export interface CreateDevBattleDto {

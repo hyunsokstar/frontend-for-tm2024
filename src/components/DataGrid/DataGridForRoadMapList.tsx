@@ -50,8 +50,6 @@ const DataGridForRoadMapList = (props: Props) => {
         window.open(`/Note/RoadMap/${roadMapId}/TechNoteListForRoadMap`, '_blank');
     };
 
-
-
     // 사용자가 저장 버튼을 클릭할 때 실행될 함수
     const handleSave = () => {
         if (selectedRows.size === 0 || roadMapList.length === 0) {
