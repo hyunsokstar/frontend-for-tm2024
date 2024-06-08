@@ -25,6 +25,15 @@ instance.interceptors.request.use(
     }
 );
 
+export const apiForUpdateDevBattleSubject = async (id: number, subject: string): Promise<AxiosResponse<{ message: string, devBattle: DevBattleResponse }>> => {
+    try {
+        const response = await instance.patch<{ message: string, devBattle: DevBattleResponse }>(`/${id}`, { subject });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const apiForUpdateDevProgressStatusForDevBattle = async (
     devProgressId: number,
     status: string
