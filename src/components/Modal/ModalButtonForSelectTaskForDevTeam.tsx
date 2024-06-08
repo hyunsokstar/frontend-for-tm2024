@@ -103,9 +103,9 @@ const ModalButtonForSelectTaskForDevTeam = ({ todos, teamId }: Props) => {
                                         </Tr>
                                     </Thead>
                                     <Tbody>
-                                        {todos.map((todo) => (
+                                        {todos.map((todo, index) => (
                                             <Tr key={todo.id}>
-                                                <Td>{todo.id}</Td>
+                                                <Td>{index + 1}</Td>
                                                 <Td>{todo.title}</Td>
                                                 <Td>{formatDateTime(todo.dueDate)}</Td>
                                                 <Td>

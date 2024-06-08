@@ -58,6 +58,7 @@ const ModalButtonForUpdateDevProgress = ({ progressId, progressForTeam }: Props)
                 variant="outline"
                 aria-label="Update Dev Progress"
                 icon={<FaPencilAlt />}
+                bg="orange.50"
             />
 
             <Modal isOpen={isOpen} onClose={onClose}>

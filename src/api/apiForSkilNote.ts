@@ -25,6 +25,7 @@ instance.interceptors.request.use(
     }
 );
 
+
 export const apiForCreateNextPageForSkilnoteContent = async (skilNoteId: number) => {
     try {
         const response = await instance.post(
