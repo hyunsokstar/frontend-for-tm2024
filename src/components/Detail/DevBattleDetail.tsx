@@ -11,7 +11,7 @@ import {
     IconButton,
     Link,
 } from '@chakra-ui/react';
-import { TeamForDevBattleResponse } from '@/types/typeForDevBattle';
+import { TeamForDevBattleResponse, TodoRowForDevBattle } from '@/types/typeForDevBattle';
 import ModalButtonForAddTeamForDevBattle from '../Modal/ModalButtonForAddTeamForDevBattle';
 import DeleteButtonForTeamForDevBattle from '../Button/DeleteButtonForTeamForDevBattle';
 import MemberAvatarsWithRegisterButton from '../Info/MembersInfoWithRegisterButton';
@@ -19,13 +19,16 @@ import DevProgressListWithCreateButton from '../List/DevProgressListWithCreateBu
 import ModalButtonForDevSpecForTeam from '../Modal/ModalButtonForDevSpecForTeam';
 import ModalButtonForAddDevProgressForTeam from '../Modal/ModalButtonForAddDevProgressForTeam';
 import { SiMicrosoftonenote } from "react-icons/si";
+import ModalButtonForSelectTaskForDevTeam from '../Modal/ModalButtonForSelectTaskForDevTeam';
 
 interface Props {
     teams: TeamForDevBattleResponse[];
     devBattleId: number;
+    selectedDevBattleSubject: string;
+    todos: TodoRowForDevBattle[]
 }
 
-const DevBattleDetail = ({ devBattleId, teams }: Props) => {
+const DevBattleDetail = ({ devBattleId, teams, selectedDevBattleSubject, todos }: Props) => {
     const gridTemplateColumns = useBreakpointValue({
         base: '1fr',
         md: 'repeat(3, 1fr)',
@@ -53,7 +56,7 @@ const DevBattleDetail = ({ devBattleId, teams }: Props) => {
                         {teams.map((team, index) => (
                             <Box key={team.id} border={"1px solid #ccc"}>
                                 <Box bg={boxColors[index % boxColors.length].bg}>
-                                    <Box display={"flex"} justifyContent={"space-between"} p={1}>
+                                    <Box display={"flex"} justifyContent={"space-between"} alignItems={"center"} py={2} px={1}>
                                         <Box>
                                             <Text fontSize={'xl'} fontWeight={'bold'}>
                                                 {team.name}
@@ -93,11 +96,14 @@ const DevBattleDetail = ({ devBattleId, teams }: Props) => {
                                         </Grid>
                                     </Box>
                                 </Box>
-                                <Box bgColor={boxColors[index % boxColors.length].progress} p={1} display={"flex"} justifyContent={"space-between"} alignItems={"center"} mb={1}>
-                                    <Text>Task Progress {team.id}</Text>
-                                    <ModalButtonForAddDevProgressForTeam teamId={team.id} />
+                                <Box bgColor={boxColors[index % boxColors.length].progress} p={1} display={"flex"} justifyContent={"space-between"} alignItems={"center"}>
+                                    <Text>Task</Text>
+                                    <Box display={"flex"} gap={1} alignItems={"center"}>
+                                        <ModalButtonForAddDevProgressForTeam teamId={team.id} />
+                                        <ModalButtonForSelectTaskForDevTeam teamId={team.id} todos={todos} />
+                                    </Box>
                                 </Box>
-                                <Box px={1}>
+                                <Box px={1} py={1}>
                                     <DevProgressListWithCreateButton teamId={team.id} devProgressForTeams={team.devProgressForTeams} />
                                 </Box>
                             </Box>
@@ -106,9 +112,20 @@ const DevBattleDetail = ({ devBattleId, teams }: Props) => {
                 ) : (
                     <GridItem colSpan={gridTemplateColumns ? gridTemplateColumns.split(' ').length : 1}>
                         <VStack spacing={4} alignItems="center" justifyContent="center" minHeight="300px">
-                            <Text fontSize="2xl" fontWeight="bold" color="gray.500">
-                                There is No Dev Teams For Dev Battles
+                            <Text
+                                fontSize="2xl"
+                                fontWeight="bold"
+                                color="gray.500"
+                                whiteSpace="nowrap"
+                                display="flex"
+                                alignItems="center"
+                            >
+                                There is No Dev Teams For
+                                <Text color={"blue.300"} marginLeft="10px" fontSize={"26px"}>
+                                    {selectedDevBattleSubject}
+                                </Text>
                             </Text>
+
                         </VStack>
                     </GridItem>
                 )}

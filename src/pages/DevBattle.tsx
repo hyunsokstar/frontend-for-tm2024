@@ -17,26 +17,30 @@ import useApiForFindAllDevBattleList from '@/hooks/useApiForFindAllDevBattleList
 import ChattingForDevBattle from '@/components/ChatBoard/ChattingForDevBattle';
 import TableForToDosForDevBattle from '@/components/Table/TableForToDosForDevBattle';
 import DevBattleTabMenus from '@/components/Menus/DevBattleTabMenus';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSelectedDevBattleId } from '@/store/devBattleSlice';
+import { RootState } from '@/store';
 
 
 const DevBattle = () => {
     const { data } = useApiForFindAllDevBattleList();
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [isTodosDrawerOpen, setIsTodosDrawerOpen] = useState(false);
-    const [selectedDevBattleId, setSelectedDevBattleId] = useState<number>();
+    const selectedDevBattleId = useSelector((state: RootState) => state.devBattle.selectedDevBattleId);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (data && data.length > 0) {
-            setSelectedDevBattleId(data[0].id);
+            dispatch(setSelectedDevBattleId(data[0].id));
         }
-    }, [data]);
+    }, [data, dispatch]);
 
     if (!data) return null;
 
     const devBattles = data as DevBattleResponse[];
 
     const handleTabClick = (index: number) => {
-        setSelectedDevBattleId(devBattles[index].id);
+        dispatch(setSelectedDevBattleId(devBattles[index].id));
     };
 
     const selectedDevBattle = devBattles.find((devBattle) => devBattle.id === selectedDevBattleId);
@@ -44,18 +48,25 @@ const DevBattle = () => {
     return (
         <Box display="flex" width="100%" border="0px solid blue">
             <Tabs variant="soft-rounded" colorScheme="green" width="100%">
-                {selectedDevBattleId ?
+                {selectedDevBattleId ? (
                     <DevBattleTabMenus
                         devBattles={devBattles}
                         onTabClick={handleTabClick}
                         selectedDevBattleId={selectedDevBattleId}
                     />
-                    : ""}
+                ) : (
+                    ''
+                )}
 
                 <TabPanels alignItems="center" p={2}>
                     {devBattles.map((devBattle, index) => (
                         <TabPanel w="100%" alignItems="center" key={index}>
-                            <DevBattleDetail devBattleId={devBattle.id} teams={devBattle.teams} />
+                            <DevBattleDetail
+                                devBattleId={devBattle.id}
+                                teams={devBattle.teams}
+                                selectedDevBattleSubject={selectedDevBattle?.subject ? selectedDevBattle?.subject : ''}
+                                todos={selectedDevBattle?.todos ?? []}
+                            />
                         </TabPanel>
                     ))}
                 </TabPanels>
@@ -66,7 +77,7 @@ const DevBattle = () => {
                     Chatting
                 </Button>
                 <Button onClick={() => setIsTodosDrawerOpen(true)} size="sm" variant="outline">
-                    Todos For {selectedDevBattle?.subject ? selectedDevBattle?.subject : ""}
+                    Todos For {selectedDevBattle?.subject ? selectedDevBattle?.subject : ''}
                 </Button>
             </Box>
 
@@ -80,25 +91,22 @@ const DevBattle = () => {
                 </DrawerContent>
             </Drawer>
 
-            <Drawer
-                isOpen={isTodosDrawerOpen}
-                placement="right"
-                onClose={() => setIsTodosDrawerOpen(false)}
-                size="xl"
-            >
+            <Drawer isOpen={isTodosDrawerOpen} placement="right" onClose={() => setIsTodosDrawerOpen(false)} size="xl">
                 <DrawerOverlay />
                 <DrawerContent>
                     <DrawerCloseButton />
                     <DrawerBody w="1000px">
-                        <Box>Todos For {selectedDevBattle?.subject ? selectedDevBattle?.subject : ""}</Box>
+                        <Box>Todos For {selectedDevBattle?.subject ? selectedDevBattle?.subject : ''}</Box>
                         <Box>
-                            {selectedDevBattleId ?
+                            {selectedDevBattleId ? (
                                 <TableForToDosForDevBattle
                                     todos={selectedDevBattle?.todos ?? []}
                                     selectedDevBattleId={selectedDevBattleId}
-                                    devBattleSubject={selectedDevBattle?.subject ? selectedDevBattle?.subject : ""}
+                                    devBattleSubject={selectedDevBattle?.subject ? selectedDevBattle?.subject : ''}
                                 />
-                                : ""}
+                            ) : (
+                                ''
+                            )}
                         </Box>
                     </DrawerBody>
                 </DrawerContent>

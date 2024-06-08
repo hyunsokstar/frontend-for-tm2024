@@ -32,7 +32,7 @@ const DevProgressListWithCreateButton = ({ teamId, devProgressForTeams }: Props)
     return (
         <Box p={0}>
             {devProgressForTeams.map((progress, index) => (
-                <Box key={progress.id} display="flex" justifyContent="space-between" alignItems="center" mb={1}>
+                <Box key={progress.id} display="flex" justifyContent="space-between" alignItems="center">
                     <Box display="flex" alignItems="center">
                         <Button
                             size="xs"

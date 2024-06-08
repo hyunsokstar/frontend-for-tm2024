@@ -5,8 +5,8 @@ import userSlice from './userSlice';
 import rightSideNaviForSkilNoteContents from './rightSideNaviForSkilNoteContents';
 import idAdminSlice from './idAdminSlice';
 import pageInfoSlice from './pageInfoSlice';
+import devBattleSlice from './devBattleSlice';
 
-// 각각의 slice에서 반환하는 state 타입을 가져와서 합칩니다.
 type RootState = ReturnType<typeof rootReducer>;
 
 const rootReducer = combineReducers({
@@ -14,7 +14,8 @@ const rootReducer = combineReducers({
     counter: counterSlice,
     skilnoteContentNaviSlice: rightSideNaviForSkilNoteContents,
     idAdmin: idAdminSlice,
-    pageInfo: pageInfoSlice
+    pageInfo: pageInfoSlice,
+    devBattle: devBattleSlice
 });
 
 const store = configureStore({

@@ -81,7 +81,7 @@ export interface TeamForDevBattleResponse {
     devSpecs: DevSpecRowForTeamBattle[]
 }
 
-interface TodoRowForDevBattle {
+export interface TodoRowForDevBattle {
     id: number;
     title: string;
     description: string;
