@@ -11,13 +11,15 @@ const RelatedSkilNoteList: React.FC<RelatedSkilNoteListProps> = ({ relatedSkilno
             {relatedSkilnoteList ? (
                 relatedSkilnoteList.map((skilnote, index) => (
                     <Flex key={skilnote.id} mb={2} alignItems="center">
-                        <Button variant={"outline"}>{index + 1}</Button>
+                        <Button variant={"outline"} size={"xs"}>{index + 1}</Button>
                         <Box marginLeft={2}>{skilnote.title}</Box>
                         <Button
                             as="a"
                             href={`/Note/SkilNoteContents/${skilnote.id}/1`}
                             marginLeft="auto"
                             colorScheme="blue"
+                            variant={"outline"}
+                            size={"xs"}
                         >
                             이동
                         </Button>
