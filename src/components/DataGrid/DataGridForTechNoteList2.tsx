@@ -74,7 +74,7 @@ const DataGridForTechNoteList2 = ({ roadMapId }: IProps) => {
         );
 
     const mutationForLikeTechNote = useApiForLikeTechNote(pageNum);
-    const mutationForBookMarkTechNote = useApiForBookMarkTechNote(pageNum);
+    const mutationForBookMarkTechNote = useApiForBookMarkTechNote(pageNum, roadMapId);
 
     const handleRadioChange = (value: string) => {
         // Toggle values based on the selected radio button

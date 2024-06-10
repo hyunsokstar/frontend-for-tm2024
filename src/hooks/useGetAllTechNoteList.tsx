@@ -13,7 +13,8 @@ const useGetAllTechNoteList = (
     isBestByBookMarks?: boolean
 ) => {
     const { isLoading, error, data } = useQuery<ResponseDataTypeForGetAllTechNoteList>({
-        queryKey: ['apiForGetAllTechNoteList', pageNum, searchOption, searchText, isBestByLikes, isBestByBookMarks],
+        // queryKey: ['apiForGetAllTechNoteList', pageNum, searchOption, searchText, isBestByLikes, isBestByBookMarks],
+        queryKey: ['apiForGetAllTechNoteList'],
         queryFn: apiForGetAllTechNoteList
     })
 

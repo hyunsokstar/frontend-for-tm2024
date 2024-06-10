@@ -2,7 +2,7 @@ import { bookMarkTechNote } from '@/api/apiForTechNotes';
 import { useToast } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-const useApiForBookMarkTechNote = (pageNum: any) => {
+const useApiForBookMarkTechNote = (pageNum: number, roadMapId?: number) => {
     const queryClient = useQueryClient();
     const toast = useToast();
 
@@ -10,11 +10,17 @@ const useApiForBookMarkTechNote = (pageNum: any) => {
         mutationFn: bookMarkTechNote,
         onSuccess: (result: any) => {
             console.log("result : ", result);
-
             // Add your logic for refetching queries or other actions
             // Modify the queryKey as needed
+
+            if (roadMapId) {
+                queryClient.refetchQueries({
+                    queryKey: ['apiForGetTechNotesByRoadMapId', roadMapId] // Example queryKey, modify as needed
+                });
+            }
+
             queryClient.refetchQueries({
-                queryKey: ['apiForGetAllTechNoteList', pageNum] // Example queryKey, modify as needed
+                queryKey: ['apiForGetAllTechNoteList'] // Example queryKey, modify as needed
             });
 
             toast({
