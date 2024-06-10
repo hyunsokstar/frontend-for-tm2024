@@ -9,16 +9,16 @@ const useApiForUpdateSkilNoteContent = (skilNoteId: any, pageNum: number) => {
     const queryClient = useQueryClient();
     const toast = useToast();
     // skilnoteContentNaviSlice
-    const noteId = useSelector((state: RootState) => state.skilnoteContentNaviSlice.noteId);
+    // const noteId = useSelector((state: RootState) => state.skilnoteContentNaviSlice.noteId);
 
     const mutationForUpdateSkilNoteContent = useMutation({
         mutationFn: apiForUpdateSkilNoteContent,
         onSuccess: (result: any) => {
 
-            console.log("mutation for update skilnote content check !?", noteId, pageNum);
-
+            console.log("mutation for update skilnote content check !?", skilNoteId, pageNum);
+            // apiForGetSkilNoteContentListForSkilNoteId
             queryClient.refetchQueries({
-                queryKey: ['apiForGetSkilNoteContentListForSkilNoteId', noteId, pageNum]
+                queryKey: ['apiForGetSkilNoteContentListForSkilNoteId', skilNoteId, pageNum]
             });
 
             toast({

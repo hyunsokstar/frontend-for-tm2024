@@ -218,88 +218,50 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
             key: "likes",
             name: 'Likes',
             width: 140,
-            // techNoteId, loginUser.id
             renderCell({ row, tabIndex, onRowChange }: any): React.ReactNode {
                 const isLiked = row.likes.includes(loginUser.id);
-                const userId = loginUser.id
-                const skilNoteId = row.id
+                const userId = loginUser.id;
+                const skilNoteId = row.id;
 
-                if (isLoggedIn) {
-                    return (
-                        <Box border={"0px solid black"}>
-                            {isLiked ? (
-                                <Button
-                                    bg="green.200"
-                                    p={2}
-                                    size={"sm"}
-                                    onClick={() => likeButtonHandler(userId, skilNoteId)}
-                                >
-                                    <Icon as={FaThumbsUp} color="green.500" mr={1} />
-                                    <Text>({row.likes.length})</Text>
-                                </Button>
-                            ) : (
-                                <Button
-                                    bg="red.100"
-                                    p={2}
-                                    size={"sm"}
-                                    onClick={() => likeButtonHandler(userId, skilNoteId)}
-
-                                >
-                                    <Icon as={FaRegThumbsUp} color="gray.500" mr={1} />
-                                    <Text>({row.likes.length})</Text>
-                                </Button>
-                            )}
-                        </Box>
-                    );
-                } else {
-                    return (
-                        <Box></Box>
-                    )
-                }
+                return (
+                    <Box border={"0px solid black"}>
+                        <Button
+                            bg={isLiked ? "green.200" : "red.100"}
+                            p={2}
+                            size={"sm"}
+                            onClick={() => likeButtonHandler(userId, skilNoteId)}
+                            isDisabled={!isLoggedIn}
+                        >
+                            <Icon as={isLiked ? FaThumbsUp : FaRegThumbsUp} color={isLiked ? "green.500" : "gray.500"} mr={1} />
+                            <Text>({row.likes.length})</Text>
+                        </Button>
+                    </Box>
+                );
             },
         },
         {
             key: "bookMarks",
             name: 'bookMarks',
             width: 140,
-            // skilNoteId, loginUser.id
             renderCell({ row, tabIndex, onRowChange }: any): React.ReactNode {
                 const isBookMarked = row.bookMarks.includes(loginUser.id);
-                const userId = loginUser.id
-                const skilNoteId = row.id
+                const userId = loginUser.id;
+                const skilNoteId = row.id;
 
-                if (isLoggedIn) {
-                    return (
-                        <Box border={"0px solid black"}>
-                            {isBookMarked ? (
-                                <Button
-                                    bg="green.200"
-                                    p={2}
-                                    size={"sm"}
-                                    onClick={() => bookMarkButtonHandler(userId, skilNoteId)}
-                                >
-                                    <Icon as={FaBookmark} color="green.500" mr={1} />
-                                    <Text>({row.bookMarks.length})</Text>
-                                </Button>
-                            ) : (
-                                <Button
-                                    bg="red.100"
-                                    p={2}
-                                    size={"sm"}
-                                    onClick={() => bookMarkButtonHandler(userId, skilNoteId)}
-
-                                >
-                                    <Icon as={FaRegBookmark} color="gray.500" mr={1} />
-                                    <Text>({row.bookMarks.length})</Text>
-                                </Button>
-                            )}
-                        </Box>
-                    );
-                } else {
-                    return (
-                        <Box></Box>
-                    )
-                }
+                return (
+                    <Box border={"0px solid black"}>
+                        <Button
+                            bg={isBookMarked ? "green.200" : "red.100"}
+                            p={2}
+                            size={"sm"}
+                            onClick={() => bookMarkButtonHandler(userId, skilNoteId)}
+                            isDisabled={!isLoggedIn}
+                        >
+                            <Icon as={isBookMarked ? FaBookmark : FaRegBookmark} color={isBookMarked ? "green.500" : "gray.500"} mr={1} />
+                            <Text>({row.bookMarks.length})</Text>
+                        </Button>
+                    </Box>
+                );
             },
         },
 
