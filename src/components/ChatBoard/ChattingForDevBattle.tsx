@@ -45,8 +45,9 @@ const ChattingForDevBattle: React.FC<ChattingForDevBattleProps> = ({ chatRoom, l
         }
     };
 
-    const SUPABASE_PUBLIC_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3d3pweXZxcGt2ZWpha2VyZnhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQ1MzQyMzYsImV4cCI6MjAzMDExMDIzNn0.SoNUYo5AJSZN1eEA9cXLabQmIy4OO_24-PDv69Ki5lo";
-    const SUPABASE_URL = "https://swwzpyvqpkvejakerfxp.supabase.co";
+    // 환경 변수에서 SUPABASE 키와 URL 가져오기
+    const SUPABASE_PUBLIC_KEY = process.env.SUPABASE_PUBLIC_KEY || "";
+    const SUPABASE_URL = process.env.SUPABASE_URL || "";
 
     useEffect(() => {
         const client = createClient(SUPABASE_URL, SUPABASE_PUBLIC_KEY);

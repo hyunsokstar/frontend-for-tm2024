@@ -1,14 +1,3 @@
-// const nextConfig = {}
-
-// module.exports = {
-//     reactStrictMode: true,
-//     env: {
-//         PORTONE_SHOP_ID: process.env.PORTONE_SHOP_ID,
-//     },
-// };
-// export default nextConfig;
-// SUPABASE_PUBLIC_KEY
-// SUPABASE_URL
 
 module.exports = {
     reactStrictMode: false,
