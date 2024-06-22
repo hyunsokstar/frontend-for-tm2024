@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 import { GridItem, Box, Text, HStack, Avatar, Input, Flex, Button } from '@chakra-ui/react';
 import { IMessage, IChatRoom } from '@/types/typeForDevBattle';
+import { RealtimeChannel, createClient } from "@supabase/supabase-js";
 
 interface ChattingForDevBattleProps {
     chatRoom: IChatRoom;
@@ -16,18 +17,25 @@ interface ChattingForDevBattleProps {
 }
 
 const ChattingForDevBattle: React.FC<ChattingForDevBattleProps> = ({ chatRoom, loginUser }) => {
-    const [messageInput, setMessageInput] = useState<string>('');
+    const [message, setMessage] = useState<string>('');
+    const channel = useRef<RealtimeChannel>();
+    console.log("loginUser : ", loginUser);
 
     const handleMessageInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setMessageInput(event.target.value);
+        setMessage(event.target.value);
     };
 
     const handleSendMessage = () => {
-        if (messageInput.trim() !== '') {
-            // 여기에서 메시지 전송 로직을 추가할 수 있습니다.
-            // 메시지를 전송하고, 입력값을 초기화하거나 다른 작업을 수행할 수 있습니다.
-            console.log(`Sending message: ${messageInput}`);
-            setMessageInput('');
+        if (message.trim() !== '') {
+            console.log(`Sending message: ${message}`);
+
+            channel.current?.send({
+                type: "broadcast",
+                event: "message",
+                payload: { message },
+            });
+
+            setMessage('');
         }
     };
 
@@ -36,6 +44,36 @@ const ChattingForDevBattle: React.FC<ChattingForDevBattleProps> = ({ chatRoom, l
             handleSendMessage();
         }
     };
+
+    const SUPABASE_PUBLIC_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3d3pweXZxcGt2ZWpha2VyZnhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQ1MzQyMzYsImV4cCI6MjAzMDExMDIzNn0.SoNUYo5AJSZN1eEA9cXLabQmIy4OO_24-PDv69Ki5lo";
+    const SUPABASE_URL = "https://swwzpyvqpkvejakerfxp.supabase.co";
+
+    useEffect(() => {
+        const client = createClient(SUPABASE_URL, SUPABASE_PUBLIC_KEY);
+        channel.current = client.channel(`room-${chatRoom.id}`);
+
+        const subscription = channel.current.on("broadcast", { event: "message" }, (payload: any) => {
+            console.log(payload);
+        }).subscribe();
+
+        console.log("subscription : ", subscription);
+        return () => {
+            channel.current?.unsubscribe();
+        };
+
+    }, [chatRoom.id]);
+
+    if (loginUser?.id === 0) {
+        return (
+            <GridItem gridColumn={{ base: '1/-1', md: '4/5', lg: '4/5' }} bg={'gray.200'} p={4}>
+                <Box bg="white" borderRadius="md" boxShadow="md" p={4}>
+                    <Text fontSize="2xl" fontWeight="bold" color="red.500" textAlign="center">
+                        로그인 해주세요
+                    </Text>
+                </Box>
+            </GridItem>
+        );
+    }
 
     return (
         <GridItem gridColumn={{ base: '1/-1', md: '4/5', lg: '4/5' }} bg={'gray.200'} p={4}>
@@ -79,9 +117,9 @@ const ChattingForDevBattle: React.FC<ChattingForDevBattleProps> = ({ chatRoom, l
                     <Flex>
                         <Input
                             placeholder="Type a message..."
-                            value={messageInput}
+                            value={message}
                             onChange={handleMessageInputChange}
-                            onKeyPress={handleKeyPress}
+                            onKeyDown={handleKeyPress}
                         />
                         <Button ml={2} onClick={handleSendMessage}>
                             Send

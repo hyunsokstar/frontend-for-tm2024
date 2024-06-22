@@ -7,6 +7,8 @@
 //     },
 // };
 // export default nextConfig;
+// SUPABASE_PUBLIC_KEY
+// SUPABASE_URL
 
 module.exports = {
     reactStrictMode: false,
@@ -14,7 +16,9 @@ module.exports = {
     env: {
         PORTONE_SHOP_ID: process.env.PORTONE_SHOP_ID,
         PORTONE_API_KEY: process.env.PORTONE_API_KEY,
-        PORTONE_API_SECRET: process.env.PORTONE_API_SECRET, // Add other necessary variables
+        PORTONE_API_SECRET: process.env.PORTONE_API_SECRET,
+        SUPABASE_PUBLIC_KEY: process.env.SUPABASE_PUBLIC_KEY,
+        SUPABASE_URL: process.env.SUPABASE_URL,
     },
 
     webpackDevMiddleware: (config) => {
