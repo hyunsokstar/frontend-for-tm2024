@@ -97,6 +97,7 @@ export interface DevBattleResponse {
     tags: TagForDevBattleResponse[];
     teams: TeamForDevBattleResponse[];
     todos: TodoRowForDevBattle[];
+    chatRooms: IChatRoom[]
 }
 
 export interface CreateDevBattleDto {
@@ -169,4 +170,43 @@ export interface IAddTodoForDevBattleDto {
 export interface ITypeForParameterForAddTodoForDevBattle {
     devBattleId: number;
     addTodoForDevBattleDto: IAddTodoForDevBattleDto;
+}
+
+// export interface IMessage {
+//     id: number;
+//     content: string;
+//     created_at: string;
+// }
+
+export interface IUser {
+    id: number;
+    email: string;
+    password: string;
+    nickname: string;
+    cashPoints: number;
+    role: string;
+    gender: string;
+    phoneNumber: string | null;
+    backEndLevel: number;
+    frontEndLevel: number;
+    profileImage: string;
+}
+
+export interface IMessage {
+    id: number;
+    content: string;
+    created_at: string;
+    writer: IUser; // 작성자 정보 추가
+}
+
+
+export interface IChatRoom {
+    id: string;
+    created_at: string;
+    updated_at: string;
+    messages: IMessage[];
+}
+
+export interface IChatRooms {
+    chatRooms: IChatRoom[];
 }
