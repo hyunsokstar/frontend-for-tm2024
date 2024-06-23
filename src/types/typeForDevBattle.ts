@@ -69,6 +69,20 @@ export interface DevSpecRowForTeamBattle {
     createdAt?: Date;
 }
 
+// interface IMessage {
+//     id: number;
+//     content: string;
+//     created_at: string;
+// }
+
+// interface IChatRoom {
+//     id: string;
+//     title: string;
+//     created_at: string;
+//     updated_at: string;
+//     messages: Message[];
+// }
+
 export interface TeamForDevBattleResponse {
     id: number;
     name: string;
@@ -78,7 +92,8 @@ export interface TeamForDevBattleResponse {
     createdAt: Date;
     devProgressForTeams: DevProgressForTeamResponse[];
     members: MemberForDevTeamResponse[];
-    devSpecs: DevSpecRowForTeamBattle[]
+    devSpecs: DevSpecRowForTeamBattle[];
+    chatRoom: IChatRoom
 }
 
 export interface TodoRowForDevBattle {
@@ -89,7 +104,6 @@ export interface TodoRowForDevBattle {
     createdAt: string;
     updatedAt: string;
 }
-
 
 export interface DevBattleResponse {
     id: number;

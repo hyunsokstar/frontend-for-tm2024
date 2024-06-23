@@ -16,16 +16,17 @@ interface ChattingForDevBattleProps {
         cashPoints?: number | undefined;
         profileImage?: string;
     };
+    isModal?: boolean;
 }
 
-const ChattingForDevBattle: React.FC<ChattingForDevBattleProps> = ({ chatRoom: initialChatRoom, loginUser }) => {
+const ChattingForDevBattle: React.FC<ChattingForDevBattleProps> = ({ chatRoom: initialChatRoom, loginUser, isModal }) => {
     const [message, setMessage] = useState<string>('');
     const [chatRoom, setChatRoom] = useState<IChatRoom>(initialChatRoom);
     const channel = useRef<RealtimeChannel>();
     const mutation = useApiForAddChattingMessage();
     const queryClient = useQueryClient();
 
-    console.log("loginUser : ", loginUser);
+    console.log("chatRoom ?: ", chatRoom);
 
     const handleMessageInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setMessage(event.target.value);
@@ -100,8 +101,8 @@ const ChattingForDevBattle: React.FC<ChattingForDevBattleProps> = ({ chatRoom: i
                         Chat
                     </Text>
                 </Box>
-                <Box overflowY="auto" minH="75vh">
-                    {chatRoom.messages.map((message: IMessage) => (
+                <Box overflowY="auto" minH={isModal ? "50vh" : "70vh"}>
+                    {chatRoom.messages ? chatRoom.messages?.map((message: IMessage) => (
                         <Flex
                             key={message.id}
                             mb={2}
@@ -128,7 +129,9 @@ const ChattingForDevBattle: React.FC<ChattingForDevBattleProps> = ({ chatRoom: i
                                 </Box>
                             </Flex>
                         </Flex>
-                    ))}
+                    )) :
+                        "no messages"
+                    }
                 </Box>
                 <Box mt={4}>
                     <Flex>

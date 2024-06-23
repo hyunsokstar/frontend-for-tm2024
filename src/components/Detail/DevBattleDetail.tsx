@@ -20,15 +20,26 @@ import ModalButtonForDevSpecForTeam from '../Modal/ModalButtonForDevSpecForTeam'
 import ModalButtonForAddDevProgressForTeam from '../Modal/ModalButtonForAddDevProgressForTeam';
 import { SiMicrosoftonenote } from "react-icons/si";
 import ModalButtonForSelectTaskForDevTeam from '../Modal/ModalButtonForSelectTaskForDevTeam';
+import ChattingForDevBattle from '../ChatBoard/ChattingForDevBattle';
+import ModalButtonForDevTeamChatting from '../Modal/ModalButtonForDevTeamChatting';
 
 interface Props {
     teams: TeamForDevBattleResponse[];
     devBattleId: number;
     selectedDevBattleSubject: string;
     todos: TodoRowForDevBattle[]
+    loginUser: {
+        id: number;
+        email: string;
+        nickname: string;
+        following: any[];
+        followers: any[];
+        cashPoints?: number | undefined;
+        profileImage?: string;
+    };
 }
 
-const DevBattleDetail = ({ devBattleId, teams, selectedDevBattleSubject, todos }: Props) => {
+const DevBattleDetail = ({ devBattleId, teams, selectedDevBattleSubject, todos, loginUser }: Props) => {
     const gridTemplateColumns = useBreakpointValue({
         base: '1fr',
         md: 'repeat(3, 1fr)',
@@ -91,7 +102,7 @@ const DevBattleDetail = ({ devBattleId, teams, selectedDevBattleSubject, todos }
                                             <GridItem>
                                                 <Box display={"flex"} justifyContent={"flex-end"}>
                                                     <ModalButtonForDevSpecForTeam teamId={team.id} devSpec={team.devSpecs[0]} />
-                                                    <Button size="xs" variant={"ouline"} border={"1px solid black"} ml={1}>chat</Button>
+                                                    <ModalButtonForDevTeamChatting chatRoom={team.chatRoom} loginUser={loginUser} />
                                                 </Box>
                                             </GridItem>
                                         </Grid>

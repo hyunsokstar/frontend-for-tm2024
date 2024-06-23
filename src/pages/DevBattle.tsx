@@ -83,6 +83,7 @@ const DevBattle = () => {
                                 teams={devBattle.teams}
                                 selectedDevBattleSubject={selectedDevBattle?.subject ? selectedDevBattle?.subject : ''}
                                 todos={selectedDevBattle?.todos ?? []}
+                                loginUser={loginUser}
                             />
                         </TabPanel>
                     ))}
