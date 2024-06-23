@@ -91,6 +91,7 @@ const DevBattleDetail = ({ devBattleId, teams, selectedDevBattleSubject, todos }
                                             <GridItem>
                                                 <Box display={"flex"} justifyContent={"flex-end"}>
                                                     <ModalButtonForDevSpecForTeam teamId={team.id} devSpec={team.devSpecs[0]} />
+                                                    <Button size="xs" variant={"ouline"} border={"1px solid black"} ml={1}>chat</Button>
                                                 </Box>
                                             </GridItem>
                                         </Grid>
