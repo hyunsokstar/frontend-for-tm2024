@@ -100,7 +100,7 @@ const ChattingForDevBattle: React.FC<ChattingForDevBattleProps> = ({ chatRoom: i
                         Chat
                     </Text>
                 </Box>
-                <Box overflowY="auto" maxH="300px">
+                <Box overflowY="auto" minH="75vh">
                     {chatRoom.messages.map((message: IMessage) => (
                         <Flex
                             key={message.id}
