@@ -14,7 +14,7 @@ interface ChattingForDevBattleProps {
         following: any[];
         followers: any[];
         cashPoints?: number | undefined;
-        profileImage: string;
+        profileImage?: string;
     };
 }
 
