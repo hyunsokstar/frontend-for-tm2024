@@ -13,7 +13,6 @@ instance.interceptors.request.use(
     (config) => {
         const accessToken = localStorage.getItem('accessToken');
         // console.log("access token 유무 확인 : ", accessToken);
-
         if (accessToken) {
             config.headers.Authorization = `Bearer ${accessToken}`;
         }

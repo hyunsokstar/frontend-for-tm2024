@@ -34,7 +34,7 @@ const DevBattle = () => {
     const { isLoggedIn, loginUser, logout } = useUser();
 
     useEffect(() => {
-        if (data && data.length > 0) {
+        if (data && data.length > 0 && !selectedDevBattleId) {
             dispatch(setSelectedDevBattleId(data[0].id));
         }
     }, [data, dispatch]);

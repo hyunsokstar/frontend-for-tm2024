@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { GridItem, Box, Text, HStack, Avatar, Input, Flex, Button } from '@chakra-ui/react';
 import { IMessage, IChatRoom } from '@/types/typeForDevBattle';
 import { RealtimeChannel, createClient } from "@supabase/supabase-js";
+import useApiForAddChattingMessage from "@/hooks/useApiForCreateChattingMessage";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface ChattingForDevBattleProps {
     chatRoom: IChatRoom;
@@ -16,9 +18,13 @@ interface ChattingForDevBattleProps {
     };
 }
 
-const ChattingForDevBattle: React.FC<ChattingForDevBattleProps> = ({ chatRoom, loginUser }) => {
+const ChattingForDevBattle: React.FC<ChattingForDevBattleProps> = ({ chatRoom: initialChatRoom, loginUser }) => {
     const [message, setMessage] = useState<string>('');
+    const [chatRoom, setChatRoom] = useState<IChatRoom>(initialChatRoom);
     const channel = useRef<RealtimeChannel>();
+    const mutation = useApiForAddChattingMessage();
+    const queryClient = useQueryClient();
+
     console.log("loginUser : ", loginUser);
 
     const handleMessageInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,6 +40,9 @@ const ChattingForDevBattle: React.FC<ChattingForDevBattleProps> = ({ chatRoom, l
                 event: "message",
                 payload: { message },
             });
+
+            // useApiForAddChattingMessage 를 이용한 채팅 메시지 추가
+            mutation.mutate({ chatRoomId: chatRoom.id, content: message });
 
             setMessage('');
         }
@@ -54,7 +63,10 @@ const ChattingForDevBattle: React.FC<ChattingForDevBattleProps> = ({ chatRoom, l
         channel.current = client.channel(`room-${chatRoom.id}`);
 
         const subscription = channel.current.on("broadcast", { event: "message" }, (payload: any) => {
-            console.log(payload);
+            console.log("payload:", payload);
+            queryClient.refetchQueries({
+                queryKey: ['apiForFindAllDevBattleList'],
+            });
         }).subscribe();
 
         console.log("subscription : ", subscription);
@@ -62,7 +74,11 @@ const ChattingForDevBattle: React.FC<ChattingForDevBattleProps> = ({ chatRoom, l
             channel.current?.unsubscribe();
         };
 
-    }, [chatRoom.id]);
+    }, [chatRoom.id, mutation, queryClient]);
+
+    useEffect(() => {
+        setChatRoom(initialChatRoom);
+    }, [initialChatRoom]);
 
     if (loginUser?.id === 0) {
         return (
