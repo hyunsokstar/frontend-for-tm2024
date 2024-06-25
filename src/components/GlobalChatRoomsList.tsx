@@ -13,7 +13,6 @@ const GlobalChatRoomsList: React.FC = () => {
     const router = useRouter();
 
     const handleDeleteRoom = (id: string) => {
-        // 삭제 처리 로직을 추가하세요.
         console.log(`Room with id ${id} deleted`);
     };
 
@@ -62,7 +61,10 @@ const GlobalChatRoomsList: React.FC = () => {
                                 <Td>{room.owner.nickname}</Td>
                                 <Td>{formatDateTime(room.created_at)}</Td>
                                 <Td>
-                                    <EnterButtonForSpecificGlobalChatRoom roomId={room.id} /> {/* 수정된 부분 */}
+                                    {isLoggedIn ?
+                                        <EnterButtonForSpecificGlobalChatRoom roomId={room.id} />
+                                        : "로그인 필요"
+                                    }
                                     {isLoggedIn && loginUser.id === room.owner.id && (
                                         <Button
                                             variant="outline"

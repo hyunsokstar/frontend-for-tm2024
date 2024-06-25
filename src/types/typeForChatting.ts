@@ -46,7 +46,7 @@ export interface User {
     profileImage: string;
 }
 
-export interface Message {
+export interface IMessageForGlobalChatRoom {
     id: number;
     content: string;
     created_at: string;
@@ -60,5 +60,5 @@ export interface GlobalChatRoomResponse {
     updated_at: string;
     owner: User;
     users: User[]; // 추가된 부분
-    messages: Message[];
+    messages: IMessageForGlobalChatRoom[];
 }

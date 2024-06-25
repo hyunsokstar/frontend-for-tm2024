@@ -15,6 +15,7 @@ import {
     Avatar,
 } from '@chakra-ui/react';
 import useApiForGetGlobalChatRoomById from '@/hooks/useApiForGetGlobalChatRoomById';
+import MessagesForGlobalChattingRoom from '@/components/ChatMessages/MessagesForGlobalChattingRoom';
 
 const ChatRoomPage: React.FC = () => {
     const router = useRouter();
@@ -43,15 +44,8 @@ const ChatRoomPage: React.FC = () => {
                     <Text>Owner: {data.owner.email}</Text>
                     <Box flex={1} overflowY="auto" borderWidth={1} borderRadius="md" p={4}>
                         {/* 채팅 메시지 영역 */}
-                        {data.messages.map((message) => (
-                            <Box key={message.id} mb={2}>
-                                <Text fontWeight="bold">{message.writer.nickname}</Text>
-                                <Text>{message.content}</Text>
-                                <Text color="gray.500" fontSize="sm">
-                                    {new Date(message.created_at).toLocaleString()}
-                                </Text>
-                            </Box>
-                        ))}
+
+                        <MessagesForGlobalChattingRoom messages={data.messages ? data.messages : []} />
                     </Box>
                     {/* 메시지 입력 필드를 여기에 추가 */}
                 </VStack>
