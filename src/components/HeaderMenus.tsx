@@ -133,6 +133,15 @@ const HeaderMenus = () => {
                         Dev Battle
                     </Link>
 
+                    <Link
+                        href="/global-chat-rooms"
+                        color={router.pathname.includes("/global-chat-rooms") ? "#4267B2" : "inherit"}
+                        fontWeight={router.pathname.includes("/global-chat-rooms") ? "bold" : "normal"}
+                    >
+                        ChatRoom
+                    </Link>
+
+
                 </Box>
 
             </Box>
