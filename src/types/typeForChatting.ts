@@ -59,5 +59,6 @@ export interface GlobalChatRoomResponse {
     created_at: string;
     updated_at: string;
     owner: User;
+    users: User[]; // 추가된 부분
     messages: Message[];
 }

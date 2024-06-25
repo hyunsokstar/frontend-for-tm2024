@@ -25,6 +25,8 @@ instance.interceptors.request.use(
     }
 );
 
+// todo apiForRegisterUserToChatRoom 추가
+
 export const apiForGetGlobalChatRoomById = async (id: string): Promise<GlobalChatRoomResponse> => {
     try {
         const response: AxiosResponse<GlobalChatRoomResponse> = await instance.get(`/global-chat-rooms/${id}`);

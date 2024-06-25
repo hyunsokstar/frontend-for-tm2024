@@ -1,28 +1,83 @@
 // src/pages/global-chat-rooms/[id]/index.tsx
 import React from 'react';
 import { useRouter } from 'next/router';
-import useApiForGetGlobalChatRoomById from '@/hooks/useApiForGetGlobalChatRoomById'; // useApiForGetGlobalChatRoomById custom hook import
+import {
+    Box,
+    Grid,
+    GridItem,
+    Heading,
+    Text,
+    VStack,
+    List,
+    ListItem,
+    useMediaQuery,
+    Image,
+    Avatar,
+} from '@chakra-ui/react';
+import useApiForGetGlobalChatRoomById from '@/hooks/useApiForGetGlobalChatRoomById';
 
 const ChatRoomPage: React.FC = () => {
     const router = useRouter();
-    const { id } = router.query; // 동적 매개변수(ID) 가져오기
+    const { id } = router.query;
+    const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
 
-    const { data, isLoading, isError } = useApiForGetGlobalChatRoomById(id as string); // id는 항상 문자열이라고 가정
+    const { data, isLoading, isError } = useApiForGetGlobalChatRoomById(id as string);
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <Box>Loading...</Box>;
     }
 
     if (isError || !data) {
-        return <div>Error fetching chat room!</div>;
+        return <Box>Error fetching chat room!</Box>;
     }
 
     return (
-        <div>
-            <h1>{data.title}</h1>
-            <p>Owner: {data.owner.email}</p>
-            {/* 기타 필요한 정보 렌더링 */}
-        </div>
+        <Grid
+            templateColumns={isLargerThan768 ? 'repeat(6, 1fr)' : '1fr'}
+            gap={4}
+            h="100vh"
+        >
+            <GridItem colSpan={isLargerThan768 ? 5 : 6}>
+                <VStack align="stretch" h="full" p={4} spacing={4}>
+                    <Heading>{data.title}</Heading>
+                    <Text>Owner: {data.owner.email}</Text>
+                    <Box flex={1} overflowY="auto" borderWidth={1} borderRadius="md" p={4}>
+                        {/* 채팅 메시지 영역 */}
+                        {data.messages.map((message) => (
+                            <Box key={message.id} mb={2}>
+                                <Text fontWeight="bold">{message.writer.nickname}</Text>
+                                <Text>{message.content}</Text>
+                                <Text color="gray.500" fontSize="sm">
+                                    {new Date(message.created_at).toLocaleString()}
+                                </Text>
+                            </Box>
+                        ))}
+                    </Box>
+                    {/* 메시지 입력 필드를 여기에 추가 */}
+                </VStack>
+            </GridItem>
+
+            {isLargerThan768 && (
+                <GridItem colSpan={1} bg="gray.100" p={4} overflowY="auto">
+                    <Heading size="md" mb={4}>Participants</Heading>
+                    <List display="flex" flexDirection="column" alignItems="stretch" spacing={1}>
+                        {data.users.map((participant) => (
+                            <ListItem key={participant.id} display="flex" alignItems="center">
+                                {participant.profileImage ? (
+                                    <Avatar src={participant.profileImage} name={participant.nickname} size={"sm"} />
+                                ) : (
+                                    <Avatar size="sm" name={participant.nickname} bg="gray.200" color="gray.600">
+                                        {participant.email.charAt(0).toUpperCase()}
+                                    </Avatar>
+                                )}
+                                <Text ml={2}>{participant.email}</Text>
+                            </ListItem>
+                        ))}
+                    </List>
+
+                </GridItem>
+            )}
+        </Grid>
     );
 };
 
