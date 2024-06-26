@@ -449,7 +449,7 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
 
     const mutationForUpdateRefSkilnoteForTodo = useApiForUpdateRefSkilnoteForTodo({ pageNum, userId, todoStatusOption });
     const [rowNumToAdd, setRowNumToAdd] = useState<number>(1);
-    const [defaultUserEmail, setDefaultUserEmail] = useState();
+    const [defaultUserEmail, setDefaultUserEmail] = useState(loginUser.email);
     const [defaultDeadLine, setDefaultDeadline] = useState<Date | null>(null);
     const [defaultTodoStatus, setDefaultTodoStatus] = useState<string>("ready");
 
