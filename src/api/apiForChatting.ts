@@ -2,7 +2,7 @@
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
 import { CreateDevBattleDto, DevBattleResponse, IAddTodoForDevBattleDto, IDevSpecForTeamBattleUpdateDto, IParameterForAddDevProgressForTeam, IParameterForAddMemberToDevBattle, IParameterForAddTeamToDevBattle, IParameterForTeamBattleUpdateDto, IParameterForUpdateDevProgress, IParameterForUpdateForSpecificDevSpecForNotArryTypeForTeamBattle, ITypeForParameterForAddTodoForDevBattle, IUpdateDevProgressForTeamDto, ParameterForCreateDevBattleDto, ResponseForUpdateDevProgressForTeam } from "@/types/typeForDevBattle";
-import { GlobalChatRoomResponse, IParameterForAddChattingMessage, ITypeForGetAllChatRooms } from "@/types/typeForChatting";
+import { CreateMessageDtoForGlobolChatRoom, GlobalChatRoomResponse, IParameterForAddChattingMessage, ITypeForGetAllChatRooms } from "@/types/typeForChatting";
 
 
 const instance = axios.create({
@@ -25,7 +25,15 @@ instance.interceptors.request.use(
     }
 );
 
-// todo apiForRegisterUserToChatRoom 추가
+// 글로벌 채팅방에 메시지 추가하는 API
+export const apiForAddMessageToGlobalChatRoom = async (id: string, createMessageDto: CreateMessageDtoForGlobolChatRoom) => {
+    try {
+        const response = await instance.post(`/global-chat-room/${id}/messages`, createMessageDto);
+        return response.data;
+    } catch (error) {
+        throw error
+    }
+};
 
 export const apiForGetGlobalChatRoomById = async (id: string): Promise<GlobalChatRoomResponse> => {
     try {

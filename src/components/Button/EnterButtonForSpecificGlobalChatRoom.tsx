@@ -23,7 +23,7 @@ const EnterButtonForSpecificGlobalChatRoom: React.FC<Props> = ({ roomId }) => {
             onClick={handleEnterRoom}
             mr="2"
         >
-            Enter2
+            Enter
         </Button>
     );
 };

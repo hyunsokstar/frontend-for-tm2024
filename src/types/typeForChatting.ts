@@ -62,3 +62,7 @@ export interface GlobalChatRoomResponse {
     users: User[]; // 추가된 부분
     messages: IMessageForGlobalChatRoom[];
 }
+
+export interface CreateMessageDtoForGlobolChatRoom {
+    content: string;
+}
