@@ -25,8 +25,11 @@ const useApiForSimpleCreateTodo = ({ pageInfo, userId, todoStatusOption }: IProp
             // console.log("Todo created successfully: ", data);
             let pageNum = 1
 
+            // queryClient.refetchQueries({
+            //     queryKey: ['uncompletedTodoList', pageNum, userId, todoStatusOption]
+            // });
             queryClient.refetchQueries({
-                queryKey: ['uncompletedTodoList', pageNum, userId, todoStatusOption] // 수정 필요한 부분
+                queryKey: ['uncompletedTodoList', pageNum, todoStatusOption]
             });
 
             toast({

@@ -10,6 +10,14 @@ import {
     InputRightElement,
     useToast,
     Select,
+    Popover,
+    PopoverTrigger,
+    PopoverContent,
+    PopoverArrow,
+    PopoverCloseButton,
+    PopoverHeader,
+    PopoverHeader,
+    PopoverBody,
 
 } from '@chakra-ui/react';
 import { AddIcon, CloseIcon, InfoIcon } from '@chakra-ui/icons';
@@ -415,8 +423,6 @@ interface IProps {
     selectedUserId?: any;
 }
 
-console.log("styles.completedRow : ", styles.completedRow);
-
 // 1122
 const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }: IProps) => {
     const isMainOrSub = "main"
@@ -444,12 +450,9 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
 
     const mutationForUpdateRefSkilnoteForTodo = useApiForUpdateRefSkilnoteForTodo({ pageNum, userId, todoStatusOption });
     const [rowNumToAdd, setRowNumToAdd] = useState<number>(1);
-    const [defaultUserEmail, setDefaultUserEmail] = useState(loginUser.email);
+    const [defaultUserEmail, setDefaultUserEmail] = useState();
     const [defaultDeadLine, setDefaultDeadline] = useState<Date | null>(null);
     const [defaultTodoStatus, setDefaultTodoStatus] = useState<string>("ready");
-
-    console.log("hi for entry : ", pageNum, userId, todoStatusOption);
-
 
     const mutationForSaveTodoRows = useApiForSaveTodoListForUserMutation({ pageNum, userId, todoStatusOption });
     const deleteForTodosForCheckedIdsMutation = useApiForDeleteTodosForCheckedIds({ pageNum, userId, todoStatusOption });
@@ -667,11 +670,37 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
     return (
         <Box width="100%" mt={2} my={1} px={1} border={"1px solid black"} py={2}>
 
+            현재 선택된 이메일 : {defaultUserEmail}
+
             <Box display={"flex"} justifyContent={"space-between"} gap={2} m={1}>
 
                 총 {dataForUncompletedTodoList?.todoList.length} 개
-                <Button id="b1" onClick={() => basicOptionButtonClick('b1')}>b1</Button>
-                <Button id="b2" onClick={() => basicOptionButtonClick('b2')}>b2</Button>
+                {/* <Button id="b1" onClick={() => basicOptionButtonClick('b1')}>b1</Button>
+                <Button id="b2" onClick={() => basicOptionButtonClick('b2')}>b2</Button> */}
+
+                <Popover trigger="hover" placement="top">
+                    <PopoverTrigger>
+                        <Button id="b1" onClick={() => basicOptionButtonClick('b1')}>b1</Button>
+                    </PopoverTrigger>
+                    <PopoverContent borderColor="teal.500" boxShadow="lg">
+                        <PopoverArrow />
+                        <PopoverCloseButton />
+                        <PopoverHeader bg="teal.500" color="white">간단 설정</PopoverHeader>
+                        <PopoverBody>오후 1시</PopoverBody>
+                    </PopoverContent>
+                </Popover>
+
+                <Popover trigger="hover" placement="top">
+                    <PopoverTrigger>
+                        <Button id="b2" onClick={() => basicOptionButtonClick('b2')}>b2</Button>
+                    </PopoverTrigger>
+                    <PopoverContent borderColor="blue.500" boxShadow="lg">
+                        <PopoverArrow />
+                        <PopoverCloseButton />
+                        <PopoverHeader bg="blue.500" color="white">간단 설정</PopoverHeader>
+                        <PopoverBody>오후 6시</PopoverBody>
+                    </PopoverContent>
+                </Popover>
 
                 {pageInfo === "todosPageForAllUser" && todoStatusOption !== "all_completed" ?
                     (

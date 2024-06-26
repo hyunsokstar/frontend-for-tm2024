@@ -17,9 +17,7 @@ const useApiForCreateChatBoardRow = (pageNum: number, todoStatusOption: any) => 
     const mutationForCreateChatBoardRow = useMutation<ITypeForSaveChatBoardForTodo, any, any, any>({
         mutationFn: apiForCreateChatBoardRow,
         onSuccess: (result: any) => {
-            console.log("pageNum : ?????", typeof pageNum, pageNum);
             // console.log("userId : ?????", typeof userId, userId);
-            console.log("todoStatusOption : ?????", typeof todoStatusOption, todoStatusOption);
             // queryKey: ['uncompletedTodoList', pageNum, userId, todoStatusOption],
 
             queryClient.refetchQueries({

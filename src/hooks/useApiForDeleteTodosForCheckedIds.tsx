@@ -34,8 +34,12 @@ const useApiForDeleteTodosForCheckedIds = ({ pageNum, userId, todoStatusOption }
 
             console.log("todoStatusOption for delete: ", todoStatusOption);
 
+            // queryClient.refetchQueries({
+            //     queryKey: ['uncompletedTodoList', pageNum, userId, todoStatusOption],
+            // });
+
             queryClient.refetchQueries({
-                queryKey: ['uncompletedTodoList', pageNum, userId, todoStatusOption],
+                queryKey: ['uncompletedTodoList', pageNum, todoStatusOption],
             });
 
             toast({
