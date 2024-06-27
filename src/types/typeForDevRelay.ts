@@ -72,3 +72,12 @@ export interface SubjectResponse {
     id: number;
     name: string
 }
+
+export interface CreateCategoriesForDevAssignmentDto {
+    name: string[];
+}
+
+export interface IParameterForApiForMultiCreateCategoriesForSubject {
+    subjectId: number,
+    data: CreateCategoriesForDevAssignmentDto
+}

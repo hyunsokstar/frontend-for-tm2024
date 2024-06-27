@@ -12,6 +12,7 @@ import ModalButtonForCreateSubject from '@/components/Modal/ModalButtonForAddSub
 import useApiForDeleteSubjectForDelay from '@/hooks/useApiForDeleteSubject';
 import ModalButtonForCreateCategoryForSubject from '@/components/Modal/ModalButtonForCreateCateogryForDevAssignment';
 import ModalButtonForUpdateSubjectsForDevRelay from '@/components/Modal/ModalButtonForUpdateSubjectsForDevRelay';
+import ModalButtonForMultiCreateCategoryForDevAssignment from '@/components/Modal/ModalButtonForMultiCreateCateogryForDevAssignment';
 
 
 const DevRelay: React.FC = () => {
@@ -90,16 +91,25 @@ const DevRelay: React.FC = () => {
                     marginLeft={'-10px'}
                     borderRightColor={'blue.200'}
                     borderRightWidth={1}
-                    w={{ base: '100%', md: '20%' }}
+                    w={{ base: '100%', md: '30%' }}
                     overflowY="auto"
-                    p={2}
+                    pl={1}
                 >
-                    <Box display="flex" justifyContent="flex-end" pr={0} mb={2}>
-                        {
-                            selectedSubject !== undefined ?
-                                <ModalButtonForCreateCategoryForSubject subjectId={selectedSubject as number} />
-                                : ""
-                        }
+                    <Box display="flex" justifyContent="space-between" pr={0} gap={1} my={1}>
+                        <Box w={"50%"}>
+                            {
+                                selectedSubject !== undefined ?
+                                    <ModalButtonForCreateCategoryForSubject subjectId={selectedSubject as number} />
+                                    : ""
+                            }
+                        </Box>
+                        <Box w={"50%"}>
+                            {
+                                selectedSubject !== undefined ?
+                                    <ModalButtonForMultiCreateCategoryForDevAssignment subjectId={selectedSubject as number} />
+                                    : ""
+                            }
+                        </Box>
                     </Box>
                     <CategoryListForDevAssignment
                         categories={data || []}

@@ -5,8 +5,10 @@ import {
     AssignmentCategory,
     CategoryForDevAssignmentDto,
     CategoryResponse,
+    CreateCategoriesForDevAssignmentDto,
     CreateDevAssignmentDto,
     DevAssignmentRow,
+    IParameterForApiForMultiCreateCategoriesForSubject,
     IParameterForCreateCategoryForSubject,
     IParameterForCreateDevAssignmentSubmission,
     IParameterForUpdateCategoryForDevAssignment,
@@ -35,6 +37,30 @@ instance.interceptors.request.use(
     }
 );
 
+export const apiForMultiCreateCategoriesForSubject = (
+    {
+        subjectId,
+        data
+    }: IParameterForApiForMultiCreateCategoriesForSubject
+): Promise<AxiosResponse<{ message: string }>> => {
+
+    console.log("subjectId : ", subjectId);
+    console.log("data : ", data);
+
+    return instance.post(`/subject/${subjectId}/categories`, data);
+};
+
+export const apiForCreateCategoryForSubject = async ({ subjectId, name }: IParameterForCreateCategoryForSubject): Promise<AxiosResponse> => {
+    console.log("name at api function : ", name);
+
+    try {
+        const response = await instance.post(`subject/${subjectId}/category`, { name });
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
 // subjectId: number, name: string
 export async function apiForUpdateSubjectName({ subjectId, name }: { subjectId: number, name: string }): Promise<SubjectResponse> {
     try {
@@ -45,7 +71,6 @@ export async function apiForUpdateSubjectName({ subjectId, name }: { subjectId: 
         throw error;
     }
 }
-
 
 export const createDevAssignmentSubmission = async ({
     devAssignmentId,
@@ -77,17 +102,6 @@ export const apiForDeleteDevAssignmentById = (
 ): Promise<AxiosResponse<{ message: string }>> => {
     return instance.delete(`/dev-assignment/${id}`);
 };
-
-export const apiForCreateCategoryForSubject = async ({ subjectId, name }: IParameterForCreateCategoryForSubject): Promise<AxiosResponse> => {
-    console.log("name at api function : ", name);
-
-    try {
-        const response = await instance.post(`subject/${subjectId}/category`, { name });
-        return response;
-    } catch (error) {
-        throw error;
-    }
-}
 
 export const apiForDeleteCategory = (id: number): Promise<AxiosResponse<CategoryResponse>> => {
     return instance.delete(`/categories/${id}`);

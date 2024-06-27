@@ -58,7 +58,7 @@ const ModalButtonForCreateCategoryForSubject = ({ subjectId }: Props) => {
                 leftIcon={<FiEdit3 />}
                 onClick={handleOpenModal}
             >
-                카테고리 추가
+                카테고리 1+
             </Button>
 
             <Modal isOpen={isOpen} onClose={handleCloseModal}>
