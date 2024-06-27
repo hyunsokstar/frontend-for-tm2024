@@ -28,7 +28,7 @@ const ModalButtonForMultiCreateCategoryForDevAssignment: React.FC<Props> = ({ su
     const [isOpen, setIsOpen] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const [tags, setTags] = useState<string[]>([]);
-    const { createCategories, isLoading, error } = useApiForMultiCreateCategoriesForSubject();
+    const { createCategories, error } = useApiForMultiCreateCategoriesForSubject();
     const toast = useToast();
 
     const handleOpenModal = () => setIsOpen(true);
