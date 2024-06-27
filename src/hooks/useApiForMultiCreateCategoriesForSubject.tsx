@@ -41,7 +41,6 @@ const useApiForMultiCreateCategoriesForSubject = () => {
 
     return {
         createCategories,
-        isLoading: mutation.isLoading,
         error: mutation.error,
     };
 };
