@@ -132,8 +132,8 @@ const ModalButtonForMultiCreateCategoryForDevAssignment: React.FC<Props> = ({ su
                         <Button colorScheme="red" mr={3} onClick={closeModal} w="50%">
                             Close
                         </Button>
-                        <Button colorScheme="blue" onClick={handleSubmit} w="50%" isLoading={isLoading}>
-                            {isLoading ? 'Adding...' : 'Submit'}
+                        <Button colorScheme="blue" onClick={handleSubmit} w="50%">
+                            {'Submit'}
                         </Button>
                     </ModalFooter>
                 </ModalContent>
