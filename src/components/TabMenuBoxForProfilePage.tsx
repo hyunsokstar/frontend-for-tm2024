@@ -14,9 +14,9 @@ const TabMenuBoxForProfilePage = ({ selectedUserId }: Props) => {
                 <TabList mb='1em'>
                     <Tab _selected={{ color: 'blue.500', bg: 'blue.200' }}>ToDos(Uncompleted)</Tab>
                     <Tab _selected={{ color: 'red.500', bg: 'red.200' }}>Todos(Completed)</Tab>
-                    <Tab _selected={{ color: 'green.500', bg: 'green.200' }}>Todos(Idea)</Tab>
-                    <Tab _selected={{ color: 'purple.500', bg: 'purple.200' }}>Four</Tab>
-                    <Tab _selected={{ color: 'orange.500', bg: 'orange.200' }}>Five</Tab>
+                    {/* <Tab _selected={{ color: 'green.500', bg: 'green.200' }}>Todos(Idea)</Tab> */}
+                    <Tab _selected={{ color: 'purple.500', bg: 'purple.200' }}>note</Tab>
+                    <Tab _selected={{ color: 'orange.500', bg: 'orange.200' }}>boiler plate</Tab>
                 </TabList>
 
                 <TabPanels>
@@ -28,15 +28,15 @@ const TabMenuBoxForProfilePage = ({ selectedUserId }: Props) => {
                         <DataGridForUserTodoList selectedUserId={selectedUserId} pageInfo="uncompletedTodosPageForUser" todoStatusOption={'complete'} />
                     </TabPanel>
 
-                    <TabPanel>
+                    {/* <TabPanel>
                         <DataGridForUserTodoList selectedUserId={selectedUserId} pageInfo="uncompletedTodosPageForUser" todoStatusOption={'idea'} />
-                    </TabPanel>
+                    </TabPanel> */}
 
                     <TabPanel>
-                        <p>four!</p>
+                        <p>note</p>
                     </TabPanel>
                     <TabPanel>
-                        <p>five!</p>
+                        <p>boiler plate</p>
                     </TabPanel>
                 </TabPanels>
             </Tabs>

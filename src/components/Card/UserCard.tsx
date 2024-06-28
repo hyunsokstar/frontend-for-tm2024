@@ -1,20 +1,22 @@
 import React from 'react';
-import { Box, Image, Text, VStack, HStack, IconButton, Switch, Stack } from '@chakra-ui/react';
-import { FiMessageSquare, FiUser, FiClipboard } from 'react-icons/fi';
+import { Box, Image, Text, VStack, HStack, IconButton, Stack, Tooltip } from '@chakra-ui/react';
+import { FiUser, FiClipboard } from 'react-icons/fi';
 import { FaRunning, FaMeh, FaSmile, FaUmbrellaBeach } from 'react-icons/fa';
 import { IoMdTime } from "react-icons/io";
 import { MdOutlineTimeline } from "react-icons/md";
 import { IoChatbubblesOutline } from "react-icons/io5";
-
-
+import { useRouter } from 'next/router';
 import { IUser } from '@/types/typeForUserBoard';
 import IconButtonForShowUserTaskCondition from '../Button/IconButtonForShowUserTaskCondition';
+import SwitchButtonForOnlineStatus from '../Button/SwitchButtonForOnlineStatus';
 
 type UserCardProps = {
     user: IUser;
 };
 
 const UserCard: React.FC<UserCardProps> = ({ user }) => {
+    const router = useRouter();
+
     const statusIcon = () => {
         switch (user.role) {
             case 'ninja':
@@ -30,6 +32,10 @@ const UserCard: React.FC<UserCardProps> = ({ user }) => {
         }
     };
 
+    const handleClipboardClick = () => {
+        window.open(`/UserProfile/${user.id}`, '_blank');
+    };
+
     return (
         <Box borderWidth="1px" borderRadius="lg" overflow="hidden" p="4" shadow="md">
             <Image src={user.profileImage} alt={`${user.nickname} profile image`} borderRadius="full" boxSize="150px" mx="auto" mb="4" />
@@ -43,21 +49,31 @@ const UserCard: React.FC<UserCardProps> = ({ user }) => {
                 <Text>Backend Level: {user.backEndLevel}</Text>
             </VStack>
             <HStack spacing="4" mt="4" justify="center">
-                <IconButton aria-label="Task" icon={<FiClipboard />} variant="outline" colorScheme="teal" />
-                <IconButton aria-label="Task" icon={<IoMdTime />} variant="outline" colorScheme="teal" />
-                <IconButton aria-label="Task" icon={<MdOutlineTimeline />} variant="outline" colorScheme="teal" />
-                <IconButton aria-label="Chat" icon={<IoChatbubblesOutline />} variant="outline" colorScheme="teal" />
+                <Tooltip label="Task 목록" placement="top" hasArrow>
+                    <IconButton
+                        aria-label="Task"
+                        icon={<FiClipboard />}
+                        variant="outline"
+                        colorScheme="teal"
+                        onClick={handleClipboardClick}
+                    />
+                </Tooltip>
+                <Tooltip label="시간" placement="top" hasArrow>
+                    <IconButton aria-label="Time" icon={<IoMdTime />} variant="outline" colorScheme="teal" />
+                </Tooltip>
+                <Tooltip label="타임라인" placement="top" hasArrow>
+                    <IconButton aria-label="Timeline" icon={<MdOutlineTimeline />} variant="outline" colorScheme="teal" />
+                </Tooltip>
+                <Tooltip label="채팅" placement="top" hasArrow>
+                    <IconButton aria-label="Chat" icon={<IoChatbubblesOutline />} variant="outline" colorScheme="teal" />
+                </Tooltip>
             </HStack>
             <HStack spacing="4" mt="4" justify="center">
-
-                IconButtonForShowUserTaskCondition
                 <Stack direction="row" align="center">
                     <IconButtonForShowUserTaskCondition />
                 </Stack>
-
                 <Stack direction="row" align="center">
-                    <Text>Online</Text>
-                    <Switch size="lg" colorScheme="teal" />
+                    <SwitchButtonForOnlineStatus />
                 </Stack>
             </HStack>
         </Box>

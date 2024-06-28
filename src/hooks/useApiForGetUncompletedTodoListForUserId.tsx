@@ -17,7 +17,7 @@ interface ResponseTypeForTodoList {
 const useApiForGetUncompletedTodoListForUserId =
     ({ pageNum, userId, todoStatusOption }: IProps): ResponseTypeForTodoList => {
         const { isLoading, error, data } = useQuery({
-            queryKey: ['uncompletedTodoList', pageNum, userId, todoStatusOption],
+            queryKey: ['uncompletedTodoListForUser', pageNum, userId, todoStatusOption],
             queryFn: apiForUncompletedTodoListForUserId,
         });
         return { isLoading, error, data };

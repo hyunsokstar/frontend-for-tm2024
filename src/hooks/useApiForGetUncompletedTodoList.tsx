@@ -13,7 +13,7 @@ interface ResponseTypeForTodoList {
     data: ResponseDataTypeForApiForGetTodoList
 }
 
-const useApiForGetUncompletedTodoListForUserId =
+const useApiForGetUncompletedTodoList =
     ({ pageNum, todoStatusOption }: IProps): ResponseTypeForTodoList => {
 
         // console.log("userId : ?????", typeof userId, userId);
@@ -25,4 +25,4 @@ const useApiForGetUncompletedTodoListForUserId =
         return { isLoading, error, data };
     };
 
-export default useApiForGetUncompletedTodoListForUserId;
+export default useApiForGetUncompletedTodoList;

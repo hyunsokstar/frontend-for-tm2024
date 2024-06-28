@@ -433,8 +433,10 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
     const [pageNum, setPageNum] = useState(1);
 
     const userId = loginUser
+
+
     const { isLoading, error, data: dataForUncompletedTodoList }
-        = useApiForGetUncompletedTodoList({ pageNum, todoStatusOption });
+        = selectedUserId ? useApiForGetUncompletedTodoListForUserId({ pageNum, userId: selectedUserId, todoStatusOption }) : useApiForGetUncompletedTodoList({ pageNum, todoStatusOption });
 
     const [inputValue, setInputValue] = useState('');
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
