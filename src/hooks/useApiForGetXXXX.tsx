@@ -12,4 +12,4 @@ const useApiForXXXXX = (categoryId: number): UseQueryResult<DevAssignmentRow[]> 
     });
 };
 
-export default useApiForXXXXX;
+export default useApiForXXXXX;  

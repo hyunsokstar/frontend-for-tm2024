@@ -144,3 +144,41 @@ export interface IParameterForSeleteTaskForUnsignedTask {
     todoId: any;
     writerId: any;
 }
+
+
+export interface IManagerForUserCompletedTodo {
+    id: number;
+    email: string;
+    password: string;
+    nickname: string;
+    cashPoints: number;
+    role: string;
+    gender: string;
+    phoneNumber: string | null;
+    backEndLevel: number;
+    frontEndLevel: number;
+    profileImage: string;
+}
+
+export interface ITypeForUserCompletedTodo {
+    id: number;
+    task: string;
+    isForToday: string;
+    isUrgent: boolean;
+    details: string | null;
+    status: string;
+    startTime: string | null;
+    completedAt: string;
+    deadline: string | null;
+    elapsedTime: string;
+    priority: number;
+    skilNoteUrl: string | null;
+    refSkilNoteId: number | null;
+    manager: IManagerForUserCompletedTodo;
+}
+
+export interface IResponseForUserCompletedTodoList {
+    todoList: ITypeForUserCompletedTodo[];
+    totalCount: number;
+    perPage: number;
+}

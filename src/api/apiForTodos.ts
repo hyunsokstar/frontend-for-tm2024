@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
 import { QueryFunctionContext } from "@tanstack/react-query";
-import { IParameterForSeleteTaskForUnsignedTask, IParameterForUpdateRefSkilNoteForTodo, ITypeForSaveChatBoardForTodo, MultiUpdateTodoDto, parameterTypeForCreateChatBoardRow } from "@/types/typeforTodos";
+import { IParameterForSeleteTaskForUnsignedTask, IParameterForUpdateRefSkilNoteForTodo, IResponseForUserCompletedTodoList, ITypeForSaveChatBoardForTodo, MultiUpdateTodoDto, parameterTypeForCreateChatBoardRow } from "@/types/typeforTodos";
 
 const instance = axios.create({
     baseURL: `${backendApi}/todos`,
@@ -22,6 +22,21 @@ instance.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+type UserCompletedTodoQueryKey = readonly ['userCompletedTodos', number, number, number];
+
+export const apiForGetUserCompletedTodoList = async ({
+    queryKey
+}: QueryFunctionContext<UserCompletedTodoQueryKey>): Promise<IResponseForUserCompletedTodoList> => {
+    const [_, userId, pageNum, perPage] = queryKey;
+    const response = await instance.get<IResponseForUserCompletedTodoList>(`user/${userId}/completed`, {
+        params: {
+            pageNum,
+            perPage
+        }
+    });
+    return response.data;
+};
 
 export const apiForUpdateRefSkilnoteForTodo =
     async ({ todoId, isMainOrSub }: IParameterForUpdateRefSkilNoteForTodo): Promise<AxiosResponse> => {
