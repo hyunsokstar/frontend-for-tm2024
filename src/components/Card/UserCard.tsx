@@ -10,6 +10,7 @@ import { IUser } from '@/types/typeForUserBoard';
 import IconButtonForShowUserTaskCondition from '../Button/IconButtonForShowUserTaskCondition';
 import SwitchButtonForOnlineStatus from '../Button/SwitchButtonForOnlineStatus';
 import ModalButtonForTaskHistoryForUser from '../Modal/ModalButtonForTaskHistoryForUser';
+import ModalButtonForUserTaskStatistics from '../Modal/ModalButtonForUserTaskStatics';
 
 interface Todo {
     id: number;
@@ -141,7 +142,8 @@ const UserCard: React.FC<UserCardProps> = ({ user }) => {
 
                 </Tooltip>
                 <Tooltip label="Task Statics" placement="top" hasArrow>
-                    <IconButton aria-label="Timeline" icon={<MdOutlineTimeline />} variant="outline" colorScheme="teal" />
+                    {/* <IconButton aria-label="Timeline" icon={<MdOutlineTimeline />} variant="outline" colorScheme="teal" /> */}
+                    <ModalButtonForUserTaskStatistics />
                 </Tooltip>
                 <Tooltip label="Chatting" placement="top" hasArrow>
                     <IconButton aria-label="Chat" icon={<IoChatbubblesOutline />} variant="outline" colorScheme="teal" />
