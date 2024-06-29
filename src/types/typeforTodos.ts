@@ -182,3 +182,17 @@ export interface IResponseForUserCompletedTodoList {
     totalCount: number;
     perPage: number;
 }
+
+
+export interface ICompletedTaskStatistic {
+    date: string;
+    completedTasks: number;
+    teamAverage: number;
+}
+
+// 전체 응답에 대한 인터페이스
+export interface IResponseForUserCompletedTaskStatics {
+    success: boolean;
+    data: ICompletedTaskStatistic[];
+    error?: string;  // 에러 메시지를 위한 옵션 필드 추가
+}

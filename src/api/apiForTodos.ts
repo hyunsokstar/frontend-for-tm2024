@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
 import { QueryFunctionContext } from "@tanstack/react-query";
-import { IParameterForSeleteTaskForUnsignedTask, IParameterForUpdateRefSkilNoteForTodo, IResponseForUserCompletedTodoList, ITypeForSaveChatBoardForTodo, MultiUpdateTodoDto, parameterTypeForCreateChatBoardRow } from "@/types/typeforTodos";
+import { IParameterForSeleteTaskForUnsignedTask, IParameterForUpdateRefSkilNoteForTodo, IResponseForUserCompletedTaskStatics, IResponseForUserCompletedTodoList, ITypeForSaveChatBoardForTodo, MultiUpdateTodoDto, parameterTypeForCreateChatBoardRow } from "@/types/typeforTodos";
 
 const instance = axios.create({
     baseURL: `${backendApi}/todos`,
@@ -22,6 +22,26 @@ instance.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+// useApiForGetUserCompletedTaskStatics
+export const apiForGetUserCompletedTaskStatics = async ({
+    queryKey
+}: QueryFunctionContext<readonly ['userCompletedTaskStatics', number, string, string]>): Promise<IResponseForUserCompletedTaskStatics> => {
+    const [_, userId, startDate, endDate] = queryKey;
+    try {
+        const response: AxiosResponse<IResponseForUserCompletedTaskStatics> = await instance.get(
+            `/user/${userId}/statics/completed`,
+            {
+                params: {
+                    startDate,
+                    endDate
+                }
+            }
+        );
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
 
 type UserCompletedTodoQueryKey = readonly ['userCompletedTodos', number, number, number];
 

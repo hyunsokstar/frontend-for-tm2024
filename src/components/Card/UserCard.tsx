@@ -143,7 +143,7 @@ const UserCard: React.FC<UserCardProps> = ({ user }) => {
                 </Tooltip>
                 <Tooltip label="Task Statics" placement="top" hasArrow>
                     {/* <IconButton aria-label="Timeline" icon={<MdOutlineTimeline />} variant="outline" colorScheme="teal" /> */}
-                    <ModalButtonForUserTaskStatistics />
+                    <ModalButtonForUserTaskStatistics user={user} />
                 </Tooltip>
                 <Tooltip label="Chatting" placement="top" hasArrow>
                     <IconButton aria-label="Chat" icon={<IoChatbubblesOutline />} variant="outline" colorScheme="teal" />
