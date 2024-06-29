@@ -22,6 +22,26 @@ instance.interceptors.request.use(
     }
 );
 
+export const apiForAddUser = ({
+    email,
+    nickname,
+    password
+}: any) => {
+
+    console.log("email : ", email);
+    console.log("nickname : ", nickname);
+    console.log("password : ", password);
+
+    return instance.post(
+        '',
+        {
+            email,
+            nickname,
+            password
+        }
+    ).then((response: any) => response.data)
+}
+
 export async function apiForGetUsersPaymentHistory():
     Promise<AxiosResponse<any>> {
     try {
@@ -97,25 +117,6 @@ export const apiForLogin = async ({ email, password }: IParamterTypeForLogin): P
 };
 
 
-export const apiForAddUser = ({
-    email,
-    nickname,
-    password
-}: any) => {
-
-    console.log("email : ", email);
-    console.log("nickname : ", nickname);
-    console.log("password : ", password);
-
-    return instance.post(
-        '',
-        {
-            email,
-            nickname,
-            password
-        }
-    ).then((response: any) => response.data)
-}
 
 export const apiForGetAllUsers = ({
     queryKey,

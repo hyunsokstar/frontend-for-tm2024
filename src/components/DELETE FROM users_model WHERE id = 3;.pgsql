@@ -1,0 +1,1 @@
+DELETE FROM users_model WHERE id = 3;
