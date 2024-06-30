@@ -1,3 +1,5 @@
+import { IUser } from "./typeForUserBoard";
+
 export interface IParameterForAddChattingMessage {
     chatRoomId: string;
     content: string;
@@ -50,7 +52,7 @@ export interface IMessageForGlobalChatRoom {
     id: number;
     content: string;
     created_at: string;
-    writer: User;
+    writer: IUser;
 }
 
 export interface GlobalChatRoomResponse {

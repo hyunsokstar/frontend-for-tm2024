@@ -40,7 +40,7 @@ const IconButtonForShowUserTaskCondition: React.FC<Props> = () => {
                         aria-label="Task Condition"
                         icon={selectedIcon}
                         variant="outline"
-                        size="md"
+                        size="lg"
                         onClick={onOpen}
                         colorScheme={getIconColorScheme(selectedIcon)}
                     />

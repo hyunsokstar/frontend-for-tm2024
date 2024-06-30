@@ -132,20 +132,7 @@ const Chatting: React.FC = () => {
                     <Heading>{data.title}</Heading>
                     <Text>Owner: {data.owner.email}</Text>
                     <Box flex={1} overflowY="auto" borderWidth={1} borderRadius="md" p={4} bg="gray.50">
-                        {/* {data.messages.map((msg) => (
-                            <Flex key={msg.id} alignItems="center" mb={2}>
-                                {msg.writer.profileImage ? (
-                                    <Avatar src={msg.writer.profileImage} name={msg.writer.nickname} size="sm" mr={2} />
-                                ) : (
-                                    <Avatar size="sm" name={msg.writer.nickname} bg="gray.200" color="gray.600" mr={2}>
-                                        {msg.writer.email.charAt(0).toUpperCase()}
-                                    </Avatar>
-                                )}
-                                <Text>{msg.content}</Text>
-                            </Flex>
-                        ))} */}
                         <MessagesForGlobalChattingRoom messages={data.messages ? data.messages : []} />
-
                     </Box>
                     <Box mt={4} p={4} borderWidth={1} borderRadius="md" bg="gray.100">
                         <Flex>

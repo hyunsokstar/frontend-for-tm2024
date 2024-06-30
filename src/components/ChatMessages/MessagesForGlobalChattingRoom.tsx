@@ -1,14 +1,14 @@
-// src/components/MessagesForGlobalChattingRoom.tsx
 import React from 'react';
-import { Box, Text, Avatar, Flex } from '@chakra-ui/react';
+import { Box, Text, Flex } from '@chakra-ui/react';
 import useUser from '@/hooks/useUser';
 import { IMessageForGlobalChatRoom } from '@/types/typeForChatting';
+import ProfileImageForUserCard from '../ProfileImage/ProfileImageForUserCard';
 
 interface IProps {
-    messages: IMessageForGlobalChatRoom[]
+    messages: IMessageForGlobalChatRoom[];
 }
 
-const MessagesForGlobalChattingRoom = ({ messages }: IProps) => {
+const MessagesForGlobalChattingRoom: React.FC<IProps> = ({ messages }) => {
     const { isLoggedIn, loginUser, logout } = useUser();
 
     return (
@@ -17,15 +17,11 @@ const MessagesForGlobalChattingRoom = ({ messages }: IProps) => {
                 const isOwnMessage = loginUser.nickname === message.writer.nickname;
                 return (
                     <Flex key={message.id} mb={2} justify={isOwnMessage ? "flex-start" : "flex-end"}>
-                        <Box display="flex" alignItems="center" mr={isOwnMessage ? 2 : 0} ml={isOwnMessage ? 0 : 2}>
-                            <Avatar
-                                name={message.writer.nickname}
-                                src={message.writer.profileImage || undefined}
-                                bg={message.writer.profileImage ? "transparent" : "gray.300"}
-                            />
+                        <Box display="flex" alignItems="center" mr={isOwnMessage ? 2 : 2} ml={isOwnMessage ? 0 : 2}>
+                            <ProfileImageForUserCard user={message.writer} size="40px" /> {/* 크기 옵션 전달 */}
                         </Box>
                         <Box>
-                            <Text fontWeight="bold">{message.writer.nickname}</Text>
+                            {/* <Text fontWeight="bold">{message.writer.nickname}</Text> */}
                             <Text>{message.content}</Text>
                             <Text color="gray.500" fontSize="sm">
                                 {new Date(message.created_at).toLocaleString()}
