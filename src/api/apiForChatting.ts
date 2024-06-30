@@ -25,6 +25,17 @@ instance.interceptors.request.use(
     }
 );
 
+export const apiForGetUserChatRoomInfo = async (userId: string | number): Promise<AxiosResponse<any>> => {
+    try {
+        const response = await instance.get(`/user/${userId}/user-chat-room`);
+        console.log("response for user chatroom: ", response);
+        return response;
+    } catch (error) {
+        console.error("Error fetching user chat room info:", error);
+        throw error;
+    }
+};
+
 // 글로벌 채팅방에 메시지 추가하는 API
 export const apiForAddMessageToGlobalChatRoom = async (id: string, createMessageDto: CreateMessageDtoForGlobolChatRoom) => {
     try {

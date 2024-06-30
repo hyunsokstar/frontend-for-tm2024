@@ -53,16 +53,18 @@ export interface IMessageForGlobalChatRoom {
     writer: User;
 }
 
-export interface GlobalChatRoomResponse {
+export interface Message {
+    id: number;
+    content: string;
+    created_at: string;
+}
+
+export interface UserChatRoomResponse {
     id: string;
     title: string;
     created_at: string;
     updated_at: string;
     owner: User;
-    users: User[]; // 추가된 부분
-    messages: IMessageForGlobalChatRoom[];
-}
-
-export interface CreateMessageDtoForGlobolChatRoom {
-    content: string;
+    users: User[];
+    messages: Message[];
 }
