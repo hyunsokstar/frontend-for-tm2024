@@ -70,10 +70,7 @@ const UserCard: React.FC<UserCardProps> = ({ user }) => {
                 </Tooltip>
             </HStack>
             <Flex w="100%" mt="4" justify="space-between" align="center">
-                <Box flexBasis="20%" maxW="20%" textAlign={"center"}>
-                    <IconButtonForShowUserTaskCondition />
-                </Box>
-                <Box flexBasis="78%" maxW="78%">
+                <Box flexBasis="100%" maxW="100%">
                     <ProgressBarForCurrentTask user={user} />
                 </Box>
             </Flex>

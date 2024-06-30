@@ -1,15 +1,12 @@
-import React, { useState, ChangeEvent } from 'react';
-import { Box, Text, VStack, HStack, IconButton, Stack, Tooltip, Input, Slider, SliderTrack, SliderFilledTrack, SliderThumb, useBoolean } from '@chakra-ui/react';
-import { FiUser, FiClipboard } from 'react-icons/fi';
-import { FaRunning, FaMeh, FaSmile, FaUmbrellaBeach } from 'react-icons/fa';
-import { IoChatbubblesOutline } from "react-icons/io5";
+import React, { ChangeEvent, useState } from 'react';
+import { Box, Text, VStack, HStack, IconButton, Tooltip, Flex, useBoolean, SliderTrack, Slider, SliderFilledTrack, SliderThumb, Input } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { IUser } from '@/types/typeForUserBoard';
 import IconButtonForShowUserTaskCondition from '../Button/IconButtonForShowUserTaskCondition';
-import SwitchButtonForOnlineStatus from '../Button/SwitchButtonForOnlineStatus';
-import ModalButtonForTaskHistoryForUser from '../Modal/ModalButtonForTaskHistoryForUser';
-import ModalButtonForUserTaskStatistics from '../Modal/ModalButtonForUserTaskStatics';
-import ProfileImageForUserCard from '../ProfileImage/ProfileImageForUserCard';
+
+interface UserCardProps {
+    user: IUser;
+}
 
 interface ProgressBarForCurrentTaskProps {
     initialTask: string;
@@ -19,77 +16,77 @@ interface ProgressBarForCurrentTaskProps {
 const ProgressBarForCurrentTask: React.FC<ProgressBarForCurrentTaskProps> = ({ initialTask, initialProgress }) => {
     const [task, setTask] = useState<string>(initialTask);
     const [progress, setProgress] = useState<number>(initialProgress);
-    const [isHovered, setIsHovered] = useBoolean(false);
 
     const handleTaskChange = (e: ChangeEvent<HTMLInputElement>) => {
         setTask(e.target.value);
     };
 
     const handleProgressChange = (newProgress: number) => {
-        setProgress(newProgress);
+        setProgress(Math.round(newProgress));
     };
 
     return (
         <VStack spacing={2} align="stretch" width="100%">
-            <Tooltip label={`${progress}%`} placement="top" isOpen={isHovered}>
-                <Box onMouseEnter={setIsHovered.on} onMouseLeave={setIsHovered.off}>
+            <Box display="flex" gap={2} alignItems="center">
+                <IconButtonForShowUserTaskCondition />
+                <Box flex={1} position="relative">
                     <Slider
                         aria-label="progress-slider"
                         value={progress}
                         onChange={handleProgressChange}
                         min={0}
                         max={100}
+                        size="lg"
                     >
-                        <SliderTrack>
-                            <SliderFilledTrack />
+                        <SliderTrack bg="gray.200" height="10px" borderRadius="full">
+                            <SliderFilledTrack bg="teal.500" />
                         </SliderTrack>
-                        <SliderThumb />
+                        <SliderThumb boxSize={8} bg="white" borderColor="teal.500" borderWidth={2}>
+                            <Box
+                                display="flex"
+                                justifyContent="center"
+                                alignItems="center"
+                                width="100%"
+                                height="100%"
+                                borderRadius="full"
+                            >
+                                <Text
+                                    fontSize="xs"
+                                    fontWeight="bold"
+                                    color="teal.500"
+                                    fontFamily="sans-serif"
+                                    lineHeight="1"
+                                >
+                                    {progress}%
+                                </Text>
+                            </Box>
+                        </SliderThumb>
                     </Slider>
                 </Box>
-            </Tooltip>
-            <Input
-                value={task}
-                onChange={handleTaskChange}
-                placeholder="Current task"
-            />
+            </Box>
+            <Box>
+                <Input
+                    value={task}
+                    onChange={handleTaskChange}
+                    placeholder="Current task"
+                    size="sm"
+                />
+            </Box>
         </VStack>
     );
 };
 
-interface UserCardProps {
-    user: IUser;
-}
-
-const UserCard: React.FC<UserCardProps> = ({ user }) => {
+const TaskStatusAndProgressBar: React.FC<UserCardProps> = ({ user }) => {
     const router = useRouter();
 
-    const statusIcon = (): JSX.Element => {
-        switch (user.role) {
-            case 'ninja': return <FaRunning />;
-            case 'stressed': return <FaMeh />;
-            case 'away': return <FaSmile />;
-            case 'vacation': return <FaUmbrellaBeach />;
-            default: return <FiUser />;
-        }
-    };
-
-    const handleClipboardClick = (): void => {
-        window.open(`/UserProfile/${user.id}`, '_blank');
-    };
-
-    const handleChatClick = (): void => {
-        window.open(`/users/UsersByCardList/${user.id}/chatting`, '_blank');
-    };
-
     return (
-        <Box borderWidth="1px" borderRadius="lg" overflow="hidden" p="4" shadow="md">
+        <Box border="1px solid gray" borderRadius="lg" overflow="hidden" p="4" shadow="md">
             <ProgressBarForCurrentTask
                 initialTask="idea 제안 게시판 만드는중"
                 initialProgress={50}
             />
-            {/* Other UserCard content */}
         </Box>
     );
 };
 
-export default UserCard;
+export default TaskStatusAndProgressBar;
