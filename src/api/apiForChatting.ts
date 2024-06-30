@@ -25,6 +25,19 @@ instance.interceptors.request.use(
     }
 );
 
+export const apiForAddMessageToUserChatRoom = async (
+    chatRoomId: string,
+    createMessageDto: CreateMessageDtoForGlobolChatRoom
+): Promise<AxiosResponse<any>> => {
+    try {
+        const response = await instance.post(`/user-chat-room/${chatRoomId}/messages`, createMessageDto);
+        return response;
+    } catch (error) {
+        console.error("Error adding message to user chat room:", error);
+        throw error;
+    }
+};
+
 export const apiForGetUserChatRoomInfo = async (userId: string | number): Promise<AxiosResponse<any>> => {
     try {
         const response = await instance.get(`/user/${userId}/user-chat-room`);

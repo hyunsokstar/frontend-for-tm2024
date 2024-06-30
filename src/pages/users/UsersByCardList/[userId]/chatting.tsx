@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import {
     Box,
@@ -14,16 +14,57 @@ import {
     Button,
     Flex,
     Avatar,
+    useToast,
 } from '@chakra-ui/react';
 import useApiForGetUserChatRoomInfo from '@/hooks/useApiForGetUserChatRoomInfo';
+import useApiForAddMessageToUserChatRoom from '@/hooks/useApiForAddMessageToUserChatRoom';
+import { RealtimeChannel, createClient } from "@supabase/supabase-js";
+import { useQueryClient } from '@tanstack/react-query';
+import MessagesForGlobalChattingRoom from '@/components/ChatMessages/MessagesForGlobalChattingRoom';
+
 
 const Chatting: React.FC = () => {
     const router = useRouter();
-    const { id } = router.query;
+    const { userId } = router.query;
     const [isLargerThan768] = useMediaQuery('(min-width: 768px)');
-    const { data, isLoading, isError } = useApiForGetUserChatRoomInfo(id as string);
+    const { data, isLoading, isError } = useApiForGetUserChatRoomInfo(userId as string);
+    const [chatRoomId, setChatRoomId] = useState<string | undefined>(undefined);
+    const addMessage = useApiForAddMessageToUserChatRoom(chatRoomId as string, userId);
+    const toast = useToast();
+    const channel = useRef<RealtimeChannel>();
+    const queryClient = useQueryClient();
 
     const [message, setMessage] = useState('');
+
+    // 환경 변수에서 SUPABASE 키와 URL 가져오기
+    const SUPABASE_PUBLIC_KEY = process.env.SUPABASE_PUBLIC_KEY || "";
+    const SUPABASE_URL = process.env.SUPABASE_URL || "";
+
+    useEffect(() => {
+        const client = createClient(SUPABASE_URL, SUPABASE_PUBLIC_KEY);
+        channel.current = client.channel(`room-${chatRoomId}`);
+
+        const subscription = channel.current.on("broadcast", { event: "message" }, (payload: any) => {
+            console.log("payload:", payload);
+            console.log("chatRoomId check : ", chatRoomId);
+
+            queryClient.refetchQueries({
+                queryKey: ['userChatRooms', userId],
+            });
+        }).subscribe();
+
+        console.log("subscription : ", subscription);
+        return () => {
+            channel.current?.unsubscribe();
+        };
+
+    }, [chatRoomId]);
+
+    useEffect(() => {
+        if (data && data.id) {
+            setChatRoomId(data.id);
+        }
+    }, [data]);
 
     console.log("data : ", data);
 
@@ -32,8 +73,37 @@ const Chatting: React.FC = () => {
     };
 
     const handleSendMessage = () => {
-        console.log('Message to send:', message);
-        // TODO: Implement send message functionality
+        if (!chatRoomId) {
+            toast({
+                title: "Error",
+                description: "Chat room ID is not available.",
+                status: "error",
+                duration: 2000,
+                isClosable: true,
+            });
+            return;
+        }
+
+        if (message.trim() === '') {
+            toast({
+                title: "Empty message",
+                description: "Please enter a message before sending.",
+                status: "warning",
+                duration: 2000,
+                isClosable: true,
+            });
+            return;
+        }
+
+        channel.current?.send({
+            type: "broadcast",
+            event: "message",
+            payload: { message },
+        });
+
+        addMessage.mutate(
+            { content: message },
+        );
         setMessage('');
     };
 
@@ -62,7 +132,7 @@ const Chatting: React.FC = () => {
                     <Heading>{data.title}</Heading>
                     <Text>Owner: {data.owner.email}</Text>
                     <Box flex={1} overflowY="auto" borderWidth={1} borderRadius="md" p={4} bg="gray.50">
-                        {data.messages.map((msg) => (
+                        {/* {data.messages.map((msg) => (
                             <Flex key={msg.id} alignItems="center" mb={2}>
                                 {msg.writer.profileImage ? (
                                     <Avatar src={msg.writer.profileImage} name={msg.writer.nickname} size="sm" mr={2} />
@@ -73,7 +143,9 @@ const Chatting: React.FC = () => {
                                 )}
                                 <Text>{msg.content}</Text>
                             </Flex>
-                        ))}
+                        ))} */}
+                        <MessagesForGlobalChattingRoom messages={data.messages ? data.messages : []} />
+
                     </Box>
                     <Box mt={4} p={4} borderWidth={1} borderRadius="md" bg="gray.100">
                         <Flex>
@@ -85,7 +157,12 @@ const Chatting: React.FC = () => {
                                 bg="white"
                                 borderColor="gray.300"
                             />
-                            <Button ml={2} onClick={handleSendMessage} colorScheme="blue">
+                            <Button
+                                ml={2}
+                                onClick={handleSendMessage}
+                                colorScheme="blue"
+                                isDisabled={!chatRoomId}
+                            >
                                 Send
                             </Button>
                         </Flex>
