@@ -84,5 +84,5 @@ export interface UserChatRoomResponse {
     updated_at: string;
     owner: User;
     users: User[];
-    messages: Message[];
+    messages: IMessageForGlobalChatRoom[];
 }

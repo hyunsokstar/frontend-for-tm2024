@@ -23,7 +23,7 @@ interface UserCardProps {
 
 const TaskStatusAndProgressBar: React.FC<UserCardProps> = ({ user }) => {
     const [task, setTask] = useState<string>(user.currentTask || '');
-    const [progress, setProgress] = useState<number>(user.currentTaskProgressPercent);
+    const [progress, setProgress] = useState<number>(0);
 
     const handleTaskChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTask(e.target.value);

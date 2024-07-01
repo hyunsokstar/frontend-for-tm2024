@@ -9,7 +9,7 @@ import { SiFastify } from "react-icons/si";
 type PerformanceLevelType = 'struggling' | 'offroad' | 'ninja' | 'cheetah' | 'rocket';
 
 type Props = {
-    performanceLevel: PerformanceLevelType;
+    performanceLevel?: PerformanceLevelType;
 };
 
 const IconButtonForShowUserTaskCondition: React.FC<Props> = ({ performanceLevel }) => {

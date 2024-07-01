@@ -86,7 +86,7 @@ const UserCard: React.FC<UserCardProps> = ({ user }) => {
                     <IconButton aria-label="Chat" icon={<IoChatbubblesOutline />} variant="outline" colorScheme="teal" onClick={handleChatClick} />
                 </Tooltip>
                 <Tooltip label="Online Status" placement="top" hasArrow>
-                    <SwitchButtonForOnlineStatus isOnline={isOnline} onChange={handleOnlineStatusChange} />
+                    <SwitchButtonForOnlineStatus isOnline={isOnline ? isOnline : false} onChange={handleOnlineStatusChange} />
                 </Tooltip>
             </HStack>
             <Flex w="100%" mt="4" justify="space-between" align="center">
