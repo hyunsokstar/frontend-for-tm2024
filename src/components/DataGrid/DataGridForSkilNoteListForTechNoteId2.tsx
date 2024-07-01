@@ -9,7 +9,7 @@ import { SkillNoteRow } from "@/types/typeForSkilNote";
 import { SelectColumnForReactDataGrid } from "../Formatter/CheckBox/SelectColumnForRdg";
 import CommonTextEditor from "../GridEditor/TextEditor/CommonTextEditor";
 import SelectBoxForUserEmail from "../GridEditor/SelectBox/SelectBoxForUserEmail";
-import useSaveSkilNotesMutation from "@/hooks/useSaveSkilNotesMutation copy";
+import useSaveSkilNotesMutation from "@/hooks/useSaveSkilNotesMutation";
 import useUser from "@/hooks/useUser";
 import { useQueryClient } from '@tanstack/react-query';
 import SearchInputForSkilNote from "../SearchInput/SearchInputForSkilNote";
@@ -64,16 +64,50 @@ const DataGridForSkilNoteListForTechNoteId2 = ({ techNoteId, isOpen }: IProps) =
     console.log("dataForSkilNotesByTechNoteId : ", dataForSkilNotesByTechNoteId);
 
 
-    const mutationToSaveSkilNoteRows = useSaveSkilNotesMutation({ techNoteId, pageNum });
-    const mutationForLikeSkilNote = useApiForLikeSkilNote({ techNoteId, pageNum });
-    const mutationForBookMarkSkilNote = useApiForBookMarkSkilNote({ techNoteId, pageNum });
+    const mutationToSaveSkilNoteRows = useSaveSkilNotesMutation({
+        techNoteId,
+        pageNum,
+        searchOption,
+        searchText,
+        isBestByLikes,
+        isBestByBookMarks
+    });
+
+    // const deleteSkilNoteRowsForCheckedIdsMutation = useApiForDeleteSkilNotesForCheckedIds({ techNoteId, pageNum });
+    const deleteSkilNoteRowsForCheckedIdsMutation = useApiForDeleteSkilNotesForCheckedIds({
+        techNoteId,
+        pageNum,
+        searchOption,
+        searchText,
+        isBestByLikes,
+        isBestByBookMarks
+    });
+
+    // const mutationForLikeSkilNote = useApiForLikeSkilNote({ techNoteId, pageNum });
+    const mutationForLikeSkilNote = useApiForLikeSkilNote({
+        techNoteId,
+        pageNum,
+        searchOption,
+        searchText,
+        isBestByLikes,
+        isBestByBookMarks
+    });
+
+    // const mutationForBookMarkSkilNote = useApiForBookMarkSkilNote({ techNoteId, pageNum });
+    const mutationForBookMarkSkilNote = useApiForBookMarkSkilNote({
+        techNoteId,
+        pageNum,
+        searchOption,
+        searchText,
+        isBestByLikes,
+        isBestByBookMarks
+    });
 
     const [selectedOptions, setSelectedOptions] = useState<string[]>([
         // options[0],
         // options[1]
     ]);
 
-    const deleteSkilNoteRowsForCheckedIdsMutation = useApiForDeleteSkilNotesForCheckedIds({ techNoteId, pageNum });
 
     const deleteButtonHandler = () => {
         // selectedRows를 배열로 변환

@@ -217,10 +217,10 @@ const DataGridForRoadMapList = (props: Props) => {
                     const { row } = props;
                     return (
                         <Box display={"flex"} justifyContent={"space-between"} alignItems={"center"} py={"9.4px"}>
-                            <ModalButtonForTechNoteForRoadMap
+                            {/* <ModalButtonForTechNoteForRoadMap
                                 techNotes={row.techNotes}
                                 roadMapId={row.id}
-                            />
+                            /> */}
                             <Button
                                 size="sm"
                                 variant="outline"
@@ -231,7 +231,7 @@ const DataGridForRoadMapList = (props: Props) => {
                                     bg: "orange.100", // change to your desired hover background color
                                 }}
                             >
-                                go
+                                Tech Notes({row.techNotes.length})
                             </Button>
                         </Box>
                     )

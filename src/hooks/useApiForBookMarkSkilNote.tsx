@@ -1,33 +1,50 @@
-import { bookMarkSkilNote, bookMarkTechNote } from '@/api/apiForTechNotes';
+import { bookMarkSkilNote } from '@/api/apiForTechNotes';
 import { useToast } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface IProps {
-    techNoteId?: number,
-    pageNum: number
+    techNoteId?: number;
+    pageNum: number;
+    searchOption?: string;
+    searchText?: string;
+    isBestByLikes?: boolean;
+    isBestByBookMarks?: boolean;
 }
 
-const useApiForBookMarkSkilNote = ({ techNoteId, pageNum }: IProps) => {
+const useApiForBookMarkSkilNote = ({
+    techNoteId,
+    pageNum,
+    searchOption,
+    searchText,
+    isBestByLikes,
+    isBestByBookMarks
+}: IProps) => {
     const queryClient = useQueryClient();
     const toast = useToast();
 
-    const mutationForLikeTechNote = useMutation({
+    const mutationForBookMarkSkilNote = useMutation({
         mutationFn: bookMarkSkilNote,
         onSuccess: (result: any) => {
             console.log("result : ", result);
-
             if (techNoteId) {
-                queryClient.refetchQueries({
-                    queryKey: ['apiForGetSkillNotesByTechNoteId', techNoteId, pageNum]
+                queryClient.invalidateQueries({
+                    queryKey: [
+                        'apiForGetSkillNotesByTechNoteId',
+                        techNoteId,
+                        pageNum,
+                        searchOption,
+                        searchText,
+                        isBestByLikes,
+                        isBestByBookMarks
+                    ]
                 });
             } else {
-                queryClient.refetchQueries({
+                queryClient.invalidateQueries({
                     queryKey: ['apiForGetAllSkilNoteList']
                 });
             }
-
             toast({
-                title: "bookmark liked successfully",
+                title: "Bookmark added successfully",
                 description: result.message,
                 status: "success",
                 duration: 2000,
@@ -36,7 +53,6 @@ const useApiForBookMarkSkilNote = ({ techNoteId, pageNum }: IProps) => {
         },
         onError: (error: any) => {
             console.log("error : ", error);
-
             toast({
                 title: error.response.data.error,
                 description: error.response.data.message,
@@ -47,7 +63,7 @@ const useApiForBookMarkSkilNote = ({ techNoteId, pageNum }: IProps) => {
         },
     });
 
-    return mutationForLikeTechNote;
+    return mutationForBookMarkSkilNote;
 };
 
 export default useApiForBookMarkSkilNote;

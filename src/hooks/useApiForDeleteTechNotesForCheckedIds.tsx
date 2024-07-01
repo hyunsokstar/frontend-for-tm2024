@@ -23,6 +23,7 @@ const useApiForDeleteTechNotesForCheckedIds = () => {
                 queryKey: ['apiForGetAllRoadMapList', pageNum],
 
             });
+            // apiForGetTechNotesByRoadMapId
 
             if (result.success) {
 

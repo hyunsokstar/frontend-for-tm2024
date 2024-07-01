@@ -5,23 +5,41 @@ import { apiForSaveSkilNotes } from '@/api/apiForSkilNote';
 
 interface IProps {
     techNoteId?: number,
-    pageNum: number
+    pageNum: number,
+    searchOption?: string,
+    searchText?: string,
+    isBestByLikes?: boolean,
+    isBestByBookMarks?: boolean
 }
 
-const useSaveSkilNotesMutation = ({ techNoteId, pageNum }: IProps) => {
+const useSaveSkilNotesMutation = ({
+    techNoteId,
+    pageNum,
+    searchOption,
+    searchText,
+    isBestByLikes,
+    isBestByBookMarks
+}: IProps) => {
     const queryClient = useQueryClient();
-    const toast = useToast(); // useToast 훅 사용
+    const toast = useToast();
 
-    const mutationForSaveTodoRows = useMutation({
+    const mutationForSaveSkilNotes = useMutation({
         mutationFn: apiForSaveSkilNotes,
         onSuccess: (result) => {
-
             if (techNoteId) {
-                queryClient.refetchQueries({
-                    queryKey: ['apiForGetSkillNotesByTechNoteId', techNoteId, pageNum]
+                queryClient.invalidateQueries({
+                    queryKey: [
+                        'apiForGetSkillNotesByTechNoteId',
+                        techNoteId,
+                        pageNum,
+                        searchOption,
+                        searchText,
+                        isBestByLikes,
+                        isBestByBookMarks
+                    ]
                 });
             } else {
-                queryClient.refetchQueries({
+                queryClient.invalidateQueries({
                     queryKey: ['apiForGetAllSkilNoteList']
                 });
             }
@@ -43,15 +61,20 @@ const useSaveSkilNotesMutation = ({ techNoteId, pageNum }: IProps) => {
                     isClosable: true,
                 });
             }
-
         },
         onError: (e) => {
             console.log("error for save skilnote : ", e);
-
+            toast({
+                title: "save skil note error",
+                description: "An unexpected error occurred",
+                status: "error",
+                duration: 2000,
+                isClosable: true,
+            });
         }
     });
 
-    return mutationForSaveTodoRows;
+    return mutationForSaveSkilNotes;
 };
 
-export default useSaveSkilNotesMutation 
+export default useSaveSkilNotesMutation;

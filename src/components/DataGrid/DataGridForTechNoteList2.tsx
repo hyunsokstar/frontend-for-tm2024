@@ -19,6 +19,8 @@ import useApiForBookMarkTechNote from '@/hooks/useApiForBookMarkTechNote';
 import { TechNote } from '@/types/typeForTechNote';
 import ModalButtonForParticipantsListForTechNote from '../Modal/ModalButtonForParticipantsListForTechNote';
 import useApiForGetTechNotesByRoadMapId from '@/hooks/useApiForGetTechNotesByRoadMapId';
+import useApiForDeleteTechNotesForCheckedIdsForRoadMapId from '@/hooks/useApiForDeleteTechNotesForCheckedIdsForRoadMapId';
+import useSaveTechNotesForRoadMapIdMutation from '@/hooks/useSaveTechNotesForRoadMapIdMutation';
 
 const options = [
     'email',
@@ -26,7 +28,7 @@ const options = [
 ] as const;
 
 interface IProps {
-    roadMapId?: number
+    roadMapId: number
 }
 
 // 1122
@@ -39,8 +41,30 @@ const DataGridForTechNoteList2 = ({ roadMapId }: IProps) => {
     const [noteRows, setNoteRows] = useState<TechNote[] | any>();
     const { isLoggedIn, loginUser, logout } = useUser();
     const toast = useToast();
-    const deleteTechNoteRowsForCheckedIdsMutation = useApiForDeleteTechNotesForCheckedIds();
+    const [pageNum, setPageNum] = useState(1);
+    const [isBestByLikes, setIsBestByLikes] = useState<boolean>(false)
+    const [isBestByBookMarks, setIsBestByBookMarks] = useState<boolean>(false)
 
+    // const deleteTechNoteRowsForCheckedIdsMutation = useApiForDeleteTechNotesForCheckedIdsForRoadMapId();
+    const deleteTechNoteRowsForCheckedIdsMutation = useApiForDeleteTechNotesForCheckedIdsForRoadMapId({
+        roadMapId,
+        pageNum,
+        searchOption,
+        searchText,
+        isBestByLikes,
+        isBestByBookMarks
+    });
+
+    // mutation
+    // const mutationForSaveTechNotes = useSaveTechNotesMutation();
+    const mutationForSaveTechNotes = useSaveTechNotesForRoadMapIdMutation({
+        roadMapId,
+        pageNum,
+        searchOption,
+        searchText,
+        isBestByLikes,
+        isBestByBookMarks
+    });
 
     const [expandedGroupIds, setExpandedGroupIds] = useState(
         (): ReadonlySet<unknown> =>
@@ -50,11 +74,6 @@ const DataGridForTechNoteList2 = ({ roadMapId }: IProps) => {
     const [selectedOptions, setSelectedOptions] = useState<readonly string[]>([
 
     ]);
-
-    const [isBestByLikes, setIsBestByLikes] = useState<boolean>(false)
-    const [isBestByBookMarks, setIsBestByBookMarks] = useState<boolean>(false)
-
-    const [pageNum, setPageNum] = useState(1);
 
     const { isLoading, error, data: dataForTechNoteList } = roadMapId
         ? useApiForGetTechNotesByRoadMapId(
@@ -126,13 +145,6 @@ const DataGridForTechNoteList2 = ({ roadMapId }: IProps) => {
             name: 'Title',
             renderEditCell: CommonTextEditor
         },
-
-        // {
-        //     key: 'category',
-        //     name: 'Category',
-        //     width: 200,
-        //     renderEditCell: CommonTextEditor
-        // },
 
         {
             key: 'skilnotes',
@@ -248,9 +260,6 @@ const DataGridForTechNoteList2 = ({ roadMapId }: IProps) => {
 
     ];
 
-    // mutation
-    const mutationForSaveTechNotes = useSaveTechNotesMutation();
-
     function onRowsChange(rows: TechNote[], { indexes, column }: any) {
         // console.log("indexes : ", indexes);
 
@@ -311,6 +320,7 @@ const DataGridForTechNoteList2 = ({ roadMapId }: IProps) => {
 
         console.log('techNoteRowsToSave ???', techNoteRowsToSave);
         mutationForSaveTechNotes.mutate({
+            roadMapId: roadMapId,
             techNotesToSave: techNoteRowsToSave,
         });
     };
@@ -383,7 +393,7 @@ const DataGridForTechNoteList2 = ({ roadMapId }: IProps) => {
     // 2244
     return (
         <Box width={"98%"} m={"auto"} border={"0px solid blue"} height={"70vh"}>
-            메인 테크 노트 리스트
+            메인 테크 노트 리스트 (roadMapId: {roadMapId})
             <Box display={"flex"} gap="2" ml={2} my={1} mt={2} >
                 <b>Group by:</b>
                 <Box display={"flex"} gap={2}>

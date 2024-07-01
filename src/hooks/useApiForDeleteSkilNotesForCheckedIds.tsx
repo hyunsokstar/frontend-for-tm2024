@@ -4,42 +4,69 @@ import { useToast } from '@chakra-ui/react';
 import { apiForDeleteSkilNotesForCheckedIds } from '@/api/apiForSkilNote';
 
 interface IProps {
-    techNoteId?: number,
-    pageNum: number
+    techNoteId?: number;
+    pageNum: number;
+    searchOption?: string;
+    searchText?: string;
+    isBestByLikes?: boolean;
+    isBestByBookMarks?: boolean;
 }
 
-const useApiForDeleteSkilNotesForCheckedIds = ({ techNoteId, pageNum }: IProps) => {
+const useApiForDeleteSkilNotesForCheckedIds = ({
+    techNoteId,
+    pageNum,
+    searchOption,
+    searchText,
+    isBestByLikes,
+    isBestByBookMarks
+}: IProps) => {
     const queryClient = useQueryClient();
-    const toast = useToast(); // useToast 훅 사용
+    const toast = useToast();
 
     const mutation = useMutation({
         mutationFn: apiForDeleteSkilNotesForCheckedIds,
         onSuccess: (result) => {
             console.log("result : ", result);
 
-            // 사용자 데이터를 다시 불러오는 쿼리를 리프레시
             if (techNoteId) {
-                queryClient.refetchQueries({
-                    queryKey: ['apiForGetSkillNotesByTechNoteId', techNoteId, pageNum]
+                queryClient.invalidateQueries({
+                    queryKey: [
+                        'apiForGetSkillNotesByTechNoteId',
+                        techNoteId,
+                        pageNum,
+                        searchOption,
+                        searchText,
+                        isBestByLikes,
+                        isBestByBookMarks
+                    ]
                 });
             } else {
-                queryClient.refetchQueries({
+                queryClient.invalidateQueries({
                     queryKey: ['apiForGetAllSkilNoteList']
                 });
             }
 
-            // Chakra UI 토스트 표시
             toast({
                 title: "Delete skilnote Success",
                 description: result.message,
                 status: "success",
-                duration: 2000, // 토스트 메시지가 보여지는 시간 (2초)
-                isClosable: true, // 닫기 버튼 표시
+                duration: 2000,
+                isClosable: true,
             });
         },
+        onError: (error) => {
+            console.error("Error deleting skilnotes:", error);
+            toast({
+                title: "Delete skilnote Error",
+                description: "An unexpected error occurred",
+                status: "error",
+                duration: 2000,
+                isClosable: true,
+            });
+        }
     });
 
     return mutation;
 }
 
-export default useApiForDeleteSkilNotesForCheckedIds
+export default useApiForDeleteSkilNotesForCheckedIds;
