@@ -1,36 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IconButton, Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, PopoverHeader, PopoverBody, HStack, useDisclosure, Tooltip } from '@chakra-ui/react';
-import { GiRunningNinja } from 'react-icons/gi';
 import { FaRocket, FaDizzy } from 'react-icons/fa';
-import { CiFaceSmile } from 'react-icons/ci';
+import { GiRunningNinja } from 'react-icons/gi';
 import { FiSmile } from 'react-icons/fi';
-import { LuShovel } from "react-icons/lu";
+import { LuShovel } from 'react-icons/lu';
+import { SiFastify } from "react-icons/si";
 
-type Props = {}
+type PerformanceLevelType = 'struggling' | 'offroad' | 'ninja' | 'cheetah' | 'rocket';
 
-const IconButtonForShowUserTaskCondition: React.FC<Props> = () => {
+type Props = {
+    performanceLevel: PerformanceLevelType;
+};
+
+const IconButtonForShowUserTaskCondition: React.FC<Props> = ({ performanceLevel }) => {
     const [selectedIcon, setSelectedIcon] = useState<JSX.Element>(<FiSmile />);
-    const [selectedLabel, setSelectedLabel] = useState<string>('기본 상태');
+    const [selectedLabel, setSelectedLabel] = useState<PerformanceLevelType>('ninja');
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    const iconOptions = [
-        { icon: <FaRocket />, label: '좋았어 영차!', color: 'teal' },
-        { icon: <GiRunningNinja />, label: '달리는중', color: 'orange' },
-        { icon: <CiFaceSmile />, label: 'smile', color: 'yellow' },
-        { icon: <LuShovel />, label: '삽질중', color: 'red' },
-        { icon: <FaDizzy />, label: '대가리 깨짐', color: 'blue' },
+    const iconOptions: Array<{ icon: JSX.Element, label: PerformanceLevelType, color: string }> = [
+        { icon: <FaRocket />, label: 'rocket', color: 'teal' },
+        { icon: <SiFastify />, label: 'cheetah', color: 'orange' },
+        { icon: <GiRunningNinja />, label: 'ninja', color: 'yellow' },
+        { icon: <LuShovel />, label: 'offroad', color: 'red' },
+        { icon: <FaDizzy />, label: 'struggling', color: 'blue' },
     ];
 
-    const handleIconClick = (icon: JSX.Element, label: string) => {
+    const handleIconClick = (icon: JSX.Element, label: PerformanceLevelType) => {
         setSelectedIcon(icon);
         setSelectedLabel(label);
         onClose();
-    }
+    };
 
     const getIconColorScheme = (icon: JSX.Element): string | undefined => {
         const option = iconOptions.find(opt => opt.icon.type === icon.type);
         return option ? option.color : undefined;
-    }
+    };
+
+    // Find the icon option that matches the performanceLevel prop
+    const selectedOption = iconOptions.find(option => option.label === performanceLevel);
+
+    // Use the selected option to set the initial state for selectedIcon and selectedLabel
+    useEffect(() => {
+        if (selectedOption) {
+            setSelectedIcon(selectedOption.icon);
+            setSelectedLabel(selectedOption.label);
+        }
+    }, [performanceLevel]);
 
     return (
         <Popover isOpen={isOpen} onOpen={onOpen} onClose={onClose}>
@@ -69,6 +84,6 @@ const IconButtonForShowUserTaskCondition: React.FC<Props> = () => {
             </PopoverContent>
         </Popover>
     );
-}
+};
 
 export default IconButtonForShowUserTaskCondition;

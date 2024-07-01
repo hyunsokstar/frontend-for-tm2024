@@ -1,5 +1,9 @@
 // User 인터페이스 정의
-export interface IUser {
+export interface ITypeForPerformanceLevel {
+    performanceLevel: 'struggling' | 'offroad' | 'ninja' | 'cheetah' | 'rocket';
+}
+
+export interface IUser extends ITypeForPerformanceLevel {
     id: number;
     email: string;
     nickname: string;
@@ -9,7 +13,12 @@ export interface IUser {
     frontEndLevel: number;
     backEndLevel: number;
     profileImage: string;
+    isOnline: boolean;
+    currentTask: string | null;
+    currentTaskProgressPercent: number;
 }
+
+
 
 export type ITypeForResponseDataForGetAllUsers = {
     users: IUser[];
