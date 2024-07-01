@@ -1,8 +1,17 @@
-import React from 'react';
-import { Box, Text, VStack, HStack, IconButton, Tooltip, Flex } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import {
+    Box,
+    Text,
+    VStack,
+    HStack,
+    IconButton,
+    Tooltip,
+    Flex,
+    Switch,
+} from '@chakra-ui/react';
 import { FiUser, FiClipboard } from 'react-icons/fi';
 import { FaRunning, FaMeh, FaSmile, FaUmbrellaBeach } from 'react-icons/fa';
-import { IoChatbubblesOutline } from "react-icons/io5";
+import { IoChatbubblesOutline } from 'react-icons/io5';
 import { useRouter } from 'next/router';
 import { IUser } from '@/types/typeForUserBoard';
 import IconButtonForShowUserTaskCondition from '../Button/IconButtonForShowUserTaskCondition';
@@ -19,13 +28,24 @@ interface UserCardProps {
 const UserCard: React.FC<UserCardProps> = ({ user }) => {
     const router = useRouter();
 
+    const [isOnline, setIsOnline] = useState(user.isOnline);
+
+    const handleOnlineStatusChange = (newIsOnline: boolean) => {
+        setIsOnline(newIsOnline);
+    };
+
     const statusIcon = (): JSX.Element => {
         switch (user.role) {
-            case 'ninja': return <FaRunning />;
-            case 'stressed': return <FaMeh />;
-            case 'away': return <FaSmile />;
-            case 'vacation': return <FaUmbrellaBeach />;
-            default: return <FiUser />;
+            case 'ninja':
+                return <FaRunning />;
+            case 'stressed':
+                return <FaMeh />;
+            case 'away':
+                return <FaSmile />;
+            case 'vacation':
+                return <FaUmbrellaBeach />;
+            default:
+                return <FiUser />;
         }
     };
 
@@ -66,7 +86,7 @@ const UserCard: React.FC<UserCardProps> = ({ user }) => {
                     <IconButton aria-label="Chat" icon={<IoChatbubblesOutline />} variant="outline" colorScheme="teal" onClick={handleChatClick} />
                 </Tooltip>
                 <Tooltip label="Online Status" placement="top" hasArrow>
-                    <SwitchButtonForOnlineStatus />
+                    <SwitchButtonForOnlineStatus isOnline={isOnline} onChange={handleOnlineStatusChange} />
                 </Tooltip>
             </HStack>
             <Flex w="100%" mt="4" justify="space-between" align="center">

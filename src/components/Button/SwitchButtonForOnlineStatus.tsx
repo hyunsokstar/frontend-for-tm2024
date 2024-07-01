@@ -1,36 +1,22 @@
-import React, { useState } from 'react'
-import { ChakraProvider, Box, Switch, Text } from '@chakra-ui/react'
+import React from 'react';
+import { Box, Switch, Text } from '@chakra-ui/react';
 
-type Props = {}
+type Props = {
+    isOnline: boolean;
+    onChange: (isOnline: boolean) => void;
+};
 
-const SwitchButtonForOnlineStatus: React.FC<Props> = () => {
-    const [isOnline, setIsOnline] = useState(false);
-
+const SwitchButtonForOnlineStatus: React.FC<Props> = ({ isOnline, onChange }) => {
     const handleToggle = () => {
-        setIsOnline(prevState => !prevState);
-    }
+        onChange(!isOnline);
+    };
 
     return (
         <Box display="flex" alignItems="center">
-            <Switch
-                isChecked={isOnline}
-                onChange={handleToggle}
-                colorScheme="teal"
-                size="lg"
-            />
+            <Switch isChecked={isOnline} onChange={handleToggle} colorScheme="teal" size="lg" />
             <Text ml={3}>{isOnline ? 'Online' : 'Offline'}</Text>
         </Box>
-    )
-}
+    );
+};
 
-const App: React.FC = () => {
-    return (
-        <ChakraProvider>
-            <Box p={5}>
-                <SwitchButtonForOnlineStatus />
-            </Box>
-        </ChakraProvider>
-    )
-}
-
-export default App;
+export default SwitchButtonForOnlineStatus;
