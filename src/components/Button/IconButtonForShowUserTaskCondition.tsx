@@ -1,21 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { IconButton, Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, PopoverHeader, PopoverBody, HStack, useDisclosure, Tooltip } from '@chakra-ui/react';
 import { FaRocket, FaDizzy } from 'react-icons/fa';
 import { GiRunningNinja } from 'react-icons/gi';
 import { FiSmile } from 'react-icons/fi';
 import { LuShovel } from 'react-icons/lu';
 import { SiFastify } from "react-icons/si";
+import useApiForUpdateUserInfoAboutCurrentStatus from '@/hooks/useApiForUpdateUserInfoAboutCurrentStatus';
 
 type PerformanceLevelType = 'struggling' | 'offroad' | 'ninja' | 'cheetah' | 'rocket';
 
 type Props = {
+    userId: number;
     performanceLevel?: PerformanceLevelType;
+    pageNum: number;
 };
 
-const IconButtonForShowUserTaskCondition: React.FC<Props> = ({ performanceLevel }) => {
+const IconButtonForShowUserTaskCondition: React.FC<Props> = ({ userId, performanceLevel, pageNum }) => {
     const [selectedIcon, setSelectedIcon] = useState<JSX.Element>(<FiSmile />);
     const [selectedLabel, setSelectedLabel] = useState<PerformanceLevelType>('ninja');
+    const selectedLabelRef = useRef<PerformanceLevelType>('ninja');
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const updateUserInfoMutation = useApiForUpdateUserInfoAboutCurrentStatus(pageNum);
 
     const iconOptions: Array<{ icon: JSX.Element, label: PerformanceLevelType, color: string }> = [
         { icon: <FaRocket />, label: 'rocket', color: 'teal' },
@@ -25,25 +30,37 @@ const IconButtonForShowUserTaskCondition: React.FC<Props> = ({ performanceLevel 
         { icon: <FaDizzy />, label: 'struggling', color: 'blue' },
     ];
 
-    const handleIconClick = (icon: JSX.Element, label: PerformanceLevelType) => {
+    const handleIconClick = useCallback((icon: JSX.Element, label: PerformanceLevelType) => {
+
+        // Update local state and ref
         setSelectedIcon(icon);
         setSelectedLabel(label);
+        selectedLabelRef.current = label;
+
+        // Close the popover
         onClose();
-    };
+
+        // Update the server using the ref value
+        updateUserInfoMutation.mutate({
+            userId: userId,
+            updateDto: {
+                targetField: 'performanceLevel',
+                performanceLevel: selectedLabelRef.current
+            }
+        });
+    }, [userId, updateUserInfoMutation, onClose]);
 
     const getIconColorScheme = (icon: JSX.Element): string | undefined => {
         const option = iconOptions.find(opt => opt.icon.type === icon.type);
         return option ? option.color : undefined;
     };
 
-    // Find the icon option that matches the performanceLevel prop
-    const selectedOption = iconOptions.find(option => option.label === performanceLevel);
-
-    // Use the selected option to set the initial state for selectedIcon and selectedLabel
     useEffect(() => {
+        const selectedOption = iconOptions.find(option => option.label === performanceLevel);
         if (selectedOption) {
             setSelectedIcon(selectedOption.icon);
             setSelectedLabel(selectedOption.label);
+            selectedLabelRef.current = selectedOption.label;
         }
     }, [performanceLevel]);
 

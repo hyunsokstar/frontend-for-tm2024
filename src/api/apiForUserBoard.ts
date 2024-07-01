@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import { backendApi } from "./commonApi";
 import { QueryFunctionContext } from "@tanstack/react-query";
 import { IParamterTypeForLogin } from "@/types/typeForAuthentication";
-import { IUser, RowTypeForPaymentHistoryData } from "@/types/typeForUserBoard";
+import { ITypeForResponseForUpdatePerformanceLevel, IUser, RowTypeForPaymentHistoryData, UpdateUserInfoAboutCurrentStatusDto } from "@/types/typeForUserBoard";
 
 const instance = axios.create({
     baseURL: `${backendApi}/users`,
@@ -21,6 +21,25 @@ instance.interceptors.request.use(
         return Promise.reject(error);
     }
 );
+
+// 여기에 추가
+export const apiForUpdateUserInfoAboutCurrentStatus = async (
+    userId: number,
+    updateDto: UpdateUserInfoAboutCurrentStatusDto
+): Promise<ITypeForResponseForUpdatePerformanceLevel> => {
+    try {
+        const response = await instance.put<ITypeForResponseForUpdatePerformanceLevel>(
+            `/${userId}/currentStatus`,
+            updateDto
+        );
+        return response.data;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            throw new Error(error.response?.data?.message || 'Failed to update user info about current status');
+        }
+        throw error;
+    }
+};
 
 export const apiForAddUser = ({
     email,

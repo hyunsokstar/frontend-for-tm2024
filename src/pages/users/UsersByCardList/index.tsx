@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SimpleGrid, Box, Center, Spinner, Text } from '@chakra-ui/react';
 import useApiForGetAllUsersData from '@/hooks/useApiForGetAllUsersData';
 import UserCard from '@/components/Card/UserCard';
 
 const UsersByCardList: React.FC = () => {
-    const { isPending, error, userList } = useApiForGetAllUsersData(1);
+    const [pageNum, setPageNum] = useState(1);
+    const { isPending, error, userList } = useApiForGetAllUsersData(pageNum);
 
     if (isPending) {
         return (
@@ -26,7 +27,7 @@ const UsersByCardList: React.FC = () => {
         <Box p="4">
             <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing="4">
                 {userList.map((user) => (
-                    <UserCard key={user.id} user={user} />
+                    <UserCard key={user.id} user={user} pageNum={pageNum} />
                 ))}
             </SimpleGrid>
         </Box>

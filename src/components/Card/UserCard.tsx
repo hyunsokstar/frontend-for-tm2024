@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Box,
     Text,
@@ -7,7 +7,6 @@ import {
     IconButton,
     Tooltip,
     Flex,
-    Switch,
 } from '@chakra-ui/react';
 import { FiUser, FiClipboard } from 'react-icons/fi';
 import { FaRunning, FaMeh, FaSmile, FaUmbrellaBeach } from 'react-icons/fa';
@@ -19,23 +18,28 @@ import SwitchButtonForOnlineStatus from '../Button/SwitchButtonForOnlineStatus';
 import ModalButtonForTaskHistoryForUser from '../Modal/ModalButtonForTaskHistoryForUser';
 import ModalButtonForUserTaskStatistics from '../Modal/ModalButtonForUserTaskStatics';
 import ProfileImageForUserCard from '../ProfileImage/ProfileImageForUserCard';
-import ProgressBarForCurrentTask from '../ProgressBar/ProgressBarForCurrentTask';
+import ProgressBarForCurrentTaskAndUserTaskCondition from '../ProgressBar/ProgressBarForCurrentTaskAndUserTaskCondition';
 
 interface UserCardProps {
     user: IUser;
+    pageNum: number;
 }
 
-const UserCard: React.FC<UserCardProps> = ({ user }) => {
+const UserCard: React.FC<UserCardProps> = ({ user, pageNum }) => {
     const router = useRouter();
 
-    const [isOnline, setIsOnline] = useState(user.isOnline);
+    const [localUser, setLocalUser] = useState(user);
 
-    const handleOnlineStatusChange = (newIsOnline: boolean) => {
-        setIsOnline(newIsOnline);
-    };
+    useEffect(() => {
+        setLocalUser(user);
+    }, [user]);
+
+    // const handleOnlineStatusChange = (newIsOnline: boolean) => {
+    //     setLocalUser(prevUser => ({ ...prevUser, isOnline: newIsOnline }));
+    // };
 
     const statusIcon = (): JSX.Element => {
-        switch (user.role) {
+        switch (localUser.role) {
             case 'ninja':
                 return <FaRunning />;
             case 'stressed':
@@ -50,21 +54,21 @@ const UserCard: React.FC<UserCardProps> = ({ user }) => {
     };
 
     const handleClipboardClick = (): void => {
-        window.open(`/UserProfile/${user.id}`, '_blank');
+        window.open(`/UserProfile/${localUser.id}`, '_blank');
     };
 
     const handleChatClick = (): void => {
-        window.open(`/users/UsersByCardList/${user.id}/chatting`, '_blank');
+        window.open(`/users/UsersByCardList/${localUser.id}/chatting`, '_blank');
     };
 
     return (
         <Box borderWidth="1px" borderRadius="lg" overflow="hidden" p="4" shadow="md">
-            <ProfileImageForUserCard user={user} />
+            <ProfileImageForUserCard user={localUser} />
             <VStack spacing="2" align="start">
-                <Text>{user.email}</Text>
-                <Text>Phone: {user.phoneNumber}</Text>
-                <Text>Frontend Level: {user.frontEndLevel}</Text>
-                <Text>Backend Level: {user.backEndLevel}</Text>
+                <Text>{localUser.email}</Text>
+                <Text>Phone: {localUser.phoneNumber}</Text>
+                <Text>Frontend Level: {localUser.frontEndLevel}</Text>
+                <Text>Backend Level: {localUser.backEndLevel}</Text>
             </VStack>
             <HStack spacing="4" mt="4" justify="center">
                 <Tooltip label="Task List" placement="top" hasArrow>
@@ -77,21 +81,26 @@ const UserCard: React.FC<UserCardProps> = ({ user }) => {
                     />
                 </Tooltip>
                 <Tooltip label="Task History" placement="top" hasArrow>
-                    <ModalButtonForTaskHistoryForUser user={user} />
+                    <ModalButtonForTaskHistoryForUser user={localUser} />
                 </Tooltip>
                 <Tooltip label="Task Statics" placement="top" hasArrow>
-                    <ModalButtonForUserTaskStatistics user={user} />
+                    <ModalButtonForUserTaskStatistics user={localUser} />
                 </Tooltip>
                 <Tooltip label="Chatting" placement="top" hasArrow>
                     <IconButton aria-label="Chat" icon={<IoChatbubblesOutline />} variant="outline" colorScheme="teal" onClick={handleChatClick} />
                 </Tooltip>
                 <Tooltip label="Online Status" placement="top" hasArrow>
-                    <SwitchButtonForOnlineStatus isOnline={isOnline ? isOnline : false} onChange={handleOnlineStatusChange} />
+                    <SwitchButtonForOnlineStatus
+                        isOnline={localUser.isOnline ? localUser.isOnline : false}
+                        userId={localUser.id}
+                        pageNum={pageNum}
+                    // onChange={handleOnlineStatusChange}
+                    />
                 </Tooltip>
             </HStack>
             <Flex w="100%" mt="4" justify="space-between" align="center">
                 <Box flexBasis="100%" maxW="100%">
-                    <ProgressBarForCurrentTask user={user} />
+                    <ProgressBarForCurrentTaskAndUserTaskCondition user={localUser} pageNum={pageNum} />
                 </Box>
             </Flex>
         </Box>

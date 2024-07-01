@@ -1,6 +1,6 @@
 // User 인터페이스 정의
 export interface ITypeForPerformanceLevel {
-    performanceLevel?: 'struggling' | 'offroad' | 'ninja' | 'cheetah' | 'rocket';
+    performanceLevel: 'struggling' | 'offroad' | 'ninja' | 'cheetah' | 'rocket';
 }
 
 export interface IUser extends ITypeForPerformanceLevel {
@@ -45,3 +45,29 @@ export interface RowTypeForPaymentHistoryData {
     createdAt: string;
 }
 
+export interface ITypeForResponseForUpdatePerformanceLevel {
+    id: number;
+    email: string;
+    password: string;
+    nickname: string;
+    cashPoints: number;
+    role: string;
+    gender: string;
+    phoneNumber: string | null;
+    backEndLevel: number;
+    frontEndLevel: number;
+    profileImage: string;
+    isOnline: boolean;
+    currentTask: string | null;
+    currentTaskProgressPercent: number;
+    performanceLevel: string;
+}
+
+export interface UpdateUserInfoAboutCurrentStatusDto {
+    targetField: 'profileImage' | 'isOnline' | 'currentTask' | 'currentTaskProgressPercent' | 'performanceLevel';
+    profileImage?: string;
+    isOnline?: boolean;
+    currentTask?: string | null;
+    currentTaskProgressPercent?: number;
+    performanceLevel?: 'struggling' | 'offroad' | 'ninja' | 'cheetah' | 'rocket';
+}
