@@ -1,4 +1,4 @@
-import DataGridForTechNoteList2 from '@/components/DataGrid/DataGridForTechNoteList2'
+import DataGridForTechNoteList1 from '@/components/DataGrid/DataGridForTechNoteList1'
 import Head from 'next/head'
 import React from 'react'
 
@@ -10,8 +10,8 @@ const TechNoteList = (props: Props) => {
             <Head>
                 <title>Tech Note here?</title>
             </Head>
-
-            <DataGridForTechNoteList2 />
+            <DataGridForTechNoteList1 />
+            {/* <DataGridForTechNoteList2 /> */}
         </>
     )
 }

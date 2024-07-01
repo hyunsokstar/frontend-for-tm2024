@@ -9,7 +9,7 @@ import { SkillNoteRow } from "@/types/typeForSkilNote";
 import { SelectColumnForReactDataGrid } from "../Formatter/CheckBox/SelectColumnForRdg";
 import CommonTextEditor from "../GridEditor/TextEditor/CommonTextEditor";
 import SelectBoxForUserEmail from "../GridEditor/SelectBox/SelectBoxForUserEmail";
-import useSaveSkilNotesMutation from "@/hooks/useSaveSkilNotesMutation copy";
+import useSaveSkilNotesMutation from "@/hooks/useSaveSkilNotesMutation";
 import useUser from "@/hooks/useUser";
 import { useQueryClient } from '@tanstack/react-query';
 import SearchInputForSkilNote from "../SearchInput/SearchInputForSkilNote";
