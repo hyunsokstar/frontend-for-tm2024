@@ -11,7 +11,6 @@ const useApiForGetAllUsersData = (pageNum: number) => {
             queryFn: apiForGetAllUsers,
         });
 
-    // 데이터 로딩이 완료되면 userRows 업데이트
     useEffect(() => {
         if (dataForUserBoard) {
             setUserList(dataForUserBoard.users); // 이 부분은 데이터 형식에 맞게 변경해야 합니다.
