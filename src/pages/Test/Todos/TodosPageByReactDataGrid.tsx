@@ -9,8 +9,9 @@ type Props = {}
 const TodosPageByReactDataGrid = (props: Props) => {
     return (
         <Box width={"100%"}>
+
             uncompleted:
-            <DataGridForUserTodoList pageInfo="todosPageForAllUser" todoStatusOption={'all_uncompleted'} selectedUserId={undefined} />
+            <DataGridForUserTodoList pageInfo="todosPageForAllUser" todoStatusOption={'all_uncompleted'} selectedUserId={"allUser"} />
 
             <br />
             completed: <ModalButtonForTaskHistory buttonText='task history' todoStatusOption={'all_completed'} />

@@ -95,7 +95,7 @@ const getBasicColumns = (
         {
             key: 'email',
             name: 'Email',
-            width: 280,
+            width: 200,
             // frozen: true,
             renderCell(props: any) {
                 return (
@@ -435,8 +435,10 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
     const userId = loginUser
 
 
+    // queryKey: ['uncompletedTodoListForUser', pageNum, userId, todoStatusOption],
     const { isLoading, error, data: dataForUncompletedTodoList }
-        = selectedUserId ? useApiForGetUncompletedTodoListForUserId({ pageNum, userId: selectedUserId, todoStatusOption }) : useApiForGetUncompletedTodoList({ pageNum, todoStatusOption });
+        = selectedUserId ? useApiForGetUncompletedTodoListForUserId({ pageNum, selectedUserId: selectedUserId, todoStatusOption }) : useApiForGetUncompletedTodoList({ pageNum, todoStatusOption });
+    const mutationForSimpleCreateTodo = useApiForSimpleCreateTodo({ pageInfo, userId, todoStatusOption });
 
     const [inputValue, setInputValue] = useState('');
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -460,7 +462,7 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
 
     const mutationForMultiUpdateForTodoRowsForChecked = useApiForMultiUpdateForTodoRowsForChecked({ pageNum, userId, todoStatusOption });
 
-    const mutationForSimpleCreateTodo = useApiForSimpleCreateTodo({ pageInfo, userId, todoStatusOption });
+    // const mutationForSimpleCreateTodo = useApiForSimpleCreateTodo({ pageInfo, userId, todoStatusOption });
 
     const columns = useMemo(() => getColumnsForUserUncompletedTodoList(
         isMainOrSub,
@@ -672,6 +674,7 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
         <Box width="100%" mt={2} my={1} px={1} border={"1px solid black"} py={2}>
 
             현재 선택된 이메일 : {defaultUserEmail}
+            <Button ml={2}>Ordering</Button>
 
             <Box display={"flex"} justifyContent={"space-between"} gap={2} m={1}>
 

@@ -4,7 +4,7 @@ import { useQuery, QueryFunctionContext } from "@tanstack/react-query";
 
 interface IProps {
     pageNum: any,
-    userId: any,
+    selectedUserId: any,
     todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "complete" | "entry";
 }
 
@@ -15,9 +15,10 @@ interface ResponseTypeForTodoList {
 }
 
 const useApiForGetUncompletedTodoListForUserId =
-    ({ pageNum, userId, todoStatusOption }: IProps): ResponseTypeForTodoList => {
+    ({ pageNum, selectedUserId, todoStatusOption }: IProps): ResponseTypeForTodoList => {
+
         const { isLoading, error, data } = useQuery({
-            queryKey: ['uncompletedTodoListForUser', pageNum, userId, todoStatusOption],
+            queryKey: ['uncompletedTodoListForUser', pageNum, selectedUserId, todoStatusOption],
             queryFn: apiForUncompletedTodoListForUserId,
         });
         return { isLoading, error, data };

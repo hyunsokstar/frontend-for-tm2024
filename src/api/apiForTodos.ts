@@ -113,17 +113,31 @@ export const apiForGetAllTodoList = ({ queryKey }: QueryFunctionContext) => {
 export const apiForUncompletedTodoListForUserId = ({ queryKey }: QueryFunctionContext) => {
     const [_, pageNum, userId, todoStatusOption] = queryKey;
 
-    return instance
-        .get('forUser', {
-            params: {
-                pageNum: pageNum,
-                userId: userId,
-                todoStatusOption: todoStatusOption
-            },
-        })
-        .then((response) => {
-            return response.data;
-        });
+    if (userId === "allUser") {
+        return instance
+            .get('uncompleted', {
+                params: {
+                    pageNum: pageNum,
+                    userId: userId,
+                    todoStatusOption: todoStatusOption
+                },
+            })
+            .then((response) => {
+                return response.data;
+            });
+    } else {
+        return instance
+            .get('forUser', {
+                params: {
+                    pageNum: pageNum,
+                    userId: userId,
+                    todoStatusOption: todoStatusOption
+                },
+            })
+            .then((response) => {
+                return response.data;
+            });
+    }
 };
 
 export const apiForUncompletedTodoList = ({ queryKey }: QueryFunctionContext) => {
