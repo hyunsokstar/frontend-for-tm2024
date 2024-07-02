@@ -22,7 +22,7 @@ export interface ITypeForPameterForParticipantsForSkilNoteRow {
 
 
 export type SkillNoteRow = {
-    id: any;
+    id?: any;
     email?: string;
     title?: string;
     description?: string;

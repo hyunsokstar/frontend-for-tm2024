@@ -24,7 +24,7 @@ const ModalButtonForTaskHistory: React.FC<Props> = ({ buttonText, selectedUserId
     const userId = selectedUserId ? selectedUserId : loginUser.id
 
     const { isLoading, error, data: dataForUncompletedTodoListForUser }
-        = useApiForGetUncompletedTodoListForUserId({ pageNum, userId, todoStatusOption });
+        = useApiForGetUncompletedTodoListForUserId({ pageNum, selectedUserId, todoStatusOption });
 
     // console.log("dataForUncompletedTodoListForUser for modal ??? ", dataForUncompletedTodoListForUser);
 

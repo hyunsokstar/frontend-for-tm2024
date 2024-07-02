@@ -8,7 +8,7 @@ type Props = {
     pageInfo?: string
     buttonText: string;
     isMainOrSub: "main" | "sub";
-    selectedUserId: any;
+    selectedUserId?: any;
 };
 
 // 노트 선택 모달
