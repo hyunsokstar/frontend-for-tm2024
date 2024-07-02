@@ -84,7 +84,7 @@ const getBasicColumns = (
     mutationForUpdateRefSkilnoteForTodo: any,
     pageInfo: string,
     todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "complete" | "entry",
-    userId: string
+    selectedUserId: string
 ) => {
     return [
         SelectColumnForReactDataGrid,
@@ -163,7 +163,7 @@ const getBasicColumns = (
                             supplementaryTodos={props.row.supplementaryTodos}
                             usersEmailInfo={usersEmailInfo}
                             todoStatusOption={todoStatusOption}
-                            userId={userId}
+                            userId={selectedUserId}
                         />
                     </Box>
 
@@ -347,7 +347,11 @@ const getBasicColumns = (
                                     textAlign={"center"}
                                 >
                                 </Button>
-                                <ModalButtonForSelectNoteForTodo toDoId={props.row.id} pageInfo={pageInfo} buttonText={"선택"} isMainOrSub={isMainOrSub} />
+                                {/* fix 22 */}
+                                <ModalButtonForSelectNoteForTodo
+                                    selectedUserId={selectedUserId}
+                                    toDoId={props.row.id} pageInfo={pageInfo} buttonText={"선택"} isMainOrSub={isMainOrSub}
+                                />
                             </HStack>
                         }
                     </Box>
@@ -364,9 +368,9 @@ function getColumnsForUserUncompletedTodoList(
     mutationForUpdateRefSkilnoteForTodo: any,
     pageInfo: string,
     todoStatusOption: "all_uncompleted" | "all_completed" | "idea" | "uncompleted" | "complete" | "entry",
-    userId: any
+    selectedUserId: any
 ) {
-    const basicColumns = getBasicColumns(isMainOrSub, usersEmailInfo, pageNum, mutationForUpdateRefSkilnoteForTodo, pageInfo, todoStatusOption, userId)
+    const basicColumns = getBasicColumns(isMainOrSub, usersEmailInfo, pageNum, mutationForUpdateRefSkilnoteForTodo, pageInfo, todoStatusOption, selectedUserId)
 
     let filteredColumns = basicColumns
 
@@ -434,7 +438,6 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
 
     const userId = loginUser
 
-
     // queryKey: ['uncompletedTodoListForUser', pageNum, userId, todoStatusOption],
     const { isLoading, error, data: dataForUncompletedTodoList }
         = selectedUserId ? useApiForGetUncompletedTodoListForUserId({ pageNum, selectedUserId: selectedUserId, todoStatusOption }) : useApiForGetUncompletedTodoList({ pageNum, todoStatusOption });
@@ -451,7 +454,8 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
     const [usersEmailInfo, setUsersEmailInfo] = useState<string[]>([])
     const [selectedRows, setSelectedRows] = useState((): ReadonlySet<number> => new Set());
 
-    const mutationForUpdateRefSkilnoteForTodo = useApiForUpdateRefSkilnoteForTodo({ pageNum, userId, todoStatusOption });
+    // fix 22
+    const mutationForUpdateRefSkilnoteForTodo = useApiForUpdateRefSkilnoteForTodo({ pageNum, userId: selectedUserId, todoStatusOption });
     const [rowNumToAdd, setRowNumToAdd] = useState<number>(1);
     const [defaultUserEmail, setDefaultUserEmail] = useState(loginUser.email);
     const [defaultDeadLine, setDefaultDeadline] = useState<Date | null>(null);
@@ -471,7 +475,7 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
         mutationForUpdateRefSkilnoteForTodo,
         pageInfo,
         todoStatusOption,
-        userId
+        selectedUserId
     ), [dataForUncompletedTodoList, usersEmailInfo]);
 
     const deleteButtonHandler = () => {
@@ -739,7 +743,6 @@ const DataGridForUserTodoList = ({ selectedUserId, todoStatusOption, pageInfo }:
                                     textAlign={"center"}
                                 >
                                     {/* 0203 */}
-                                    {/* fix */}
                                     {defaultDeadLine !== null ?
                                         (
                                             <Box display={"flex"} gap={1} justifyContent={"center"}>

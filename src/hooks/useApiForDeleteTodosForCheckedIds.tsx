@@ -34,13 +34,16 @@ const useApiForDeleteTodosForCheckedIds = ({ pageNum, userId, todoStatusOption }
 
             console.log("todoStatusOption for delete: ", todoStatusOption);
 
-            // queryClient.refetchQueries({
-            //     queryKey: ['uncompletedTodoList', pageNum, userId, todoStatusOption],
-            // });
-
-            queryClient.refetchQueries({
-                queryKey: ['uncompletedTodoList', pageNum, todoStatusOption],
-            });
+            if (userId === "allUser") {
+                queryClient.refetchQueries({
+                    queryKey: ['uncompletedTodoListForUser', pageNum, userId, "all_uncompleted"],
+                });
+            } else {
+                // queryKey: ['uncompletedTodoListForUser', pageNum, selectedUserId, todoStatusOption],
+                queryClient.refetchQueries({
+                    queryKey: ['uncompletedTodoListForUser', pageNum, userId, "uncompleted"],
+                });
+            }
 
             toast({
                 title: "delete todos for checked ids success",

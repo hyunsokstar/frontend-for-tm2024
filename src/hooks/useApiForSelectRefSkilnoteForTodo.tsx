@@ -4,7 +4,7 @@ import { useToast } from '@chakra-ui/react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 
-const useApiForSelectRefSkilnoteForTodo = (pageNum: number, pageInfo?: string) => {
+const useApiForSelectRefSkilnoteForTodo = (pageNum: number, selectedUserId: any, pageInfo?: string) => {
     const queryClient = useQueryClient();
     const toast = useToast();
 
@@ -23,17 +23,29 @@ const useApiForSelectRefSkilnoteForTodo = (pageNum: number, pageInfo?: string) =
                 isClosable: true,
             });
 
-            if (pageInfo === "uncompletedTodosPageForUser") {
-                console.log("실행 for user");
+            // queryKey: ['uncompletedTodoListForUser', pageNum, selectedUserId, todoStatusOption],
+            if (selectedUserId === "allUser") {
                 queryClient.refetchQueries({
-                    queryKey: ['uncompletedTodoList', pageNum, undefined, "all_uncompleted"] // 수정 필요한 부분
+                    queryKey: ['uncompletedTodoListForUser', pageNum, selectedUserId, "all_uncompleted"],
                 });
             } else {
-                console.log("실행 for all user");
+                // queryKey: ['uncompletedTodoListForUser', pageNum, selectedUserId, todoStatusOption],
                 queryClient.refetchQueries({
-                    queryKey: ['apiForGetAllTodoList', pageNum]
+                    queryKey: ['uncompletedTodoListForUser', pageNum, selectedUserId, "uncompleted"],
                 });
             }
+
+            // if (pageInfo === "uncompletedTodosPageForUser") {
+            //     console.log("실행 for user");
+            //     queryClient.refetchQueries({
+            //         queryKey: ['uncompletedTodoList', pageNum, undefined, "all_uncompleted"] // 수정 필요한 부분
+            //     });
+            // } else {
+            //     console.log("실행 for all user");
+            //     queryClient.refetchQueries({
+            //         queryKey: ['apiForGetAllTodoList', pageNum]
+            //     });
+            // }
 
         },
         onError: (error: any) => {

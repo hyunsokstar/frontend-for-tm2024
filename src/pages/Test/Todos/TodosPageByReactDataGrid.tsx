@@ -14,10 +14,10 @@ const TodosPageByReactDataGrid = (props: Props) => {
             <DataGridForUserTodoList pageInfo="todosPageForAllUser" todoStatusOption={'all_uncompleted'} selectedUserId={"allUser"} />
 
             <br />
-            completed: <ModalButtonForTaskHistory buttonText='task history' todoStatusOption={'all_completed'} />
+            completed: <ModalButtonForTaskHistory buttonText='task history' todoStatusOption={'all_completed'} selectedUserId={"allUser"} />
 
             <br />
-            <DataGridForUserTodoList pageInfo="todosPageForAllUser" todoStatusOption={'all_completed'} />
+            <DataGridForUserTodoList pageInfo="todosPageForAllUser" todoStatusOption={'all_completed'} selectedUserId={"allUser"} />
 
         </Box>
     )

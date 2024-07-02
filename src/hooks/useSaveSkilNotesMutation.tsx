@@ -27,6 +27,8 @@ const useSaveSkilNotesMutation = ({
         mutationFn: apiForSaveSkilNotes,
         onSuccess: (result) => {
             if (techNoteId) {
+                console.log("여기 실행 된거 맞아???");
+
                 queryClient.invalidateQueries({
                     queryKey: [
                         'apiForGetSkillNotesByTechNoteId',
@@ -43,6 +45,7 @@ const useSaveSkilNotesMutation = ({
                     queryKey: ['apiForGetAllSkilNoteList']
                 });
             }
+            // queryKey: ['apiForGetSkillNotesByTechNoteId', techNoteId, pageNum, searchOption, searchText, isBestByLikes, isBestByBookMarks],
 
             if (result.status === "error") {
                 toast({

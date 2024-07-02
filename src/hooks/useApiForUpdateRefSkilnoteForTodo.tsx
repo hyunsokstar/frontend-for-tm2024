@@ -29,6 +29,17 @@ const useApiForUpdateRefSkilnoteForTodo = ({ pageNum, userId, todoStatusOption }
                 isClosable: true,
             });
 
+            if (userId === "allUser") {
+                queryClient.refetchQueries({
+                    queryKey: ['uncompletedTodoListForUser', pageNum, userId, todoStatusOption],
+                });
+            } else {
+                // queryKey: ['uncompletedTodoListForUser', pageNum, selectedUserId, todoStatusOption],
+                queryClient.refetchQueries({
+                    queryKey: ['uncompletedTodoListForUser', pageNum, userId, todoStatusOption],
+                });
+            }
+
             // if (pageInfo === "uncompletedTodosPageForUser") {
             //     queryClient.refetchQueries({
             //         queryKey: ['uncompletedTodoList', pageNum, loginUser.id],
@@ -39,9 +50,6 @@ const useApiForUpdateRefSkilnoteForTodo = ({ pageNum, userId, todoStatusOption }
             //     });
             // }
 
-            queryClient.refetchQueries({
-                queryKey: ['uncompletedTodoList', pageNum, userId, todoStatusOption],
-            });
 
         },
         onError: (error: any) => {

@@ -10,7 +10,6 @@ import SelectBoxForUserEmail from '@/components/GridEditor/SelectBox/SelectBoxFo
 import useUser from '@/hooks/useUser';
 import DataGridForSkilNoteListForTechNoteId2 from '@/components/DataGrid/DataGridForSkilNoteListForTechNoteId2';
 import useApiForDeleteTechNotesForCheckedIds from '@/hooks/useApiForDeleteTechNotesForCheckedIds';
-import ModalButtonForSkilNoteListById2 from '../Modal/ModalButtonForSkilNoteListById2';
 import SearchInputForTechNote from '../SearchInput/SearchInputForTechNote';
 import { useQueryClient } from '@tanstack/react-query';
 import { groupBy as rowGrouper } from 'lodash-es';
@@ -19,6 +18,7 @@ import { FaThumbsUp, FaRegThumbsUp, FaBookmark, FaRegBookmark } from 'react-icon
 import useApiForLikeTechNote from '@/hooks/useApiForLikeTechNote';
 import useApiForBookMarkTechNote from '@/hooks/useApiForBookMarkTechNote';
 import { TechNote } from '@/types/typeForTechNote';
+import ModalButtonForSelectSkilNoteForTodo from '../Modal/ModalButtonForSkilNoteListById2';
 
 const options = [
     'email',
@@ -33,14 +33,16 @@ interface IProps {
     onCloseForTechNoteModal: any
     pageInfo?: string
     isMainOrSub: "main" | "sub"
+    selectedUserId: any;
 }
 
 // 1122
-const DataGridForTechNoteList3 = ({
+const TechNoteListForSelectNoteForTask = ({
     toDoId,
     onCloseForTechNoteModal,
     pageInfo,
-    isMainOrSub
+    isMainOrSub,
+    selectedUserId
 }: IProps) => {
     const queryClient = useQueryClient();
     const [searchText, setSearchText] = useState('');
@@ -155,8 +157,9 @@ const DataGridForTechNoteList3 = ({
             renderCell({ row, tabIndex, onRowChange }: any): React.ReactNode {
                 return (
                     <Box border={"0px solid red"}>
-                        {/* 선택용 tech note */}
-                        <ModalButtonForSkilNoteListById2
+                        {/* fix 22 */}
+                        <ModalButtonForSelectSkilNoteForTodo
+                            selectedUserId={selectedUserId}
                             TechNoteId={row.id}
                             skilNoteLength={row.skilnotes?.length !== 0 ? row.skilnotes?.length : 0}
                             toDoId={toDoId}
@@ -469,6 +472,6 @@ function renderCheckbox({ onChange, ...props }: RenderCheckboxProps) {
     return <input type="checkbox" {...props} onChange={handleChange} />;
 }
 
-export default DataGridForTechNoteList3;
+export default TechNoteListForSelectNoteForTask;
 
 

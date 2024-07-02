@@ -9,9 +9,10 @@ import {
     ModalBody,
     ModalCloseButton,
 } from '@chakra-ui/react';
-import DataGridForSkilNoteListForTechNoteId3 from '../DataGrid/DataGridForSkilNoteListForTechNoteId3';
+import DataGridForSelectSkilNoteForTodo from '../DataGrid/DataGridForSelectSkilNoteForTodo';
 
 type Props = {
+    selectedUserId: any,
     TechNoteId: any;
     skilNoteLength: number
     toDoId: string;
@@ -20,7 +21,8 @@ type Props = {
     isMainOrSub: "main" | "sub"
 };
 
-const ModalButtonForSkilNoteListById2 = ({
+const ModalButtonForSelectSkilNoteForTodo = ({
+    selectedUserId,
     TechNoteId,
     skilNoteLength,
     toDoId,
@@ -45,11 +47,11 @@ const ModalButtonForSkilNoteListById2 = ({
             <Modal isOpen={isOpen} onClose={onClose} size={"full"}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Modal For SkilNote List By TechNoteId</ModalHeader>
+                    <ModalHeader>ModalButtonForSelectSkilNoteForTodo</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        {/* 스킬 노트를 출력하는 데이터 그리드 */}
-                        <DataGridForSkilNoteListForTechNoteId3
+                        <DataGridForSelectSkilNoteForTodo
+                            selectedUserId={selectedUserId}
                             techNoteId={TechNoteId}
                             isOpen={isOpen}
                             toDoId={toDoId}
@@ -73,4 +75,4 @@ const ModalButtonForSkilNoteListById2 = ({
     );
 };
 
-export default ModalButtonForSkilNoteListById2;
+export default ModalButtonForSelectSkilNoteForTodo;

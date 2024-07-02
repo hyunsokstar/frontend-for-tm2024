@@ -22,6 +22,7 @@ import CellExpanderFormatter from "@/pages/Test/ReactDataGrid/CellExpanderFormat
 
 
 interface IProps {
+    selectedUserId: any,
     techNoteId: any;
     isOpen: boolean;
     toDoId: string;
@@ -38,7 +39,8 @@ const options = [
 
 // 1122
 // 스킬 노트 선택
-const DataGridForSkilNoteListForTechNoteId2 = ({
+const DataGridForSelectSkilNoteForTask = ({
+    selectedUserId,
     techNoteId,
     isOpen,
     toDoId,
@@ -59,18 +61,19 @@ const DataGridForSkilNoteListForTechNoteId2 = ({
 
     const [isBestByLikes, setIsBestByLikes] = useState<boolean>(false)
     const [isBestByBookMarks, setIsBestByBookMarks] = useState<boolean>(false)
-    const mutationForSelectRefSkilnoteForTodo = useApiForSelectRefSkilnoteForTodo(pageNum, pageInfo);
 
-    const { isLoading, error, data: dataForSkilNotesByTechNoteId } = isOpen
-        ? useApiForGetSkilNoteListByTechNoteId({
-            techNoteId, // parentId 값을 techNoteId로 전달
-            pageNum, // pageNum을 전달
-            searchOption,
-            searchText,
-            isBestByLikes,
-            isBestByBookMarks,
-        })
-        : { isLoading: false, error: null, data: null };
+    // queryKey: ['uncompletedTodoListForUser', pageNum, selectedUserId, todoStatusOption],
+    // = selectedUserId ? useApiForGetUncompletedTodoListForUserId({ pageNum, selectedUserId: selectedUserId, todoStatusOption }) : useApiForGetUncompletedTodoList({ pageNum, todoStatusOption });
+    const mutationForSelectRefSkilnoteForTodo = useApiForSelectRefSkilnoteForTodo(pageNum, selectedUserId, pageInfo);
+
+    const { isLoading, error, data: dataForSkilNotesByTechNoteId } = useApiForGetSkilNoteListByTechNoteId({
+        techNoteId, // parentId 값을 techNoteId로 전달
+        pageNum, // pageNum을 전달
+        searchOption,
+        searchText,
+        isBestByLikes,
+        isBestByBookMarks,
+    })
 
     const mutationToSaveSkilNoteRows =
         useSaveSkilNotesMutation({ techNoteId, pageNum });
@@ -362,10 +365,9 @@ const DataGridForSkilNoteListForTechNoteId2 = ({
 
         const randomId = Math.random().toString().substring(2, 7);
         const currentTime = Date.now().toString();
-        const id = parseInt(randomId + currentTime, 10).toString().substring(0, 5);
+        // const id = parseInt(randomId + currentTime, 10).toString().substring(0, 5);
 
         const newRow = {
-            id: id,
             techNoteId: techNoteId,
             title: '',
             description: '',
@@ -512,4 +514,4 @@ function renderCheckbox({ onChange, ...props }: RenderCheckboxProps) {
     return <input type="checkbox" {...props} onChange={handleChange} />;
 }
 
-export default DataGridForSkilNoteListForTechNoteId2;
+export default DataGridForSelectSkilNoteForTask;
